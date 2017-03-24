@@ -28,7 +28,7 @@ public class ExportSticker {
                         _root = new Element("eventslist");
 /*                        _root.addNamespaceDeclaration("jnevents", NS_JNEVENTS);
                         _root.appendChild(
-                                new Comment("This is JNotes 2 data file. Do not modify.")); */
+                                new Comment("This is Memoranda data file. Do not modify.")); */
 /*                        _doc = new Document(_root);
                 } else
                         _root = _doc.getRootElement();
@@ -69,12 +69,12 @@ public class ExportSticker {
                         fwrite.write(contents);
                         
                         fwrite.close();
-                        JOptionPane.showMessageDialog(null,Local.getString("Documento creado con exito en su carpeta Memoranda =D"));
+                        JOptionPane.showMessageDialog(null,Local.getString("Document created successfully in your Memoranda folder."));
             
             
         } catch (IOException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null,Local.getString("NO Logramos crear su documento =(..."));
+            JOptionPane.showMessageDialog(null,Local.getString("We did not create your document..."));
         }
                 
                 
