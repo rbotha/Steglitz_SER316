@@ -86,6 +86,25 @@ public class TaskImpl implements Task, Comparable {
     public void setEffort(long effort) {
         setAttr("effort", String.valueOf(effort));
     }
+    
+    public long getActualEffort() {
+    	Attribute attr = _element.getAttribute("actualEffort");
+    	if (attr == null) {
+    		return 0;
+    	}
+    	else {
+    		try {
+        		return Long.parseLong(attr.getValue());
+    		}
+    		catch (NumberFormatException e) {
+    			return 0;
+    		}
+    	}
+    }
+
+    public void setActualEffort(long actualEffort) {
+        setAttr("actualEffort", String.valueOf(actualEffort));
+    }
 	
 	/* 
 	 * @see net.sf.memoranda.Task#getParentTask()

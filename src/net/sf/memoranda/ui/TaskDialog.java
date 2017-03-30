@@ -65,6 +65,8 @@ public class TaskDialog extends JDialog {
     JTextArea descriptionField = new JTextArea();
     JScrollPane descriptionScrollPane = new JScrollPane(descriptionField);
     
+	JTextField actualEffortField = new JTextField();
+	
 //    Border border7;
     Border border8;
     CalendarFrame startCalFrame = new CalendarFrame();
@@ -96,6 +98,8 @@ public class TaskDialog extends JDialog {
     JLabel jLabelEffort = new JLabel();
     JLabel jLabelDescription = new JLabel();
 	JCheckBox chkEndDate = new JCheckBox();
+
+	JLabel jLabelActualEffort = new JLabel();
 	
 	JPanel jPanelProgress = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 	JLabel jLabelProgress = new JLabel();
@@ -211,6 +215,12 @@ public class TaskDialog extends JDialog {
         jLabelEffort.setText(Local.getString("Est Effort(hrs)"));
         effortField.setBorder(border8);
         effortField.setPreferredSize(new Dimension(30, 24));
+		
+		jLabelActualEffort.setMaximumSize(new Dimension(100, 16));
+        jLabelActualEffort.setMinimumSize(new Dimension(60, 16));
+        jLabelActualEffort.setText(Local.getString("Actual Effort(hrs)"));
+        actualEffortField.setBorder(border8);
+        actualEffortField.setPreferredSize(new Dimension(30, 24));
 
         startDate.setBorder(border8);
         startDate.setPreferredSize(new Dimension(80, 24));                
@@ -350,6 +360,9 @@ public class TaskDialog extends JDialog {
         jPanelEffort.add(jLabelEffort, null);
         jPanelEffort.add(effortField, null);
 
+		jPanelEffort.add(jLabelActualEffort, null);
+        jPanelEffort.add(actualEffortField, null);
+		
         jPanel2.add(jPanel4, null);
         jPanel4.add(priorityCB, null);
         jPanel2.add(jPanel3, null);

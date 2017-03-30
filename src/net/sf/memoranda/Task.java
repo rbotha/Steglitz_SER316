@@ -75,6 +75,10 @@ public interface Task {
     void setEffort(long effort);
     long getEffort();
     
+    // Set/get actual time in a task
+    void setActualEffort(long actualEffort);
+    long getActualEffort();
+    
     void setDescription(String description);
     String getDescription();
 
