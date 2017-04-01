@@ -87,6 +87,9 @@ public class TaskImpl implements Task, Comparable {
         setAttr("effort", String.valueOf(effort));
     }
     
+	/**
+	*	Gets the actual effort (in hours) spent on a task
+	*/
     public long getActualEffort() {
     	Attribute attr = _element.getAttribute("actualEffort");
     	if (attr == null) {
@@ -102,8 +105,37 @@ public class TaskImpl implements Task, Comparable {
     	}
     }
 
+	/**
+	*	Sets the actual effort (in hours) spent on a task
+	*/
     public void setActualEffort(long actualEffort) {
         setAttr("actualEffort", String.valueOf(actualEffort));
+    }
+	
+	/**
+	*	Returns the timestamped time in milliseconds from the epoch (1970-01-01T00:00:00Z)
+	* 		or -1 if there is no timestamp or error.
+	*/
+	public long getTimestamp() {
+    	Attribute attr = _element.getAttribute("timestamp");
+    	if (attr == null) {
+    		return -1;
+    	}
+    	else {
+    		try {
+        		return Long.parseLong(attr.getValue());
+    		}
+    		catch (NumberFormatException e) {
+    			return -1;
+    		}
+    	}
+    }
+
+	/**
+	*	Sets the timestamped time in milliseconds from the epoch (1970-01-01T00:00:00Z)
+	*/
+    public void setTimestamp(long timestamp) {
+        setAttr("timestamp", String.valueOf(timestamp));
     }
 	
 	/* 
