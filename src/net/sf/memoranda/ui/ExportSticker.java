@@ -69,12 +69,13 @@ public class ExportSticker {
                         fwrite.write(contents);
                         
                         fwrite.close();
-                        JOptionPane.showMessageDialog(null,Local.getString("Document created successfully in your Memoranda folder."));
+                  
+                        JOptionPane.showMessageDialog(null,Local.getString("Document created successfully in your Memoranda folder"));
             
             
         } catch (IOException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null,Local.getString("We did not create your document..."));
+            JOptionPane.showMessageDialog(null,Local.getString("Document creation failed"));
         }
                 
                 

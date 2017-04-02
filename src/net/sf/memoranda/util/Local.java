@@ -15,8 +15,7 @@ import net.sf.memoranda.date.CalendarDate;
  */
 /*$Id: Local.java,v 1.6 2004/10/11 08:48:21 alexeya Exp $*/
 public class Local {
-
-    static Locale currentLocale = Locale.getDefault();
+	static Locale currentLocale = Locale.getDefault();
     static LoadableProperties messages = new LoadableProperties();
     static boolean disabled = false;
 
