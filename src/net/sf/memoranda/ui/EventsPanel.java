@@ -309,7 +309,6 @@ public class EventsPanel extends JPanel {
         // round down to hour
         cdate.set(Calendar.MINUTE,0);  
         Util.debug("Default time is " + cdate);
-        
     	newEventB_actionPerformed(e, null, cdate.getTime(), cdate.getTime());
     }
     
