@@ -126,7 +126,7 @@ public class PreferencesDialog extends JDialog {
 	BorderLayout borderLayout2 = new BorderLayout();
 	
 	JPanel editorConfigPanel = new JPanel(new BorderLayout());
-	JPanel econfPanel = new JPanel(new GridLayout(5, 2));
+	JPanel econfPanel = new JPanel(new GridLayout(6, 2));
 	Vector fontnames = getFontNames();
 	JComboBox normalFontCB = new JComboBox(fontnames);
 	JComboBox headerFontCB = new JComboBox(fontnames);
@@ -137,6 +137,10 @@ public class PreferencesDialog extends JDialog {
 	JLabel headerFontLabel = new JLabel();
 	JLabel monoFontLabel = new JLabel();
 	JLabel baseFontSizeLabel = new JLabel();
+	
+	//checkbox for mmyydd
+	JCheckBox mmddyyChB = new JCheckBox();
+	
 
 	public PreferencesDialog(Frame frame) {
 		super(frame, Local.getString("Preferences"), true);
@@ -466,6 +470,11 @@ public class PreferencesDialog extends JDialog {
 		baseFontSizeLabel.setText(Local.getString("Base font size"));
 		baseFontSizeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		antialiasChB.setText(Local.getString("Antialias text"));
+		//set lable to checkbox text
+		
+		mmddyyChB.setSelected(false);
+		mmddyyChB.setText("Set date stamp to mm/dd/yy");
+	
 		JPanel bfsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
 		bfsPanel.add(baseFontSize);
 		econfPanel.add(normalFontLabel);
@@ -477,7 +486,8 @@ public class PreferencesDialog extends JDialog {
 		econfPanel.add(baseFontSizeLabel);
 		econfPanel.add(bfsPanel);
 		econfPanel.add(antialiasChB);
-		econfPanel.setBorder(BorderFactory.createEmptyBorder(10,5,10,10));
+		econfPanel.add(mmddyyChB);
+		econfPanel.setBorder(BorderFactory.createEmptyBorder(10,6,10,10));
 		((GridLayout)econfPanel.getLayout()).setHgap(10);
 		((GridLayout)econfPanel.getLayout()).setVgap(5);
 		editorConfigPanel.add(econfPanel, BorderLayout.NORTH);
@@ -591,6 +601,9 @@ public class PreferencesDialog extends JDialog {
 		
 		antialiasChB.setSelected(Configuration.get("ANTIALIAS_TEXT")
 				.toString().equalsIgnoreCase("yes"));
+		
+		mmddyyChB.setSelected(Configuration.get("MMYYDD").toString().equalsIgnoreCase("yes"));
+		
 		if (Configuration.get("NORMAL_FONT").toString().length() >0)
 			normalFontCB.setSelectedItem(Configuration.get("NORMAL_FONT").toString());
 		else
@@ -700,6 +713,14 @@ public class PreferencesDialog extends JDialog {
 			Configuration.put("ANTIALIAS_TEXT", "yes");
 		else
 			Configuration.put("ANTIALIAS_TEXT", "no");
+		
+		//-------checkbox for MMYYDD
+		if(mmddyyChB.isSelected()){
+			Configuration.put("MMYYDD", "yes");
+		}
+		else{
+			Configuration.put("MMYYDD", "no");}
+		//--------------
 		
 		Configuration.put("NORMAL_FONT", normalFontCB.getSelectedItem());
 		Configuration.put("HEADER_FONT", headerFontCB.getSelectedItem());

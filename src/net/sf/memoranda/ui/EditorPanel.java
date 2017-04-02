@@ -118,7 +118,7 @@ public class EditorPanel extends JPanel {
 			insDateB_actionPerformed(e);
 		}
 	};
-	
+
 	public Action newAction = new AbstractAction(Local.getString("New note"),
 			new ImageIcon(net.sf.memoranda.ui.AppFrame.class
 					.getResource("resources/icons/filenew.png"))) {
@@ -161,8 +161,9 @@ public class EditorPanel extends JPanel {
 					.getMessages());
 
 		editor = new HTMLEditor();
-		printer = new Printer(editor);
 		
+		printer = new Printer(editor);
+
 		this.setLayout(borderLayout1);
 
 		newB.setAction(newAction);
@@ -302,7 +303,7 @@ public class EditorPanel extends JPanel {
 		printB.setToolTipText(Local.getString("Print"));
 		printB.setBorderPainted(false); printB.setFocusable(false);
 		printB.setText("");
-		
+
 		jPanel1.setLayout(borderLayout2);
 		titleLabel.setFont(new java.awt.Font("Dialog", 1, 10));
 		titleLabel.setText(Local.getString("Title") + "  ");
@@ -395,9 +396,17 @@ public class EditorPanel extends JPanel {
 			}
 
 	}
-
+//-----------edited 3/30/17
 	void insDateB_actionPerformed(ActionEvent e) {
+		if(Configuration.get("MMYYDD").equals("no")){
+			//I wont change this
 		editor.editor.replaceSelection(CurrentDate.get().getFullDateString());
+		//-----
+		}
+		//but if it is checked change the date format using my method.
+		else{
+			editor.editor.replaceSelection(CurrentDate.get().getShortDateString());
+		}
 	}
 
 	void insTimeB_actionPerformed(ActionEvent e) {
