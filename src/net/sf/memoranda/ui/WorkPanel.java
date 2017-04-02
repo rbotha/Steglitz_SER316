@@ -38,8 +38,6 @@ public class WorkPanel extends JPanel {
 	public JButton tasksB = new JButton();
 	public JButton eventsB = new JButton();
 	public JButton filesB = new JButton();
-	public JButton contactsB = new JButton();
-	
 	JButton currentB = null;
 	Border border1;
 
@@ -173,7 +171,7 @@ public class WorkPanel extends JPanel {
 		notesB.setMargin(new Insets(0, 0, 0, 0));
 		notesB.setSelected(true);
 		this.setPreferredSize(new Dimension(1073, 300));
-		
+
 		filesB.setSelected(true);
 		filesB.setMargin(new Insets(0, 0, 0, 0));
 		filesB.setIcon(
@@ -198,32 +196,6 @@ public class WorkPanel extends JPanel {
 		filesB.setOpaque(false);
 		filesB.setMaximumSize(new Dimension(60, 80));
 		filesB.setBackground(Color.white);
-		
-		contactsB.setFont(new java.awt.Font("Dialog", 1, 10));
-		contactsB.setVerticalAlignment(SwingConstants.TOP);
-		contactsB.setText(Local.getString("Contacts"));
-		contactsB.setHorizontalTextPosition(SwingConstants.CENTER);
-		contactsB.setFocusPainted(false);
-		contactsB.setBorderPainted(false);
-		contactsB.setContentAreaFilled(false);
-		contactsB.setPreferredSize(new Dimension(50, 50));
-		contactsB.setMinimumSize(new Dimension(30, 30));
-		contactsB.setOpaque(false);
-		contactsB.setMaximumSize(new Dimension(60, 80));
-		contactsB.setBackground(Color.white);
-		contactsB.setIcon(
-				new ImageIcon(
-						net.sf.memoranda.ui.AppFrame.class.getResource(
-								"resources/icons/contacts.png")));
-		contactsB.setMargin(new Insets(0, 0, 0, 0));
-		contactsB.setSelected(true);
-		contactsB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		contactsB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				contactsB_actionPerformed(e);
-			}
-		});
-		
 		this.add(toolBar, BorderLayout.WEST);
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
@@ -233,7 +205,6 @@ public class WorkPanel extends JPanel {
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
-		toolBar.add(contactsB, null);
 		currentB = agendaB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));
@@ -256,9 +227,6 @@ public class WorkPanel extends JPanel {
 				eventsB_actionPerformed(null);
 			else if (pan.equals("FILES"))
 				filesB_actionPerformed(null);
-			else if (pan.equals("CONTACTS")) {
-				contactsB_actionPerformed(null);
-			}
 		}
 	}
 
@@ -295,12 +263,7 @@ public class WorkPanel extends JPanel {
 		setCurrentButton(filesB);
 		Context.put("CURRENT_PANEL", "FILES");
 	}
-	public void contactsB_actionPerformed(ActionEvent e){
-		cardLayout1.show(panel, "CONTACTS");
-		dailyItemsPanel.selectPanel("CONTACTS");
-		setCurrentButton(contactsB);
-		Context.put("CURRENT_PANEL", "CONTACTS");
-	}
+
 	void setCurrentButton(JButton cb) {
 		currentB.setBackground(Color.white);
 		currentB.setOpaque(false);
