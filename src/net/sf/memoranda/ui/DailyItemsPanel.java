@@ -231,7 +231,7 @@ public class DailyItemsPanel extends JPanel {
         this.add(splitPane, BorderLayout.CENTER);
 
         controlPanel.add(cmainPanel, BorderLayout.CENTER);
-        cmainPanel.add(calendar, BorderLayout.NORTH);
+        cmainPanel.add(calendar, BorderLayout.CENTER);
         cmainPanel.add(currentTime, BorderLayout.SOUTH);
 
         mainPanel.add(statusPanel, BorderLayout.NORTH);
