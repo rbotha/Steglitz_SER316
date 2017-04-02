@@ -169,7 +169,7 @@ public class JNCalendarPanel extends JPanel {
     jnCalendar.getTableHeader().setFont(new java.awt.Font("Dialog", 1, 10));
     jnCalendar.setFont(new java.awt.Font("Dialog", 0, 10));
     jnCalendar.setGridColor(Color.lightGray);
-    jnCalendarPanel.setLayout(new BorderLayout());
+    jnCalendarPanel.setLayout(borderLayout5);
     todayBPanel.setMinimumSize(new Dimension(68, 24));
     todayBPanel.setOpaque(false);
     todayBPanel.setPreferredSize(new Dimension(51, 24));
