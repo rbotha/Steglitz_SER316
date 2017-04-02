@@ -29,7 +29,8 @@ public interface Event {
     //Date getTime();
     
     String getText();
-    
+    String getNote();
+
     nu.xom.Element getContent();
     
     int getRepeat();
@@ -44,4 +45,6 @@ public interface Event {
     
 	boolean getWorkingDays();
     
+    String getEmail();
+    boolean sendEmail();
 }
