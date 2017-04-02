@@ -61,6 +61,7 @@ public class DailyItemsPanel extends JPanel {
     JSplitPane splitPane = new JSplitPane();
     JSplitPane splitControlPane = new JSplitPane();
     JPanel controlPanel = new JPanel(); /* Contains the calendar */
+    JPanel controlPanel2 = new JPanel(); //Contains noteslist and clock
     JPanel togglePanel = new JPanel();
     JPanel mainPanel = new JPanel();
     BorderLayout borderLayout2 = new BorderLayout();
@@ -107,6 +108,7 @@ public class DailyItemsPanel extends JPanel {
     JTabbedPane tasksTabbedPane = new JTabbedPane();
     JTabbedPane eventsTabbedPane = new JTabbedPane();
 	JTabbedPane agendaTabbedPane = new JTabbedPane();
+	JTabbedPane contactsTabbedPane = new JTabbedPane();
     Border border2;
 
 	String CurrentPanel;
@@ -133,6 +135,7 @@ public class DailyItemsPanel extends JPanel {
         splitControlPane.setBorder(null);
         splitControlPane.setDividerSize(2);
         controlPanel.setLayout(borderLayout2);
+        controlPanel2.setLayout(borderLayout5);
         togglePanel.setLayout(new BorderLayout());
         //calendar.setMinimumSize(new Dimension(200, 170));
         mainPanel.setLayout(borderLayout3);
@@ -147,6 +150,7 @@ public class DailyItemsPanel extends JPanel {
         currentDateLabel.setText(CurrentDate.get().getFullDateString());
         currentTime.setFont(new java.awt.Font("Dialog", 0, 16));
         currentTime.setForeground(Color.BLACK);
+        currentTime.setHorizontalAlignment(SwingConstants.CENTER);
         
         Calendar now= Calendar.getInstance();
         int hour = now.get(Calendar.HOUR_OF_DAY);
@@ -172,6 +176,9 @@ public class DailyItemsPanel extends JPanel {
         controlPanel.setLayout(new BorderLayout());
         controlPanel.setMinimumSize(new Dimension(20, 170));
         controlPanel.setPreferredSize(new Dimension(205, 170));
+        controlPanel2.setBackground(new Color(230, 230, 230));
+        controlPanel2.setBorder(border2);
+        controlPanel2.setLayout(new BorderLayout());
         //controlPanel.setMaximumSize(new Dimension(206, 170));
         //controlPanel.setSize(controlPanel.getMaximumSize());
         calendar.setFont(new java.awt.Font("Dialog", 0, 11));
@@ -232,7 +239,7 @@ public class DailyItemsPanel extends JPanel {
 
         controlPanel.add(cmainPanel, BorderLayout.CENTER);
         cmainPanel.add(calendar, BorderLayout.CENTER);
-        cmainPanel.add(currentTime, BorderLayout.SOUTH);
+        controlPanel2.add(currentTime, BorderLayout.SOUTH);
 
         mainPanel.add(statusPanel, BorderLayout.NORTH);
         statusPanel.add(currentDateLabel, BorderLayout.CENTER);
@@ -247,7 +254,6 @@ public class DailyItemsPanel extends JPanel {
         editorsPanel.add(contactsPanel, "CONTACTS");
         
         splitControlPane.add(controlPanel, JSplitPane.TOP);
-        splitControlPane.setTopComponent(controlPanel);
         splitPane.add(mainPanel, JSplitPane.RIGHT);
         splitPane.add(splitControlPane, JSplitPane.LEFT);
         //splitPane.add(controlPanel, JSplitPane.LEFT);
@@ -348,11 +354,13 @@ public class DailyItemsPanel extends JPanel {
         History.add(new HistoryItem(CurrentDate.get(), CurrentProject.get()));
         //cmainPanel.add(mainTabsPanel, BorderLayout.CENTER);
         splitControlPane.add(togglePanel, JSplitPane.BOTTOM);
-        togglePanel.add(mainTabsPanel);
+        togglePanel.add(controlPanel2, BorderLayout.CENTER);
+        controlPanel2.add(mainTabsPanel, BorderLayout.CENTER);
         mainTabsPanel.add(eventsTabbedPane, "EVENTSTAB");
         mainTabsPanel.add(tasksTabbedPane, "TASKSTAB");
         mainTabsPanel.add(notesControlPane, "NOTESTAB");
 		mainTabsPanel.add(agendaTabbedPane, "AGENDATAB");
+		mainTabsPanel.add(contactsTabbedPane, "CONTACTSTAB");
         updateIndicators(CurrentDate.get(), CurrentProject.getTaskList());
         mainPanel.setBorder(null);
     }
