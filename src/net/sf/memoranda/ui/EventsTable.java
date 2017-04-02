@@ -94,7 +94,7 @@ public class EventsTable extends JTable {
     }
 
     class EventsTableModel extends AbstractTableModel {
-
+    	
         String[] columnNames = {
             //Local.getString("Task name"),
             Local.getString("Time"),

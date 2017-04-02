@@ -2,10 +2,12 @@ package net.sf.memoranda.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.print.PrinterJob;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +40,7 @@ import net.sf.memoranda.util.HTMLFileExport;
 import net.sf.memoranda.util.HTMLFileImport;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Configuration;
+import net.sf.memoranda.util.Printer;
 
 /*$Id: EditorPanel.java,v 1.21 2006/06/28 22:58:31 alexeya Exp $*/
 public class EditorPanel extends JPanel {
@@ -47,6 +50,8 @@ public class EditorPanel extends JPanel {
 
 	public HTMLEditor editor = null;
 
+	public Printer printer = null;
+	
 	JButton importB = new JButton();
 
 	JButton exportB = new JButton();
@@ -67,7 +72,8 @@ public class EditorPanel extends JPanel {
 
 	JButton insTimeB = new JButton();
 
-	// JButton printB = new JButton();
+	JButton printB = new JButton();
+	
 	JButton undoB = new JButton();
 
 	JButton cutB = new JButton();
@@ -112,13 +118,7 @@ public class EditorPanel extends JPanel {
 			insDateB_actionPerformed(e);
 		}
 	};
-
-	/*
-	 * public Action printAction = new AbstractAction( "Print", new
-	 * ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/print.png"))) {
-	 * public void actionPerformed(ActionEvent e) { doPrint(); } };
-	 */
-
+	
 	public Action newAction = new AbstractAction(Local.getString("New note"),
 			new ImageIcon(net.sf.memoranda.ui.AppFrame.class
 					.getResource("resources/icons/filenew.png"))) {
@@ -161,7 +161,8 @@ public class EditorPanel extends JPanel {
 					.getMessages());
 
 		editor = new HTMLEditor();
-
+		printer = new Printer(editor);
+		
 		this.setLayout(borderLayout1);
 
 		newB.setAction(newAction);
@@ -294,16 +295,14 @@ public class EditorPanel extends JPanel {
 		previewB.setMaximumSize(new Dimension(24, 24));
 		previewB.setText("");
 
-		/*
-		 * printB.setAction(printAction); printB.setMaximumSize(new
-		 * Dimension(24, 24)); printB.setMinimumSize(new Dimension(24, 24));
-		 * printB.setPreferredSize(new Dimension(24, 24));
-		 * printB.setRequestFocusEnabled(false);
-		 * printB.setToolTipText(Local.getString("Print"));
-		 * printB.setBorderPainted(false); printB.setFocusable(false);
-		 * printB.setText("");
-		 */
-
+		printB.setAction(printer.printAction); printB.setMaximumSize(new
+		Dimension(24, 24)); printB.setMinimumSize(new Dimension(24, 24));
+		printB.setPreferredSize(new Dimension(24, 24));
+		printB.setRequestFocusEnabled(false);
+		printB.setToolTipText(Local.getString("Print"));
+		printB.setBorderPainted(false); printB.setFocusable(false);
+		printB.setText("");
+		
 		jPanel1.setLayout(borderLayout2);
 		titleLabel.setFont(new java.awt.Font("Dialog", 1, 10));
 		titleLabel.setText(Local.getString("Title") + "  ");
@@ -331,7 +330,7 @@ public class EditorPanel extends JPanel {
 		editorToolBar.add(exportB, null);
 		editorToolBar.addSeparator(new Dimension(8, 24));
 		editorToolBar.add(previewB, null);
-		// editorToolBar.add(printB, null);
+		editorToolBar.add(printB, null);
 		jPanel1.add(editorToolBar, BorderLayout.NORTH);
 		jPanel1.add(editor, BorderLayout.CENTER);
 		this.add(titleBar, BorderLayout.NORTH);

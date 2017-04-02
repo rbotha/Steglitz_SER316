@@ -9,10 +9,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.print.PrinterException;
+import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
@@ -20,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -44,6 +48,7 @@ public class EventsPanel extends JPanel {
     JButton newEventB = new JButton();
     JButton editEventB = new JButton();
     JButton removeEventB = new JButton();
+    JButton printEventB = new JButton();
     JScrollPane scrollPane = new JScrollPane();
     EventsTable eventsTable = new EventsTable();
     JPopupMenu eventPPMenu = new JPopupMenu();
@@ -52,6 +57,7 @@ public class EventsPanel extends JPanel {
     JMenuItem ppNewEvent = new JMenuItem();
     DailyItemsPanel parentPanel = null;
 
+    
     public EventsPanel(DailyItemsPanel _parentPanel) {
         try {
             parentPanel = _parentPanel;
@@ -61,7 +67,9 @@ public class EventsPanel extends JPanel {
             new ExceptionDialog(ex);
         }
     }
+    
     void jbInit() throws Exception {
+    	    	
         eventsToolBar.setFloatable(false);
 
         historyBackB.setAction(History.historyBackAction);
@@ -131,6 +139,31 @@ public class EventsPanel extends JPanel {
         removeEventB.setIcon(
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/event_remove.png")));
 
+        
+		printEventB.setMaximumSize(new Dimension(24, 24)); printEventB.setMinimumSize(new Dimension(24, 24));
+		printEventB.setPreferredSize(new Dimension(24, 24));
+		printEventB.setRequestFocusEnabled(false);
+		printEventB.setToolTipText(Local.getString("Print Event"));
+		printEventB.setBorderPainted(false); printEventB.setFocusable(false);
+		//printEventB.setText(Local.getString("Prin Eventt"));        
+		printEventB.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class
+			.getResource("resources/icons/print.png")));
+				
+        printEventB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+        		try{ 
+        			//boolean completed = eventsTable.print();
+        			boolean completed = eventsTable.print(JTable.PrintMode.FIT_WIDTH,new MessageFormat("Events"),new MessageFormat("Page {0}"),true,null,true,null);
+        		
+        			
+        			System.out.println("Print completed -" + completed); // Change to Dialog box for user.
+        		}catch(PrinterException ex){
+        			System.out.println("Printer failed"); // Change to Dialog box for user.
+        		}
+            }
+        });
+        
+		
         this.setLayout(borderLayout1);
         scrollPane.getViewport().setBackground(Color.white);
         eventsTable.setMaximumSize(new Dimension(32767, 32767));
@@ -176,6 +209,8 @@ public class EventsPanel extends JPanel {
         eventsToolBar.addSeparator(new Dimension(8, 24));
         eventsToolBar.add(editEventB, null);
 
+        eventsToolBar.add(printEventB,null);
+        
         this.add(eventsToolBar, BorderLayout.NORTH);
 
         PopupListener ppListener = new PopupListener();

@@ -9,11 +9,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.print.PrinterException;
+import java.text.MessageFormat;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
@@ -22,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -53,6 +57,7 @@ public class TaskPanel extends JPanel {
     JButton editTaskB = new JButton();
     JButton removeTaskB = new JButton();
     JButton completeTaskB = new JButton();
+    JButton printTaskB = new JButton();
     
 	JCheckBoxMenuItem ppShowActiveOnlyChB = new JCheckBoxMenuItem();
 		
@@ -78,6 +83,19 @@ public class TaskPanel extends JPanel {
             ex.printStackTrace();
         }
     }
+    
+    public AbstractAction printAction = new AbstractAction(Local.getString("Print Events"),new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/print.png"))){
+    	public void actionPerformed(ActionEvent e) {
+    		try{ 
+    			//boolean completed = taskTable.print();
+    			boolean completed = taskTable.print(JTable.PrintMode.FIT_WIDTH,new MessageFormat("Tasks"),new MessageFormat("Page {0}"),true,null,true,null);
+    			System.out.println("Print completed -" + completed); // Change to Dialog box for user.
+    		}catch(PrinterException ex){
+    			System.out.println("Printer failed"); // Change to Dialog box for user.
+    		}
+    	}
+    };
+    
     void jbInit() throws Exception {
         tasksToolBar.setFloatable(false);
 
@@ -179,6 +197,28 @@ public class TaskPanel extends JPanel {
         completeTaskB.setIcon(
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
 
+        printTaskB.setBorderPainted(false);
+        printTaskB.setFocusable(false);
+        printTaskB.setPreferredSize(new Dimension(24, 24));
+        printTaskB.setRequestFocusEnabled(false);
+        printTaskB.setToolTipText(Local.getString("Print task"));
+        printTaskB.setMinimumSize(new Dimension(24, 24));
+        printTaskB.setMaximumSize(new Dimension(24, 24));
+        printTaskB.setIcon(
+            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/print.png")));
+        
+        printTaskB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+        		try{ 
+        			boolean completed = taskTable.print();
+        			
+        			System.out.println("Print completed -" + completed); // Change to Dialog box for user.
+        		}catch(PrinterException ex){
+        			System.out.println("Printer failed"); // Change to Dialog box for user.
+        		}
+            }
+        });
+        
 		// added by rawsushi
 //		showActiveOnly.setBorderPainted(false);
 //		showActiveOnly.setFocusable(false);
@@ -324,6 +364,7 @@ public class TaskPanel extends JPanel {
         tasksToolBar.addSeparator(new Dimension(8, 24));
         tasksToolBar.add(editTaskB, null);
         tasksToolBar.add(completeTaskB, null);
+        tasksToolBar.add(printTaskB,null);
 
 		//tasksToolBar.add(showActiveOnly, null);
         
