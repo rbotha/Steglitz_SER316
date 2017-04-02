@@ -25,6 +25,7 @@ import com.opencsv.CSVReader;
 import net.sf.memoranda.util.Util;
 import net.sf.memoranda.util.Local;
 
+
 public class Contacts extends JPanel{
 	
 	DailyItemsPanel parentPanel = null;

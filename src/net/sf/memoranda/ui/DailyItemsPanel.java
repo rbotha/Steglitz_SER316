@@ -10,6 +10,9 @@ import java.awt.Insets;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -61,6 +64,7 @@ public class DailyItemsPanel extends JPanel {
     CardLayout cardLayout1 = new CardLayout();
     public EditorPanel editorPanel = new EditorPanel(this);
     JLabel currentDateLabel = new JLabel();
+    JLabel currentTime = new JLabel();
     BorderLayout borderLayout4 = new BorderLayout();
     TaskPanel tasksPanel = new TaskPanel(this);
     EventsPanel eventsPanel = new EventsPanel(this);
@@ -131,6 +135,27 @@ public class DailyItemsPanel extends JPanel {
         currentDateLabel.setFont(new java.awt.Font("Dialog", 0, 16));
         currentDateLabel.setForeground(Color.white);
         currentDateLabel.setText(CurrentDate.get().getFullDateString());
+        currentTime.setFont(new java.awt.Font("Dialog", 0, 16));
+        currentTime.setForeground(Color.BLACK);
+        
+        Calendar now= Calendar.getInstance();
+        int hour = now.get(Calendar.HOUR_OF_DAY);
+        int minute=now.get(Calendar.MINUTE);
+        currentTime.setText(hour + ":" + minute);
+        
+        Timer timer = new Timer();
+		
+		timer.scheduleAtFixedRate(new TimerTask() {
+		    @Override
+		    public void run() {
+		        // Whatever you want to do with the time, lets say print
+		        Calendar now= Calendar.getInstance();
+		        int hour = now.get(Calendar.HOUR_OF_DAY);
+		        int minute=now.get(Calendar.MINUTE);
+		        currentTime.setText(hour + ":" + minute);
+		    }
+		}, 4*1000, 4*1000);
+		
         borderLayout4.setHgap(4);
         controlPanel.setBackground(new Color(230, 230, 230));
         controlPanel.setBorder(border2);
@@ -196,6 +221,7 @@ public class DailyItemsPanel extends JPanel {
 
         controlPanel.add(cmainPanel, BorderLayout.CENTER);
         cmainPanel.add(calendar, BorderLayout.NORTH);
+        cmainPanel.add(currentTime, BorderLayout.SOUTH);
 
         mainPanel.add(statusPanel, BorderLayout.NORTH);
         statusPanel.add(currentDateLabel, BorderLayout.CENTER);
