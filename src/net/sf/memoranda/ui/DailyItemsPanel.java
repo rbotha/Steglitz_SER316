@@ -524,6 +524,7 @@ public class DailyItemsPanel extends JPanel {
         cardLayout2.show(mainTabsPanel, pan + "TAB");
 		calendar.jnCalendar.updateUI();
 		CurrentPanel=pan;
+		calendar.setParentPanel(parentPanel);
     }
 
 	public String getCurrentPanel() {
