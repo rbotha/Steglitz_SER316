@@ -39,14 +39,15 @@ import javax.swing.JCheckBox;
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Local;
+import net.sf.memoranda.util.Util;
 
 /*$Id: TaskDialog.java,v 1.25 2005/12/01 08:12:26 alexeya Exp $*/
 public class TaskDialog extends JDialog {
     JPanel mPanel = new JPanel(new BorderLayout());
-    JPanel areaPanel = new JPanel(new BorderLayout());
+    JPanel areaPanel = new JPanel(new BorderLayout());	
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     JButton cancelB = new JButton();
-    JButton okB = new JButton();
+    JButton okB = new JButton();	
     Border border1;
     Border border2;
     JPanel dialogTitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -64,7 +65,16 @@ public class TaskDialog extends JDialog {
     JTextField effortField = new JTextField();
     JTextArea descriptionField = new JTextArea();
     JScrollPane descriptionScrollPane = new JScrollPane(descriptionField);
-    
+    	
+	// Added by drmorri8 for actualEffort functionality:
+	public long timestamp = -1; //tracks a timestamp in milliseconds from epoch (1970-01-01T00:00:00Z). if < 0, no timestamp.
+	JLabel jLabelActualEffort = new JLabel();
+	JTextField actualEffortField = new JTextField();
+	JPanel timePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	//JLabel jLabelTimeHeader = new JLabel();
+	JLabel jLabelTimestamp = new JLabel();
+	JButton timestampB = new JButton();
+	
 //    Border border7;
     Border border8;
     CalendarFrame startCalFrame = new CalendarFrame();
@@ -120,7 +130,7 @@ public class TaskDialog extends JDialog {
     
     void jbInit() throws Exception {
 	this.setResizable(false);
-	this.setSize(new Dimension(430,300));
+	this.setSize(new Dimension(430,400));
         border1 = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         border2 = BorderFactory.createEtchedBorder(Color.white, 
             new Color(142, 142, 142));
@@ -211,6 +221,29 @@ public class TaskDialog extends JDialog {
         jLabelEffort.setText(Local.getString("Est Effort(hrs)"));
         effortField.setBorder(border8);
         effortField.setPreferredSize(new Dimension(30, 24));
+		
+		// Added by drmorri8 for actualEffort
+        timePanel.setBorder(border2);
+		jLabelActualEffort.setMaximumSize(new Dimension(100, 16));
+        jLabelActualEffort.setMinimumSize(new Dimension(60, 16));
+        jLabelActualEffort.setText(Local.getString("Actual Effort(hrs)"));
+        actualEffortField.setBorder(border8);
+        actualEffortField.setPreferredSize(new Dimension(30, 24));	
+		//jLabelTimeHeader.setMaximumSize(new Dimension(100, 16));
+        //jLabelTimeHeader.setMinimumSize(new Dimension(60, 16));
+        //jLabelTimeHeader.setText(Local.getString("Work on task:"));
+		jLabelTimestamp.setMaximumSize(new Dimension(100, 16));
+        jLabelTimestamp.setMinimumSize(new Dimension(60, 16));
+        jLabelTimestamp.setText(Local.getString("Not working on task"));
+		timestampB.setMaximumSize(new Dimension(150, 26));
+        timestampB.setMinimumSize(new Dimension(150, 26));
+        timestampB.setPreferredSize(new Dimension(150, 26));
+        timestampB.setText(Local.getString("Begin work session"));
+        timestampB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                timestampB_actionPerformed(e);
+            }
+        });
 
         startDate.setBorder(border8);
         startDate.setPreferredSize(new Dimension(80, 24));                
@@ -322,10 +355,20 @@ public class TaskDialog extends JDialog {
         //jLabel7.setPreferredSize(new Dimension(60, 16));
         jLabel7.setText(Local.getString("Priority"));
 
+               
+
         priorityCB.setFont(new java.awt.Font("Dialog", 0, 11));
+
         jPanel4.add(jLabel7, null);
         getContentPane().add(mPanel);
-        mPanel.add(areaPanel, BorderLayout.CENTER);
+        mPanel.add(areaPanel, BorderLayout.NORTH); // south
+        
+        // Added for actualEffort
+        mPanel.add(timePanel, BorderLayout.CENTER);
+        // timePanel.add(jLabelTimeHeader, BorderLayout.CENTER);
+        timePanel.add(timestampB, BorderLayout.CENTER);
+        timePanel.add(jLabelTimestamp, BorderLayout.CENTER);
+        
         mPanel.add(buttonsPanel, BorderLayout.SOUTH);
         buttonsPanel.add(okB, null);
         buttonsPanel.add(cancelB, null);
@@ -350,6 +393,9 @@ public class TaskDialog extends JDialog {
         jPanelEffort.add(jLabelEffort, null);
         jPanelEffort.add(effortField, null);
 
+		jPanelEffort.add(jLabelActualEffort, null);
+        jPanelEffort.add(actualEffortField, null);
+		
         jPanel2.add(jPanel4, null);
         jPanel4.add(priorityCB, null);
         jPanel2.add(jPanel3, null);
@@ -405,6 +451,34 @@ public class TaskDialog extends JDialog {
 
     void cancelB_actionPerformed(ActionEvent e) {
         this.dispose();
+    }
+	
+	/**
+	* On click action for timestamp button.
+	* Toggles the timestamp to start/stop and allows the user to add the clocked time to actualEffort.
+	*/
+	void timestampB_actionPerformed(ActionEvent e) {
+        if (timestamp < 0) {
+			timestamp = System.currentTimeMillis();
+			Date timestampDate = new Date(timestamp);
+			DateFormat formatter = new SimpleDateFormat("HH:mm");
+			jLabelTimestamp.setText(Local.getString("Work began at") + ": " + formatter.format(  timestampDate));
+			timestampB.setText(Local.getString("End work session"));
+		} else {						
+			Long workPeriod = System.currentTimeMillis() - timestamp;
+			Long actualEffortFieldValue = (long) 0;
+			try {
+				actualEffortFieldValue = Util.getMillisFromHours(actualEffortField.getText());
+			} catch (Exception ex) {
+				new ExceptionDialog(ex);
+			}
+			// Rounds new actualEffort to two decimal places for printing.
+			double newActualEffort = Math.floor((actualEffortFieldValue + workPeriod) / 1000 / 36) / 100;
+			timestamp = -1;
+			actualEffortField.setText(String.valueOf(newActualEffort));
+			jLabelTimestamp.setText(Local.getString("Time from work session added to actual hours"));
+			timestampB.setText(Local.getString("Begin work session"));	
+		}
     }
 	
 	void chkEndDate_actionPerformed(ActionEvent e) {

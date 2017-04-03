@@ -9,9 +9,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.print.PrinterException;
+import java.text.MessageFormat;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
@@ -20,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -51,6 +57,7 @@ public class TaskPanel extends JPanel {
     JButton editTaskB = new JButton();
     JButton removeTaskB = new JButton();
     JButton completeTaskB = new JButton();
+    JButton printTaskB = new JButton();
     
 	JCheckBoxMenuItem ppShowActiveOnlyChB = new JCheckBoxMenuItem();
 		
@@ -76,6 +83,19 @@ public class TaskPanel extends JPanel {
             ex.printStackTrace();
         }
     }
+    
+    public AbstractAction printAction = new AbstractAction(Local.getString("Print Events"),new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/print.png"))){
+    	public void actionPerformed(ActionEvent e) {
+    		try{ 
+    			//boolean completed = taskTable.print();
+    			boolean completed = taskTable.print(JTable.PrintMode.FIT_WIDTH,new MessageFormat("Tasks"),new MessageFormat("Page {0}"),true,null,true,null);
+    			System.out.println("Print completed -" + completed); // Change to Dialog box for user.
+    		}catch(PrinterException ex){
+    			System.out.println("Printer failed"); // Change to Dialog box for user.
+    		}
+    	}
+    };
+    
     void jbInit() throws Exception {
         tasksToolBar.setFloatable(false);
 
@@ -177,6 +197,28 @@ public class TaskPanel extends JPanel {
         completeTaskB.setIcon(
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
 
+        printTaskB.setBorderPainted(false);
+        printTaskB.setFocusable(false);
+        printTaskB.setPreferredSize(new Dimension(24, 24));
+        printTaskB.setRequestFocusEnabled(false);
+        printTaskB.setToolTipText(Local.getString("Print task"));
+        printTaskB.setMinimumSize(new Dimension(24, 24));
+        printTaskB.setMaximumSize(new Dimension(24, 24));
+        printTaskB.setIcon(
+            new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/print.png")));
+        
+        printTaskB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+        		try{ 
+        			boolean completed = taskTable.print();
+        			
+        			System.out.println("Print completed -" + completed); // Change to Dialog box for user.
+        		}catch(PrinterException ex){
+        			System.out.println("Printer failed"); // Change to Dialog box for user.
+        		}
+            }
+        });
+        
 		// added by rawsushi
 //		showActiveOnly.setBorderPainted(false);
 //		showActiveOnly.setFocusable(false);
@@ -322,6 +364,7 @@ public class TaskPanel extends JPanel {
         tasksToolBar.addSeparator(new Dimension(8, 24));
         tasksToolBar.add(editTaskB, null);
         tasksToolBar.add(completeTaskB, null);
+        tasksToolBar.add(printTaskB,null);
 
 		//tasksToolBar.add(showActiveOnly, null);
         
@@ -456,6 +499,14 @@ public class TaskPanel extends JPanel {
         dlg.endDate.getModel().setValue(t.getEndDate().getDate());
         dlg.priorityCB.setSelectedIndex(t.getPriority());                
         dlg.effortField.setText(Util.getHoursFromMillis(t.getEffort()));
+		dlg.actualEffortField.setText(Util.getHoursFromMillis(t.getActualEffort()));
+		dlg.timestamp = t.getTimestamp();
+		if (!(dlg.timestamp < 0)) {
+			Date timestampDate = new Date(dlg.timestamp);
+			DateFormat formatter = new SimpleDateFormat("HH:mm");
+			dlg.jLabelTimestamp.setText(Local.getString("Work began at") + ": " + formatter.format(  timestampDate));
+			dlg.timestampB.setText(Local.getString("End work session"));
+		}
 	if((t.getStartDate().getDate()).after(t.getEndDate().getDate()))
 		dlg.chkEndDate.setSelected(false);
 	else
@@ -478,6 +529,8 @@ public class TaskPanel extends JPanel {
         t.setDescription(dlg.descriptionField.getText());
         t.setPriority(dlg.priorityCB.getSelectedIndex());
         t.setEffort(Util.getMillisFromHours(dlg.effortField.getText()));
+		t.setActualEffort(Util.getMillisFromHours(dlg.actualEffortField.getText()));
+		t.setTimestamp(dlg.timestamp);
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
         
 //		CurrentProject.getTaskList().adjustParentTasks(t);
@@ -509,8 +562,10 @@ public class TaskPanel extends JPanel {
  		else
  			ed = null;
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
+        long actualEffort = Util.getMillisFromHours(dlg.actualEffortField.getText());
+        long timestamp = dlg.timestamp;
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),null);
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, dlg.descriptionField.getText(),null);
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
@@ -551,7 +606,9 @@ public class TaskPanel extends JPanel {
  		else
  			ed = null;
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
+        long actualEffort = Util.getMillisFromHours(dlg.actualEffortField.getText());
+        long timestamp = dlg.timestamp;
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, dlg.descriptionField.getText(),parentTaskId);
         newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 

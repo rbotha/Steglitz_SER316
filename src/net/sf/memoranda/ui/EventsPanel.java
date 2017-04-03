@@ -9,10 +9,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.print.PrinterException;
+import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
@@ -20,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -44,6 +48,7 @@ public class EventsPanel extends JPanel {
     JButton newEventB = new JButton();
     JButton editEventB = new JButton();
     JButton removeEventB = new JButton();
+    JButton printEventB = new JButton();
     JScrollPane scrollPane = new JScrollPane();
     EventsTable eventsTable = new EventsTable();
     JPopupMenu eventPPMenu = new JPopupMenu();
@@ -52,6 +57,7 @@ public class EventsPanel extends JPanel {
     JMenuItem ppNewEvent = new JMenuItem();
     DailyItemsPanel parentPanel = null;
 
+    
     public EventsPanel(DailyItemsPanel _parentPanel) {
         try {
             parentPanel = _parentPanel;
@@ -61,7 +67,9 @@ public class EventsPanel extends JPanel {
             new ExceptionDialog(ex);
         }
     }
+    
     void jbInit() throws Exception {
+    	    	
         eventsToolBar.setFloatable(false);
 
         historyBackB.setAction(History.historyBackAction);
@@ -131,6 +139,31 @@ public class EventsPanel extends JPanel {
         removeEventB.setIcon(
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/event_remove.png")));
 
+        
+		printEventB.setMaximumSize(new Dimension(24, 24)); printEventB.setMinimumSize(new Dimension(24, 24));
+		printEventB.setPreferredSize(new Dimension(24, 24));
+		printEventB.setRequestFocusEnabled(false);
+		printEventB.setToolTipText(Local.getString("Print Event"));
+		printEventB.setBorderPainted(false); printEventB.setFocusable(false);
+		//printEventB.setText(Local.getString("Prin Eventt"));        
+		printEventB.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class
+			.getResource("resources/icons/print.png")));
+				
+        printEventB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+        		try{ 
+        			//boolean completed = eventsTable.print();
+        			boolean completed = eventsTable.print(JTable.PrintMode.FIT_WIDTH,new MessageFormat("Events"),new MessageFormat("Page {0}"),true,null,true,null);
+        		
+        			
+        			System.out.println("Print completed -" + completed); // Change to Dialog box for user.
+        		}catch(PrinterException ex){
+        			System.out.println("Printer failed"); // Change to Dialog box for user.
+        		}
+            }
+        });
+        
+		
         this.setLayout(borderLayout1);
         scrollPane.getViewport().setBackground(Color.white);
         eventsTable.setMaximumSize(new Dimension(32767, 32767));
@@ -176,6 +209,8 @@ public class EventsPanel extends JPanel {
         eventsToolBar.addSeparator(new Dimension(8, 24));
         eventsToolBar.add(editEventB, null);
 
+        eventsToolBar.add(printEventB,null);
+        
         this.add(eventsToolBar, BorderLayout.NORTH);
 
         PopupListener ppListener = new PopupListener();
@@ -237,6 +272,8 @@ public class EventsPanel extends JPanel {
         ((SpinnerDateModel)dlg.timeSpin.getModel()).setStart(CalendarDate.today().getDate());
         ((SpinnerDateModel)dlg.timeSpin.getModel()).setEnd(CalendarDate.tomorrow().getDate());*/    
         dlg.textField.setText(ev.getText());
+        dlg.noteField.setText(ev.getNote());
+        dlg.emailInputField.setText(ev.getEmail());
         int rep = ev.getRepeat();
         if (rep > 0) {
             dlg.startDate.getModel().setValue(ev.getStartDate().getDate());
@@ -296,10 +333,20 @@ public class EventsPanel extends JPanel {
         //int hh = ((Date) dlg.timeSpin.getModel().getValue()).getHours();
         //int mm = ((Date) dlg.timeSpin.getModel().getValue()).getMinutes();
         String text = dlg.textField.getText();
-        if (dlg.noRepeatRB.isSelected())
-   	    EventsManager.createEvent(CurrentDate.get(), hh, mm, text);
-        else {
-	    updateEvents(dlg,hh,mm,text);
+        String note = dlg.noteField.getText();
+        String email = dlg.emailInputField.getText();
+        if (dlg.noRepeatRB.isSelected()) {
+            if(dlg.useEmail == true) {
+                EventsManager.createEvent(CurrentDate.get(), hh, mm, text, email, note);
+            } else {
+                EventsManager.createEvent(CurrentDate.get(), hh, mm, text, note);
+            }
+        } else {
+        if(dlg.useEmail == true) {
+            updateEvents(dlg, hh, mm, text, email, note);
+        } else {
+            updateEvents(dlg,hh,mm,text, note);
+        }
 	}    
 	saveEvents();
     }
@@ -309,7 +356,6 @@ public class EventsPanel extends JPanel {
         // round down to hour
         cdate.set(Calendar.MINUTE,0);  
         Util.debug("Default time is " + cdate);
-        
     	newEventB_actionPerformed(e, null, cdate.getTime(), cdate.getTime());
     }
     
@@ -341,13 +387,21 @@ public class EventsPanel extends JPanel {
     	//int hh = ((Date) dlg.timeSpin.getModel().getValue()).getHours();
     	//int mm = ((Date) dlg.timeSpin.getModel().getValue()).getMinutes();
     	String text = dlg.textField.getText();
-		
+		String email = dlg.emailInputField.getText();
+		String note = dlg.noteField.getText();
+
 		CalendarDate eventCalendarDate = new CalendarDate(dlg.getEventDate());
 		
-    	if (dlg.noRepeatRB.isSelected())
-    		EventsManager.createEvent(eventCalendarDate, hh, mm, text);
-    	else {
-    		updateEvents(dlg,hh,mm,text);
+    	if (dlg.noRepeatRB.isSelected()) {
+    		if(dlg.useEmail == true)
+                    EventsManager.createEvent(eventCalendarDate, hh, mm, text, email, note);
+    		else
+                    EventsManager.createEvent(eventCalendarDate, hh, mm, text, note);
+    	} else {
+    		if(dlg.useEmail == true)
+    			updateEvents(dlg, hh, mm, text, email, note);
+    		else
+    			updateEvents(dlg,hh,mm,text, note);
     	}
     	saveEvents();
     }
@@ -360,7 +414,8 @@ public class EventsPanel extends JPanel {
         parentPanel.updateIndicators();
     }
 
-    private void updateEvents(EventDialog dlg, int hh, int mm, String text) {
+    private void updateEvents(EventDialog dlg, int hh, int mm, 
+			String text, String note) {
 	int rtype;
         int period;
         CalendarDate sd = new CalendarDate((Date) dlg.startDate.getModel().getValue());
@@ -388,8 +443,40 @@ public class EventsPanel extends JPanel {
             rtype = EventsManager.REPEAT_MONTHLY;
             period = ((Integer) dlg.dayOfMonthSpin.getModel().getValue()).intValue();
         }
-        EventsManager.createRepeatableEvent(rtype, sd, ed, period, hh, mm, text, dlg.workingDaysOnlyCB.isSelected());
+        EventsManager.createRepeatableEvent(rtype, sd, ed, period, hh, mm, text, note, dlg.workingDaysOnlyCB.isSelected());
     }
+    
+    private void updateEvents(EventDialog dlg, int hh, int mm,
+    		String text, String email, String note) {
+    	int rtype;
+            int period;
+            CalendarDate sd = new CalendarDate((Date) dlg.startDate.getModel().getValue());
+            CalendarDate ed = null;
+            if (dlg.enableEndDateCB.isSelected())
+                ed = new CalendarDate((Date) dlg.endDate.getModel().getValue());
+            if (dlg.dailyRepeatRB.isSelected()) {
+                rtype = EventsManager.REPEAT_DAILY;
+                period = ((Integer) dlg.daySpin.getModel().getValue()).intValue();
+            }
+            else if (dlg.weeklyRepeatRB.isSelected()) {
+                rtype = EventsManager.REPEAT_WEEKLY;
+                period = dlg.weekdaysCB.getSelectedIndex() + 1;
+    	    if (Configuration.get("FIRST_DAY_OF_WEEK").equals("mon")) {
+    		if(period==7) period=1;
+    		else period++;
+    	    }
+            }
+    	else if (dlg.yearlyRepeatRB.isSelected()) {
+    	    rtype = EventsManager.REPEAT_YEARLY;
+    	    period = sd.getCalendar().get(Calendar.DAY_OF_YEAR);
+    	    if((sd.getYear() % 4) == 0 && sd.getCalendar().get(Calendar.DAY_OF_YEAR) > 60) period--;
+    	}
+            else {
+                rtype = EventsManager.REPEAT_MONTHLY;
+                period = ((Integer) dlg.dayOfMonthSpin.getModel().getValue()).intValue();
+            }
+            EventsManager.createRepeatableEvent(rtype, sd, ed, period, hh, mm, text, email, dlg.workingDaysOnlyCB.isSelected());
+        }
 
     void removeEventB_actionPerformed(ActionEvent e) {
 		String msg;

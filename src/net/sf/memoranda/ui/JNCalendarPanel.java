@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.Vector;
@@ -16,15 +17,19 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JSpinner;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import javafx.scene.input.MouseEvent;
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.NoteList;
 import net.sf.memoranda.Project;
@@ -43,6 +48,7 @@ import net.sf.memoranda.util.Local;
 /*$Id: JNCalendarPanel.java,v 1.9 2004/04/05 10:05:44 alexeya Exp $*/
 public class JNCalendarPanel extends JPanel {
 
+  private WorkPanel _parentPanel;
   CalendarDate _date = CurrentDate.get();
   JToolBar navigationBar = new JToolBar();
   JPanel mntyPanel = new JPanel(new BorderLayout());
@@ -169,7 +175,7 @@ public class JNCalendarPanel extends JPanel {
     jnCalendar.getTableHeader().setFont(new java.awt.Font("Dialog", 1, 10));
     jnCalendar.setFont(new java.awt.Font("Dialog", 0, 10));
     jnCalendar.setGridColor(Color.lightGray);
-    jnCalendarPanel.setLayout(borderLayout5);
+    jnCalendarPanel.setLayout(new BorderLayout());
     todayBPanel.setMinimumSize(new Dimension(68, 24));
     todayBPanel.setOpaque(false);
     todayBPanel.setPreferredSize(new Dimension(51, 24));
@@ -193,6 +199,69 @@ public class JNCalendarPanel extends JPanel {
         setCurrentDateDay(jnCalendar.get(), jnCalendar.get().getDay());
       }
     });
+    //Right Mouse Click to enable popup
+    jnCalendar.addMouseListener(new java.awt.event.MouseAdapter()  {
+    	@Override
+        public void mousePressed(java.awt.event.MouseEvent e) {
+    		//Activate when user right clicks Mouse
+    		if(e.getButton() == java.awt.event.MouseEvent.BUTTON3){
+	    		//Variables
+	    		int row = jnCalendar.rowAtPoint(e.getPoint()); //Get Row
+	    		int col = jnCalendar.columnAtPoint(e.getPoint()); //Get Column
+	    		int day;
+	    		if(jnCalendar.getValueAt(row, col)!= null){
+	    			day = (int) jnCalendar.getValueAt(row, col); //Get Day
+		    		//Focus on selected day on calendar
+		    		setCurrentDateDay(new CalendarDate(day,_date.getMonth(),_date.getYear()), day);
+		    		calendarMenu menu = new calendarMenu();
+		    		menu.show(e.getComponent(),e.getX(),e.getY());//Launch menu
+		    	}
+
+    		}
+        }
+    	//JPopupMenu Class
+    	class calendarMenu extends JPopupMenu{
+    		//menus for popup menu
+    		JMenuItem eventMenu;
+    		JMenuItem taskMenu;
+    		JMenuItem noteMenu;
+    		JMenuItem agendaMenu;
+    		//Constructor
+    		public calendarMenu(){
+    			eventMenu = new JMenuItem("Create Event");
+    			taskMenu = new JMenuItem("Create Task");
+    			noteMenu = new JMenuItem("Create Notes");
+    			agendaMenu = new JMenuItem("Go to Agenda");
+    			//Add items to menu
+    			add(eventMenu);//add events menu
+    			add(taskMenu);//add task menu
+    			add(noteMenu);//add note menu
+    			add(agendaMenu);//add agenda menu
+    			//Events Menu
+    			eventMenu.addActionListener(new java.awt.event.ActionListener() {
+    	            public void actionPerformed(ActionEvent e) {
+    	                _parentPanel.selectPanel("EVENTS");
+    	            }
+    	        });
+    			taskMenu.addActionListener(new java.awt.event.ActionListener() {
+    	            public void actionPerformed(ActionEvent e) {
+    	                _parentPanel.selectPanel("TASKS");
+    	            }
+    	        });
+    			noteMenu.addActionListener(new java.awt.event.ActionListener() {
+    	            public void actionPerformed(ActionEvent e) {
+    	                _parentPanel.selectPanel("NOTES");
+    	            }
+    	        });
+    			agendaMenu.addActionListener(new java.awt.event.ActionListener() {
+    	            public void actionPerformed(ActionEvent e) {
+    	                _parentPanel.agendaB_actionPerformed(e);
+    	            }
+    	        });
+    		}
+    	}
+    	
+      });
     /*CurrentDate.addChangeListener(new ActionListener()  {
       public void actionPerformed(ActionEvent e) {
         _date = CurrentDate.get();
@@ -294,6 +363,9 @@ public class JNCalendarPanel extends JPanel {
     notifyListeners();
   }
 
+  void setParentPanel(WorkPanel p){
+	  _parentPanel = p;
+  }
 
 
 }

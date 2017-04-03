@@ -70,7 +70,12 @@ public class AppFrame extends JFrame {
     JMenuBar menuBar = new JMenuBar();
     JMenu jMenuFile = new JMenu();
     JMenuItem jMenuFileExit = new JMenuItem();
-
+    
+    //-----View menu Skeleton
+    JMenu jMenuView = new JMenu();
+    JMenuItem jMenuViewDay = new JMenuItem();
+    JMenuItem jMenuViewWeek = new JMenuItem();
+    //----
     JToolBar toolBar = new JToolBar();
     JButton jButton3 = new JButton();
     ImageIcon image1;
@@ -85,6 +90,7 @@ public class AppFrame extends JFrame {
     JMenu jMenuEdit = new JMenu();
     JMenu jMenuFormat = new JMenu();
     JMenu jMenuInsert = new JMenu();
+   
 
     public WorkPanel workPanel = new WorkPanel();
     HTMLEditor editor = workPanel.dailyItemsPanel.editorPanel.editor;
@@ -149,7 +155,7 @@ public class AppFrame extends JFrame {
             workPanel.dailyItemsPanel.editorPanel.exportAction);
     JMenuItem jMenuFileMin = new JMenuItem(minimizeAction);
 
-    JMenuItem jMenuItem1 = new JMenuItem();
+   // JMenuItem jMenuItem1 = new JMenuItem();
     JMenuItem jMenuEditUndo = new JMenuItem(editor.undoAction);
     JMenuItem jMenuEditRedo = new JMenuItem(editor.redoAction);
     JMenuItem jMenuEditCut = new JMenuItem(editor.cutAction);
@@ -243,6 +249,10 @@ public class AppFrame extends JFrame {
     JMenuItem jMenuHelpWeb = new JMenuItem();
     JMenuItem jMenuHelpBug = new JMenuItem();
     JMenuItem jMenuHelpAbout = new JMenuItem();
+    
+    
+   
+    
 
     //Construct the frame
     public AppFrame() {
@@ -269,12 +279,19 @@ public class AppFrame extends JFrame {
 
         jMenuFile.setText(Local.getString("File"));
         jMenuFileExit.setText(Local.getString("Exit"));
+        //----Set label to jMenuView
+        jMenuView.setText(Local.getString("View"));
+        
         jMenuFileExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 doExit();
             }
         });
         jMenuHelp.setText(Local.getString("Help"));
+        
+       
+        jMenuViewDay.setText(Local.getString("Set Day View"));
+        jMenuViewWeek.setText(Local.getString("Set to Week View"));
         
         jMenuHelpGuide.setText(Local.getString("Online user's guide"));
         jMenuHelpGuide.setIcon(new ImageIcon(AppFrame.class.getResource(
@@ -474,6 +491,8 @@ public class AppFrame extends JFrame {
         menuBar.add(jMenuFormat);
         menuBar.add(jMenuGo);
         menuBar.add(jMenuHelp);
+        
+        menuBar.add(jMenuView);
         this.setJMenuBar(menuBar);
         //contentPane.add(toolBar, BorderLayout.NORTH);
         contentPane.add(statusBar, BorderLayout.SOUTH);
@@ -509,6 +528,9 @@ public class AppFrame extends JFrame {
         jMenuInsert.addSeparator();
         jMenuInsert.add(jMenuInsertFile);
 
+        jMenuView.add(jMenuViewDay);
+        jMenuView.add(jMenuViewWeek);
+        
         jMenuFormat.add(jMenuFormatPStyle);
         jMenuFormat.add(jjMenuFormatChStyle);
         jMenuFormat.add(jMenuFormatAlign);
@@ -587,6 +609,7 @@ public class AppFrame extends JFrame {
         this.workPanel.eventsB.addActionListener(setMenusDisabled);
         this.workPanel.filesB.addActionListener(setMenusDisabled);
         this.workPanel.agendaB.addActionListener(setMenusDisabled);
+        this.workPanel.contactsB.addActionListener(setMenusDisabled);
 
         this.workPanel.notesB.addActionListener(
                 new java.awt.event.ActionListener() {

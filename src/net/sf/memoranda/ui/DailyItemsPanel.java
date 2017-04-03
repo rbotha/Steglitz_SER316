@@ -11,6 +11,13 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -52,7 +59,10 @@ import net.sf.memoranda.util.Util;
 public class DailyItemsPanel extends JPanel {
     BorderLayout borderLayout1 = new BorderLayout();
     JSplitPane splitPane = new JSplitPane();
+    JSplitPane splitControlPane = new JSplitPane();
     JPanel controlPanel = new JPanel(); /* Contains the calendar */
+    JPanel controlPanel2 = new JPanel(); //Contains noteslist and clock
+    JPanel togglePanel = new JPanel();
     JPanel mainPanel = new JPanel();
     BorderLayout borderLayout2 = new BorderLayout();
     JPanel statusPanel = new JPanel();
@@ -61,10 +71,12 @@ public class DailyItemsPanel extends JPanel {
     CardLayout cardLayout1 = new CardLayout();
     public EditorPanel editorPanel = new EditorPanel(this);
     JLabel currentDateLabel = new JLabel();
+    JLabel currentTime = new JLabel();
     BorderLayout borderLayout4 = new BorderLayout();
     TaskPanel tasksPanel = new TaskPanel(this);
     EventsPanel eventsPanel = new EventsPanel(this);
     AgendaPanel agendaPanel = new AgendaPanel(this);
+    Contacts contactsPanel = new Contacts(this);
     ImageIcon expIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/exp_left.png"));
     ImageIcon bookmarkIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/star8.png"));
@@ -96,6 +108,7 @@ public class DailyItemsPanel extends JPanel {
     JTabbedPane tasksTabbedPane = new JTabbedPane();
     JTabbedPane eventsTabbedPane = new JTabbedPane();
 	JTabbedPane agendaTabbedPane = new JTabbedPane();
+	JTabbedPane contactsTabbedPane = new JTabbedPane();
     Border border2;
 
 	String CurrentPanel;
@@ -118,7 +131,12 @@ public class DailyItemsPanel extends JPanel {
         splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
         splitPane.setBorder(null);
         splitPane.setDividerSize(2);
+        splitControlPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        splitControlPane.setBorder(null);
+        splitControlPane.setDividerSize(2);
         controlPanel.setLayout(borderLayout2);
+        controlPanel2.setLayout(borderLayout5);
+        togglePanel.setLayout(new BorderLayout());
         //calendar.setMinimumSize(new Dimension(200, 170));
         mainPanel.setLayout(borderLayout3);
         editorsPanel.setLayout(cardLayout1);
@@ -130,11 +148,37 @@ public class DailyItemsPanel extends JPanel {
         currentDateLabel.setFont(new java.awt.Font("Dialog", 0, 16));
         currentDateLabel.setForeground(Color.white);
         currentDateLabel.setText(CurrentDate.get().getFullDateString());
+        currentTime.setFont(new java.awt.Font("Dialog", 0, 16));
+        currentTime.setForeground(Color.BLACK);
+        currentTime.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        Calendar now= Calendar.getInstance();
+        int hour = now.get(Calendar.HOUR_OF_DAY);
+        int minute=now.get(Calendar.MINUTE);
+        currentTime.setText(hour + ":" + minute);
+        
+        Timer timer = new Timer();
+		
+		timer.scheduleAtFixedRate(new TimerTask() {
+		    @Override
+		    public void run() {
+		        // Whatever you want to do with the time, lets say print
+		        Calendar now= Calendar.getInstance();
+		        int hour = now.get(Calendar.HOUR_OF_DAY);
+		        int minute=now.get(Calendar.MINUTE);
+		        currentTime.setText(hour + ":" + minute);
+		    }
+		}, 4*1000, 4*1000);
+		
         borderLayout4.setHgap(4);
         controlPanel.setBackground(new Color(230, 230, 230));
         controlPanel.setBorder(border2);
+        controlPanel.setLayout(new BorderLayout());
         controlPanel.setMinimumSize(new Dimension(20, 170));
         controlPanel.setPreferredSize(new Dimension(205, 170));
+        controlPanel2.setBackground(new Color(230, 230, 230));
+        controlPanel2.setBorder(border2);
+        controlPanel2.setLayout(new BorderLayout());
         //controlPanel.setMaximumSize(new Dimension(206, 170));
         //controlPanel.setSize(controlPanel.getMaximumSize());
         calendar.setFont(new java.awt.Font("Dialog", 0, 11));
@@ -194,7 +238,8 @@ public class DailyItemsPanel extends JPanel {
         this.add(splitPane, BorderLayout.CENTER);
 
         controlPanel.add(cmainPanel, BorderLayout.CENTER);
-        cmainPanel.add(calendar, BorderLayout.NORTH);
+        cmainPanel.add(calendar, BorderLayout.CENTER);
+        controlPanel2.add(currentTime, BorderLayout.SOUTH);
 
         mainPanel.add(statusPanel, BorderLayout.NORTH);
         statusPanel.add(currentDateLabel, BorderLayout.CENTER);
@@ -206,15 +251,26 @@ public class DailyItemsPanel extends JPanel {
         editorsPanel.add(eventsPanel, "EVENTS");
         editorsPanel.add(tasksPanel, "TASKS");
         editorsPanel.add(editorPanel, "NOTES");
+        editorsPanel.add(contactsPanel, "CONTACTS");
         
+        splitControlPane.add(controlPanel, JSplitPane.TOP);
         splitPane.add(mainPanel, JSplitPane.RIGHT);
-        splitPane.add(controlPanel, JSplitPane.LEFT);
-        controlPanel.add(toggleToolBar, BorderLayout.SOUTH);
+        splitPane.add(splitControlPane, JSplitPane.LEFT);
+        //splitPane.add(controlPanel, JSplitPane.LEFT);
+        togglePanel.add(toggleToolBar, BorderLayout.SOUTH);
         toggleToolBar.add(toggleButton, null);
 
         splitPane.setDividerLocation((int) controlPanel.getPreferredSize().getWidth());
+        splitControlPane.setDividerLocation(170);
         //splitPane.setResizeWeight(0.0);
-
+        
+        splitControlPane.addPropertyChangeListener(JSplitPane.DIVIDER_LOCATION_PROPERTY, 
+        	    new PropertyChangeListener() {
+        	        @Override
+        	        public void propertyChange(PropertyChangeEvent pce) {
+        	        	calendar.jnCalendar.setRowHeight((int)(splitControlPane.getDividerLocation()-74)/6);
+        	        }
+        	});
         CurrentDate.addDateListener(new DateListener() {
             public void dateChange(CalendarDate d) {
                 currentDateChanged(d);
@@ -296,16 +352,19 @@ public class DailyItemsPanel extends JPanel {
 		CurrentNote.set(currentNote,true);
         editorPanel.setDocument(currentNote);
         History.add(new HistoryItem(CurrentDate.get(), CurrentProject.get()));
-        cmainPanel.add(mainTabsPanel, BorderLayout.CENTER);
+        //cmainPanel.add(mainTabsPanel, BorderLayout.CENTER);
+        splitControlPane.add(togglePanel, JSplitPane.BOTTOM);
+        togglePanel.add(controlPanel2, BorderLayout.CENTER);
+        controlPanel2.add(mainTabsPanel, BorderLayout.CENTER);
         mainTabsPanel.add(eventsTabbedPane, "EVENTSTAB");
         mainTabsPanel.add(tasksTabbedPane, "TASKSTAB");
         mainTabsPanel.add(notesControlPane, "NOTESTAB");
 		mainTabsPanel.add(agendaTabbedPane, "AGENDATAB");
+		mainTabsPanel.add(contactsTabbedPane, "CONTACTSTAB");
         updateIndicators(CurrentDate.get(), CurrentProject.getTaskList());
         mainPanel.setBorder(null);
     }
 
-   
 
     void currentDateChanged(CalendarDate newdate) {
         Cursor cur = App.getFrame().getCursor();
@@ -407,16 +466,20 @@ public class DailyItemsPanel extends JPanel {
         if (expanded) {
             expanded = false;
             toggleButton.setIcon(expIcon);
-            controlPanel.remove(toggleToolBar);
-            controlPanel.add(toggleToolBar, BorderLayout.EAST);
+            controlPanel.remove(cmainPanel);
+            controlPanel.setBackground(new Color(215, 225, 250));
+            togglePanel.remove(toggleToolBar);
+            togglePanel.add(toggleToolBar, BorderLayout.EAST);
             splitPane.setDividerLocation((int) controlPanel.getMinimumSize().getWidth());
 
         }
         else {
             expanded = true;
+            controlPanel.setBackground(new Color(230, 230, 230));
+            controlPanel.add(cmainPanel, BorderLayout.CENTER);
             toggleButton.setIcon(collIcon);
-            controlPanel.remove(toggleToolBar);
-            controlPanel.add(toggleToolBar, BorderLayout.SOUTH);
+            togglePanel.remove(toggleToolBar);
+            togglePanel.add(toggleToolBar, BorderLayout.SOUTH);
             splitPane.setDividerLocation((int) controlPanel.getPreferredSize().getWidth());
         }
     }
@@ -461,6 +524,7 @@ public class DailyItemsPanel extends JPanel {
        //     calendar.jnCalendar.updateUI();
         }
         boolean isAg = pan.equals("AGENDA");
+        //boolean isContacts = pan.equals("CONTACTS");
         agendaPanel.setActive(isAg);
         if (isAg)
         	agendaPanel.refresh(CurrentDate.get());
@@ -468,6 +532,7 @@ public class DailyItemsPanel extends JPanel {
         cardLayout2.show(mainTabsPanel, pan + "TAB");
 		calendar.jnCalendar.updateUI();
 		CurrentPanel=pan;
+		calendar.setParentPanel(parentPanel);
     }
 
 	public String getCurrentPanel() {
