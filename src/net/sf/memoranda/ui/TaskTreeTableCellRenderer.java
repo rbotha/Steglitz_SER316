@@ -107,6 +107,14 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             label.setText("");
             return label;
         }
+        // if ( column_name.equals(local.getString("Est. LOC"))   ){
+        if(column == 7){
+        	label.setText(value.toString());
+        }
+        // if ( column_name.equals(local.getString("Act. LOC"))   ){
+        if(column == 8){
+        	label.setText(value.toString());
+        }
         // if( column_name.equals("% " + Local.getString("done")) ){
         if (column == 6) {
             return getProgressCellRenderer(t, selected, hasFocus, column);
