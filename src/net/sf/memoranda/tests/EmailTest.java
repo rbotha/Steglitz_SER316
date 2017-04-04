@@ -33,8 +33,8 @@ public class EmailTest {
 	}
 	
 	@Test
-	public void test() {
-		System.out.println(impl.sendEmail());
+	public void testSendingEmail() {
+		assertTrue(impl.sendEmail());
 	}
 
 }
