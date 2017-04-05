@@ -17,6 +17,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -49,6 +50,7 @@ import net.sf.memoranda.util.Local;
 public class JNCalendarPanel extends JPanel {
 
   private WorkPanel _parentPanel;
+  CalendarMenu calendarMenu;
   CalendarDate _date = CurrentDate.get();
   JToolBar navigationBar = new JToolBar();
   JPanel mntyPanel = new JPanel(new BorderLayout());
@@ -213,54 +215,14 @@ public class JNCalendarPanel extends JPanel {
 	    			day = (int) jnCalendar.getValueAt(row, col); //Get Day
 		    		//Focus on selected day on calendar
 		    		setCurrentDateDay(new CalendarDate(day,_date.getMonth(),_date.getYear()), day);
-		    		calendarMenu menu = new calendarMenu();
-		    		menu.show(e.getComponent(),e.getX(),e.getY());//Launch menu
+		    		calendarMenu = new CalendarMenu(_parentPanel);//get menu class
+		    		calendarMenu.show(e.getComponent(),e.getX(),e.getY());//Launch menu
 		    	}
 
     		}
         }
-    	//JPopupMenu Class
-    	class calendarMenu extends JPopupMenu{
-    		//menus for popup menu
-    		JMenuItem eventMenu;
-    		JMenuItem taskMenu;
-    		JMenuItem noteMenu;
-    		JMenuItem agendaMenu;
-    		//Constructor
-    		public calendarMenu(){
-    			eventMenu = new JMenuItem("Create Event");
-    			taskMenu = new JMenuItem("Create Task");
-    			noteMenu = new JMenuItem("Create Notes");
-    			agendaMenu = new JMenuItem("Go to Agenda");
-    			//Add items to menu
-    			add(eventMenu);//add events menu
-    			add(taskMenu);//add task menu
-    			add(noteMenu);//add note menu
-    			add(agendaMenu);//add agenda menu
-    			//Events Menu
-    			eventMenu.addActionListener(new java.awt.event.ActionListener() {
-    	            public void actionPerformed(ActionEvent e) {
-    	                _parentPanel.selectPanel("EVENTS");
-    	            }
-    	        });
-    			taskMenu.addActionListener(new java.awt.event.ActionListener() {
-    	            public void actionPerformed(ActionEvent e) {
-    	                _parentPanel.selectPanel("TASKS");
-    	            }
-    	        });
-    			noteMenu.addActionListener(new java.awt.event.ActionListener() {
-    	            public void actionPerformed(ActionEvent e) {
-    	                _parentPanel.selectPanel("NOTES");
-    	            }
-    	        });
-    			agendaMenu.addActionListener(new java.awt.event.ActionListener() {
-    	            public void actionPerformed(ActionEvent e) {
-    	                _parentPanel.agendaB_actionPerformed(e);
-    	            }
-    	        });
-    		}
-    	}
     	
+       	
       });
     /*CurrentDate.addChangeListener(new ActionListener()  {
       public void actionPerformed(ActionEvent e) {
