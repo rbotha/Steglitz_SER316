@@ -31,18 +31,26 @@ public class CalendarMenu extends JPopupMenu{
 	ContactsAddDialog dialog;
 	
 	//menus for popup menu
+	//Create New menu items
 	JMenuItem newEvent;
 	JMenuItem newTask;
 	JMenuItem newContact;
 	JMenuItem newSticker;
+	//GoTo Menu items
 	JMenuItem taskMenu;
 	JMenuItem agendaMenu;
 	JMenuItem eventMenu;
 	JMenuItem noteMenu;
 	JMenuItem resourceMenu;
 	JMenuItem contactsMenu;
+	//View Menut Items
+	JMenuItem viewWeekly;
+	JMenuItem viewDaily;
+	
+	//SubMenu
 	JMenu createNew;
 	JMenu goTo;
+	JMenu view;
 	
 	//Single parameter Constructor
 	public CalendarMenu(WorkPanel parentPanel) {
@@ -50,12 +58,10 @@ public class CalendarMenu extends JPopupMenu{
 		//Get WorkPanel
 		_parentPanel = parentPanel;
 		
-		//List model for new contacts
-		DefaultListModel<String> listModel = new DefaultListModel<String>();
-		
-		//Create Menu and Items
+		//Create SubMenus and Items
 		goTo = new JMenu(Local.getString("Go To"));
 		createNew = new JMenu(Local.getString("New"));
+		view = new JMenu(Local.getString("View"));
 		newEvent = new JMenuItem(Local.getString("Event"));
 		newTask = new JMenuItem(Local.getString("Task"));
 		newContact = new JMenuItem(Local.getString("Contact"));
@@ -66,6 +72,10 @@ public class CalendarMenu extends JPopupMenu{
 		noteMenu = new JMenuItem(Local.getString("Go to Notes"));
 		resourceMenu = new JMenuItem(Local.getString("Go to Resources"));
 		contactsMenu = new JMenuItem(Local.getString("Go to Contacts"));
+		
+		//View Menu Items Still need to be implemented in US-#17
+		viewWeekly = new JMenuItem(Local.getString("Set Day View"));
+		viewDaily = new JMenuItem(Local.getString("Set to Week View"));
 		
 		//Add to New 
 		createNew.add(newEvent);
@@ -81,9 +91,14 @@ public class CalendarMenu extends JPopupMenu{
 		goTo.add(resourceMenu);
 		goTo.add(contactsMenu);
 		
+		//Add to VIEW
+		view.add(viewDaily);
+		view.add(viewWeekly);
+		
 		//Add items to menu
 		add(createNew);//add events menu
 		add(goTo);//add agenda menu
+		add(view);//add view menu
 		
 		
 		//Create New Event Action Listener
