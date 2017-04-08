@@ -153,7 +153,7 @@ public class TaskTable extends JTable {
 		setDefaultEditor(TreeTableModel.class, new TreeTableCellEditor());
 		
 		// column name is repeated in 2 places, do something about it!
-		getColumn( "% " + Local.getString("done") ).setCellEditor(new TaskProgressEditor());
+		getColumn( "%done" ).setCellEditor(new TaskProgressEditor());
 		
 		// TODO: editor for task progress
 		
