@@ -10,9 +10,11 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.print.PrinterException;
+import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
@@ -532,6 +534,7 @@ public class TaskPanel extends JPanel {
 		t.setActualEffort(Util.getMillisFromHours(dlg.actualEffortField.getText()));
 		t.setTimestamp(dlg.timestamp);
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
+        t.setEdit(new Timestamp(Calendar.getInstance().getTimeInMillis()));
         
 //		CurrentProject.getTaskList().adjustParentTasks(t);
 

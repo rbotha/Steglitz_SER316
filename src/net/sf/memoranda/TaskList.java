@@ -28,7 +28,7 @@ public interface TaskList {
 	public boolean hasParentTask(String id);
 
 	public Collection getTopLevelTasks();
-	
+	public Collection getAllTask();
     public Collection getAllSubTasks(String taskId);
     public Collection getActiveSubTasks(String taskId,CalendarDate date);
     

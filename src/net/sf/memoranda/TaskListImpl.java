@@ -11,6 +11,7 @@ package net.sf.memoranda;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.Vector;
 
 import net.sf.memoranda.date.CalendarDate;
@@ -21,6 +22,7 @@ import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Node;
 import nu.xom.Nodes;
+import sun.awt.SunHints.Key;
 //import nu.xom.converters.*;
 //import org.apache.xerces.dom.*;
 //import nux.xom.xquery.XQueryUtil;
@@ -89,6 +91,20 @@ public class TaskListImpl implements TaskList {
             return convertToTaskObjects(subTasks);    	    		
     	}
     }
+    
+    //Method for returning all task
+    public Collection getAllTask()
+    {//Beginning of method
+    	//Create Collection 
+    	Vector v = new Vector();
+    	//get all tasks
+    	Set<String> keys = elements.keySet();
+    	//Iterate through tasks and add to collection
+    	for (String s: keys)
+    		v.add(this.getTask(s));
+    	//Return Collection
+    	return v;
+    }//End of Method
     
     public Collection getTopLevelTasks() {
         return getAllRootTasks();

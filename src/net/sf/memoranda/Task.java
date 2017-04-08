@@ -8,6 +8,7 @@
  */
 package net.sf.memoranda;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 
 import net.sf.memoranda.date.CalendarDate;
@@ -60,6 +61,10 @@ public interface Task {
     
     String getText();
     void setText(String s);
+    
+    //Set creation date and edit dates
+    Timestamp getEdit();
+    void setEdit(Timestamp s);
     
     /*Collection getDependsFrom();
     
