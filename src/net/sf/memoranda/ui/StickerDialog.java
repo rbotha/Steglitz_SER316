@@ -297,7 +297,7 @@ public class StickerDialog extends JDialog {
 				textColor_actionPerformed(e);
 			}
 		});
-		Font f= stickerText.getFont();
+		
 		if (Context.get("TEXT_SIZE") != null) {
 			int h= (fontSize.getSelectedIndex()*5)+10;
 			if (h!=10 && h!=15 && h!=20) h=15;
@@ -313,7 +313,7 @@ public class StickerDialog extends JDialog {
 			}
 		});
 	}
-
+	Font f= stickerText.getFont();
 	int findColorIndex(Color c) {		
 		for (int i = 0; i < colors.length; i++)
 			if (c.equals(colors[i]))
@@ -352,22 +352,21 @@ public class StickerDialog extends JDialog {
 		this.dispose();
 	}
 	void boldButton_actionPerformed(ActionEvent e) {
-		int pos=stickerText.getCaretPosition();
+		
+		stickerText.setFont(new Font(f.getFontName(), f.BOLD, f.getSize()));
+	
+		/*int pos=stickerText.getCaretPosition();
 		stickerText.insert("<b></b>", pos);
 		stickerText.requestFocusInWindow();
-		stickerText.setCaretPosition(pos+3);
+		stickerText.setCaretPosition(pos+3);*/
 	}
 	void italicButton_actionPerformed(ActionEvent e) {
-		int pos=stickerText.getCaretPosition();
-		stickerText.insert("<i></i>", pos);
-		stickerText.requestFocusInWindow();
-		stickerText.setCaretPosition(pos+3);
+	
+		stickerText.setFont(new Font(f.getFontName(), f.ITALIC, f.getSize()));
+	
 	}
 	protected void underlineButton_actionPerformed(ActionEvent e) {
-		int pos=stickerText.getCaretPosition();
-		stickerText.insert("<u></u>", pos);
-		stickerText.requestFocusInWindow();
-		stickerText.setCaretPosition(pos+3);
+		stickerText.setFont(new Font(f.getFontName(), f.UNDERLINE, f.getSize()));
 	}
 	void unorderedListButton_actionPerformed(ActionEvent e) {
 		int pos=stickerText.getCaretPosition();
