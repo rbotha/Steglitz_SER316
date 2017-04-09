@@ -110,31 +110,30 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             label.setText("");
             return label;
         }
-        System.out.println(table.getColumnName(column));
-        String columnHeader = table.getColumnName(column);
-        if( columnHeader.equals(Local.getString("% done"))) {
+        String columnName = table.getColumnName(column);
+        if( columnName.equals(Local.getString("% done"))) {
         //if (column == 6) {
             return getProgressCellRenderer(t, selected, hasFocus, column);
         }
-        if( columnHeader.equals("") ){
+        if( columnName.equals("") ){
         //if (column == 0) {
             return getPriorityIconCellRenderer(t, selected, hasFocus);
         }
-        if( columnHeader.equals(Local.getString("Start date")) ||
-        		columnHeader.equals(Local.getString("End date")) ){
+        if( columnName.equals(Local.getString("Start date")) ||
+        		columnName.equals(Local.getString("End date")) ){
         // if ((column == 2) || (column == 3)) {
             label.setText(dateFormat.format((Date) value));
             return label;
         }
-        if( columnHeader.equals(Local.getString("Status") ) ){
+        if( columnName.equals(Local.getString("Status") ) ){
         //if (column == 5) {
             label.setText(value.toString());
             label.setForeground(getColorForTaskStatus(t, false));
             return label;
         }
         /* redundant
-        if( columnHeader.equals(Local.getString("EST EFFORT(hrs)")) ||
-        		columnHeader.equals(Local.getString("Actual Effort(hrs)")) ){
+        if( columnName.equals(Local.getString("EST EFFORT(hrs)")) ||
+        		columnName.equals(Local.getString("Actual Effort(hrs)")) ){
             label.setText(value.toString());
             return label;
         } 

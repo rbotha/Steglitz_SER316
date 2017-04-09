@@ -8,10 +8,12 @@
  * Created           18.05.2005 15:12:19
  * Revision info     $RCSfile: TaskTable.java,v $ $Revision: 1.26 $ $State: Exp $  
  *
- * Last modified on  $Date: 2007/01/05 10:33:26 $
- *               by  $Author: alexeya $
+ * Last modified on  $Date: 2017/4/08 $
+ *               by  $Author: drmorri8 $
  * 
- * @VERSION@ 
+ * @VERSION@  TaskTableModel.java,v 1.7 2017/4/08 drmorri8 Exp $
+ *
+ * @author $Author: alexeya $
  *
  * @COPYRIGHT@
  * 
@@ -153,9 +155,8 @@ public class TaskTable extends JTable {
 		setDefaultEditor(TreeTableModel.class, new TreeTableCellEditor());
 		
 		// drmorri8: Added check in case "% done" is not currently active
-		TableColumn column = getColumn( "% done" );
-		if (column != null)
-			column.setCellEditor(new TaskProgressEditor());
+		if (getColumn( Local.getString("% done") ) != null)
+			getColumn(Local.getString("% done")).setCellEditor(new TaskProgressEditor());
 		
 		// TODO: editor for task progress
 		
