@@ -416,6 +416,7 @@ public class DailyItemsPanel extends JPanel {
 	            saveNote();				
 			}
 			notesControlPane.refresh();
+			agendaControlPane.refresh();
         }
 		currentNote = note;
 		editorPanel.setDocument(currentNote);
