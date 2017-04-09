@@ -568,7 +568,7 @@ public class TaskPanel extends JPanel {
         long actualEffort = Util.getMillisFromHours(dlg.actualEffortField.getText());
         long timestamp = dlg.timestamp;
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, dlg.descriptionField.getText(),null);
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, dlg.descriptionField.getText(),null, new Timestamp(Calendar.getInstance().getTimeInMillis()));
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
@@ -611,7 +611,7 @@ public class TaskPanel extends JPanel {
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
         long actualEffort = Util.getMillisFromHours(dlg.actualEffortField.getText());
         long timestamp = dlg.timestamp;
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, dlg.descriptionField.getText(),parentTaskId);
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, dlg.descriptionField.getText(),parentTaskId,new Timestamp(Calendar.getInstance().getTimeInMillis()));
         newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 

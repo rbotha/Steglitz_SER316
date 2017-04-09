@@ -43,7 +43,6 @@ public class ActivityFeedPanel extends JPanel{
 	ArrayList<Task> task = null;
 	
 	JScrollPane feed = new JScrollPane();
-	JPanel datePanel = new JPanel();	
 	JLabel recentLabel = null;
 	DefaultListModel model = new DefaultListModel();
 	DefaultListModel time = new DefaultListModel();
@@ -54,7 +53,6 @@ public class ActivityFeedPanel extends JPanel{
 	
 	//Single parameter constructor
 	ActivityFeedPanel(){
-		updateList();
 		jbInit();
 	}//End of Contstructor
 	
@@ -67,51 +65,24 @@ public class ActivityFeedPanel extends JPanel{
 		this.setBorder(border1);
 		this.setVisible(true);
 		
-		
 		JList<String> recentItems = new JList<String>(model);
 		JList<String> recentTime = new JList<String>(time);
-	
 		JPanel controlPanel = new JPanel();
-		
 		controlPanel.setLayout(new BorderLayout());
 		
-		recentItems.setBorder(border1);
-		recentTime.setBorder(border1);
-		
-		datePanel.setBorder(border1);
-		datePanel.setLayout(new BorderLayout());
-		datePanel.setBackground(new Color(230, 230, 230));
-		datePanel.setPreferredSize(new Dimension(205, 170));
+		//recentItems.setBorder(border1);
 		recentItems.setLayout(new BorderLayout());
+		//recentTime.setBorder(border1);
 		recentTime.setLayout(new BorderLayout());
+
 		//Get Current date
 		//currentDate = new JLabel(Local.getString(_parentPanel.calendar.get().getFullDateString()), SwingConstants.CENTER);
 		//currentDate.setPreferredSize(new Dimension(170, 20));
-		recentLabel = new JLabel(Local.getString("Recently Edited"), SwingConstants.CENTER);
+		recentLabel = new JLabel(Local.getString("Recent Activities"), SwingConstants.CENTER);
 		recentLabel.setPreferredSize(new Dimension(170, 20));
 				
-		for(Task t: task)
-			if(t.getEdit()!=null)
-				list.add(t.getEdit());
-	
-		for(Note n: note)
-			if(n.getEdit()!=null)
-				list.add(n.getEdit());
+		createList();
 
-		Collections.sort(list);
-
-		int count = 0;
-		for(String t:  recentActivitiesFeed(list)){
-			System.out.println(t + " count: "+count);
-			if (count == 0){
-				model.addElement(t);
-				count++;
-			}
-			else if(count == 1){
-				time.addElement(t);
-				count =0;
-			}
-		}
 		controlPanel.add(recentItems, BorderLayout.WEST);
 		controlPanel.add(recentTime, BorderLayout.CENTER);
 		add(recentLabel, BorderLayout.NORTH);
@@ -194,25 +165,21 @@ public class ActivityFeedPanel extends JPanel{
 		int hr = 0;
 		int min = 0;
 		//get current time
-		Timestamp currentTime = new Timestamp(Calendar.getInstance().getTimeInMillis());
-		//Get date formats
-		DateFormat ct = new SimpleDateFormat("HH:mm");
-		//DateFormat day = new SimpleDateFormat("D");
-		DateFormat hour = new SimpleDateFormat("HH");
-		DateFormat minute = new SimpleDateFormat("mm");
-
-		
+		Timestamp currentTime = new Timestamp(Calendar.getInstance().getTimeInMillis());	
 		
 		//If same day gather total hours and minutes
 		if(day == 0){
+
 			hr = currentTime.getHours() - s.getHours();
-			if(currentTime.getMinutes() < s.getMinutes())
-				min = (currentTime.getMinutes()+60) - s.getMinutes();
+			if(currentTime.getMinutes() < s.getMinutes()&& hr==1){
+				min = 60-currentTime.getMinutes();
+				hr = 0;
+			}
 			else
 				min = currentTime.getMinutes() - s.getMinutes();
 			if(hr == 0&&min==0)
 				msg = Local.getString("Edited just now");
-			else if(hr == 1 && min < 59)
+			else if(hr == 0)
 				msg = Local.getString("Edited "+min+"min ago.");
 			else
 				msg = Local.getString("Edited "+hr+"hr ago");
@@ -225,7 +192,7 @@ public class ActivityFeedPanel extends JPanel{
 		return msg;
 	}//End of private method
 	
-	private void updateList(){
+	private void createList(){
 		list.clear();
 		time.clear();
 		model.clear();
@@ -260,7 +227,7 @@ public class ActivityFeedPanel extends JPanel{
 	//Method for refreshing last items edited.
 	public void refresh()
 	{
-		updateList();
+		createList();
 
 	}
 }

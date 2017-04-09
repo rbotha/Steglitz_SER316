@@ -7,6 +7,7 @@
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
 package net.sf.memoranda;
+import java.sql.Timestamp;
 import java.util.Collection;
 
 import net.sf.memoranda.date.CalendarDate;
@@ -19,7 +20,7 @@ public interface TaskList {
 	Project getProject();
     Task getTask(String id);
 
-    Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, long actualEffort, long timestamp, String description, String parentTaskId);
+    Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, long actualEffort, long timestamp, String description, String parentTaskId, Timestamp edit);
 
     void removeTask(Task task);
 
