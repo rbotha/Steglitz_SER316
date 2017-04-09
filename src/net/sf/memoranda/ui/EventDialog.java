@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.event.ItemEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -81,6 +82,9 @@ public class EventDialog extends JDialog implements WindowListener {
     CalendarFrame startCalFrame = new CalendarFrame();
     private Date eventDate;
     
+    JCheckBox MT = new JCheckBox();
+   // MT.addItemListener(this);
+    
     public EventDialog(Frame frame, String title) {
         super(frame, title, true);
         try {
@@ -119,6 +123,20 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.insets = new Insets(10, 0, 5, 0);
         gbc.anchor = GridBagConstraints.WEST;
         eventPanel.add(timeSpin, gbc);
+        MT.setText(Local.getString("12hr"));      //12hr checkbox label----------
+        MT.setMinimumSize(new Dimension(100,24));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2; gbc.gridy = 0;
+        gbc.insets = new Insets(5,5,5,5);
+        gbc.anchor = GridBagConstraints.EAST;
+       
+        eventPanel.add(MT, gbc);//---------
+        
+        MT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                MTChange_actionPerformed(e);
+            }
+        });
         lblText.setText(Local.getString("Text"));
         lblText.setMinimumSize(new Dimension(120, 24));
         gbc = new GridBagConstraints();
@@ -403,9 +421,21 @@ public class EventDialog extends JDialog implements WindowListener {
                 endDate.getModel().setValue(endCalFrame.cal.get().getCalendar().getTime());
             }
         });
+        
+        
+        
+
+        
+        
         disableElements();
-        ((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("HH:mm");
+        
+        if(MT.isSelected()){
+        ((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("hh:mm a");}
+        else if(!MT.isSelected()){((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("HH:mm");}
         enableEndDateCB_actionPerformed(null);
+        
+        
+        
         
     }
 
@@ -459,6 +489,13 @@ public class EventDialog extends JDialog implements WindowListener {
 			startCalFrame.cal.get().getCalendar().getTime());        
     }
 
+    public void MTChange_actionPerformed(ActionEvent e){
+    	
+    		((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("hh:mm a");
+    		MT.setEnabled(false);
+    
+    }
+    
     public void weeklyRepeatRB_actionPerformed(ActionEvent e) {
         disableElements();
         weekdaysCB.setEnabled(true);
