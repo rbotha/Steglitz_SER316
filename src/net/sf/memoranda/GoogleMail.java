@@ -1,8 +1,8 @@
 /*
   File:				GoogleMail.java
-  Author:			doraemon
-  Date:				02/12/2016
-  
+  Author:			djekujieng
+  Date:				04/23/2016
+
   Description:		Send email using GMail SMTP server.
 */
 package net.sf.memoranda;
@@ -20,7 +20,7 @@ import javax.mail.internet.MimeMessage;
 
 /**
  *
- * @author doraemon
+ * @author djekujieng
  */
  /**
   Class:			GoogleMail
@@ -29,6 +29,22 @@ import javax.mail.internet.MimeMessage;
 */
 public class GoogleMail {
     private GoogleMail() {
+    }
+
+    /**
+     * This function will determine whether or not a string is a valid email address
+     * according to RFC 5322 Official Standard
+     * @param  e the string to check
+     * @return   true if valid, false if not
+     */
+    public static boolean IsValidEmail(final String e) {
+        if (e == null) {
+            return false;
+        }
+        String regexp = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(regexp);
+        java.util.regex.Matcher matcher = pattern.matcher(e);
+        return matcher.matches();
     }
 
     /**
@@ -105,3 +121,4 @@ public class GoogleMail {
         t.close();
     }
 }
+
