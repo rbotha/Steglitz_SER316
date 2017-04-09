@@ -45,14 +45,9 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
             Local.getString("Priority"), Local.getString("Status"),
             "% " + Local.getString("done") };*/
 
-	// drmorri8: Changed values to be concrete (no Local.getString()) until actual called for dispay.
-	// List of curently active (visible to user) columns 
-    String[] activeColumnNames = {"", "To-do","Expt. Hours", "Actual Hours",
-			"Start date", "End date","Priority", "Status","%done" };
-	
-	// This represents all columns which may (but do not have to be) visible to the user
-	String[] allColumnNames = {"", "To-do","Expt. Hours", "Actual Hours",
-			"Start date", "End date","Priority", "Status","%done" };
+	// drmorri8: Added "EST EFFORT(hrs)", "Actual Effort(hrs)", moved local.getString to call only on print
+    String[] activeColumnNames = {"", "To-do","EST EFFORT(hrs)", "Actual Effort(hrs)",
+			"Start date", "End date","Priority", "Status","% done" };
 
     protected EventListenerList listenerList = new EventListenerList();
 
@@ -78,7 +73,7 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
      * @see net.sf.memoranda.ui.treetable.TreeTableModel#getColumnName(int)
      */
     public String getColumnName(int column) {
-        return Local.getString(activeColumnNames[column]);
+        return activeColumnNames[column];
     }
 
     /**
@@ -90,15 +85,22 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         if (node instanceof Project)
             return null;
         Task t = (Task) node;
+        
+        // Check if task "code" was sent
+        if (column == TaskTable.TASK_ID)
+        	return t.getID();
+        else if (column == TaskTable.TASK)
+        	return t;
+        
         switch (activeColumnNames[column]) {
         case "":
             return "";
         case "To-do":
             return t;
-		case "Expt. Hours":
+		case "EST EFFORT(hrs)":
             return Math.floor((t.getEffort()) / 1000 / 36) / 100;
-		case "Actual Hours":
-            return Math.floor((t.getEffort()) / 1000 / 36) / 100; 		
+		case "Actual Effort(hrs)":
+            return Math.floor((t.getActualEffort()) / 1000 / 36) / 100; 		
         case "Start date":
             return t.getStartDate().getDate();
         case "End date":
@@ -110,15 +112,9 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
             return getPriorityString(t.getPriority());
         case "Status":
             return getStatusString(t.getStatus(CurrentDate.get()));
-        case "%done":            
+        case "% done":            
             //return new Integer(t.getProgress());
 			return t;
-        /*
-		case TaskTable.TASK_ID:
-            return t.getID();
-        case TaskTable.TASK:
-            return t;
-		*/
         }
         return "";
     }
@@ -197,9 +193,9 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
                 return TaskTable.class;
 			case "To-do":
                 return TreeTableModel.class;
-			case "Expt. Hours":
+			case "EST EFFORT(hrs)":
                 return Class.forName("java.lang.Long");
-			case "Actual Hours":
+			case "Actual Effort(hrs)":
                 return Class.forName("java.lang.Long");				
             case "Start date":
 				return Class.forName("java.util.Date");
@@ -209,7 +205,7 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
 				return Class.forName("java.lang.String");
             case "Status":
                 return Class.forName("java.lang.String");
-            case "%done":
+            case "% done":
                 return Class.forName("java.lang.Integer");
             }
         } catch (Exception ex) {
@@ -249,7 +245,7 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
 			/*DEBUG*/System.out.println("[DEBGUG] Warning, attempted to edit non-existant task cell in column: " + column);
 			return false;
 		}
-		if(activeColumnNames[column].equals("%done")) return true; 
+		if(activeColumnNames[column].equals(Local.getString("% done"))) return true; 
         return super.isCellEditable(node, column);
     }
 
