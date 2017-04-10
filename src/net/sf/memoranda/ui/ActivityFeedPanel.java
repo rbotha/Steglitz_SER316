@@ -26,7 +26,7 @@ import net.sf.memoranda.Task;
 import net.sf.memoranda.util.Local;
 
 /**
- * Class for creating an activity feed on recent items that have been edited
+ * Class for creating an activity feed on recent items that have been edited within the past 2(two) days.
  * Apr 5, 2017
  * @author Jesus Rodriguez Jr
  *
@@ -110,7 +110,7 @@ public class ActivityFeedPanel extends JPanel{
 		//Create temp arrays with empty spaces to be populated
 		ArrayList<String> temp = new ArrayList<>(Collections.nCopies(list.size(),"empty"));
 		ArrayList<String> temp2 = new ArrayList<>(Collections.nCopies(list.size(),"empty"));
-
+				
 		//Create day formatter
 		DateFormat day = new SimpleDateFormat("D");
 		
@@ -118,24 +118,30 @@ public class ActivityFeedPanel extends JPanel{
 		int tc = Integer.parseInt(day.format(Calendar.getInstance().getTime()));
 		
 		//Get all Notes and add appropriate time statments
-		for(Note n: note){		
+		for(Note n: note){
+			int ni = 0;
+			//Get day difference betweek updates
+			if(n.getEdit()!=null)
+				ni = tc - Integer.parseInt(day.format(n.getEdit()));		
+			
 			//If note Timestamp is found pass index to find correct spot
-			if((index = list.indexOf(n.getEdit()))>=0){//If day is not over
-				//Get day difference betweek updates
-				int ni = tc - Integer.parseInt(day.format(n.getEdit()));
-				temp.add(index,n.getTitle());//Add name
-				temp2.add(index,getTimeDiff(n.getEdit(),ni));//Add time difference
+			if((index = list.indexOf(n.getEdit()))>=0&&ni<=1){//If day is not over
+				temp.set(index,n.getTitle());//set index to name
+				temp2.set(index,getTimeDiff(n.getEdit(),ni));//set inex to time difference
 			}
 		}//End of For Each Loop
 		
 		//Place all task in order of Timestamp
 		for(Task t: task){
+			int ti = 0;
+			//Get day difference between updates
+			if(t.getEdit()!=null)
+				ti = tc - Integer.parseInt(day.format(t.getEdit()));
+			
 			//If task Timestamp is found pass index to find correct spot
-			if((index = list.indexOf(t.getEdit()))>=0){
-				//Get day difference between updates
-				int ti = tc - Integer.parseInt(day.format(t.getEdit()));
-				temp.add(index,t.getText());//Add name
-				temp2.add(index,getTimeDiff(t.getEdit(),ti));//Add time difference
+			if((index = list.indexOf(t.getEdit()))>=0 && ti<=1){
+				temp.set(index,t.getText());//set index to name
+				temp2.set(index,getTimeDiff(t.getEdit(),ti));//set index to time difference
 			}
 
 		}//End of for each loop
@@ -166,19 +172,19 @@ public class ActivityFeedPanel extends JPanel{
 		
 		//get current time
 		Timestamp currentTime = new Timestamp(Calendar.getInstance().getTimeInMillis());	
-		
+		DateFormat yearTime = new SimpleDateFormat("h:mm a");
+		//Current hour minus hour being checked
+		hr = currentTime.getHours() - s.getHours();
+					
+		//Get minutes between current time and time being checked
+		if(currentTime.getMinutes() < s.getMinutes()&& hr==1){
+			min = 60-currentTime.getMinutes();
+			hr = 0;
+			}
+		else
+			min = currentTime.getMinutes() - s.getMinutes();
 		//If same day gather total hours and minutes
 		if(day == 0){
-			//Current hour minus hour being checked
-			hr = currentTime.getHours() - s.getHours();
-			
-			//Get minutes between current time and time being checked
-			if(currentTime.getMinutes() < s.getMinutes()&& hr==1){
-				min = 60-currentTime.getMinutes();
-				hr = 0;
-			}
-			else
-				min = currentTime.getMinutes() - s.getMinutes();
 			
 			//if just recently updated show 
 			if(hr == 0&&min==0){
@@ -191,12 +197,10 @@ public class ActivityFeedPanel extends JPanel{
 				msg = Local.getString("Edited "+hr+"hr ago");
 		}
 		//If updated a day ago
-		else if(day ==1){
-			msg = "Edited yesterday at "+Local.getTimeString(new Date(s.getTime()));
+		else if(day == 1){
+			msg = "Edited yesterday at "+yearTime.format(s);
 		}
-		else if(day >= 2){//If updated two days ago
-			msg = "Edited on "+Local.getDateString(new Date(s.getTime()),3);
-		}
+
 		//Return msg
 		return msg;
 	}//End of private method
@@ -238,7 +242,7 @@ public class ActivityFeedPanel extends JPanel{
 		
 		//Sort Timestamps from least to greatest.
 		Collections.sort(list, Collections.reverseOrder());
-
+		
 		//Call method to finish adding task and notes in order of timestamp
 		recentActivitiesFeed();
 	}
