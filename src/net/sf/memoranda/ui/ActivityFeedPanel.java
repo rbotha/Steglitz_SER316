@@ -47,12 +47,12 @@ public class ActivityFeedPanel extends JPanel{
 	private Border border1;//Default border
 	
 	//Default Constructor, calls execution method
-	ActivityFeedPanel(){
+	public ActivityFeedPanel(){
 		jbInit();
 	}//End of Contstructor
 	
 	//Create activity feed and show recently edited items.
-	public void jbInit()
+	private void jbInit()
 	{//Beginning of method
 		//Set Border
 		border1 = BorderFactory.createEtchedBorder(Color.white, Color.gray);
@@ -77,8 +77,12 @@ public class ActivityFeedPanel extends JPanel{
 		recentLabel = new JLabel(Local.getString("Recent Activities"), SwingConstants.CENTER);
 		recentLabel.setPreferredSize(new Dimension(170, 20));
 				
-		//Call method to add task, notes and all Timestamps to list
-		createList();
+		//Execute Methods
+		if(createList())//if true
+			recentActivitiesFeed();//create recent feeds list
+		
+		
+		
 
 		//Add lists to panels
 		controlPanel.add(recentItems, BorderLayout.WEST);
@@ -91,72 +95,83 @@ public class ActivityFeedPanel extends JPanel{
 	
 
 	
-	/*
+	/**
 	 * This method is for refreshing the list to display recently edited items
 	 */
-	public void refresh()
+	public boolean refresh()
 	{
 		//Call method to reset lists.
-		createList();
+		if (!createList()||!recentActivitiesFeed())
+			return false;
+		
+		
+		return true;
+		
 
 	}//End of public method
 	
 	
 	//Sort through Tasks/Notes to display recent changes.
-	private void recentActivitiesFeed()
+	private boolean recentActivitiesFeed()
 	{//Beginning of private method
 		int index = 0;
 	
-		//Create temp arrays with empty spaces to be populated
-		ArrayList<String> temp = new ArrayList<>(Collections.nCopies(list.size(),"empty"));
-		ArrayList<String> temp2 = new ArrayList<>(Collections.nCopies(list.size(),"empty"));
+		try{
+			//Create temp arrays with empty spaces to be populated
+			ArrayList<String> temp = new ArrayList<>(Collections.nCopies(list.size(),"empty"));
+			ArrayList<String> temp2 = new ArrayList<>(Collections.nCopies(list.size(),"empty"));
+					
+			//Create day formatter
+			DateFormat day = new SimpleDateFormat("D");
+			
+			//Get current day from calendar date, 1-365
+			int tc = Integer.parseInt(day.format(Calendar.getInstance().getTime()));
+			
+			//Get all Notes and add appropriate time statments
+			for(Note n: note){
+				int ni = 0;
+				//Get day difference betweek updates
+				if(n.getEdit()!=null)
+					ni = tc - Integer.parseInt(day.format(n.getEdit()));		
 				
-		//Create day formatter
-		DateFormat day = new SimpleDateFormat("D");
-		
-		//Get current day from calendar date, 1-365
-		int tc = Integer.parseInt(day.format(Calendar.getInstance().getTime()));
-		
-		//Get all Notes and add appropriate time statments
-		for(Note n: note){
-			int ni = 0;
-			//Get day difference betweek updates
-			if(n.getEdit()!=null)
-				ni = tc - Integer.parseInt(day.format(n.getEdit()));		
+				//If note Timestamp is found pass index to find correct spot
+				if((index = list.indexOf(n.getEdit()))>=0&&ni<=1){//If day is not over
+					temp.set(index,n.getTitle());//set index to name
+					temp2.set(index,getTimeDiff(n.getEdit(),ni));//set inex to time difference
+				}
+			}//End of For Each Loop
 			
-			//If note Timestamp is found pass index to find correct spot
-			if((index = list.indexOf(n.getEdit()))>=0&&ni<=1){//If day is not over
-				temp.set(index,n.getTitle());//set index to name
-				temp2.set(index,getTimeDiff(n.getEdit(),ni));//set inex to time difference
-			}
-		}//End of For Each Loop
-		
-		//Place all task in order of Timestamp
-		for(Task t: task){
-			int ti = 0;
-			//Get day difference between updates
-			if(t.getEdit()!=null)
-				ti = tc - Integer.parseInt(day.format(t.getEdit()));
+			//Place all task in order of Timestamp
+			for(Task t: task){
+				int ti = 0;
+				//Get day difference between updates
+				if(t.getEdit()!=null)
+					ti = tc - Integer.parseInt(day.format(t.getEdit()));
+				
+				//If task Timestamp is found pass index to find correct spot
+				if((index = list.indexOf(t.getEdit()))>=0 && ti<=1){
+					temp.set(index,t.getText());//set index to name
+					temp2.set(index,getTimeDiff(t.getEdit(),ti));//set index to time difference
+				}
+	
+			}//End of for each loop
 			
-			//If task Timestamp is found pass index to find correct spot
-			if((index = list.indexOf(t.getEdit()))>=0 && ti<=1){
-				temp.set(index,t.getText());//set index to name
-				temp2.set(index,getTimeDiff(t.getEdit(),ti));//set index to time difference
+			//Clear all empty spaces in temp arrays
+			temp.removeAll(Collections.singleton("empty"));
+			temp2.removeAll(Collections.singleton("empty"));
+			
+			//Add names and timeframs to lists
+			for(String act: temp){//Iterate through array
+				model.addElement(act);//add name to list
 			}
-
-		}//End of for each loop
-		
-		//Clear all empty spaces in temp arrays
-		temp.removeAll(Collections.singleton("empty"));
-		temp2.removeAll(Collections.singleton("empty"));
-		
-		//Add names and timeframs to lists
-		for(String act: temp){//Iterate through array
-			model.addElement(act);//add name to list
+			for(String ti: temp2){//Iterate through array
+				time.addElement(ti);//add time to list
+			}
+		}catch(Exception e){
+			System.out.println(e.getMessage() + " Exception: "+ e.getCause());
+			return false;
 		}
-		for(String ti: temp2){//Iterate through array
-			time.addElement(ti);//add time to list
-		}
+		return true;
 
 	}//End of private method
 	
@@ -174,11 +189,14 @@ public class ActivityFeedPanel extends JPanel{
 		Timestamp currentTime = new Timestamp(Calendar.getInstance().getTimeInMillis());	
 		DateFormat yearTime = new SimpleDateFormat("h:mm a");
 		//Current hour minus hour being checked
-		hr = currentTime.getHours() - s.getHours();
+		if(currentTime.getHours()>s.getHours())
+			hr = currentTime.getHours() - s.getHours();
+		else
+			hr = s.getHours()-currentTime.getHours();
 					
 		//Get minutes between current time and time being checked
 		if(currentTime.getMinutes() < s.getMinutes()&& hr==1){
-			min = 60-currentTime.getMinutes();
+			min = (currentTime.getMinutes()+60)-s.getMinutes();
 			hr = 0;
 			}
 		else
@@ -195,11 +213,11 @@ public class ActivityFeedPanel extends JPanel{
 			}
 			else//updated during that day timeframe
 				msg = Local.getString("Edited "+hr+"hr ago");
-		}
+		}//End if
 		//If updated a day ago
 		else if(day == 1){
 			msg = "Edited yesterday at "+yearTime.format(s);
-		}
+		}//end if
 
 		//Return msg
 		return msg;
@@ -209,42 +227,46 @@ public class ActivityFeedPanel extends JPanel{
 	 * This is a private method for getting all task, notes and all Timestamps.
 	 * Clears all arrays if updating.
 	 */
-	private void createList(){
+	private boolean createList(){
 		//Clear all arrays.
 		list.clear();
 		time.clear();
 		model.clear();
 		
-		//Get all current projects task and notes
-		Timestamp ts = null;
-		task = new ArrayList<Task>(CurrentProject.getTaskList().getAllTask());
-		note =  new ArrayList<Note>(CurrentProject.getNoteList().getAllNotes());
-		//Get task and note iterator
-		Iterator<Task> itr1 = task.iterator();
-		Iterator<Note> itr2 = note.iterator();
-		//Iterate through all task and notes 
-		while(itr1.hasNext()||itr2.hasNext()){
-			//If task Exist
-			if(itr1.hasNext()){//If has next task
-				ts = itr1.next().getEdit();//get timestamp
-				if(ts!=null){//if null do nothing
-					list.add(ts);
-				}//End nested if
-			}//End if
-			//If Note Exist
-			if(itr2.hasNext()){//if has next note
-				ts = itr2.next().getEdit();//get timestamp
-				if(ts!=null){//if null do nothing
-					list.add(ts);
-				}//End nested if
-			}//End if
-		}//End while
+		try{
+			//Get all current projects task and notes
+			Timestamp ts = null;
+			task = new ArrayList<Task>(CurrentProject.getTaskList().getAllTask());
+			note =  new ArrayList<Note>(CurrentProject.getNoteList().getAllNotes());
+			//Get task and note iterator
+			Iterator<Task> itr1 = task.iterator();
+			Iterator<Note> itr2 = note.iterator();
+			//Iterate through all task and notes 
+			while(itr1.hasNext()||itr2.hasNext()){
+				//If task Exist
+				if(itr1.hasNext()){//If has next task
+					ts = itr1.next().getEdit();//get timestamp
+					if(ts!=null){//if null do nothing
+						list.add(ts);
+					}//End nested if
+				}//End if
+				//If Note Exist
+				if(itr2.hasNext()){//if has next note
+					ts = itr2.next().getEdit();//get timestamp
+					if(ts!=null){//if null do nothing
+						list.add(ts);
+					}//End nested if
+				}//End if
+			}//End while
+			
+			//Sort Timestamps from least to greatest.
+			Collections.sort(list, Collections.reverseOrder());
+		}catch(Exception e){
+			System.out.println(e.getMessage() + " Exception: "+ e.getCause());
+			return false;
+		}
 		
-		//Sort Timestamps from least to greatest.
-		Collections.sort(list, Collections.reverseOrder());
-		
-		//Call method to finish adding task and notes in order of timestamp
-		recentActivitiesFeed();
+		return true;
 	}
 }//End of Class 
 
