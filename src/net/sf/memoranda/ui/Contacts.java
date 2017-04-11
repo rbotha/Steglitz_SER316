@@ -25,6 +25,8 @@ import com.opencsv.CSVReader;
 import net.sf.memoranda.util.Util;
 import net.sf.memoranda.util.Local;
 
+import javax.swing.*;
+import java.awt.event.*;
 
 public class Contacts extends JPanel{
 	
@@ -107,6 +109,16 @@ public class Contacts extends JPanel{
 			}
 		});
 		this.add(btnDeleteContact);
+				
+		list.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mousePressed(MouseEvent e){
+				if(e.getButton() == MouseEvent.BUTTON3){
+					System.out.println("Right Click Mouse");
+				}
+			}
+			
+		});
 		
 		loadContacts();
 		
