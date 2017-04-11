@@ -2,6 +2,7 @@ package net.sf.memoranda.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URI;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -132,13 +134,29 @@ public class Contacts extends JPanel{
 				public contactsMenu(){
 					emailMenu = new JMenuItem("Email Contact");
 					
-					//Add all items to meu
+					//Add all items to menu
 					add(emailMenu);
 					
 					//Menu Events
 					emailMenu.addActionListener(new java.awt.event.ActionListener(){
 						public void actionPerformed(ActionEvent e){
-							System.out.println("Email Contact");
+							System.out.println("Email Contact"); //Debug Output
+							
+							Desktop desktop = Desktop.getDesktop();
+							
+							try{
+								desktop.mail();
+							}catch(IOException ex){
+								ex.printStackTrace();
+							}
+							
+							try{
+								String message = "mailto:gschober@asu.edu?subject=Test%20Email";
+								URI uri = URI.create(message);
+								desktop.mail(uri);
+							}catch(IOException ex){
+								ex.printStackTrace();
+							}
 						}
 					});
 				}
