@@ -37,6 +37,7 @@ public class Contacts extends JPanel{
 	ContactsAddDialog dialog;
 	JScrollPane scrollPane = new JScrollPane();
 	
+	JMenuItem contactMenu;
 	
 	public Contacts(DailyItemsPanel _parentPanel) {
         try {
@@ -109,18 +110,45 @@ public class Contacts extends JPanel{
 			}
 		});
 		this.add(btnDeleteContact);
-				
+		
+		//Menu Items For Right Click Menu
+		contactMenu = new JMenuItem("Email Contact");
+		add(contactMenu);
+		
 		list.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent e){
 				if(e.getButton() == MouseEvent.BUTTON3){
-					System.out.println("Right Click Mouse");
+					contactsMenu menu = new contactsMenu();
+					menu.show(e.getComponent(),e.getX(),e.getY());
 				}
 			}
 			
+			//JPopupMenu Class
+			class contactsMenu extends JPopupMenu{
+				JMenuItem emailMenu;
+				
+				//Constructor
+				public contactsMenu(){
+					emailMenu = new JMenuItem("Email Contact");
+					
+					//Add all items to meu
+					add(emailMenu);
+					
+					//Menu Events
+					emailMenu.addActionListener(new java.awt.event.ActionListener(){
+						public void actionPerformed(ActionEvent e){
+							System.out.println("Email Contact");
+						}
+					});
+				}
+			}
+		
 		});
 		
 		loadContacts();
+		
+
 		
 	}
 	
