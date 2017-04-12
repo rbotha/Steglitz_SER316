@@ -5,7 +5,6 @@ import net.sf.memoranda.Project;
 import net.sf.memoranda.Task;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.util.Local;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -89,7 +88,6 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
 
     public Component getTableCellRendererComponent(JTable ignore, Object value, boolean selected,
             boolean hasFocus, int row, int column) {
-    	
         Task t = (Task) table.getValueAt(row, 1);
         if (column == 1) {
             // this never happens because

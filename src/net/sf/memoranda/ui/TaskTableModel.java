@@ -39,22 +39,11 @@ import net.sf.memoranda.util.Context;
  */
 public class TaskTableModel extends AbstractTreeTableModel implements TreeTableModel {
 
-	/*  	
-	  Old implementation: 
-	String[] final columnNames = {"", Local.getString("To-do"),
+	String[] columnNames = {"", Local.getString("To-do"),
             Local.getString("Start date"), Local.getString("End date"),
             Local.getString("Priority"), Local.getString("Status"),
-            "% " + Local.getString("done") };
-         
-     Values:
-    {"", "To-do","EST EFFORT(hrs)", "Actual Effort(hrs)",
-			"Start date", "End date","Priority", "Status","% done" };
-    */
-	
-    String[] activeColumnNames = {"", Local.getString("To-do"), Local.getString("EST EFFORT(hrs)"), Local.getString("Actual Effort(hrs)"),
-        Local.getString("Start date"), Local.getString("End date"),
-        Local.getString("Priority"), Local.getString("Status"),
-        Local.getString("% done") };
+            Local.getString("% done"), Local.getString("EST EFFORT(hrs)"),
+            Local.getString("Actual Effort(hrs)")};
 
     protected EventListenerList listenerList = new EventListenerList();
 
@@ -73,49 +62,47 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
      * @see net.sf.memoranda.ui.treetable.TreeTableModel#getColumnCount()
      */
     public int getColumnCount() {
-        return activeColumnNames.length;
+        return columnNames.length;
     }
 
     /**
      * @see net.sf.memoranda.ui.treetable.TreeTableModel#getColumnName(int)
      */
     public String getColumnName(int column) {
-        return activeColumnNames[column];
+        return columnNames[column];
     }
 
     /**
      * @see net.sf.memoranda.ui.treetable.TreeTableModel#getValueAt(java.lang.Object,
-     *      int
+     *      int)
      */
     public Object getValueAt(Object node, int column) {
-		// drmorri8: Changed implementation to determine content based on actual column name, not column number
         if (node instanceof Project)
             return null;
         Task t = (Task) node;
-
         switch (column) {
         case 0:
             return "";
         case 1:
-            return t;
-		case 2:
-            return Math.floor((t.getEffort()) / 1000 / 36) / 100;
-		case 3:
-            return Math.floor((t.getActualEffort()) / 1000 / 36) / 100; 		
-        case 4:
+            return t;		
+        case 2:
             return t.getStartDate().getDate();
-        case 5:
+        case 3:
             if (t.getEndDate() == null)
                 return null;
             else
                 return t.getEndDate().getDate();        
-        case 6:
+        case 4:
             return getPriorityString(t.getPriority());
-        case 7:
+        case 5:
             return getStatusString(t.getStatus(CurrentDate.get()));
-        case 8:            
+        case 6:            
             //return new Integer(t.getProgress());
 			return t;
+		case 7:
+            return Math.floor((t.getEffort()) / 1000 / 36) / 100;
+		case 8:
+            return Math.floor((t.getActualEffort()) / 1000 / 36) / 100; 
         case TaskTable.TASK_ID:
             return t.getID();
         case TaskTable.TASK:
@@ -191,27 +178,26 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
      * @see net.sf.memoranda.ui.treetable.TreeTableModel#getColumnClass(int)
      */
     public Class getColumnClass(int column) {
-		// drmorri8: Changed implementation to determine content based on actual column name, not column number
         try {
             switch (column) {
             case 0:
                 return TaskTable.class;
 			case 1:
-                return TreeTableModel.class;
-			case 2:
-                return Class.forName("java.lang.Long");
-			case 3:
-                return Class.forName("java.lang.Long");				
-            case 4:
+                return TreeTableModel.class;			
+            case 2:
 				return Class.forName("java.util.Date");
-            case 5:
+            case 3:
                 return Class.forName("java.util.Date");
-			case 6:
+			case 4:
 				return Class.forName("java.lang.String");
-            case 7:
+            case 5:
                 return Class.forName("java.lang.String");
-            case 8:
+            case 6:
                 return Class.forName("java.lang.Integer");
+			case 7:
+                return Class.forName("java.lang.String");
+			case 8:
+                return Class.forName("java.lang.String");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -246,12 +232,8 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
     }
     
     public boolean isCellEditable(Object node, int column) {
-		if(column >= getColumnCount() || column < 0) {
-			/*DEBUG*/System.out.println("[DEBGUG] Warning, attempted to edit non-existant task cell in column: " + column);
-			return false;
-		}
-		if(column == 0) return true; 
-        return super.isCellEditable(node, column);
+    	if(column == 6) return true;
+    	return super.isCellEditable(node, column);
     }
 
 }

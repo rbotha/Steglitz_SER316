@@ -154,7 +154,6 @@ public class TaskTable extends JTable {
 
 		setDefaultEditor(TreeTableModel.class, new TreeTableCellEditor());
 		
-		// drmorri8: Added check in case "% done" is not currently active
 		if (getColumn( Local.getString("% done") ) != null)
 			getColumn(Local.getString("% done")).setCellEditor(new TaskProgressEditor());
 		
@@ -185,15 +184,15 @@ public class TaskTable extends JTable {
                 column.setPreferredWidth(8);
             } 
             else if (i == 1) {
-                column.setPreferredWidth(30000); //32767
+            	column.setPreferredWidth(30000); //32767, decreased to fit new columns.
             }
 			else if( i == 6 ){
 				column.setPreferredWidth(100);
 				column.setMinWidth(100);
 	    }
             else {
-                column.setMinWidth(67); // 65);
-                column.setPreferredWidth(67); //65);
+            	column.setPreferredWidth(67); //65);
+            	column.setMinWidth(67); // 65);
             }
         }
     }
