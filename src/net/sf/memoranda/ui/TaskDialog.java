@@ -71,9 +71,14 @@ public class TaskDialog extends JDialog {
 	JLabel jLabelActualEffort = new JLabel();
 	JTextField actualEffortField = new JTextField();
 	JPanel timePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-	//JLabel jLabelTimeHeader = new JLabel();
 	JLabel jLabelTimestamp = new JLabel();
 	JButton timestampB = new JButton();
+	
+	// Added by drmorri8 for errorsAdded/errorsFixed
+	JLabel jLabelErrorsAdded = new JLabel();
+	JTextField errorsAddedField = new JTextField();
+	JLabel jLabelErrorsFixed= new JLabel();
+	JTextField errorsFixedField = new JTextField();
 	
 //    Border border7;
     Border border8;
@@ -228,10 +233,7 @@ public class TaskDialog extends JDialog {
         jLabelActualEffort.setMinimumSize(new Dimension(60, 16));
         jLabelActualEffort.setText(Local.getString("Actual Effort(hrs)"));
         actualEffortField.setBorder(border8);
-        actualEffortField.setPreferredSize(new Dimension(30, 24));	
-		//jLabelTimeHeader.setMaximumSize(new Dimension(100, 16));
-        //jLabelTimeHeader.setMinimumSize(new Dimension(60, 16));
-        //jLabelTimeHeader.setText(Local.getString("Work on task:"));
+        actualEffortField.setPreferredSize(new Dimension(30, 24));
 		jLabelTimestamp.setMaximumSize(new Dimension(100, 16));
         jLabelTimestamp.setMinimumSize(new Dimension(60, 16));
         jLabelTimestamp.setText(Local.getString("Not working on task"));
@@ -244,6 +246,18 @@ public class TaskDialog extends JDialog {
                 timestampB_actionPerformed(e);
             }
         });
+        
+        // Added by drmorri8 for ErrorsAdded/ErrorsFixed functionality:
+        jLabelErrorsAdded.setMaximumSize(new Dimension(100, 16));
+        jLabelErrorsAdded.setMinimumSize(new Dimension(60, 16));
+        jLabelErrorsAdded.setText(Local.getString("Errors Added"));
+        errorsAddedField.setBorder(border8);
+        errorsAddedField.setPreferredSize(new Dimension(30, 24));
+        jLabelErrorsFixed.setMaximumSize(new Dimension(100, 16));
+        jLabelErrorsFixed.setMinimumSize(new Dimension(60, 16));
+        jLabelErrorsFixed.setText(Local.getString("Errors Fixed"));
+        errorsFixedField.setBorder(border8);
+        errorsFixedField.setPreferredSize(new Dimension(30, 24));
 
         startDate.setBorder(border8);
         startDate.setPreferredSize(new Dimension(80, 24));                
@@ -368,6 +382,10 @@ public class TaskDialog extends JDialog {
         // timePanel.add(jLabelTimeHeader, BorderLayout.CENTER);
         timePanel.add(timestampB, BorderLayout.CENTER);
         timePanel.add(jLabelTimestamp, BorderLayout.CENTER);
+        timePanel.add(jLabelErrorsAdded, BorderLayout.SOUTH);
+        timePanel.add(errorsAddedField, BorderLayout.SOUTH);
+        timePanel.add(jLabelErrorsFixed, BorderLayout.SOUTH);
+        timePanel.add(errorsFixedField, BorderLayout.SOUTH);
         
         mPanel.add(buttonsPanel, BorderLayout.SOUTH);
         buttonsPanel.add(okB, null);

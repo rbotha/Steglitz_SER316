@@ -176,7 +176,7 @@ public class TaskTable extends JTable {
     }
 
     void initColumnWidths() {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < getColumnCount(); i++) {
             TableColumn column = getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(8);

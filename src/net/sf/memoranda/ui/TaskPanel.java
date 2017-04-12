@@ -500,6 +500,8 @@ public class TaskPanel extends JPanel {
         dlg.priorityCB.setSelectedIndex(t.getPriority());                
         dlg.effortField.setText(Util.getHoursFromMillis(t.getEffort()));
 		dlg.actualEffortField.setText(Util.getHoursFromMillis(t.getActualEffort()));
+		dlg.errorsAddedField.setText(Integer.toString(t.getErrorsAdded()));
+		dlg.errorsFixedField.setText(Integer.toString(t.getErrorsFixed()));
 		dlg.timestamp = t.getTimestamp();
 		if (!(dlg.timestamp < 0)) {
 			Date timestampDate = new Date(dlg.timestamp);
@@ -530,6 +532,18 @@ public class TaskPanel extends JPanel {
         t.setPriority(dlg.priorityCB.getSelectedIndex());
         t.setEffort(Util.getMillisFromHours(dlg.effortField.getText()));
 		t.setActualEffort(Util.getMillisFromHours(dlg.actualEffortField.getText()));
+        int errorsAdded = 0;
+        if (!dlg.errorsAddedField.getText().isEmpty())
+        try {
+        	errorsAdded = Integer.parseInt(dlg.errorsAddedField.getText());
+        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors added.");}
+        t.setErrorsAdded(errorsAdded);
+        int errorsFixed = 0;
+        if (!dlg.errorsFixedField.getText().isEmpty())
+            try {
+            	errorsAdded = Integer.parseInt(dlg.errorsFixedField.getText());
+            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors fixed.");}
+        t.setErrorsFixed(errorsFixed);
 		t.setTimestamp(dlg.timestamp);
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
         
@@ -564,8 +578,18 @@ public class TaskPanel extends JPanel {
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
         long actualEffort = Util.getMillisFromHours(dlg.actualEffortField.getText());
         long timestamp = dlg.timestamp;
+        int errorsAdded = 0;
+        if (!dlg.errorsAddedField.getText().isEmpty())
+        try {
+        	errorsAdded = Integer.parseInt(dlg.errorsAddedField.getText());
+        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors added.");}
+        int errorsFixed = 0;
+        if (!dlg.errorsFixedField.getText().isEmpty())
+            try {
+            	errorsAdded = Integer.parseInt(dlg.errorsFixedField.getText());
+            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors fixed.");}       
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, dlg.descriptionField.getText(),null);
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, dlg.descriptionField.getText(),null, errorsAdded, errorsFixed);
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
@@ -608,8 +632,18 @@ public class TaskPanel extends JPanel {
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
         long actualEffort = Util.getMillisFromHours(dlg.actualEffortField.getText());
         long timestamp = dlg.timestamp;
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, dlg.descriptionField.getText(),parentTaskId);
-        newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
+        int errorsAdded = 0;
+        if (!dlg.errorsAddedField.getText().isEmpty())
+        try {
+        	errorsAdded = Integer.parseInt(dlg.errorsAddedField.getText());
+        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors added.");}
+        int errorsFixed = 0;
+        if (!dlg.errorsFixedField.getText().isEmpty())
+            try {
+            	errorsAdded = Integer.parseInt(dlg.errorsFixedField.getText());
+            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors fixed.");}
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, dlg.descriptionField.getText(),null, errorsAdded, errorsFixed);
+		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 
 		CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());

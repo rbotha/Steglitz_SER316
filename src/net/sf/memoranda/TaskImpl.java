@@ -111,6 +111,56 @@ public class TaskImpl implements Task, Comparable {
     public void setActualEffort(long actualEffort) {
         setAttr("actualEffort", String.valueOf(actualEffort));
     }
+    
+	/**
+	*	Gets the number of logged errors in a task.
+	*/
+    public int getErrorsAdded() {
+    	Attribute attr = _element.getAttribute("errorsAdded");
+    	if (attr == null) {
+    		return 0;
+    	}
+    	else {
+    		try {
+        		return Integer.parseInt(attr.getValue());
+    		}
+    		catch (NumberFormatException e) {
+    			return 0;
+    		}
+    	}
+    }
+
+	/**
+	*	Sets the number of logged errors in a task.
+	*/
+    public void setErrorsAdded(int errorsAdded) {
+        setAttr("errorsAdded", String.valueOf(errorsAdded));
+    }
+    
+	/**
+	*	Gets the number of fixed errors in a task.
+	*/
+    public int getErrorsFixed() {
+    	Attribute attr = _element.getAttribute("errorsFixed");
+    	if (attr == null) {
+    		return 0;
+    	}
+    	else {
+    		try {
+        		return Integer.parseInt(attr.getValue());
+    		}
+    		catch (NumberFormatException e) {
+    			return 0;
+    		}
+    	}
+    }
+
+	/**
+	*	Sets the number of fixed errors in a task.
+	*/
+    public void setErrorsFixed(int errorsFixed) {
+        setAttr("errorsFixed", String.valueOf(errorsFixed));
+    }
 	
 	/**
 	*	Returns the timestamped time in milliseconds from the epoch (1970-01-01T00:00:00Z)
