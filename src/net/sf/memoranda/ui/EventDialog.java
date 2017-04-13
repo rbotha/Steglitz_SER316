@@ -490,9 +490,12 @@ public class EventDialog extends JDialog implements WindowListener {
     }
 
     public void MTChange_actionPerformed(ActionEvent e){
-    	
-    		((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("hh:mm a");
-    		MT.setEnabled(false);
+    		if(MT.isSelected()){((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("hh:mm a");
+    		}
+    		else{
+    			((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("HH:mm");
+    		}
+    		//MT.setEnabled(false);
     
     }
     
