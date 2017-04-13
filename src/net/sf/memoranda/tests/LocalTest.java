@@ -279,6 +279,7 @@ public class LocalTest {
 	
 	@Test
 	public void ParseTimeStringTest(){
+		exception.expect(NullPointerException.class);
 		
 		assertEquals("Cannot convert string to Time", local.parseTimeString("CannotConvert"), null);
 		assertEquals("Cannot convert string to Time", local.parseTimeString("Cannot:Convert"), null);
@@ -287,6 +288,7 @@ public class LocalTest {
 		assertNotEquals("Convert string to Time", local.parseTimeString("000:000"+1), null);
 		assertNotEquals("Convert string to Time", local.parseTimeString("-12:192"), null);
 		
+		assertNotNull(local.parseTimeString(null));
 	}
 	
 	@Test
