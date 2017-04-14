@@ -114,21 +114,20 @@ public class Contacts extends JPanel{
 		list.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent e){
-				if(e.getButton() == MouseEvent.BUTTON3){
-					//contactsMenu menu = new contactsMenu();
-					
+				if(e.getButton() == MouseEvent.BUTTON3){					
 					if(list.getSelectedIndex() != -1){
 						ContactsMenu menu = new ContactsMenu(list.getSelectedIndex());
 						menu.show(e.getComponent(),e.getX(),e.getY());
 					}
-				}
+					
+					else{
+						JOptionPane.showMessageDialog(parentPanel, Local.getString("No contact selected"));
+					}
+				}				
 			}
 		});
 		
-		loadContacts();
-		
-
-		
+		loadContacts();		
 	}
 	
 }
