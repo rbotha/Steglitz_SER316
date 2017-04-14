@@ -17,7 +17,9 @@ import java.util.List;
 public class ContactsMenu extends JPopupMenu{
 	
 	JMenuItem emailMenu;
-		
+	ContactsEmailDialog emailDialog;
+	
+	
 	//Constructor
 	public ContactsMenu(int contactIndex){
 		
@@ -29,48 +31,47 @@ public class ContactsMenu extends JPopupMenu{
 		//Menu Events
 		emailMenu.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				System.out.println("Email Contact"); // Debug Output
-				emailContact(contactIndex);
+				String emailAddress = getContactEmail(contactIndex);
+				openEmailClient(emailAddress);
 			}
 		});		
 	}
 	
-	private boolean emailContact(int index){
+	private String getContactEmail(int index){
 		System.out.println("Email Contact Selected"); //Debug Output
 		
-		String emailAddress;
+		String emailAddress = "";		
 		
-		
-			try{
-				CSVReader reader = new CSVReader(new FileReader(Contact.LibraryFile()));
-				String [] currentContact;
-				List<String[]> allElements = reader.readAll();
-				currentContact = allElements.get(index);
-				emailAddress = currentContact[2];
-			}catch(FileNotFoundException e){
-				new ExceptionDialog(e);
-				return false;
-			}catch(IOException e){
-				new ExceptionDialog(e);
-				return false;
-			}
-			
-			Desktop desktop = Desktop.getDesktop();
-		
-			try{
-				String message = "mailto:" + emailAddress + "?subject=";
-				URI uri = URI.create(message);
-				desktop.mail(uri);
-			}catch(IOException e){
-				e.printStackTrace();
-				return false;
-			}
-			
-			return true;
+		try{
+			CSVReader reader = new CSVReader(new FileReader(Contact.LibraryFile()));
+			String [] currentContact;
+			List<String[]> allElements = reader.readAll();
+			currentContact = allElements.get(index);
+			emailAddress = currentContact[2];
+		}catch(FileNotFoundException e){
+			new ExceptionDialog(e);
+		}catch(IOException e){
+			new ExceptionDialog(e);
 		}
 		
-		return false;
+		return emailAddress;
+	}
+	
+	private boolean openEmailClient(String emailAddress){
 		
-	}	
+		Desktop desktop = Desktop.getDesktop();
+	
+		try{
+			String message = "mailto:" + emailAddress + "?subject=";
+			URI uri = URI.create(message);
+			desktop.mail(uri);
+		}catch(IOException e){
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
+
 }
 
