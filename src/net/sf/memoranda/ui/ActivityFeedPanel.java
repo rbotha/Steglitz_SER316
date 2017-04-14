@@ -24,9 +24,10 @@ import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.Note;
 import net.sf.memoranda.Task;
 import net.sf.memoranda.util.Local;
+import net.sf.memoranda.util.Util;
 
 /**
- * Class for creating an activity feed on recent items that have been edited within the past 2(two) days.
+ * JPanel class for creating activity feed on recently created or updated items.
  * Apr 5, 2017
  * @author Jesus Rodriguez Jr
  *
@@ -37,13 +38,13 @@ public class ActivityFeedPanel extends JPanel{
 	//Create Arrays of Notes and Task to be Initialized later.
 	private ArrayList<Note> note = null;
 	private ArrayList<Task> task = null;
+	private ActivityFeed activityFeed = new ActivityFeed();
 	//JScrollPane to hold "model" and "time" Jlist
 	private JScrollPane feed = new JScrollPane();
 	private JLabel recentLabel = null;
 	//Holds actual list of last edited task and notes
-	private DefaultListModel model = new DefaultListModel();
+	private DefaultListModel name = new DefaultListModel();
 	private DefaultListModel time = new DefaultListModel();
-	private ArrayList<Timestamp> list = new ArrayList<Timestamp>();
 	private Border border1;//Default border
 	
 	//Default Constructor, calls execution method
@@ -63,7 +64,7 @@ public class ActivityFeedPanel extends JPanel{
 		this.setVisible(true);
 		
 		//Initialize List
-		JList<String> recentItems = new JList<String>(model);
+		JList<String> recentItems = new JList<String>(name);
 		JList<String> recentTime = new JList<String>(time);
 		
 		//Set panels and list
@@ -79,7 +80,7 @@ public class ActivityFeedPanel extends JPanel{
 				
 		//Execute Methods
 		if(createList())//if true
-			recentActivitiesFeed();//create recent feeds list
+			Util.debug("List Created");//create recent feeds list
 		
 		
 		
@@ -101,170 +102,52 @@ public class ActivityFeedPanel extends JPanel{
 	public boolean refresh()
 	{
 		//Call method to reset lists.
-		if (!createList()||!recentActivitiesFeed())
+		if (!createList())
 			return false;
 		
-		
+		Util.debug("List Updated.");
 		return true;
 		
 
 	}//End of public method
 	
-	
-	//Sort through Tasks/Notes to display recent changes.
-	private boolean recentActivitiesFeed()
-	{//Beginning of private method
-		int index = 0;
-	
-		try{
-			//Create temp arrays with empty spaces to be populated
-			ArrayList<String> temp = new ArrayList<>(Collections.nCopies(list.size(),"empty"));
-			ArrayList<String> temp2 = new ArrayList<>(Collections.nCopies(list.size(),"empty"));
-					
-			//Create day formatter
-			DateFormat day = new SimpleDateFormat("D");
-			
-			//Get current day from calendar date, 1-365
-			int tc = Integer.parseInt(day.format(Calendar.getInstance().getTime()));
-			
-			//Get all Notes and add appropriate time statments
-			for(Note n: note){
-				int ni = 0;
-				//Get day difference betweek updates
-				if(n.getEdit()!=null)
-					ni = tc - Integer.parseInt(day.format(n.getEdit()));		
-				
-				//If note Timestamp is found pass index to find correct spot
-				if((index = list.indexOf(n.getEdit()))>=0&&ni<=1){//If day is not over
-					temp.set(index,n.getTitle());//set index to name
-					temp2.set(index,getTimeDiff(n.getEdit(),ni));//set inex to time difference
-				}
-			}//End of For Each Loop
-			
-			//Place all task in order of Timestamp
-			for(Task t: task){
-				int ti = 0;
-				//Get day difference between updates
-				if(t.getEdit()!=null)
-					ti = tc - Integer.parseInt(day.format(t.getEdit()));
-				
-				//If task Timestamp is found pass index to find correct spot
-				if((index = list.indexOf(t.getEdit()))>=0 && ti<=1){
-					temp.set(index,t.getText());//set index to name
-					temp2.set(index,getTimeDiff(t.getEdit(),ti));//set index to time difference
-				}
-	
-			}//End of for each loop
-			
-			//Clear all empty spaces in temp arrays
-			temp.removeAll(Collections.singleton("empty"));
-			temp2.removeAll(Collections.singleton("empty"));
-			
-			//Add names and timeframs to lists
-			for(String act: temp){//Iterate through array
-				model.addElement(act);//add name to list
-			}
-			for(String ti: temp2){//Iterate through array
-				time.addElement(ti);//add time to list
-			}
-		}catch(Exception e){
-			System.out.println(e.getMessage() + " Exception: "+ e.getCause());
-			return false;
-		}
-		return true;
-
-	}//End of private method
-	
-	//MEthod for getting time difference of recent change compared to current time
-	@SuppressWarnings("deprecation")
-	private String getTimeDiff(Timestamp s, int day)
-	{//Beginning of private method
-		
-		//Variables
-		String msg = "";
-		int hr = 0;
-		int min = 0;
-		
-		//get current time
-		Timestamp currentTime = new Timestamp(Calendar.getInstance().getTimeInMillis());	
-		DateFormat yearTime = new SimpleDateFormat("h:mm a");
-		//Current hour minus hour being checked
-		if(currentTime.getHours()>s.getHours())
-			hr = currentTime.getHours() - s.getHours();
-		else
-			hr = s.getHours()-currentTime.getHours();
-					
-		//Get minutes between current time and time being checked
-		if(currentTime.getMinutes() < s.getMinutes()&& hr==1){
-			min = (currentTime.getMinutes()+60)-s.getMinutes();
-			hr = 0;
-			}
-		else
-			min = currentTime.getMinutes() - s.getMinutes();
-		//If same day gather total hours and minutes
-		if(day == 0){
-			
-			//if just recently updated show 
-			if(hr == 0&&min==0){
-				msg = Local.getString("Edited just now");
-			}
-			else if(hr == 0){//if updated within that hour
-				msg = Local.getString("Edited "+min+"min ago.");
-			}
-			else//updated during that day timeframe
-				msg = Local.getString("Edited "+hr+"hr ago");
-		}//End if
-		//If updated a day ago
-		else if(day == 1){
-			msg = "Edited yesterday at "+yearTime.format(s);
-		}//end if
-
-		//Return msg
-		return msg;
-	}//End of private method
-	
 	/*
-	 * This is a private method for getting all task, notes and all Timestamps.
-	 * Clears all arrays if updating.
+	 * Method for adding all task and notes by name and timestamp to activity feed object.
+	 * Clears all arrays.
+	 * 
 	 */
 	private boolean createList(){
 		//Clear all arrays.
-		list.clear();
 		time.clear();
-		model.clear();
+		name.clear();
+		activityFeed.clear();
 		
 		try{
-			//Get all current projects task and notes
-			Timestamp ts = null;
+			
 			task = new ArrayList<Task>(CurrentProject.getTaskList().getAllTask());
 			note =  new ArrayList<Note>(CurrentProject.getNoteList().getAllNotes());
-			//Get task and note iterator
-			Iterator<Task> itr1 = task.iterator();
-			Iterator<Note> itr2 = note.iterator();
-			//Iterate through all task and notes 
-			while(itr1.hasNext()||itr2.hasNext()){
-				//If task Exist
-				if(itr1.hasNext()){//If has next task
-					ts = itr1.next().getEdit();//get timestamp
-					if(ts!=null){//if null do nothing
-						list.add(ts);
-					}//End nested if
-				}//End if
-				//If Note Exist
-				if(itr2.hasNext()){//if has next note
-					ts = itr2.next().getEdit();//get timestamp
-					if(ts!=null){//if null do nothing
-						list.add(ts);
-					}//End nested if
-				}//End if
-			}//End while
+					
+			for (Task t: task){
+				if(t.getText()!=null&&t.getEdit()!=null)
+					activityFeed.add(t.getText(), t.getEdit().toString());
+			}
+			for(Note n: note){
+				if(n.getTitle()!= null&&n.getEdit()!=null)
+					activityFeed.add(n.getTitle(), n.getEdit().toString());
+			}
+
+			Iterator listItr = activityFeed.getOrderedByDate().iterator();
 			
-			//Sort Timestamps from least to greatest.
-			Collections.sort(list, Collections.reverseOrder());
+			while(listItr.hasNext()){
+				name.addElement(listItr.next().toString());
+				if(listItr.hasNext())
+					time.addElement(listItr.next().toString());
+			}
+
 		}catch(Exception e){
-			System.out.println(e.getMessage() + " Exception: "+ e.getCause());
+			Util.debug(e.getMessage() + " Exception: "+ e.getCause());
 			return false;
-		}
+		}	
 		
 		return true;
 	}
