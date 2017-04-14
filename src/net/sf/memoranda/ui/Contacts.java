@@ -30,6 +30,8 @@ import net.sf.memoranda.util.Local;
 import javax.swing.*;
 import java.awt.event.*;
 
+import java.util.*;
+
 public class Contacts extends JPanel{
 	
 	DailyItemsPanel parentPanel = null;
@@ -39,7 +41,7 @@ public class Contacts extends JPanel{
 	ContactsAddDialog dialog;
 	JScrollPane scrollPane = new JScrollPane();
 	
-	JMenuItem contactMenu;
+	JMenuItem contactMenu = new JMenuItem("Contact Menu");
 	
 	public Contacts(DailyItemsPanel _parentPanel) {
         try {
@@ -141,17 +143,35 @@ public class Contacts extends JPanel{
 					emailMenu.addActionListener(new java.awt.event.ActionListener(){
 						public void actionPerformed(ActionEvent e){
 							System.out.println("Email Contact"); //Debug Output
+							int index = list.getSelectedIndex();						
+							String emailAddress = "";
+							
+							try {
+								CSVReader reader = new CSVReader(new FileReader(Contact.LibraryFile()));
+								String [] currentContact;
+								List<String[]> allElements = reader.readAll();
+								currentContact = allElements.get(index);
+								emailAddress = currentContact[2];
+								
+								
+								} catch (FileNotFoundException exc1) {
+									new ExceptionDialog(exc1);
+								} catch (IOException exce1) {
+									new ExceptionDialog(exce1);
+								}
+					
+							
 							
 							Desktop desktop = Desktop.getDesktop();
 							
-							try{
+							/*try{
 								desktop.mail();
 							}catch(IOException ex){
 								ex.printStackTrace();
-							}
+							}*/
 							
 							try{
-								String message = "mailto:gschober@asu.edu?subject=Test%20Email";
+								String message = "mailto:"+emailAddress+"?subject=Test%20Email";
 								URI uri = URI.create(message);
 								desktop.mail(uri);
 							}catch(IOException ex){
