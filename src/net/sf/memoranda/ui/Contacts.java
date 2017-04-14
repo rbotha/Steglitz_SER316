@@ -14,14 +14,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-
 import com.opencsv.CSVReader;
 
 import net.sf.memoranda.util.Util;
@@ -123,65 +115,14 @@ public class Contacts extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e){
 				if(e.getButton() == MouseEvent.BUTTON3){
-					contactsMenu menu = new contactsMenu();
-					menu.show(e.getComponent(),e.getX(),e.getY());
+					//contactsMenu menu = new contactsMenu();
+					
+					if(list.getSelectedIndex() != -1){
+						ContactsMenu menu = new ContactsMenu(list.getSelectedIndex());
+						menu.show(e.getComponent(),e.getX(),e.getY());
+					}
 				}
 			}
-			
-			//JPopupMenu Class
-			class contactsMenu extends JPopupMenu{
-				JMenuItem emailMenu;
-				
-				//Constructor
-				public contactsMenu(){
-					emailMenu = new JMenuItem("Email Contact");
-					
-					//Add all items to menu
-					add(emailMenu);
-					
-					//Menu Events
-					emailMenu.addActionListener(new java.awt.event.ActionListener(){
-						public void actionPerformed(ActionEvent e){
-							System.out.println("Email Contact"); //Debug Output
-							int index = list.getSelectedIndex();						
-							String emailAddress = "";
-							
-							try {
-								CSVReader reader = new CSVReader(new FileReader(Contact.LibraryFile()));
-								String [] currentContact;
-								List<String[]> allElements = reader.readAll();
-								currentContact = allElements.get(index);
-								emailAddress = currentContact[2];
-								
-								
-								} catch (FileNotFoundException exc1) {
-									new ExceptionDialog(exc1);
-								} catch (IOException exce1) {
-									new ExceptionDialog(exce1);
-								}
-					
-							
-							
-							Desktop desktop = Desktop.getDesktop();
-							
-							/*try{
-								desktop.mail();
-							}catch(IOException ex){
-								ex.printStackTrace();
-							}*/
-							
-							try{
-								String message = "mailto:"+emailAddress+"?subject=Test%20Email";
-								URI uri = URI.create(message);
-								desktop.mail(uri);
-							}catch(IOException ex){
-								ex.printStackTrace();
-							}
-						}
-					});
-				}
-			}
-		
 		});
 		
 		loadContacts();
