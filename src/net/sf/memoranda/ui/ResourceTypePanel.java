@@ -9,6 +9,15 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -125,6 +134,7 @@ public class ResourceTypePanel extends JPanel {
     jPanel2.add(deleteB, null);
     typesList.setListData(MimeTypesList.getAllMimeTypes());
     //typesList.updateUI();
+   
 
     }
 

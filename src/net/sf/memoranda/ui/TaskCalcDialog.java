@@ -9,6 +9,15 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -134,6 +143,15 @@ public class TaskCalcDialog extends JDialog {
 
 		// set all config-values
 		setValues();
+		
+		getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+	            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel"); //$NON-NLS-1$
+	        getRootPane().getActionMap().put("Cancel", new AbstractAction(){ //$NON-NLS-1$
+	            public void actionPerformed(ActionEvent e)
+	            {
+	                dispose();
+	            }
+	        });
 
 	}
 
