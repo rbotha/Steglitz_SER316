@@ -8,10 +8,12 @@
  * Created           18.05.2005 15:12:19
  * Revision info     $RCSfile: TaskTable.java,v $ $Revision: 1.26 $ $State: Exp $  
  *
- * Last modified on  $Date: 2007/01/05 10:33:26 $
- *               by  $Author: alexeya $
+ * Last modified on  $Date: 2017/4/08 $
+ *               by  $Author: drmorri8 $
  * 
- * @VERSION@ 
+ * @VERSION@  TaskTableModel.java,v 1.7 2017/4/08 drmorri8 Exp $
+ *
+ * @author $Author: alexeya $
  *
  * @COPYRIGHT@
  * 
@@ -152,8 +154,8 @@ public class TaskTable extends JTable {
 
 		setDefaultEditor(TreeTableModel.class, new TreeTableCellEditor());
 		
-		// column name is repeated in 2 places, do something about it!
-		getColumn( "% " + Local.getString("done") ).setCellEditor(new TaskProgressEditor());
+		if (getColumn( Local.getString("% done") ) != null)
+			getColumn(Local.getString("% done")).setCellEditor(new TaskProgressEditor());
 		
 		// TODO: editor for task progress
 		
@@ -182,15 +184,15 @@ public class TaskTable extends JTable {
                 column.setPreferredWidth(8);
             } 
             else if (i == 1) {
-                column.setPreferredWidth(32767);
+            	column.setPreferredWidth(30000); //32767, decreased to fit new columns.
             }
-	    else if( i == 6 ){
-		    column.setPreferredWidth(100);
-		    column.setMinWidth(100);
+			else if( i == 6 ){
+				column.setPreferredWidth(100);
+				column.setMinWidth(100);
 	    }
             else {
-                column.setMinWidth(67); // 65);
-                column.setPreferredWidth(67); //65);
+            	column.setPreferredWidth(67); //65);
+            	column.setMinWidth(67); // 65);
             }
         }
     }
