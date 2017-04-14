@@ -39,11 +39,11 @@ public class ActivityFeed {
 	public ActivityFeed(ArrayList<String> name, ArrayList<String> time){
 		
 		if(name==null)
-			this.name.add("NULL");
+			this.name = new ArrayList<String>();
 		else
 			this.name = name;
 		if(time==null)
-			this.time.add("NULL");
+			this.time = new ArrayList<String>();
 		else
 			this.time = time;		
 	}
@@ -56,7 +56,8 @@ public class ActivityFeed {
 	public ArrayList<String> getNames(){
 		if(this.name!=null)
 			return this.name;
-		return this.name;
+		
+		return null;
 	}
 	/**
 	 * Method for getting array of times
@@ -65,7 +66,8 @@ public class ActivityFeed {
 	public ArrayList<String> getTimes(){
 		if(this.time!=null)
 			return this.time;
-		return this.time;
+		
+		return null;
 	}
 	/**
 	 * Method for getting a given name within an index location of Array
@@ -73,8 +75,9 @@ public class ActivityFeed {
 	 * @return name, if null return string "NULL"
 	 */
 	public String getName(int index){
-		if(this.name.get(index)!=null)
+		if(this.name.get(index)==null)
 			return Local.getString("NULL");
+		
 		return Local.getString(this.name.get(index));
 	}
 	/**
@@ -83,8 +86,9 @@ public class ActivityFeed {
 	 * @return name, if null return string "NULL"
 	 */
 	public String getTime(int index){
-		if(this.time.get(index)!=null)
+		if(this.time.get(index)==null)
 			return Local.getString("NULL");
+		
 		return Local.getString(this.time.get(index));
 	}
 	
@@ -95,7 +99,7 @@ public class ActivityFeed {
 	 * @param name - String name of new location
 	 */
 	public void setName(int index, String name){
-		if(name!=null&&(index<name.length()&&index>0))
+		if(name!=null&&(index<name.length()&&index>=0))
 			this.name.add(index, name);
 	}
 	/**
@@ -104,7 +108,7 @@ public class ActivityFeed {
 	 * @param time - String time of new location
 	 */
 	public void setTime(int index, String time){
-		if(time!=null&&(index<time.length()&&index>0))
+		if(time!=null&&(index<time.length()&&index>=0))
 			this.time.add(index, time);
 	}
 	/**
@@ -116,7 +120,8 @@ public class ActivityFeed {
 	public void add(int index, String name, String time){
 		try{
 			Timestamp.valueOf(time);
-			if((name!=null&&time!=null&&(index<name.length()&&index>0))){
+			
+			if((name!=null&&time!=null)&&(index<name.length()&&index>=0)){
 				this.time.add(index, time);
 				this.name.add(index, name);
 			}
