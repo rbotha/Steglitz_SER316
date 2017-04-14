@@ -38,14 +38,14 @@ public class ActivityFeed {
 	 */
 	public ActivityFeed(ArrayList<String> name, ArrayList<String> time){
 		
-		if(name==null)
+		if(name==null||time==null){
 			this.name = new ArrayList<String>();
-		else
-			this.name = name;
-		if(time==null)
 			this.time = new ArrayList<String>();
-		else
-			this.time = time;		
+		}
+		else{
+			this.name = new ArrayList<String>(name);
+			this.time = new ArrayList<String>(time);;
+		}
 	}
 	
 	//Getters
@@ -53,7 +53,7 @@ public class ActivityFeed {
 	 * Method for getting array of names
 	 * @return name
 	 */
-	public ArrayList<String> getNames(){
+	public final ArrayList<String> getNames(){
 		if(this.name!=null)
 			return this.name;
 		
@@ -75,8 +75,11 @@ public class ActivityFeed {
 	 * @return name, if null return string "NULL"
 	 */
 	public String getName(int index){
+
+		if(index>this.name.size()||index<0)
+			return null;
 		if(this.name.get(index)==null)
-			return Local.getString("NULL");
+			return null;
 		
 		return Local.getString(this.name.get(index));
 	}
@@ -86,8 +89,10 @@ public class ActivityFeed {
 	 * @return name, if null return string "NULL"
 	 */
 	public String getTime(int index){
+		if(index>this.time.size()||index<0)
+			return null;
 		if(this.time.get(index)==null)
-			return Local.getString("NULL");
+			return null;
 		
 		return Local.getString(this.time.get(index));
 	}
@@ -99,8 +104,10 @@ public class ActivityFeed {
 	 * @param name - String name of new location
 	 */
 	public void setName(int index, String name){
-		if(name!=null&&(index<name.length()&&index>=0))
+		if(name!=null&&(index<this.name.size()&&index>=0)){
 			this.name.add(index, name);
+			this.time.add(index, "NULL");
+		}
 	}
 	/**
 	 * Method for setting time within an index location
@@ -108,8 +115,10 @@ public class ActivityFeed {
 	 * @param time - String time of new location
 	 */
 	public void setTime(int index, String time){
-		if(time!=null&&(index<time.length()&&index>=0))
+		if(time!=null&&(index<this.time.size()&&index>=0)){
 			this.time.add(index, time);
+			this.name.add(index, "NULL");
+		}
 	}
 	/**
 	 * Method for adding the time and name from an index location
@@ -140,10 +149,6 @@ public class ActivityFeed {
 			if(name != null&&time!=null){
 				this.time.add(time);
 				this.name.add(name);
-			}
-			else{
-				this.time.add("NULL");
-				this.name.add("NULL");
 			}
 		}catch(Exception e){
 			Util.debug(e.getMessage() + " Exception: "+ e.getCause()+" - "+e.getStackTrace());
