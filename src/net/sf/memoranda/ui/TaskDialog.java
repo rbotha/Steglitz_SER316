@@ -43,11 +43,13 @@ import net.sf.memoranda.util.Util;
 
 /*$Id: TaskDialog.java,v 1.25 2005/12/01 08:12:26 alexeya Exp $*/
 public class TaskDialog extends JDialog {
-    JPanel mPanel = new JPanel(new BorderLayout());
+	public long timestamp = -1; //tracks a timestamp in milliseconds from epoch (1970-01-01T00:00:00Z). if < 0, no timestamp.
+	
+	JPanel mPanel = new JPanel(new BorderLayout());
     JPanel areaPanel = new JPanel(new BorderLayout());	
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     JButton cancelB = new JButton();
-    JButton okB = new JButton();	
+    JButton okB = new JButton();
     Border border1;
     Border border2;
     JPanel dialogTitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -67,14 +69,19 @@ public class TaskDialog extends JDialog {
     JScrollPane descriptionScrollPane = new JScrollPane(descriptionField);
     	
 	// Added by drmorri8 for actualEffort functionality:
-	public long timestamp = -1; //tracks a timestamp in milliseconds from epoch (1970-01-01T00:00:00Z). if < 0, no timestamp.
 	JLabel jLabelActualEffort = new JLabel();
 	JTextField actualEffortField = new JTextField();
-	JPanel timePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	JPanel timePanel = new JPanel(new GridLayout(2, 1));
 	JLabel jLabelTimestamp = new JLabel();
 	JButton timestampB = new JButton();
 	
 	// Added by drmorri8 for errorsAdded/errorsFixed
+	JPanel pspTrackingPanel = new JPanel(new BorderLayout());
+	JPanel pspTInputPanel = new JPanel(new GridLayout(2, 2));
+	JPanel pspEffort = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	JPanel pspActualEffort = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	JPanel pspErrorsAdded = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	JPanel pspErrorsFixed = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 	JLabel jLabelErrorsAdded = new JLabel();
 	JTextField errorsAddedField = new JTextField();
 	JLabel jLabelErrorsFixed= new JLabel();
@@ -101,7 +108,7 @@ public class TaskDialog extends JDialog {
     JButton setEndDateB = new JButton();
     //JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    JPanel jPanelEffort = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    JPanel jPanelBlank = new JPanel(new FlowLayout(FlowLayout.CENTER));
 //    JPanel jPanelNotes = new JPanel(new FlowLayout(FlowLayout.LEFT));
     
     JButton setNotifB = new JButton();
@@ -225,7 +232,7 @@ public class TaskDialog extends JDialog {
         jLabelEffort.setMinimumSize(new Dimension(60, 16));
         jLabelEffort.setText(Local.getString("Est Effort(hrs)"));
         effortField.setBorder(border8);
-        effortField.setPreferredSize(new Dimension(30, 24));
+        effortField.setPreferredSize(new Dimension(60, 24));
 		
 		// Added by drmorri8 for actualEffort
         timePanel.setBorder(border2);
@@ -233,7 +240,7 @@ public class TaskDialog extends JDialog {
         jLabelActualEffort.setMinimumSize(new Dimension(60, 16));
         jLabelActualEffort.setText(Local.getString("Actual Effort(hrs)"));
         actualEffortField.setBorder(border8);
-        actualEffortField.setPreferredSize(new Dimension(30, 24));
+        actualEffortField.setPreferredSize(new Dimension(60, 24));
 		jLabelTimestamp.setMaximumSize(new Dimension(100, 16));
         jLabelTimestamp.setMinimumSize(new Dimension(60, 16));
         jLabelTimestamp.setText(Local.getString("Not working on task"));
@@ -248,16 +255,17 @@ public class TaskDialog extends JDialog {
         });
         
         // Added by drmorri8 for ErrorsAdded/ErrorsFixed functionality:
+        pspTrackingPanel.setBorder(border2);
         jLabelErrorsAdded.setMaximumSize(new Dimension(100, 16));
         jLabelErrorsAdded.setMinimumSize(new Dimension(60, 16));
         jLabelErrorsAdded.setText(Local.getString("Errors Added"));
         errorsAddedField.setBorder(border8);
-        errorsAddedField.setPreferredSize(new Dimension(30, 24));
+        errorsAddedField.setPreferredSize(new Dimension(60, 24));
         jLabelErrorsFixed.setMaximumSize(new Dimension(100, 16));
         jLabelErrorsFixed.setMinimumSize(new Dimension(60, 16));
         jLabelErrorsFixed.setText(Local.getString("Errors Fixed"));
         errorsFixedField.setBorder(border8);
-        errorsFixedField.setPreferredSize(new Dimension(30, 24));
+        errorsFixedField.setPreferredSize(new Dimension(60, 24));
 
         startDate.setBorder(border8);
         startDate.setPreferredSize(new Dimension(80, 24));                
@@ -375,17 +383,32 @@ public class TaskDialog extends JDialog {
 
         jPanel4.add(jLabel7, null);
         getContentPane().add(mPanel);
-        mPanel.add(areaPanel, BorderLayout.NORTH); // south
+        mPanel.add(areaPanel, BorderLayout.NORTH);
         
-        // Added for actualEffort
-        mPanel.add(timePanel, BorderLayout.CENTER);
+        mPanel.add(pspTrackingPanel, BorderLayout.CENTER);
+        pspTrackingPanel.add(pspTInputPanel, BorderLayout.NORTH);
+        
+        pspTInputPanel.add(pspEffort, null);
+        pspEffort.add(jLabelEffort, null);
+        pspEffort.add(effortField, null);
+        
+        pspTInputPanel.add(pspActualEffort, null);
+        pspActualEffort.add(jLabelActualEffort, null);
+        pspActualEffort.add(actualEffortField, null);
+
+        pspTInputPanel.add(pspErrorsAdded, null);
+        pspErrorsAdded.add(jLabelErrorsAdded, null);
+        pspErrorsAdded.add(errorsAddedField, null);
+        
+        pspTInputPanel.add(pspErrorsFixed, null);
+        pspErrorsFixed.add(jLabelErrorsFixed, null);
+        pspErrorsFixed.add(errorsFixedField, null);
+        
+        pspTrackingPanel.add(timePanel, BorderLayout.SOUTH);
+        
         // timePanel.add(jLabelTimeHeader, BorderLayout.CENTER);
+        timePanel.add(jLabelTimestamp, BorderLayout.CENTER);   
         timePanel.add(timestampB, BorderLayout.CENTER);
-        timePanel.add(jLabelTimestamp, BorderLayout.CENTER);
-        timePanel.add(jLabelErrorsAdded, BorderLayout.SOUTH);
-        timePanel.add(errorsAddedField, BorderLayout.SOUTH);
-        timePanel.add(jLabelErrorsFixed, BorderLayout.SOUTH);
-        timePanel.add(errorsFixedField, BorderLayout.SOUTH);
         
         mPanel.add(buttonsPanel, BorderLayout.SOUTH);
         buttonsPanel.add(okB, null);
@@ -406,13 +429,7 @@ public class TaskDialog extends JDialog {
         jPanel1.add(jLabel2, null);
         jPanel1.add(endDate, null);
         jPanel1.add(setEndDateB, null);
-        // added by rawsushi
-        jPanel2.add(jPanelEffort, null);
-        jPanelEffort.add(jLabelEffort, null);
-        jPanelEffort.add(effortField, null);
-
-		jPanelEffort.add(jLabelActualEffort, null);
-        jPanelEffort.add(actualEffortField, null);
+        jPanel2.add(jPanelBlank, null);
 		
         jPanel2.add(jPanel4, null);
         jPanel4.add(priorityCB, null);
@@ -494,7 +511,7 @@ public class TaskDialog extends JDialog {
 			double newActualEffort = Math.floor((actualEffortFieldValue + workPeriod) / 1000 / 36) / 100;
 			timestamp = -1;
 			actualEffortField.setText(String.valueOf(newActualEffort));
-			jLabelTimestamp.setText(Local.getString("Time from work session added to actual hours"));
+			jLabelTimestamp.setText(Local.getString("Session time added to actual hours"));
 			timestampB.setText(Local.getString("Begin work session"));	
 		}
     }
