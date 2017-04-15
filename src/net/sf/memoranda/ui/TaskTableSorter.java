@@ -45,6 +45,8 @@ public class TaskTableSorter extends TaskTableModel{
 				case 8: return (int)(task1.getActualEffort() - task2.getActualEffort());
 				case 9: return task1.getErrorsAdded() - task2.getErrorsAdded();
 				case 10: return task1.getErrorsFixed() - task2.getErrorsFixed();
+				case 11: return task1.getEstLOC() - task2.getEstLOC();
+				case 12: return task1.getActLOC() - task2.getActLOC();
 			}
 			
 			return 0;

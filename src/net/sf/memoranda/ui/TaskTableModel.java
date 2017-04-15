@@ -44,7 +44,8 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
             Local.getString("Priority"), Local.getString("Status"),
             Local.getString("% done"), Local.getString("EST EFFORT(hrs)"),
             Local.getString("Actual Effort(hrs)"), Local.getString("Errors Added"),
-            Local.getString("Errors Fixed")};
+            Local.getString("Errors Fixed"), Local.getString("Est. LOC"), 
+            Local.getString("Act. LOC") };
 
     protected EventListenerList listenerList = new EventListenerList();
 
@@ -108,6 +109,10 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         	return t.getErrorsAdded();
         case 10:
         	return t.getErrorsFixed();
+        case 11:
+        	return String.valueOf(t.getEstLOC());
+        case 12:
+        	return String.valueOf(t.getActLOC());
         case TaskTable.TASK_ID:
             return t.getID();
         case TaskTable.TASK:
@@ -206,6 +211,10 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
             case 9:
             	return Class.forName("java.lang.Integer");
             case 10:
+                return Class.forName("java.lang.Integer");
+            case 11:
+                return Class.forName("java.lang.Integer");
+            case 12:
                 return Class.forName("java.lang.Integer");
             }
         } catch (Exception ex) {

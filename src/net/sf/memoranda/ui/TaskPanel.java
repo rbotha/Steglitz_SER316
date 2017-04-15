@@ -499,22 +499,24 @@ public class TaskPanel extends JPanel {
         dlg.endDate.getModel().setValue(t.getEndDate().getDate());
         dlg.priorityCB.setSelectedIndex(t.getPriority());                
         dlg.effortField.setText(Util.getHoursFromMillis(t.getEffort()));
+        dlg.estLOCField.setText(String.valueOf(t.getEstLOC()));
+        dlg.actLOCField.setText(String.valueOf(t.getActLOC()));
 		dlg.actualEffortField.setText(Util.getHoursFromMillis(t.getActualEffort()));
 		dlg.errorsAddedField.setText(Integer.toString(t.getErrorsAdded()));
 		dlg.errorsFixedField.setText(Integer.toString(t.getErrorsFixed()));
-		dlg.timestamp = t.getTimestamp();
-		if (!(dlg.timestamp < 0)) {
+		dlg.timestamp = t.getTimestamp();			
+		if (!(dlg.timestamp < 0)) { // timestamp < 0 implies there is no timestamp
 			Date timestampDate = new Date(dlg.timestamp);
-			DateFormat formatter = new SimpleDateFormat("HH:mm");
-			dlg.jLabelTimestamp.setText(Local.getString("Work began at") + ": " + formatter.format(  timestampDate));
+			DateFormat formatter = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+			dlg.jLabelTimestamp.setText(Local.getString("Work began at") + ": " + formatter.format( timestampDate));
 			dlg.timestampB.setText(Local.getString("End work session"));
 		}
-	if((t.getStartDate().getDate()).after(t.getEndDate().getDate()))
-		dlg.chkEndDate.setSelected(false);
-	else
-		dlg.chkEndDate.setSelected(true);
-		dlg.progress.setValue(new Integer(t.getProgress()));
- 	dlg.chkEndDate_actionPerformed(null);	
+		if((t.getStartDate().getDate()).after(t.getEndDate().getDate()))
+			dlg.chkEndDate.setSelected(false);
+		else
+			dlg.chkEndDate.setSelected(true);
+			dlg.progress.setValue(new Integer(t.getProgress()));
+	 	dlg.chkEndDate_actionPerformed(null);	
         dlg.setVisible(true);
         if (dlg.CANCELLED)
             return;
@@ -524,7 +526,7 @@ public class TaskPanel extends JPanel {
  		if(dlg.chkEndDate.isSelected())
  			ed = new CalendarDate((Date) dlg.endDate.getModel().getValue());
  		else
- 			ed = null;
+ 			ed = null; 		
         t.setStartDate(sd);
         t.setEndDate(ed);
         t.setText(dlg.todoField.getText());
@@ -541,9 +543,21 @@ public class TaskPanel extends JPanel {
         int errorsFixed = 0;
         if (!dlg.errorsFixedField.getText().isEmpty())
             try {
-            	errorsAdded = Integer.parseInt(dlg.errorsFixedField.getText());
+            	errorsFixed = Integer.parseInt(dlg.errorsFixedField.getText());
             }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors fixed.");}
         t.setErrorsFixed(errorsFixed);
+		int estLOC = 0;
+		if (!dlg.estLOCField.getText().isEmpty())
+		try {
+			estLOC = Integer.parseInt(dlg.estLOCField.getText());
+		}catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors added.");}
+		t.setEstLOC(estLOC);
+		int actLOC = 0;
+		if (!dlg.actLOCField.getText().isEmpty())
+		    try {
+		    	actLOC = Integer.parseInt(dlg.actLOCField.getText());
+		    }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors fixed.");}
+		t.setActLOC(actLOC);
 		t.setTimestamp(dlg.timestamp);
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
         
@@ -565,7 +579,8 @@ public class TaskPanel extends JPanel {
         dlg.startDate.getModel().setValue(CurrentDate.get().getDate());
         dlg.endDate.getModel().setValue(CurrentDate.get().getDate());
         dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x, (frmSize.height - dlg.getSize().height) / 2 + loc.y);
-        dlg.setVisible(true);
+        dlg.timestamp = (long)-1;
+        dlg.setVisible(true);       
         if (dlg.CANCELLED)
             return;
         CalendarDate sd = new CalendarDate((Date) dlg.startDate.getModel().getValue());
@@ -580,16 +595,31 @@ public class TaskPanel extends JPanel {
         long timestamp = dlg.timestamp;
         int errorsAdded = 0;
         if (!dlg.errorsAddedField.getText().isEmpty())
-        try {
-        	errorsAdded = Integer.parseInt(dlg.errorsAddedField.getText());
-        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors added.");}
+	        try {
+	        	errorsAdded = Integer.parseInt(dlg.errorsAddedField.getText());
+	        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors added."));
+	    }
         int errorsFixed = 0;
         if (!dlg.errorsFixedField.getText().isEmpty())
             try {
-            	errorsAdded = Integer.parseInt(dlg.errorsFixedField.getText());
-            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors fixed.");}       
+            	errorsFixed = Integer.parseInt(dlg.errorsFixedField.getText());
+            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors fixed."));
+        }   
+        int estLOC = 0;
+        if (!dlg.estLOCField.getText().isEmpty())
+	        try {
+	        	estLOC = Integer.parseInt(dlg.estLOCField.getText());
+	        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid estimated LOC"));
+	    }
+        int actLOC = 0;
+        if (!dlg.actLOCField.getText().isEmpty())
+            try {
+            	actLOC = Integer.parseInt(dlg.actLOCField.getText());
+            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid actual LOC."));
+        } 
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, dlg.descriptionField.getText(),null, errorsAdded, errorsFixed);
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),
+				effort,actualEffort,timestamp, dlg.descriptionField.getText(),null, errorsAdded, errorsFixed, estLOC, actLOC);
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
@@ -619,6 +649,7 @@ public class TaskPanel extends JPanel {
 		dlg.setStartDateLimit(parent.getStartDate(), parent.getEndDate());
 		dlg.setEndDateLimit(parent.getStartDate(), parent.getEndDate());
         dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x, (frmSize.height - dlg.getSize().height) / 2 + loc.y);
+        dlg.timestamp = (long)-1;
         dlg.setVisible(true);
         if (dlg.CANCELLED)
             return;
@@ -634,15 +665,30 @@ public class TaskPanel extends JPanel {
         long timestamp = dlg.timestamp;
         int errorsAdded = 0;
         if (!dlg.errorsAddedField.getText().isEmpty())
-        try {
-        	errorsAdded = Integer.parseInt(dlg.errorsAddedField.getText());
-        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors added.");}
+	        try {
+	        	errorsAdded = Integer.parseInt(dlg.errorsAddedField.getText());
+	        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors added."));
+        }
         int errorsFixed = 0;
         if (!dlg.errorsFixedField.getText().isEmpty())
             try {
-            	errorsAdded = Integer.parseInt(dlg.errorsFixedField.getText());
-            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors fixed.");}
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, dlg.descriptionField.getText(),null, errorsAdded, errorsFixed);
+            	errorsFixed = Integer.parseInt(dlg.errorsFixedField.getText());
+            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors fixed."));
+        }
+		int estLOC = 0;
+		if (!dlg.estLOCField.getText().isEmpty())
+			try {
+				estLOC = Integer.parseInt(dlg.estLOCField.getText());
+			}catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid estimated LOC."));
+		}
+		int actLOC = 0;
+		if (!dlg.actLOCField.getText().isEmpty())
+		    try {
+		    	actLOC = Integer.parseInt(dlg.actLOCField.getText());
+		    }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid actual LOC."));
+		}
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),
+				effort,actualEffort,timestamp, dlg.descriptionField.getText(),null, errorsAdded, errorsFixed, estLOC, actLOC);
 		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 
