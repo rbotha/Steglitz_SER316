@@ -17,8 +17,13 @@ import java.util.List;
 public class ContactsMenu extends JPopupMenu{
 	
 	JMenuItem emailMenu;
-	ContactsEmailDialog emailDialog;
+	private String emailAddress;
 	
+	
+	//Default Constructor
+	public ContactsMenu(){
+		
+	}
 	
 	//Constructor
 	public ContactsMenu(int contactIndex){
@@ -31,16 +36,14 @@ public class ContactsMenu extends JPopupMenu{
 		//Menu Events
 		emailMenu.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				String emailAddress = getContactEmail(contactIndex);
+				getContactEmail(contactIndex);
 				openEmailClient(emailAddress);
 			}
 		});		
 	}
 	
-	private String getContactEmail(int index){
+	public boolean getContactEmail(int index){
 		System.out.println("Email Contact Selected"); //Debug Output
-		
-		String emailAddress = "";		
 		
 		try{
 			CSVReader reader = new CSVReader(new FileReader(Contact.LibraryFile()));
@@ -50,14 +53,16 @@ public class ContactsMenu extends JPopupMenu{
 			emailAddress = currentContact[2];
 		}catch(FileNotFoundException e){
 			new ExceptionDialog(e);
+			return false;
 		}catch(IOException e){
 			new ExceptionDialog(e);
+			return false;
 		}
 		
-		return emailAddress;
+		return true;
 	}
 	
-	private boolean openEmailClient(String emailAddress){
+	public boolean openEmailClient(String emailAddress){
 		
 		Desktop desktop = Desktop.getDesktop();
 	
