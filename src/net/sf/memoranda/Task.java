@@ -78,6 +78,12 @@ public interface Task {
     // Set/get actual time in a task
     void setActualEffort(long actualEffort);
     long getActualEffort();
+    
+    void setErrorsAdded(int errorsAdded);
+    int getErrorsAdded();
+    
+    void setErrorsFixed(int errorsFixed);
+    int getErrorsFixed();
 	
 	void setTimestamp(long timestamp);
     long getTimestamp();
