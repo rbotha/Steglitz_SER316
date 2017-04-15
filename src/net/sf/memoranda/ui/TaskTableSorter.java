@@ -41,6 +41,8 @@ public class TaskTableSorter extends TaskTableModel{
 				case 4: return task1.getPriority() - task2.getPriority();
 				case 5: return task1.getStatus( CurrentDate.get() ) - task2.getStatus( CurrentDate.get() );
 				case 6: return task1.getProgress() - task2.getProgress();
+				case 7: return task1.getEstLOC() - task2.getEstLOC();
+				case 8: return task1.getActLOC() - task2.getActLOC();
 			}
 			
 			return 0;

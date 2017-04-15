@@ -579,11 +579,11 @@ public class TaskPanel extends JPanel {
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
         long actualEffort = Util.getMillisFromHours(dlg.actualEffortField.getText());
         long timestamp = dlg.timestamp;
-        long estLOC = 0;
-        long actLOC = 0;
+        int estLOC = 0;
+        int actLOC = 0;
         try{
-        	if(!dlg.txtEstLOC.getText().isEmpty()) {	estLOC = Long.parseLong(dlg.txtEstLOC.getText());	}
-        	if(!dlg.txtActLOC.getText().isEmpty()) {  	actLOC = Long.parseLong(dlg.txtActLOC.getText());	}
+        	if(!dlg.txtEstLOC.getText().isEmpty()) {	estLOC = Integer.parseInt(dlg.txtEstLOC.getText());	}
+        	if(!dlg.txtActLOC.getText().isEmpty()) {  	actLOC = Integer.parseInt(dlg.txtActLOC.getText());	}
         }catch(NumberFormatException ex){
         	JOptionPane.showMessageDialog(this, "Please enter a valid number for LOC");
         }
@@ -634,11 +634,11 @@ public class TaskPanel extends JPanel {
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
         long actualEffort = Util.getMillisFromHours(dlg.actualEffortField.getText());
         long timestamp = dlg.timestamp;
-        long estLOC = 0;
-        long actLOC = 0;
+        int estLOC = 0;
+        int actLOC = 0;
         try{
-        	if(!dlg.txtEstLOC.getText().isEmpty()) {	estLOC = Long.parseLong(dlg.txtEstLOC.getText());	}
-        	if(!dlg.txtActLOC.getText().isEmpty()) {  	actLOC = Long.parseLong(dlg.txtActLOC.getText());	}
+        	if(!dlg.txtEstLOC.getText().isEmpty()) {	estLOC = Integer.parseInt(dlg.txtEstLOC.getText());	}
+        	if(!dlg.txtActLOC.getText().isEmpty()) {  	actLOC = Integer.parseInt(dlg.txtActLOC.getText());	}
         	
         }catch(NumberFormatException ex){
         	JOptionPane.showMessageDialog(this, "Please enter a valid number for LOC");
