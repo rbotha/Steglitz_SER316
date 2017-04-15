@@ -55,7 +55,7 @@ public class ActivityFeed {
 	 */
 	public final ArrayList<String> getNames(){
 		if(this.name!=null)
-			return this.name;
+			return new ArrayList<String>(this.name);
 		
 		return null;
 	}
@@ -65,7 +65,7 @@ public class ActivityFeed {
 	 */
 	public ArrayList<String> getTimes(){
 		if(this.time!=null)
-			return this.time;
+			return new ArrayList<String>(this.time);
 		
 		return null;
 	}
@@ -208,7 +208,7 @@ public class ActivityFeed {
 		Util.debug(e.getMessage() + " Exception: "+ e.getCause()+" - "+e.getStackTrace());
 	}	
 		
-		return ordered;
+		return new ArrayList<String>(ordered);
 	}
 	
 	

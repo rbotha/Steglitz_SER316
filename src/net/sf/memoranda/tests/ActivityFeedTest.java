@@ -81,6 +81,9 @@ public class ActivityFeedTest {
 	public void GetNamesTest(){
 		
 		assertEquals("names != getNames)", activityFeed.getNames(), names);
+		activityFeed.getNames().add("billy");
+		activityFeed.getNames().add("maze");
+		assertEquals("Names == getNames)", activityFeed.getNames(), names);
 		names.add(name);
 		assertNotEquals("names != getNames)", activityFeed.getNames(), names);
 	}
@@ -88,9 +91,13 @@ public class ActivityFeedTest {
 	@Test
 	public void GetTimesTest(){
 		
-		assertEquals("times != getTimes)", activityFeed.getTimes(), times);
+		assertEquals("times == getTimes)", activityFeed.getTimes(), times);
+		activityFeed.getTimes().add(time);
+		activityFeed.getNames().add(time+1);
+		assertEquals("times == getTimes)", activityFeed.getTimes(), times);
 		times.add("2017-04-08 00:18:05.704");
 		assertNotEquals("times != getTimes)", activityFeed.getTimes(), times);
+		
 	}
 	
 	@Test
