@@ -85,6 +85,18 @@ public class TaskTable extends JTable {
 
     public static final int TASK = 101;
 
+    static Color[] colors =
+        {
+            Color.YELLOW,
+            Color.ORANGE,
+            Color.RED,
+            Color.BLUE,
+            Color.GREEN,
+            Color.CYAN,
+            Color.MAGENTA,
+            Color.BLACK,
+            Color.WHITE,
+            Color.PINK };
     protected TreeTableCellRenderer tree;
 
     protected TaskTableModel model;
@@ -322,10 +334,18 @@ public class TaskTable extends JTable {
         public Component getTableCellRendererComponent(JTable table,
                 Object value, boolean isSelected, boolean hasFocus, int row,
                 int column) {
-            if (isSelected)
-                setBackground(table.getSelectionBackground());
-            else
+            if (!(value instanceof Task))
+                return null;
+            
+            Task t = (Task) value;
+            int color = t.getColor();
+            if (color != -1) {
+                setBackground(colors[color]);
+
+            }
+            else {
                 setBackground(table.getBackground());
+            }
             visibleRow = row;
             return this;
         }

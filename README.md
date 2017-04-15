@@ -30,6 +30,9 @@ Ruan - Initial Commit
 David - Commit test
 Hieu - Initialized for Sprint 2
 
+Branch US-73
+Updated tasks group.
+
 
 Created branch US-74
 
