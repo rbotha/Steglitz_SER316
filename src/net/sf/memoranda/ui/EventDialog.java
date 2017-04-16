@@ -37,6 +37,15 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Local;
 import javax.swing.BoxLayout;
@@ -459,6 +468,17 @@ public class EventDialog extends JDialog implements WindowListener {
         disableElements();
         ((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("HH:mm");
         enableEndDateCB_actionPerformed(null);
+        
+        
+        
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+	            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel"); //$NON-NLS-1$
+	        getRootPane().getActionMap().put("Cancel", new AbstractAction(){ //$NON-NLS-1$
+	            public void actionPerformed(ActionEvent e)
+	            {
+	            	 cancelB_actionPerformed(e);
+	            }
+	        });
         
     }
 

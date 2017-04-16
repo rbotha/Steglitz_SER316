@@ -9,6 +9,16 @@ import net.sf.memoranda.util.Local;
 import javax.swing.*;
 import java.awt.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
+
 /*$Id: ProjectExportDialog.java,v 1.3 2004/04/05 10:05:44 alexeya Exp $*/
 public class ProjectExportDialog extends JDialog {
 
@@ -105,6 +115,17 @@ public class ProjectExportDialog extends JDialog {
     jPanel3.add(okB, null);
     jPanel3.add(cancelB, null);
     jPanel4.add(titlesAsHeadersChB, null);
+    
+    getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel"); //$NON-NLS-1$
+        getRootPane().getActionMap().put("Cancel", new AbstractAction(){ //$NON-NLS-1$
+            public void actionPerformed(ActionEvent e)
+            {
+              dispose();
+            }
+        });
+    
+   
   }
 
    void cancelB_actionPerformed(ActionEvent e) {

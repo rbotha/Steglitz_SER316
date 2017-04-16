@@ -1,8 +1,8 @@
 /*
   File:				GoogleMail.java
-  Author:			doraemon
-  Date:				02/12/2016
-  
+  Author:			djekujieng
+  Date:				04/23/2016
+
   Description:		Send email using GMail SMTP server.
 */
 package net.sf.memoranda;
@@ -19,16 +19,28 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
- *
- * @author doraemon
- */
- /**
-  Class:			GoogleMail
-
-  Description:		Send email using GMail SMTP server.
+  Class: 		GoogleMail	
+  
+  Description:	Send e-mail using Google's GMAIL SMTP server
 */
 public class GoogleMail {
     private GoogleMail() {
+    }
+
+    /**
+     * This function will determine whether or not a string is a valid email address
+     * according to RFC 5322 Official Standard
+     * @param  e the string to check
+     * @return   true if valid, false if not
+     */
+    public static boolean IsValidEmail(final String e) {
+        if (e == null) {
+            return false;
+        }
+        String regexp = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(regexp);
+        java.util.regex.Matcher matcher = pattern.matcher(e);
+        return matcher.matches();
     }
 
     /**
@@ -42,21 +54,38 @@ public class GoogleMail {
      * @throws AddressException if the email address parse failed
      * @throws MessagingException if the connection is dead or not in the connected state or if the message is not a MimeMessage
      */
+    public static boolean IsValidEmail(final String e) {
+        if (e == null) {
+            return false;
+        }
+        String regexp = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(regexp);
+        java.util.regex.Matcher matcher = pattern.matcher(e);
+        return matcher.matches();
+    }
+	
+	/**
+     * Method: 	Send()
+	 * Inputs: 	String username, String password, String recipientEmail, 
+	 * 			String title, String message
+	 * Returns: none
+	 * 
+	 * Description: This function will send an e-mail using Google's GMAIL SMTP server. 
+	 * 
+     */   
     public static void Send(final String username, final String password, String recipientEmail, String title, String message) throws AddressException, MessagingException {
         GoogleMail.Send(username, password, recipientEmail, "", title, message);
     }
 
-    /**
-     * Send email using GMail SMTP server.
-     *
-     * @param username GMail username
-     * @param password GMail password
-     * @param recipientEmail TO recipient
-     * @param ccEmail CC recipient. Can be empty if there is no CC recipient
-     * @param title title of the message
-     * @param message message to be sent
-     * @throws AddressException if the email address parse failed
-     * @throws MessagingException if the connection is dead or not in the connected state or if the message is not a MimeMessage
+    
+	/**
+     * Method: 	Send() - Overloaded, with ccEmail.
+	 * Inputs: 	String username, String password, String recipientEmail, 
+	 * 			String ccEmail, String title, String message
+	 * Returns: none
+	 * 
+	 * Description: This function will send an e-mail using Google's GMAIL SMTP server. 
+	 * 
      */
     public static void Send(final String username, final String password, String recipientEmail, String ccEmail, String title, String message) throws AddressException, MessagingException {
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
@@ -71,13 +100,15 @@ public class GoogleMail {
         props.setProperty("mail.smtp.socketFactory.port", "465");
         props.setProperty("mail.smtps.auth", "true");
 
-        /*
-        If set to false, the QUIT command is sent and the connection is immediately closed. If set
-        to true (the default), causes the transport to wait for the response to the QUIT command.
-
-        ref :   http://java.sun.com/products/javamail/javadocs/com/sun/mail/smtp/package-summary.html
-                http://forum.java.sun.com/thread.jspa?threadID=5205249
-                smtpsend.java - demo program from javamail
+        /**
+         * If set to false, the QUIT command is sent and the connection is immediately closed. 
+		 * If set to true (the default), causes the transport to wait for the response to the 
+		 * QUIT command.
+		 *
+		 * ref :   http://java.sun.com/products/javamail/javadocs/com/sun/mail/smtp/package-summary.html
+		 *
+         *         http://forum.java.sun.com/thread.jspa?threadID=5205249
+         *         smtpsend.java - demo program from javamail
         */
         props.put("mail.smtps.quitwait", "false");
 
@@ -105,3 +136,4 @@ public class GoogleMail {
         t.close();
     }
 }
+
