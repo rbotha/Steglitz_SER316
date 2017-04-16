@@ -10,6 +10,8 @@ import net.sf.memoranda.ui.ContactsMenu;
 
 public class ContactsMenuTest {
 
+	ContactsMenu contactsMenu;
+	
 	@BeforeClass
 	public static void setupBeforeClass() throws Exception{
 		
@@ -17,21 +19,19 @@ public class ContactsMenuTest {
 	
 	@Before
 	public void setup() throws Exception{
-		
+		contactsMenu = new ContactsMenu();
 	}
 	
 	//Tests basic email retrieval 
 	@Test
 	public void testGetContactEmail(){
-		ContactsMenu contactsMenu = new ContactsMenu();
-		
+
 		assertTrue(contactsMenu.getContactEmail(0));
 	}
 	
 	//Tests that the email client was successfully open
 	@Test
 	public void testOpenEmailClient(){
-		ContactsMenu contactsMenu = new ContactsMenu();
 		assertTrue(contactsMenu.openEmailClient(""));
 	}
 }

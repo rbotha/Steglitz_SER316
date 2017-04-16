@@ -33,8 +33,6 @@ public class Contacts extends JPanel{
 	ContactsAddDialog dialog;
 	JScrollPane scrollPane = new JScrollPane();
 	
-	JMenuItem contactMenu = new JMenuItem("Contact Menu");
-	
 	public Contacts(DailyItemsPanel _parentPanel) {
         try {
             parentPanel = _parentPanel;
@@ -107,17 +105,11 @@ public class Contacts extends JPanel{
 		});
 		this.add(btnDeleteContact);
 		
-		//Menu Items For Right Click Menu
-		contactMenu = new JMenuItem("Email Contact");
-		add(contactMenu);
-		
 		list.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent e){
 				if(e.getButton() == MouseEvent.BUTTON3){
-					//contactsMenu menu = new contactsMenu();
-					
-					if(list.getSelectedIndex() != -1){
+						if(list.getSelectedIndex() != -1){
 						ContactsMenu menu = new ContactsMenu(list.getSelectedIndex());
 						menu.show(e.getComponent(),e.getX(),e.getY());
 					}
