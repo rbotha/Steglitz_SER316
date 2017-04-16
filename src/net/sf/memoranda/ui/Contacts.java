@@ -12,6 +12,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import java.net.URI;
 
 import com.opencsv.CSVReader;
@@ -104,6 +112,7 @@ public class Contacts extends JPanel{
 			}
 		});
 		this.add(btnDeleteContact);
+		loadContacts();
 		
 		//Added by Greg Schoberth
 		//Sprint 2
@@ -124,6 +133,10 @@ public class Contacts extends JPanel{
 		
 
 		
+	}
+	//get List
+	DefaultListModel<String> getList(){
+		return listModel;
 	}
 	
 }
