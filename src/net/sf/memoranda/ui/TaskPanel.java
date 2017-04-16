@@ -10,9 +10,11 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.print.PrinterException;
+import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
@@ -571,6 +573,7 @@ public class TaskPanel extends JPanel {
 		t.setActLOC(actLOC);
 		t.setTimestamp(dlg.timestamp);
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
+        t.setEdit(new Timestamp(Calendar.getInstance().getTimeInMillis()));
         
 //		CurrentProject.getTaskList().adjustParentTasks(t);
 
@@ -629,8 +632,10 @@ public class TaskPanel extends JPanel {
             }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid actual LOC."));
         } 
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
+
 		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),
-				effort,actualEffort,timestamp, dlg.descriptionField.getText(),null, errorsAdded, errorsFixed, estLOC, actLOC);
+				effort,actualEffort,timestamp, dlg.descriptionField.getText(),null, errorsAdded, errorsFixed, estLOC, actLOC, new Timestamp(Calendar.getInstance().getTimeInMillis()));
+      
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
         if (dlg.taskColor.getSelectedIndex() == 10) {
             newTask.setColor(-1);
@@ -679,6 +684,7 @@ public class TaskPanel extends JPanel {
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
         long actualEffort = Util.getMillisFromHours(dlg.actualEffortField.getText());
         long timestamp = dlg.timestamp;
+      
         int errorsAdded = 0;
         if (!dlg.errorsAddedField.getText().isEmpty())
 	        try {
@@ -704,8 +710,9 @@ public class TaskPanel extends JPanel {
 		    }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid actual LOC."));
 		}
 		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),
-				effort,actualEffort,timestamp, dlg.descriptionField.getText(),null, errorsAdded, errorsFixed, estLOC, actLOC);
+				effort,actualEffort,timestamp, dlg.descriptionField.getText(),null, errorsAdded, errorsFixed, estLOC, actLOC, new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
+
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 
 		CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
