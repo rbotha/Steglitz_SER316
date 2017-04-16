@@ -1,3 +1,11 @@
+/*
+  File:       CalendarDateTest.java
+  Author:     hqpham
+  Date:       04/09/2017
+
+  Description:    Tests CalendarDate class
+*/
+
 package net.sf.memoranda.tests;
 
 import static org.junit.Assert.*;
