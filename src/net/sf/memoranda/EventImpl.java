@@ -165,7 +165,7 @@ public class EventImpl implements Event, Comparable {
 		Event event = (Event) o;
 		return (getHour() * 60 + getMinute()) - (event.getHour() * 60 + event.getMinute());
 	}
-
+	
     private void setAttr(String a, String value) {
         Attribute attr = _elem.getAttribute(a);
         if (attr == null)
@@ -175,9 +175,12 @@ public class EventImpl implements Event, Comparable {
     }
 
     /**
-     * This sends an email about the event to the email address
-     * @return false for failure, true for success
-     */
+  		Method:		sendEmail()
+  		Inputs:		None
+  		Returns:	boolean
+
+  		Description:	Send out an e-mail about an event to receipient address.
+	*/
     public boolean sendEmail() {
         String destEmail = getEmail();
 

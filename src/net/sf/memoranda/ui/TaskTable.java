@@ -8,10 +8,12 @@
  * Created           18.05.2005 15:12:19
  * Revision info     $RCSfile: TaskTable.java,v $ $Revision: 1.26 $ $State: Exp $  
  *
- * Last modified on  $Date: 2007/01/05 10:33:26 $
- *               by  $Author: alexeya $
+ * Last modified on  $Date: 2017/4/08 $
+ *               by  $Author: drmorri8 $
  * 
- * @VERSION@ 
+ * @VERSION@  TaskTableModel.java,v 1.7 2017/4/08 drmorri8 Exp $
+ *
+ * @author $Author: alexeya $
  *
  * @COPYRIGHT@
  * 
@@ -85,6 +87,18 @@ public class TaskTable extends JTable {
 
     public static final int TASK = 101;
 
+    static Color[] colors =
+        {
+            Color.YELLOW,
+            Color.ORANGE,
+            Color.RED,
+            Color.BLUE,
+            Color.GREEN,
+            Color.CYAN,
+            Color.MAGENTA,
+            Color.BLACK,
+            Color.WHITE,
+            Color.PINK };
     protected TreeTableCellRenderer tree;
 
     protected TaskTableModel model;
@@ -152,8 +166,8 @@ public class TaskTable extends JTable {
 
 		setDefaultEditor(TreeTableModel.class, new TreeTableCellEditor());
 		
-		// column name is repeated in 2 places, do something about it!
-		getColumn( "% " + Local.getString("done") ).setCellEditor(new TaskProgressEditor());
+		if (getColumn( Local.getString("% done") ) != null)
+			getColumn(Local.getString("% done")).setCellEditor(new TaskProgressEditor());
 		
 		// TODO: editor for task progress
 		
@@ -176,21 +190,21 @@ public class TaskTable extends JTable {
     }
 
     void initColumnWidths() {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < getColumnCount(); i++) {
             TableColumn column = getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(8);
             } 
             else if (i == 1) {
-                column.setPreferredWidth(32767);
+            	column.setPreferredWidth(30000); //32767, decreased to fit new columns.
             }
-	    else if( i == 6 ){
-		    column.setPreferredWidth(100);
-		    column.setMinWidth(100);
+			else if( i == 6 ){
+				column.setPreferredWidth(100);
+				column.setMinWidth(100);
 	    }
             else {
-                column.setMinWidth(67); // 65);
-                column.setPreferredWidth(67); //65);
+            	column.setPreferredWidth(67); //65);
+            	column.setMinWidth(67); // 65);
             }
         }
     }
@@ -322,10 +336,18 @@ public class TaskTable extends JTable {
         public Component getTableCellRendererComponent(JTable table,
                 Object value, boolean isSelected, boolean hasFocus, int row,
                 int column) {
-            if (isSelected)
-                setBackground(table.getSelectionBackground());
-            else
+            if (!(value instanceof Task))
+                return null;
+            
+            Task t = (Task) value;
+            int color = t.getColor();
+            if (color != -1) {
+                setBackground(colors[color]);
+
+            }
+            else {
                 setBackground(table.getBackground());
+            }
             visibleRow = row;
             return this;
         }

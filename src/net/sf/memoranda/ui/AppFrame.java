@@ -155,7 +155,7 @@ public class AppFrame extends JFrame {
             workPanel.dailyItemsPanel.editorPanel.exportAction);
     JMenuItem jMenuFileMin = new JMenuItem(minimizeAction);
 
-   // JMenuItem jMenuItem1 = new JMenuItem();
+    JMenuItem jMenuItem1 = new JMenuItem();
     JMenuItem jMenuEditUndo = new JMenuItem(editor.undoAction);
     JMenuItem jMenuEditRedo = new JMenuItem(editor.redoAction);
     JMenuItem jMenuEditCut = new JMenuItem(editor.cutAction);
