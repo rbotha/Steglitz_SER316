@@ -64,7 +64,7 @@ public class GoogleMail {
      * Method: 	Send() - Overloaded, with ccEmail.
 	 * Inputs: 	String username, String password, String recipientEmail, 
 	 * 			String ccEmail, String title, String message
-	 * Returns: none
+	 * Returns: none (void)
 	 * 
 	 * Description: This function will send an e-mail using Google's GMAIL SMTP server. 
 	 * 
