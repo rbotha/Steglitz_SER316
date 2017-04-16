@@ -51,11 +51,11 @@ public class ActivityFeedPanelTest {
 		hrBehind = Long.parseLong("-4000000")+zone.getInstance().getTimeInMillis();//hour behind
 		zone = Calendar.getInstance();//Current time
 		
-		taskList.createTask(CalendarDate.today(), CalendarDate.yesterday(), "Current time", 0, pastHr, pastHr, pastHr, "True",null, new Timestamp(zone.getTimeInMillis()));
-		taskList.createTask(CalendarDate.today(), CalendarDate.yesterday(), "Couple minutes ahead of current time", 0, pastHr, pastHr, pastHr, "True",null, new Timestamp(minAhead));
-		taskList.createTask(CalendarDate.today(), CalendarDate.yesterday(), "On next hr but not an actual hour", 0, pastHr, pastHr, pastHr, "True",null, new Timestamp(hrAhead));
-		taskList.createTask(CalendarDate.today(), CalendarDate.yesterday(), "Past 2 hours", 0, pastHr, pastHr, pastHr, "True",null, new Timestamp(pastHr));
-		taskList.createTask(CalendarDate.today(), CalendarDate.yesterday(), "behing an hour", 0, pastHr, pastHr, pastHr, "True",null, new Timestamp(hrBehind));
+		taskList.createTask(CalendarDate.today(), CalendarDate.yesterday(), "Current time", 0, pastHr, pastHr, pastHr, "True",null,0,0,0,0, new Timestamp(zone.getTimeInMillis()));
+		taskList.createTask(CalendarDate.today(), CalendarDate.yesterday(), "Couple minutes ahead of current time", 0, pastHr, pastHr, pastHr, "True",null,0,0,0,0, new Timestamp(minAhead));
+		taskList.createTask(CalendarDate.today(), CalendarDate.yesterday(), "On next hr but not an actual hour", 0, pastHr, pastHr, pastHr, "True",null,0,0,0,0, new Timestamp(hrAhead));
+		taskList.createTask(CalendarDate.today(), CalendarDate.yesterday(), "Past 2 hours", 0, pastHr, pastHr, pastHr, "True",null,0,0,0,0, new Timestamp(pastHr));
+		taskList.createTask(CalendarDate.today(), CalendarDate.yesterday(), "behing an hour", 0, pastHr, pastHr, pastHr, "True",null,0,0,0,0, new Timestamp(hrBehind));
 		
 		noteList.createNoteForDate(CalendarDate.yesterday()).setEdit(new Timestamp(minAhead));
 		noteList.createNoteForDate(CalendarDate.yesterday()).setEdit(new Timestamp(pastHr));
@@ -83,7 +83,7 @@ public class ActivityFeedPanelTest {
 
 		assertTrue(activityPanel.refresh());
 		
-		taskList.createTask(CalendarDate.today(), CalendarDate.yesterday(), "Null Value: Exception", 0, pastHr, pastHr, pastHr, "False",null, null);
+		taskList.createTask(CalendarDate.today(), CalendarDate.yesterday(), "Null Value: Exception", 0, pastHr, pastHr, pastHr, "False",null,0,0,0,0, null);
 		assertFalse(activityPanel.refresh());//return false
 
 	}
