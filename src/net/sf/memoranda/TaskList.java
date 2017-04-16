@@ -7,6 +7,7 @@
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
 package net.sf.memoranda;
+import java.sql.Timestamp;
 import java.util.Collection;
 
 import net.sf.memoranda.date.CalendarDate;
@@ -20,7 +21,7 @@ public interface TaskList {
     Task getTask(String id);
 
     Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, long actualEffort,
-    		long timestamp, String description, String parentTaskId, int errorsAdded, int errorsFixed, int estLOC, int actLOC);
+    		long timestamp, String description, String parentTaskId, int errorsAdded, int errorsFixed, int estLOC, int actLOC, Timestamp edit);
 
     void removeTask(Task task);
 
@@ -29,7 +30,7 @@ public interface TaskList {
 	public boolean hasParentTask(String id);
 
 	public Collection getTopLevelTasks();
-	
+	public Collection getAllTask();
     public Collection getAllSubTasks(String taskId);
     public Collection getActiveSubTasks(String taskId,CalendarDate date);
     

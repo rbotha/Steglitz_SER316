@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -103,11 +103,12 @@ public class DailyItemsPanel extends JPanel {
     JButton taskB = new JButton();
     JPanel mainTabsPanel = new JPanel();
     NotesControlPanel notesControlPane = new NotesControlPanel();
+    ActivityFeedPanel agendaControlPane = new ActivityFeedPanel();
     CardLayout cardLayout2 = new CardLayout();
         
     JTabbedPane tasksTabbedPane = new JTabbedPane();
     JTabbedPane eventsTabbedPane = new JTabbedPane();
-	JTabbedPane agendaTabbedPane = new JTabbedPane();
+	//JTabbedPane agendaTabbedPane = new JTabbedPane();
 	JTabbedPane contactsTabbedPane = new JTabbedPane();
     Border border2;
 
@@ -175,7 +176,7 @@ public class DailyItemsPanel extends JPanel {
         controlPanel.setBorder(border2);
         controlPanel.setLayout(new BorderLayout());
         controlPanel.setMinimumSize(new Dimension(20, 170));
-        controlPanel.setPreferredSize(new Dimension(205, 170));
+        controlPanel.setPreferredSize(new Dimension(280, 170));
         controlPanel2.setBackground(new Color(230, 230, 230));
         controlPanel2.setBorder(border2);
         controlPanel2.setLayout(new BorderLayout());
@@ -359,7 +360,7 @@ public class DailyItemsPanel extends JPanel {
         mainTabsPanel.add(eventsTabbedPane, "EVENTSTAB");
         mainTabsPanel.add(tasksTabbedPane, "TASKSTAB");
         mainTabsPanel.add(notesControlPane, "NOTESTAB");
-		mainTabsPanel.add(agendaTabbedPane, "AGENDATAB");
+		mainTabsPanel.add(agendaControlPane, "AGENDATAB");
 		mainTabsPanel.add(contactsTabbedPane, "CONTACTSTAB");
         updateIndicators(CurrentDate.get(), CurrentProject.getTaskList());
         mainPanel.setBorder(null);
@@ -415,6 +416,7 @@ public class DailyItemsPanel extends JPanel {
 	            saveNote();				
 			}
 			notesControlPane.refresh();
+			agendaControlPane.refresh();
         }
 		currentNote = note;
 		editorPanel.setDocument(currentNote);
@@ -459,6 +461,7 @@ public class DailyItemsPanel extends JPanel {
             currentNote = CurrentProject.getNoteList().createNoteForDate(currentDate);
         currentNote.setTitle(editorPanel.titleField.getText());
 		currentNote.setId(Util.generateId());
+		currentNote.setEdit(new Timestamp(Calendar.getInstance().getTimeInMillis()));//Save time stamp to note.
         CurrentStorage.get().storeNote(currentNote, editorPanel.getDocument());
         /*DEBUG* System.out.println("Save");*/
     }
@@ -527,8 +530,10 @@ public class DailyItemsPanel extends JPanel {
         boolean isAg = pan.equals("AGENDA");
         //boolean isContacts = pan.equals("CONTACTS");
         agendaPanel.setActive(isAg);
-        if (isAg)
+        if (isAg){
         	agendaPanel.refresh(CurrentDate.get());
+        	agendaControlPane.refresh();
+        }
         cardLayout1.show(editorsPanel, pan);
         cardLayout2.show(mainTabsPanel, pan + "TAB");
 		calendar.jnCalendar.updateUI();

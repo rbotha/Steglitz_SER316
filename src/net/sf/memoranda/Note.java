@@ -8,6 +8,8 @@
  */
 package net.sf.memoranda;
 
+import java.sql.Timestamp;
+
 import net.sf.memoranda.date.CalendarDate;
 /**
  * 
@@ -22,6 +24,9 @@ public interface Note {
     
 	String getId();
 	void setId(String s);
+	
+	Timestamp getEdit();
+	void setEdit(Timestamp s);
 	
     boolean isMarked();
     void setMark(boolean mark);

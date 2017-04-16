@@ -10,6 +10,7 @@ package net.sf.memoranda;
 
 import java.util.Collection;
 import java.util.Vector;
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 import net.sf.memoranda.date.CalendarDate;
@@ -490,11 +491,37 @@ public class TaskImpl implements Task, Comparable {
 		return false;
 	}
   
-	public void setEstLOC(long estLOC) {
-		setAttr("estloc", String.valueOf(estLOC));
-		
+	
+
+	/* (non-Javadoc)
+	 * @see net.sf.memoranda.Task#getEdit()
+	 */
+	@Override
+	public Timestamp getEdit() {
+		//Get date task was edited
+		Attribute ts = _element.getAttribute("edit");
+		if (ts == null)//If timestamp is null/empty
+			return null;
+		return Timestamp.valueOf(_element.getAttribute("edit").getValue());
 	}
 
+	/* (non-Javadoc)
+	 * @see net.sf.memoranda.Task#setEdit(java.sql.Timestamp)
+	 */
+	@Override
+	public void setEdit(Timestamp s) {
+		// Set date task was edited
+		Attribute ts = _element.getAttribute("edit");
+		if (ts == null) _element.addAttribute(new Attribute("edit", s.toString()));
+		else 
+			ts.setValue(s.toString());
+		
+	}
+  public void setEstLOC(long estLOC) {
+	  	setAttr("estloc", String.valueOf(estLOC));
+		
+	}
+	
 	public int getEstLOC() {
 		// TODO Auto-generated method stub
 		Attribute attr = _element.getAttribute("estloc");

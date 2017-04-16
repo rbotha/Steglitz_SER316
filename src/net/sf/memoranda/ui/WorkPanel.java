@@ -248,7 +248,9 @@ public class WorkPanel extends JPanel {
 
 	public void selectPanel(String pan) {
 		if (pan != null) {
-			if (pan.equals("NOTES"))
+			if (pan.equals("AGENDA"))
+				agendaB_actionPerformed(null);
+			else if (pan.equals("NOTES"))
 				notesB_actionPerformed(null);
 			else if (pan.equals("TASKS"))
 				tasksB_actionPerformed(null);
