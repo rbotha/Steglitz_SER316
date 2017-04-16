@@ -43,7 +43,9 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
             Local.getString("Start date"), Local.getString("End date"),
             Local.getString("Priority"), Local.getString("Status"),
             Local.getString("% done"), Local.getString("EST EFFORT(hrs)"),
-            Local.getString("Actual Effort(hrs)")};
+            Local.getString("Actual Effort(hrs)"), Local.getString("Errors Added"),
+            Local.getString("Errors Fixed"), Local.getString("Est. LOC"), 
+            Local.getString("Act. LOC") };
 
     protected EventListenerList listenerList = new EventListenerList();
 
@@ -103,6 +105,14 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
             return Math.floor((t.getEffort()) / 1000 / 36) / 100;
 		case 8:
             return Math.floor((t.getActualEffort()) / 1000 / 36) / 100; 
+        case 9:
+        	return t.getErrorsAdded();
+        case 10:
+        	return t.getErrorsFixed();
+        case 11:
+        	return String.valueOf(t.getEstLOC());
+        case 12:
+        	return String.valueOf(t.getActLOC());
         case TaskTable.TASK_ID:
             return t.getID();
         case TaskTable.TASK:
@@ -193,11 +203,19 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
             case 5:
                 return Class.forName("java.lang.String");
             case 6:
-                return Class.forName("java.lang.Integer");
-			case 7:
+            	return Class.forName("java.lang.Integer");
+            case 7:
                 return Class.forName("java.lang.String");
 			case 8:
                 return Class.forName("java.lang.String");
+            case 9:
+            	return Class.forName("java.lang.Integer");
+            case 10:
+                return Class.forName("java.lang.Integer");
+            case 11:
+                return Class.forName("java.lang.Integer");
+            case 12:
+                return Class.forName("java.lang.Integer");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
