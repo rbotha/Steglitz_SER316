@@ -65,6 +65,7 @@ public class TaskImpl implements Task, Comparable {
     public void setEndDate(CalendarDate date) {
 		if (date == null)
 			setAttr("endDate", "");
+		else
 		setAttr("endDate", date.toString());
     }
 
@@ -110,6 +111,56 @@ public class TaskImpl implements Task, Comparable {
 	*/
     public void setActualEffort(long actualEffort) {
         setAttr("actualEffort", String.valueOf(actualEffort));
+    }
+    
+	/**
+	*	Gets the number of logged errors in a task.
+	*/
+    public int getErrorsAdded() {
+    	Attribute attr = _element.getAttribute("errorsAdded");
+    	if (attr == null) {
+    		return 0;
+    	}
+    	else {
+    		try {
+        		return Integer.parseInt(attr.getValue());
+    		}
+    		catch (NumberFormatException e) {
+    			return 0;
+    		}
+    	}
+    }
+
+	/**
+	*	Sets the number of logged errors in a task.
+	*/
+    public void setErrorsAdded(int errorsAdded) {
+        setAttr("errorsAdded", String.valueOf(errorsAdded));
+    }
+    
+	/**
+	*	Gets the number of fixed errors in a task.
+	*/
+    public int getErrorsFixed() {
+    	Attribute attr = _element.getAttribute("errorsFixed");
+    	if (attr == null) {
+    		return 0;
+    	}
+    	else {
+    		try {
+        		return Integer.parseInt(attr.getValue());
+    		}
+    		catch (NumberFormatException e) {
+    			return 0;
+    		}
+    	}
+    }
+
+	/**
+	*	Sets the number of fixed errors in a task.
+	*/
+    public void setErrorsFixed(int errorsFixed) {
+        setAttr("errorsFixed", String.valueOf(errorsFixed));
     }
 	
 	/**
@@ -438,6 +489,65 @@ public class TaskImpl implements Task, Comparable {
 				return true;
 		return false;
 	}
+  
+	public void setEstLOC(long estLOC) {
+		setAttr("estloc", String.valueOf(estLOC));
+		
+	}
 
-	
+	public int getEstLOC() {
+		// TODO Auto-generated method stub
+		Attribute attr = _element.getAttribute("estloc");
+    	if (attr == null) {
+    		return 0;
+    	}
+    	else {
+    		try {
+        		return Integer.parseInt(attr.getValue());
+    		}
+    		catch (NumberFormatException e) {
+    			return 0;
+    		}
+    	}
+	}
+
+	public void setActLOC(long actLOC) {
+		setAttr("actloc", String.valueOf(actLOC));
+		
+	}
+
+	public int getActLOC() {
+		Attribute attr = _element.getAttribute("actloc");
+    	if (attr == null) {
+    		return 0;
+    	}
+    	else {
+    		try {
+        		return Integer.parseInt(attr.getValue());
+    		}
+    		catch (NumberFormatException e) {
+    			return 0;
+    		}
+    	}
+	}
+	/**
+     * This function returns the color value (-1 for none, otherwise 0-9)
+     * @return color value
+     */
+    public int getColor() {
+        try {
+            return new Integer(_element.getAttribute("taskColor").getValue());
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+    /**
+     * This function sets the color field in task
+     * @param  c the color to set to
+     */
+    public void setColor(int c) {
+        if (c >= -1) {
+            setAttr("taskColor", ""+c);
+        }
+    }
 }

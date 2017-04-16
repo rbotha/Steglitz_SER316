@@ -34,13 +34,19 @@ public class TaskTableSorter extends TaskTableModel{
 			
 			// based on TaskTableModel.columnNames
 			switch(sorting_column){
+				case 0: return task1.getPriority() - task2.getPriority();	
 				case 1: return task1.getText().compareTo(task2.getText());
 				case 2: return task1.getStartDate().getDate().compareTo(task2.getStartDate().getDate());
 				case 3: return task1.getEndDate().getDate().compareTo(task2.getEndDate().getDate());
-				case 0: // task priority, same as 4
 				case 4: return task1.getPriority() - task2.getPriority();
 				case 5: return task1.getStatus( CurrentDate.get() ) - task2.getStatus( CurrentDate.get() );
 				case 6: return task1.getProgress() - task2.getProgress();
+				case 7: return (int)(task1.getEffort() - task2.getEffort());
+				case 8: return (int)(task1.getActualEffort() - task2.getActualEffort());
+				case 9: return task1.getErrorsAdded() - task2.getErrorsAdded();
+				case 10: return task1.getErrorsFixed() - task2.getErrorsFixed();
+				case 11: return task1.getEstLOC() - task2.getEstLOC();
+				case 12: return task1.getActLOC() - task2.getActLOC();
 			}
 			
 			return 0;

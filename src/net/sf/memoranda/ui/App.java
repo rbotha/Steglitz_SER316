@@ -35,8 +35,8 @@ public class App {
        The actual values are substituted by the Ant build script using 
        'version' property and datestamp.*/
 
-	public static final String VERSION_INFO = "1.0-rc1.0";
-	public static final String BUILD_INFO = "20170326.00";
+	public static final String VERSION_INFO = "2.0-rc1.0";
+	public static final String BUILD_INFO = "20170404.00";
 	
 	/*========================================================================*/
 
