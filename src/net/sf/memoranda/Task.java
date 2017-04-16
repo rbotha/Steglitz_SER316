@@ -75,9 +75,21 @@ public interface Task {
     void setEffort(long effort);
     long getEffort();
     
+    void setEstLOC(long estLOC);
+    int getEstLOC();
+    
+    void setActLOC(long actLOC);
+    int getActLOC();
+    
     // Set/get actual time in a task
     void setActualEffort(long actualEffort);
     long getActualEffort();
+    
+    void setErrorsAdded(int errorsAdded);
+    int getErrorsAdded();
+    
+    void setErrorsFixed(int errorsFixed);
+    int getErrorsFixed();
 	
 	void setTimestamp(long timestamp);
     long getTimestamp();
