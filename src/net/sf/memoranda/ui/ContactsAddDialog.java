@@ -74,7 +74,7 @@ public class ContactsAddDialog extends JFrame {
 			JOptionPane.showMessageDialog(this, Local.getString("No contact selected"));
 		}
 	}
-	public boolean addContact(String firstName, String lastName, String address, String phoneNumber, String faxNumber, String otherNumber){
+	private void addContact(String firstName, String lastName, String address, String phoneNumber, String faxNumber, String otherNumber){
 		CSVWriter writer;
 		try {
 			Contact contact = new Contact(firstName, lastName, address, phoneNumber, faxNumber, otherNumber);
@@ -94,12 +94,9 @@ public class ContactsAddDialog extends JFrame {
 			 txtfaxNumber.setText("");
 			 txtOther.setText("");
 			 
-			 return true;
-			 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			new ExceptionDialog(e);
-			return false;
 		}
 	}
 	public ContactsAddDialog() {

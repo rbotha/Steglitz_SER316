@@ -439,46 +439,5 @@ public class TaskImpl implements Task, Comparable {
 		return false;
 	}
 
-	public void setEstLOC(long estLOC) {
-		setAttr("estloc", String.valueOf(estLOC));
-		
-	}
-
-	public long getEstLOC() {
-		// TODO Auto-generated method stub
-		Attribute attr = _element.getAttribute("estloc");
-    	if (attr == null) {
-    		return 0;
-    	}
-    	else {
-    		try {
-        		return Long.parseLong(attr.getValue());
-    		}
-    		catch (NumberFormatException e) {
-    			return 0;
-    		}
-    	}
-	}
-
-	public void setActLOC(long actLOC) {
-		setAttr("actloc", String.valueOf(actLOC));
-		
-	}
-
-	public long getActLOC() {
-		Attribute attr = _element.getAttribute("actloc");
-    	if (attr == null) {
-    		return 0;
-    	}
-    	else {
-    		try {
-        		return Long.parseLong(attr.getValue());
-    		}
-    		catch (NumberFormatException e) {
-    			return 0;
-    		}
-    	}
-	}
-
 	
 }

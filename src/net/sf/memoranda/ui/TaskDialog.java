@@ -75,12 +75,6 @@ public class TaskDialog extends JDialog {
 	JLabel jLabelTimestamp = new JLabel();
 	JButton timestampB = new JButton();
 	
-	//added by rbotha for Est. LOC and Actual LOC
-	JLabel lblEstLOC = new JLabel();
-	JLabel lblActLOC = new JLabel();
-	JTextField txtEstLOC = new JTextField();
-	JTextField txtActLOC = new JTextField();
-	
 //    Border border7;
     Border border8;
     CalendarFrame startCalFrame = new CalendarFrame();
@@ -250,17 +244,6 @@ public class TaskDialog extends JDialog {
                 timestampB_actionPerformed(e);
             }
         });
-        
-        //added by rbotha for Actual and estimated LOC
-        lblEstLOC.setMaximumSize(new Dimension(100, 16));
-        lblEstLOC.setMinimumSize(new Dimension(60, 16));
-        lblEstLOC.setText(Local.getString("           Est. LOC"));
-        txtEstLOC.setPreferredSize(new Dimension(50, 24));
-        lblActLOC.setMaximumSize(new Dimension(100, 16));
-        lblActLOC.setMinimumSize(new Dimension(100, 16));
-        lblActLOC.setText(Local.getString("Act. LOC"));
-        txtActLOC.setPreferredSize(new Dimension(50, 24));
-        
 
         startDate.setBorder(border8);
         startDate.setPreferredSize(new Dimension(80, 24));                
@@ -385,10 +368,6 @@ public class TaskDialog extends JDialog {
         // timePanel.add(jLabelTimeHeader, BorderLayout.CENTER);
         timePanel.add(timestampB, BorderLayout.CENTER);
         timePanel.add(jLabelTimestamp, BorderLayout.CENTER);
-        timePanel.add(lblEstLOC, BorderLayout.CENTER);
-        timePanel.add(txtEstLOC, BorderLayout.CENTER);
-        timePanel.add(lblActLOC, BorderLayout.CENTER);
-        timePanel.add(txtActLOC, BorderLayout.CENTER);
         
         mPanel.add(buttonsPanel, BorderLayout.SOUTH);
         buttonsPanel.add(okB, null);

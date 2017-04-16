@@ -44,7 +44,7 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
     String[] columnNames = {"", Local.getString("To-do"),
             Local.getString("Start date"), Local.getString("End date"),
             Local.getString("Priority"), Local.getString("Status"),
-            "% " + Local.getString("done"), Local.getString("Est. LOC"), Local.getString("Act. LOC") };
+            "% " + Local.getString("done") };
 
     protected EventListenerList listenerList = new EventListenerList();
 
@@ -100,10 +100,6 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         case 6:            
             //return new Integer(t.getProgress());
 			return t;
-        case 7:
-        	return String.valueOf(t.getEstLOC());
-        case 8:
-        	return String.valueOf(t.getActLOC());
         case TaskTable.TASK_ID:
             return t.getID();
         case TaskTable.TASK:
@@ -193,10 +189,6 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
                 return Class.forName("java.util.Date");
             case 6:
                 return Class.forName("java.lang.Integer");
-            case 7:
-                return Class.forName("java.lang.String");
-            case 8:
-                return Class.forName("java.lang.String");
             }
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -499,11 +499,8 @@ public class TaskPanel extends JPanel {
         dlg.endDate.getModel().setValue(t.getEndDate().getDate());
         dlg.priorityCB.setSelectedIndex(t.getPriority());                
         dlg.effortField.setText(Util.getHoursFromMillis(t.getEffort()));
-        dlg.txtEstLOC.setText(String.valueOf(t.getEstLOC()));
-        dlg.txtActLOC.setText(String.valueOf(t.getActLOC()));
 		dlg.actualEffortField.setText(Util.getHoursFromMillis(t.getActualEffort()));
 		dlg.timestamp = t.getTimestamp();
-				
 		if (!(dlg.timestamp < 0)) {
 			Date timestampDate = new Date(dlg.timestamp);
 			DateFormat formatter = new SimpleDateFormat("HH:mm");
@@ -526,16 +523,6 @@ public class TaskPanel extends JPanel {
  			ed = new CalendarDate((Date) dlg.endDate.getModel().getValue());
  		else
  			ed = null;
- 		
- 		long estLOC = 0;
-        long actLOC = 0;
-        try{
-        	if(!dlg.txtEstLOC.getText().isEmpty()) {	estLOC = Long.parseLong(dlg.txtEstLOC.getText());	}
-        	if(!dlg.txtActLOC.getText().isEmpty()) {  	actLOC = Long.parseLong(dlg.txtActLOC.getText());	}
-        }catch(NumberFormatException ex){
-        	JOptionPane.showMessageDialog(this, "Please enter a valid number for LOC");
-        }
- 		
         t.setStartDate(sd);
         t.setEndDate(ed);
         t.setText(dlg.todoField.getText());
@@ -543,8 +530,6 @@ public class TaskPanel extends JPanel {
         t.setPriority(dlg.priorityCB.getSelectedIndex());
         t.setEffort(Util.getMillisFromHours(dlg.effortField.getText()));
 		t.setActualEffort(Util.getMillisFromHours(dlg.actualEffortField.getText()));
-		t.setEstLOC(estLOC);
-		t.setActLOC(actLOC);
 		t.setTimestamp(dlg.timestamp);
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
         
@@ -579,19 +564,8 @@ public class TaskPanel extends JPanel {
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
         long actualEffort = Util.getMillisFromHours(dlg.actualEffortField.getText());
         long timestamp = dlg.timestamp;
-        long estLOC = 0;
-        long actLOC = 0;
-        try{
-        	if(!dlg.txtEstLOC.getText().isEmpty()) {	estLOC = Long.parseLong(dlg.txtEstLOC.getText());	}
-        	if(!dlg.txtActLOC.getText().isEmpty()) {  	actLOC = Long.parseLong(dlg.txtActLOC.getText());	}
-        }catch(NumberFormatException ex){
-        	JOptionPane.showMessageDialog(this, "Please enter a valid number for LOC");
-        }
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), 
-				dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, 
-				dlg.descriptionField.getText(),null, estLOC, actLOC);
-		
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, dlg.descriptionField.getText(),null);
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
@@ -634,17 +608,7 @@ public class TaskPanel extends JPanel {
         long effort = Util.getMillisFromHours(dlg.effortField.getText());
         long actualEffort = Util.getMillisFromHours(dlg.actualEffortField.getText());
         long timestamp = dlg.timestamp;
-        long estLOC = 0;
-        long actLOC = 0;
-        try{
-        	if(!dlg.txtEstLOC.getText().isEmpty()) {	estLOC = Long.parseLong(dlg.txtEstLOC.getText());	}
-        	if(!dlg.txtActLOC.getText().isEmpty()) {  	actLOC = Long.parseLong(dlg.txtActLOC.getText());	}
-        	
-        }catch(NumberFormatException ex){
-        	JOptionPane.showMessageDialog(this, "Please enter a valid number for LOC");
-        }
-		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp,
-				dlg.descriptionField.getText(),parentTaskId, estLOC, actLOC);
+		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, dlg.descriptionField.getText(),parentTaskId);
         newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
 
