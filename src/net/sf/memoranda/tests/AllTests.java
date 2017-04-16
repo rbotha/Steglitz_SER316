@@ -5,8 +5,9 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ CalendarDateTest.class, ContactsTest.class, EmailTest.class, EventDialogTest.class, 
-	GoogleMailTest.class, ProjectImplTest.class, ResourcesImplTest.class, TaskImplTest.class })
+@SuiteClasses({ ActivityFeedPanelTest.class, ActivityFeedTest.class, CalendarDateTest.class, 
+	ContactsTest.class, EmailTest.class, EventDialogTest.class, GoogleMailTest.class, 
+	LocalTest.class, ProjectImplTest.class, ResourcesImplTest.class, TaskImplTest.class })
 public class AllTests {
 
 }

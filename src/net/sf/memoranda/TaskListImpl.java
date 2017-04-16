@@ -121,7 +121,7 @@ public class TaskListImpl implements TaskList {
     }
 
     public Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority,
-    		long effort,long actualEffort, long timestamp, String description, String parentTaskId, int errorsAdded, int errorsFixed, int estLOC, int actualLOC, Tmestamp edit) {
+    		long effort,long actualEffort, long timestamp, String description, String parentTaskId, int errorsAdded, int errorsFixed, int estLOC, int actualLOC, Timestamp edit) {
 
         Element el = new Element("task");
         el.addAttribute(new Attribute("startDate", startDate.toString()));
