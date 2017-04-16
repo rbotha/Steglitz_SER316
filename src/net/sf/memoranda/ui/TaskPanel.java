@@ -501,12 +501,12 @@ public class TaskPanel extends JPanel {
         dlg.effortField.setText(Util.getHoursFromMillis(t.getEffort()));
 		dlg.actualEffortField.setText(Util.getHoursFromMillis(t.getActualEffort()));
 		dlg.timestamp = t.getTimestamp();
-		if (!(dlg.timestamp < 0)) {
-			Date timestampDate = new Date(dlg.timestamp);
-			DateFormat formatter = new SimpleDateFormat("HH:mm");
-			dlg.jLabelTimestamp.setText(Local.getString("Work began at") + ": " + formatter.format(  timestampDate));
-			dlg.timestampB.setText(Local.getString("End work session"));
-		}
+        if (t.getColor() == -1) {
+            dlg.taskColor.setSelectedIndex(10);
+        } else {
+            dlg.taskColor.setSelectedIndex(t.getColor());
+        }
+        dlg.effortField.setText(Util.getHoursFromMillis(t.getEffort()));
 	if((t.getStartDate().getDate()).after(t.getEndDate().getDate()))
 		dlg.chkEndDate.setSelected(false);
 	else
@@ -528,6 +528,11 @@ public class TaskPanel extends JPanel {
         t.setText(dlg.todoField.getText());
         t.setDescription(dlg.descriptionField.getText());
         t.setPriority(dlg.priorityCB.getSelectedIndex());
+        if (dlg.taskColor.getSelectedIndex() == 10) {
+            t.setColor(-1);
+        } else {
+            t.setColor(dlg.taskColor.getSelectedIndex());
+        }
         t.setEffort(Util.getMillisFromHours(dlg.effortField.getText()));
 		t.setActualEffort(Util.getMillisFromHours(dlg.actualEffortField.getText()));
 		t.setTimestamp(dlg.timestamp);
@@ -567,6 +572,11 @@ public class TaskPanel extends JPanel {
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
 		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort,actualEffort,timestamp, dlg.descriptionField.getText(),null);
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
+        if (dlg.taskColor.getSelectedIndex() == 10) {
+            newTask.setColor(-1);
+        } else {
+            newTask.setColor(dlg.taskColor.getSelectedIndex());
+        }
 		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
         taskTable.tableChanged();
