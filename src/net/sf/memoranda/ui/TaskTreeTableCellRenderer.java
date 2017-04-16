@@ -4,6 +4,7 @@ package net.sf.memoranda.ui;
 import net.sf.memoranda.Project;
 import net.sf.memoranda.Task;
 import net.sf.memoranda.date.CurrentDate;
+import net.sf.memoranda.util.Local;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -98,7 +99,7 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
     }
 
     public Component getTableCellRendererComponent(JTable ignore, Object value, boolean selected,
-            boolean hasFocus, int row, int column) {        
+            boolean hasFocus, int row, int column) {
         Task t = (Task) table.getValueAt(row, 1);
         if (column == 1) {
             // this never happens because
@@ -119,26 +120,34 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             label.setText("");
             return label;
         }
-        // if( column_name.equals("% " + Local.getString("done")) ){
-        if (column == 6) {
+        String columnName = table.getColumnName(column);
+        if( columnName.equals(Local.getString("% done"))) {
+        //if (column == 6) {
             return getProgressCellRenderer(t, selected, hasFocus, column);
         }
-        // if( column_name.equals("") ){
-        if (column == 0) {
+        if( columnName.equals("") ){
+        //if (column == 0) {
             return getPriorityIconCellRenderer(t, selected, hasFocus);
         }
-        // if( column_name.equals(Local.getString("Start date")) ||
-        // column_name.equals(Local.getString("End date")) ){
-        if ((column == 2) || (column == 3)) {
+        if( columnName.equals(Local.getString("Start date")) ||
+        		columnName.equals(Local.getString("End date")) ){
+        // if ((column == 2) || (column == 3)) {
             label.setText(dateFormat.format((Date) value));
             return label;
         }
-        // if( column_name.equals( Local.getString("Status") ) ){
-        if (column == 5) {
+        if( columnName.equals(Local.getString("Status") ) ){
+        //if (column == 5) {
             label.setText(value.toString());
             label.setForeground(getColorForTaskStatus(t, false));
             return label;
         }
+        /* redundant
+        if( columnName.equals(Local.getString("EST EFFORT(hrs)")) ||
+        		columnName.equals(Local.getString("Actual Effort(hrs)")) ){
+            label.setText(value.toString());
+            return label;
+        } 
+        */
         label.setText(value.toString());
         return label;
     }
