@@ -265,7 +265,7 @@ public class ActivityFeed {
 		}//End if
 		//If updated a day ago
 		else if(day == 1){
-			msg = "Edited yesterday at "+yearTime.format(s);
+			msg = "Edited yesterday at "+yearTime.format(actTime);
 		}//end if
 
 		//Return msg
