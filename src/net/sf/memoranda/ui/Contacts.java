@@ -105,6 +105,9 @@ public class Contacts extends JPanel{
 		});
 		this.add(btnDeleteContact);
 		
+		//Added by Greg Schoberth
+		//Sprint 2
+		//Mouse Listener for opening right-click menu. Default options only currently show email option for contacts. 
 		list.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent e){

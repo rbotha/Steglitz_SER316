@@ -14,6 +14,14 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
+
+/**
+ * 
+ * April 15, 2017
+ * @author Gregory Schoberth
+ *
+ */
+
 public class ContactsMenu extends JPopupMenu{
 	
 	JMenuItem emailMenu;
@@ -25,7 +33,7 @@ public class ContactsMenu extends JPopupMenu{
 		
 	}
 	
-	//Constructor
+	//Single Parameter Constructor
 	public ContactsMenu(int contactIndex){
 		
 		emailMenu = new JMenuItem("Email Contact");
@@ -42,6 +50,8 @@ public class ContactsMenu extends JPopupMenu{
 		});		
 	}
 	
+	//Attempts to get the email address from the indicated index of the contacts CSV file.
+	//Will return true if the email address was recovered.
 	public boolean getContactEmail(int index){
 		System.out.println("Email Contact Selected"); //Debug Output
 		
@@ -62,6 +72,8 @@ public class ContactsMenu extends JPopupMenu{
 		return true;
 	}
 	
+	//Attempts to open the user's default email client. 
+	//Will return a value of true when the email client is successfully open.
 	public boolean openEmailClient(String emailAddress){
 		
 		Desktop desktop = Desktop.getDesktop();
