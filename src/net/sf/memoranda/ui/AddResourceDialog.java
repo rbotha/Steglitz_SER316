@@ -9,6 +9,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -23,8 +26,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.event.CaretEvent;
-
+import javax.swing.AbstractAction;
 import net.sf.memoranda.util.Local;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 
 /*$Id: AddResourceDialog.java,v 1.12 2007/03/20 06:21:46 alexeya Exp $*/
 public class AddResourceDialog extends JDialog {
@@ -188,6 +195,15 @@ public class AddResourceDialog extends JDialog {
         buttonsPanel.add(cancelB);
 		enableFields();
         this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
+        
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+	            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel"); //$NON-NLS-1$
+	        getRootPane().getActionMap().put("Cancel", new AbstractAction(){ //$NON-NLS-1$
+	            public void actionPerformed(ActionEvent e)
+	            {
+	            	cancelB_actionPerformed(e);
+	            }
+	        });
     }
 
 	/**

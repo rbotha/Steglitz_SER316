@@ -56,6 +56,14 @@ public class ResourceTypeDialog extends JDialog {
     }
 
     void jbInit() throws Exception {
+    	   getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+   	            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel"); //$NON-NLS-1$
+   	        getRootPane().getActionMap().put("Cancel", new AbstractAction(){ //$NON-NLS-1$
+   	            public void actionPerformed(ActionEvent e)
+   	            {
+   	            	cancelB_actionPerformed(e);
+   	            }
+   	        });
 	this.setResizable(false);
         dialogTitlePanel.setBackground(Color.WHITE);
         dialogTitlePanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
@@ -68,15 +76,6 @@ public class ResourceTypeDialog extends JDialog {
         this.getContentPane().add(dialogTitlePanel, BorderLayout.NORTH);
         
         //mPanel.add(areaPanel, BorderLayout.CENTER);
-        this.getContentPane().add(areaPanel, BorderLayout.CENTER);
-        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel"); //$NON-NLS-1$
-            getRootPane().getActionMap().put("Cancel", new AbstractAction(){ //$NON-NLS-1$
-                public void actionPerformed(ActionEvent e)
-                {
-                	cancelB_actionPerformed(e);
-                }
-            });
         cancelB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cancelB_actionPerformed(e);
