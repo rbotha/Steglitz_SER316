@@ -110,6 +110,8 @@ public class Contacts extends JPanel{
 		
 		loadContacts();
 		
+		
+		
 	}
 	
 	//get List
