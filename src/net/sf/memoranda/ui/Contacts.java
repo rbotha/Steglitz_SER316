@@ -2,6 +2,7 @@ package net.sf.memoranda.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,12 +20,17 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import java.net.URI;
 
 import com.opencsv.CSVReader;
 
 import net.sf.memoranda.util.Util;
 import net.sf.memoranda.util.Local;
 
+import javax.swing.*;
+import java.awt.event.*;
+
+import java.util.*;
 
 public class Contacts extends JPanel{
 	
@@ -34,7 +40,6 @@ public class Contacts extends JPanel{
 	JList<String> list = new JList<String>(listModel);
 	ContactsAddDialog dialog;
 	JScrollPane scrollPane = new JScrollPane();
-	
 	
 	public Contacts(DailyItemsPanel _parentPanel) {
         try {
@@ -107,15 +112,31 @@ public class Contacts extends JPanel{
 			}
 		});
 		this.add(btnDeleteContact);
+		loadContacts();
+		
+		//Added by Greg Schoberth
+		//Sprint 2
+		//Mouse Listener for opening right-click menu. Default options only currently show email option for contacts. 
+		list.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mousePressed(MouseEvent e){
+				if(e.getButton() == MouseEvent.BUTTON3){
+						if(list.getSelectedIndex() != -1){
+						ContactsMenu menu = new ContactsMenu(list.getSelectedIndex());
+						menu.show(e.getComponent(),e.getX(),e.getY());
+					}
+				}
+			}
+		});
 		
 		loadContacts();
 		
-		
+
 		
 	}
-	
 	//get List
 	DefaultListModel<String> getList(){
 		return listModel;
 	}
+	
 }
