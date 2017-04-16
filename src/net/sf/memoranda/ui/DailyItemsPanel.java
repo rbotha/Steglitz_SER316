@@ -363,6 +363,7 @@ public class DailyItemsPanel extends JPanel {
 		mainTabsPanel.add(contactsTabbedPane, "CONTACTSTAB");
         updateIndicators(CurrentDate.get(), CurrentProject.getTaskList());
         mainPanel.setBorder(null);
+        calendar.setParentPanel(parentPanel);//set calendar menu to default parentPanel.
     }
 
 

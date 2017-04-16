@@ -135,6 +135,7 @@ public class App {
 		frame.setVisible(true);
 		frame.toFront();
 		frame.requestFocus();
+		
 
 	}
 
