@@ -46,6 +46,18 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             .getResource("resources/icons/task_failed.png"));
     static ImageIcon TASK_COMPLETED_ICON = new ImageIcon(net.sf.memoranda.ui.AppFrame.class
             .getResource("resources/icons/task_completed.png"));
+    static Color[] colors =
+        {
+            Color.YELLOW,
+            Color.ORANGE,
+            Color.RED,
+            Color.BLUE,
+            Color.GREEN,
+            Color.CYAN,
+            Color.MAGENTA,
+            Color.BLACK,
+            Color.WHITE,
+            Color.PINK };
     // reusable cellrenderers
     JLabel label = new JLabel();
     //JLabel tree_label = new JLabel();

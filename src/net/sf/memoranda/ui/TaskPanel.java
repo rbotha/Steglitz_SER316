@@ -501,22 +501,28 @@ public class TaskPanel extends JPanel {
         dlg.effortField.setText(Util.getHoursFromMillis(t.getEffort()));
         dlg.estLOCField.setText(String.valueOf(t.getEstLOC()));
         dlg.actLOCField.setText(String.valueOf(t.getActLOC()));
-		dlg.actualEffortField.setText(Util.getHoursFromMillis(t.getActualEffort()));
-		dlg.errorsAddedField.setText(Integer.toString(t.getErrorsAdded()));
-		dlg.errorsFixedField.setText(Integer.toString(t.getErrorsFixed()));
-		dlg.timestamp = t.getTimestamp();			
-		if (!(dlg.timestamp < 0)) { // timestamp < 0 implies there is no timestamp
-			Date timestampDate = new Date(dlg.timestamp);
-			DateFormat formatter = new SimpleDateFormat("HH:mm dd/MM/yyyy");
-			dlg.jLabelTimestamp.setText(Local.getString("Work began at") + ": " + formatter.format( timestampDate));
-			dlg.timestampB.setText(Local.getString("End work session"));
-		}
-		if((t.getStartDate().getDate()).after(t.getEndDate().getDate()))
-			dlg.chkEndDate.setSelected(false);
-		else
-			dlg.chkEndDate.setSelected(true);
-			dlg.progress.setValue(new Integer(t.getProgress()));
-	 	dlg.chkEndDate_actionPerformed(null);	
+        dlg.actualEffortField.setText(Util.getHoursFromMillis(t.getActualEffort()));
+        dlg.errorsAddedField.setText(Integer.toString(t.getErrorsAdded()));
+        dlg.errorsFixedField.setText(Integer.toString(t.getErrorsFixed()));
+        dlg.timestamp = t.getTimestamp();			
+        if (!(dlg.timestamp < 0)) { // timestamp < 0 implies there is no timestamp
+          Date timestampDate = new Date(dlg.timestamp);
+          DateFormat formatter = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+          dlg.jLabelTimestamp.setText(Local.getString("Work began at") + ": " + formatter.format( timestampDate));
+          dlg.timestampB.setText(Local.getString("End work session"));
+        }
+        if (t.getColor() == -1) {
+            dlg.taskColor.setSelectedIndex(10);
+        } else {
+            dlg.taskColor.setSelectedIndex(t.getColor());
+        }
+        dlg.effortField.setText(Util.getHoursFromMillis(t.getEffort()));
+        if((t.getStartDate().getDate()).after(t.getEndDate().getDate()))
+          dlg.chkEndDate.setSelected(false);
+        else
+          dlg.chkEndDate.setSelected(true);
+        dlg.progress.setValue(new Integer(t.getProgress()));
+        dlg.chkEndDate_actionPerformed(null);	
         dlg.setVisible(true);
         if (dlg.CANCELLED)
             return;
@@ -532,6 +538,11 @@ public class TaskPanel extends JPanel {
         t.setText(dlg.todoField.getText());
         t.setDescription(dlg.descriptionField.getText());
         t.setPriority(dlg.priorityCB.getSelectedIndex());
+        if (dlg.taskColor.getSelectedIndex() == 10) {
+            t.setColor(-1);
+        } else {
+            t.setColor(dlg.taskColor.getSelectedIndex());
+        }
         t.setEffort(Util.getMillisFromHours(dlg.effortField.getText()));
 		t.setActualEffort(Util.getMillisFromHours(dlg.actualEffortField.getText()));
         int errorsAdded = 0;
@@ -621,6 +632,11 @@ public class TaskPanel extends JPanel {
 		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),
 				effort,actualEffort,timestamp, dlg.descriptionField.getText(),null, errorsAdded, errorsFixed, estLOC, actLOC);
 //		CurrentProject.getTaskList().adjustParentTasks(newTask);
+        if (dlg.taskColor.getSelectedIndex() == 10) {
+            newTask.setColor(-1);
+        } else {
+            newTask.setColor(dlg.taskColor.getSelectedIndex());
+        }
 		newTask.setProgress(((Integer)dlg.progress.getValue()).intValue());
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
         taskTable.tableChanged();

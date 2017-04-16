@@ -105,4 +105,6 @@ public interface Task {
 	long getRate();
     
     nu.xom.Element getContent();
+    int getColor();
+    void setColor(int c);
 }

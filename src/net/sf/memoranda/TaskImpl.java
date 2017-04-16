@@ -489,7 +489,7 @@ public class TaskImpl implements Task, Comparable {
 				return true;
 		return false;
 	}
-
+  
 	public void setEstLOC(long estLOC) {
 		setAttr("estloc", String.valueOf(estLOC));
 		
@@ -530,6 +530,24 @@ public class TaskImpl implements Task, Comparable {
     		}
     	}
 	}
-
-	
+	/**
+     * This function returns the color value (-1 for none, otherwise 0-9)
+     * @return color value
+     */
+    public int getColor() {
+        try {
+            return new Integer(_element.getAttribute("taskColor").getValue());
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+    /**
+     * This function sets the color field in task
+     * @param  c the color to set to
+     */
+    public void setColor(int c) {
+        if (c >= -1) {
+            setAttr("taskColor", ""+c);
+        }
+    }
 }

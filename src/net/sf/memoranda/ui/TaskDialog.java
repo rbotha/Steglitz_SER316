@@ -121,6 +121,22 @@ public class TaskDialog extends JDialog {
     JButton setNotifB = new JButton();
     JComboBox priorityCB = new JComboBox(priority);
     JLabel jLabel7 = new JLabel();
+    //color setting
+    String[] colors = {
+        Local.getString("Yellow"),
+        Local.getString("Orange"),
+        Local.getString("Red"),
+        Local.getString("Blue"),
+        Local.getString("Green"),
+        Local.getString("Cyan"),
+        Local.getString("Magenta"),
+        Local.getString("Black"),
+        Local.getString("White"),
+        Local.getString("Pink"),
+        Local.getString("None")
+    };
+    JComboBox taskColor = new JComboBox(colors);
+    JLabel jLabel8 = new JLabel();
     // added by rawsushi
     JLabel jLabelEffort = new JLabel();
     JLabel jLabelDescription = new JLabel();
@@ -395,10 +411,13 @@ public class TaskDialog extends JDialog {
         //jLabel7.setPreferredSize(new Dimension(60, 16));
         jLabel7.setText(Local.getString("Priority"));
 
-               
+        jLabel8.setMaximumSize(new Dimension(100, 16));
+        jLabel8.setMinimumSize(new Dimension(60, 16));
+        //jLabel8.setPreferredSize(new Dimension(60, 16));
+        jLabel8.setText(Local.getString("Color"));
 
         priorityCB.setFont(new java.awt.Font("Dialog", 0, 11));
-
+        taskColor.setFont(new java.awt.Font("Dialog", 0, 11));
         jPanel4.add(jLabel7, null);
         getContentPane().add(mPanel);
         mPanel.add(areaPanel, BorderLayout.NORTH);
@@ -457,6 +476,8 @@ public class TaskDialog extends JDialog {
 		
         jPanel2.add(jPanel4, null);
         jPanel4.add(priorityCB, null);
+        jPanel4.add(jLabel8, null);
+        jPanel4.add(taskColor, null);
         jPanel2.add(jPanel3, null);
         
         jPanel3.add(setNotifB, null);
@@ -467,6 +488,7 @@ public class TaskDialog extends JDialog {
         jPanel2.add(jPanelProgress);
         
         priorityCB.setSelectedItem(Local.getString("Normal"));
+        taskColor.setSelectedItem(Local.getString("None"));
         startCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (ignoreStartChanged)
