@@ -8,9 +8,11 @@
  */
 package net.sf.memoranda;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.Vector;
 
 import net.sf.memoranda.date.CalendarDate;
@@ -21,6 +23,7 @@ import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Node;
 import nu.xom.Nodes;
+import sun.awt.SunHints.Key;
 //import nu.xom.converters.*;
 //import org.apache.xerces.dom.*;
 //import nux.xom.xquery.XQueryUtil;
@@ -90,6 +93,20 @@ public class TaskListImpl implements TaskList {
     	}
     }
     
+    //Method for returning all task
+    public Collection getAllTask()
+    {//Beginning of method
+    	//Create Collection 
+    	Vector v = new Vector();
+    	//get all tasks
+    	Set<String> keys = elements.keySet();
+    	//Iterate through tasks and add to collection
+    	for (String s: keys)
+    		v.add(this.getTask(s));
+    	//Return Collection
+    	return v;
+    }//End of Method
+    
     public Collection getTopLevelTasks() {
         return getAllRootTasks();
     }
@@ -103,7 +120,9 @@ public class TaskListImpl implements TaskList {
         return filterActiveTasks(allTasks,date);
     }
 
-    public Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, long actualEffort, long timestamp, String description, String parentTaskId) {
+    public Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority,
+    		long effort,long actualEffort, long timestamp, String description, String parentTaskId, int errorsAdded, int errorsFixed, int estLOC, int actualLOC, Timestamp edit) {
+
         Element el = new Element("task");
         el.addAttribute(new Attribute("startDate", startDate.toString()));
         el.addAttribute(new Attribute("endDate", endDate != null? endDate.toString():""));
@@ -112,8 +131,13 @@ public class TaskListImpl implements TaskList {
         el.addAttribute(new Attribute("progress", "0"));
         el.addAttribute(new Attribute("effort", String.valueOf(effort)));
         el.addAttribute(new Attribute("actualEffort", String.valueOf(actualEffort)));
-		el.addAttribute(new Attribute("timestamp", String.valueOf(actualEffort)));
+		el.addAttribute(new Attribute("timestamp", String.valueOf(timestamp)));
         el.addAttribute(new Attribute("priority", String.valueOf(priority)));
+        el.addAttribute(new Attribute("edit",String.valueOf(edit)));
+        el.addAttribute(new Attribute("errorsAdded", String.valueOf(errorsAdded)));
+        el.addAttribute(new Attribute("errorsFixed", String.valueOf(errorsFixed)));
+        el.addAttribute(new Attribute("estloc", String.valueOf(estLOC)));
+        el.addAttribute(new Attribute("actloc", String.valueOf(actualLOC)));
                 
         Element txt = new Element("text");
         txt.appendChild(text);

@@ -7,7 +7,15 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
 
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 import net.sf.memoranda.util.Local;
 
 /**
@@ -28,6 +36,22 @@ public class FileExportDialog extends javax.swing.JDialog {
     
    
     private void initComponents() {//GEN-BEGIN:initComponents
+    	
+    	 /**
+        Method: Closes window when esc pressed
+        Inputs: keyEvent
+        Returns: Void
+
+        Description:Although technically not a method, this block of code does the job.
+      */
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+	            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel"); //$NON-NLS-1$
+	        getRootPane().getActionMap().put("Cancel", new AbstractAction(){ //$NON-NLS-1$
+	            public void actionPerformed(ActionEvent e)
+	            {
+	             dispose();
+	            }
+	        });
         jPanel2 = new javax.swing.JPanel();
         okB = new javax.swing.JButton();
         cancelB = new javax.swing.JButton();
@@ -159,6 +183,8 @@ public class FileExportDialog extends javax.swing.JDialog {
         getContentPane().add(filePanel, java.awt.BorderLayout.CENTER);
         getRootPane().setDefaultButton(okB);
         pack();
+        
+       
     }//GEN-END:initComponents
 
     private void xhtmlChBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xhtmlChBActionPerformed

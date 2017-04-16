@@ -21,9 +21,15 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.CaretEvent;
-
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 import net.sf.memoranda.util.Local;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
 /*$Id: EditTypeDialog.java,v 1.9 2005/07/05 08:17:24 alexeya Exp $*/
 public class EditTypeDialog extends JDialog {
     JButton cancelB = new JButton();
@@ -196,6 +202,23 @@ public class EditTypeDialog extends JDialog {
         jPanel3.add(setIconB, BorderLayout.EAST);
         jPanel3.add(iconLabel, BorderLayout.CENTER);
         jPanel1.add(jPanel4, BorderLayout.CENTER);
+        
+        
+        /**
+        Method: Closes window when esc pressed
+        Inputs: keyEvent
+        Returns: Void
+
+        Description:Although technically not a method, this block of code does the job.
+      */
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+	            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel"); //$NON-NLS-1$
+	        getRootPane().getActionMap().put("Cancel", new AbstractAction(){ //$NON-NLS-1$
+	            public void actionPerformed(ActionEvent e)
+	            {
+	            	cancelB_actionPerformed(e);
+	            }
+	        });
     }
 
     void cancelB_actionPerformed(ActionEvent e) {

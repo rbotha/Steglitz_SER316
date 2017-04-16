@@ -15,6 +15,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -43,11 +53,13 @@ import net.sf.memoranda.util.Util;
 
 /*$Id: TaskDialog.java,v 1.25 2005/12/01 08:12:26 alexeya Exp $*/
 public class TaskDialog extends JDialog {
-    JPanel mPanel = new JPanel(new BorderLayout());
+	public long timestamp = (long)-1; //tracks a timestamp in milliseconds from epoch (1970-01-01T00:00:00Z). if < 0, no timestamp.
+	
+	JPanel mPanel = new JPanel(new BorderLayout());
     JPanel areaPanel = new JPanel(new BorderLayout());	
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     JButton cancelB = new JButton();
-    JButton okB = new JButton();	
+    JButton okB = new JButton();
     Border border1;
     Border border2;
     JPanel dialogTitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -67,14 +79,31 @@ public class TaskDialog extends JDialog {
     JScrollPane descriptionScrollPane = new JScrollPane(descriptionField);
     	
 	// Added by drmorri8 for actualEffort functionality:
-	public long timestamp = -1; //tracks a timestamp in milliseconds from epoch (1970-01-01T00:00:00Z). if < 0, no timestamp.
 	JLabel jLabelActualEffort = new JLabel();
 	JTextField actualEffortField = new JTextField();
-	JPanel timePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-	//JLabel jLabelTimeHeader = new JLabel();
+	JPanel timePanel = new JPanel(new GridLayout(2, 1));
 	JLabel jLabelTimestamp = new JLabel();
 	JButton timestampB = new JButton();
 	
+	// Added by drmorri8 for errorsAdded/errorsFixed
+	JPanel pspTrackingPanel = new JPanel(new BorderLayout());
+	JPanel pspInputPanel = new JPanel(new GridLayout(3, 2));
+	JPanel pspEffortPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	JPanel pspActualEffortPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	JPanel pspErrorsAddedPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	JPanel pspErrorsFixedPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	JPanel pspEstLOCPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	JPanel pspActLOCPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	
+	JLabel jLabelErrorsAdded = new JLabel();
+	JTextField errorsAddedField = new JTextField();
+	JLabel jLabelErrorsFixed= new JLabel();
+	JTextField errorsFixedField = new JTextField();
+	JLabel jLabelEstLOC = new JLabel();
+	JLabel jLabelActLOC = new JLabel();
+	JTextField estLOCField = new JTextField();
+	JTextField actLOCField = new JTextField();
+
 //    Border border7;
     Border border8;
     CalendarFrame startCalFrame = new CalendarFrame();
@@ -96,12 +125,28 @@ public class TaskDialog extends JDialog {
     JButton setEndDateB = new JButton();
     //JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    JPanel jPanelEffort = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    JPanel jPanelBlank = new JPanel(new FlowLayout(FlowLayout.CENTER));
 //    JPanel jPanelNotes = new JPanel(new FlowLayout(FlowLayout.LEFT));
     
     JButton setNotifB = new JButton();
     JComboBox priorityCB = new JComboBox(priority);
     JLabel jLabel7 = new JLabel();
+    //color setting
+    String[] colors = {
+        Local.getString("Yellow"),
+        Local.getString("Orange"),
+        Local.getString("Red"),
+        Local.getString("Blue"),
+        Local.getString("Green"),
+        Local.getString("Cyan"),
+        Local.getString("Magenta"),
+        Local.getString("Black"),
+        Local.getString("White"),
+        Local.getString("Pink"),
+        Local.getString("None")
+    };
+    JComboBox taskColor = new JComboBox(colors);
+    JLabel jLabel8 = new JLabel();
     // added by rawsushi
     JLabel jLabelEffort = new JLabel();
     JLabel jLabelDescription = new JLabel();
@@ -220,7 +265,7 @@ public class TaskDialog extends JDialog {
         jLabelEffort.setMinimumSize(new Dimension(60, 16));
         jLabelEffort.setText(Local.getString("Est Effort(hrs)"));
         effortField.setBorder(border8);
-        effortField.setPreferredSize(new Dimension(30, 24));
+        effortField.setPreferredSize(new Dimension(60, 24));
 		
 		// Added by drmorri8 for actualEffort
         timePanel.setBorder(border2);
@@ -228,10 +273,7 @@ public class TaskDialog extends JDialog {
         jLabelActualEffort.setMinimumSize(new Dimension(60, 16));
         jLabelActualEffort.setText(Local.getString("Actual Effort(hrs)"));
         actualEffortField.setBorder(border8);
-        actualEffortField.setPreferredSize(new Dimension(30, 24));	
-		//jLabelTimeHeader.setMaximumSize(new Dimension(100, 16));
-        //jLabelTimeHeader.setMinimumSize(new Dimension(60, 16));
-        //jLabelTimeHeader.setText(Local.getString("Work on task:"));
+        actualEffortField.setPreferredSize(new Dimension(60, 24));
 		jLabelTimestamp.setMaximumSize(new Dimension(100, 16));
         jLabelTimestamp.setMinimumSize(new Dimension(60, 16));
         jLabelTimestamp.setText(Local.getString("Not working on task"));
@@ -244,6 +286,30 @@ public class TaskDialog extends JDialog {
                 timestampB_actionPerformed(e);
             }
         });
+        
+
+        // Added by drmorri8 for ErrorsAdded/ErrorsFixed functionality:
+        pspTrackingPanel.setBorder(border2);
+        jLabelErrorsAdded.setMaximumSize(new Dimension(100, 16));
+        jLabelErrorsAdded.setMinimumSize(new Dimension(60, 16));
+        jLabelErrorsAdded.setText(Local.getString("Errors Added"));
+        errorsAddedField.setBorder(border8);
+        errorsAddedField.setPreferredSize(new Dimension(60, 24));
+        jLabelErrorsFixed.setMaximumSize(new Dimension(100, 16));
+        jLabelErrorsFixed.setMinimumSize(new Dimension(60, 16));
+        jLabelErrorsFixed.setText(Local.getString("Errors Fixed"));
+        errorsFixedField.setBorder(border8);
+        errorsFixedField.setPreferredSize(new Dimension(60, 24));
+
+        //added by rbotha for Actual and estimated LOC
+        jLabelEstLOC.setMaximumSize(new Dimension(100, 16));
+        jLabelEstLOC.setMinimumSize(new Dimension(60, 16));
+        jLabelEstLOC.setText(Local.getString("Est. LOC"));
+        estLOCField.setPreferredSize(new Dimension(60, 24));
+        jLabelActLOC.setMaximumSize(new Dimension(100, 16));
+        jLabelActLOC.setMinimumSize(new Dimension(100, 16));
+        jLabelActLOC.setText(Local.getString("Act. LOC"));
+        actLOCField.setPreferredSize(new Dimension(60, 24));
 
         startDate.setBorder(border8);
         startDate.setPreferredSize(new Dimension(80, 24));                
@@ -355,19 +421,47 @@ public class TaskDialog extends JDialog {
         //jLabel7.setPreferredSize(new Dimension(60, 16));
         jLabel7.setText(Local.getString("Priority"));
 
-               
+        jLabel8.setMaximumSize(new Dimension(100, 16));
+        jLabel8.setMinimumSize(new Dimension(60, 16));
+        //jLabel8.setPreferredSize(new Dimension(60, 16));
+        jLabel8.setText(Local.getString("Color"));
 
         priorityCB.setFont(new java.awt.Font("Dialog", 0, 11));
-
+        taskColor.setFont(new java.awt.Font("Dialog", 0, 11));
         jPanel4.add(jLabel7, null);
         getContentPane().add(mPanel);
-        mPanel.add(areaPanel, BorderLayout.NORTH); // south
+        mPanel.add(areaPanel, BorderLayout.NORTH);
         
-        // Added for actualEffort
-        mPanel.add(timePanel, BorderLayout.CENTER);
-        // timePanel.add(jLabelTimeHeader, BorderLayout.CENTER);
+        mPanel.add(pspTrackingPanel, BorderLayout.CENTER);
+        pspTrackingPanel.add(pspInputPanel, BorderLayout.NORTH);
+        
+        pspInputPanel.add(pspEffortPanel, null);
+        pspEffortPanel.add(jLabelEffort, null);
+        pspEffortPanel.add(effortField, null);
+        
+        pspInputPanel.add(pspActualEffortPanel, null);
+        pspActualEffortPanel.add(jLabelActualEffort, null);
+        pspActualEffortPanel.add(actualEffortField, null);
+
+        pspInputPanel.add(pspErrorsAddedPanel, null);
+        pspErrorsAddedPanel.add(jLabelErrorsAdded, null);
+        pspErrorsAddedPanel.add(errorsAddedField, null);
+        
+        pspInputPanel.add(pspErrorsFixedPanel, null);
+        pspErrorsFixedPanel.add(jLabelErrorsFixed, null);
+        pspErrorsFixedPanel.add(errorsFixedField, null);
+        
+        pspInputPanel.add(pspEstLOCPanel, null);
+        pspEstLOCPanel.add(jLabelEstLOC, null);
+        pspEstLOCPanel.add(estLOCField, null);
+        
+        pspInputPanel.add(pspActLOCPanel, null);
+        pspActLOCPanel.add(jLabelActLOC, null);
+        pspActLOCPanel.add(actLOCField, null);
+                
+        pspTrackingPanel.add(timePanel, BorderLayout.SOUTH);
+        timePanel.add(jLabelTimestamp, BorderLayout.CENTER);   
         timePanel.add(timestampB, BorderLayout.CENTER);
-        timePanel.add(jLabelTimestamp, BorderLayout.CENTER);
         
         mPanel.add(buttonsPanel, BorderLayout.SOUTH);
         buttonsPanel.add(okB, null);
@@ -388,16 +482,12 @@ public class TaskDialog extends JDialog {
         jPanel1.add(jLabel2, null);
         jPanel1.add(endDate, null);
         jPanel1.add(setEndDateB, null);
-        // added by rawsushi
-        jPanel2.add(jPanelEffort, null);
-        jPanelEffort.add(jLabelEffort, null);
-        jPanelEffort.add(effortField, null);
-
-		jPanelEffort.add(jLabelActualEffort, null);
-        jPanelEffort.add(actualEffortField, null);
+        jPanel2.add(jPanelBlank, null);
 		
         jPanel2.add(jPanel4, null);
         jPanel4.add(priorityCB, null);
+        jPanel4.add(jLabel8, null);
+        jPanel4.add(taskColor, null);
         jPanel2.add(jPanel3, null);
         
         jPanel3.add(setNotifB, null);
@@ -408,6 +498,7 @@ public class TaskDialog extends JDialog {
         jPanel2.add(jPanelProgress);
         
         priorityCB.setSelectedItem(Local.getString("Normal"));
+        taskColor.setSelectedItem(Local.getString("None"));
         startCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (ignoreStartChanged)
@@ -423,6 +514,18 @@ public class TaskDialog extends JDialog {
                 endDate.getModel().setValue(endCalFrame.cal.get().getCalendar().getTime());
             }
         });
+        
+        
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel"); //$NON-NLS-1$
+            getRootPane().getActionMap().put("Cancel", new AbstractAction(){ //$NON-NLS-1$
+                public void actionPerformed(ActionEvent e)
+                {
+                    dispose();
+                }
+            });
+        
+        
     }
 
 	public void setStartDate(CalendarDate d) {
@@ -461,7 +564,7 @@ public class TaskDialog extends JDialog {
         if (timestamp < 0) {
 			timestamp = System.currentTimeMillis();
 			Date timestampDate = new Date(timestamp);
-			DateFormat formatter = new SimpleDateFormat("HH:mm");
+			DateFormat formatter = new SimpleDateFormat("HH:mm dd/MM/yyyy");
 			jLabelTimestamp.setText(Local.getString("Work began at") + ": " + formatter.format(  timestampDate));
 			timestampB.setText(Local.getString("End work session"));
 		} else {						
@@ -476,7 +579,7 @@ public class TaskDialog extends JDialog {
 			double newActualEffort = Math.floor((actualEffortFieldValue + workPeriod) / 1000 / 36) / 100;
 			timestamp = -1;
 			actualEffortField.setText(String.valueOf(newActualEffort));
-			jLabelTimestamp.setText(Local.getString("Time from work session added to actual hours"));
+			jLabelTimestamp.setText(Local.getString("Session time added to actual hours"));
 			timestampB.setText(Local.getString("Begin work session"));	
 		}
     }

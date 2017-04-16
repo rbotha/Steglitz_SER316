@@ -8,6 +8,8 @@
  */
 package net.sf.memoranda;
 
+import java.sql.Timestamp;
+
 import net.sf.memoranda.date.CalendarDate;
 import nu.xom.Attribute;
 import nu.xom.Element;
@@ -115,6 +117,30 @@ public class NoteImpl implements Note, Comparable {
 			return -1;
 		else 
 			return 0;
+	}
+
+	/* (non-Javadoc)
+	 * @see net.sf.memoranda.Note#getTimeStamp()
+	 */
+	@Override
+	public Timestamp getEdit() {
+		//Get date notes were edited
+		Attribute ts = _el.getAttribute("edit");
+		if (ts == null)//If timestamp is null/empty
+			return null;
+		return Timestamp.valueOf(_el.getAttribute("edit").getValue());
+	}
+
+	/* (non-Javadoc)
+	 * @see net.sf.memoranda.Note#setTimeStamp(java.sql.Timestamp)
+	 */
+	@Override
+	public void setEdit(Timestamp s) {
+		// Set date notes were edited
+		Attribute ts = _el.getAttribute("edit");
+        if (ts == null) _el.addAttribute(new Attribute("edit", s.toString()));
+        else 
+            ts.setValue(s.toString());
 	}
     
 }

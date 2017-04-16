@@ -11,6 +11,12 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.text.DateFormat;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
+import javax.swing.JComponent;
+import javax.swing.AbstractAction;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -177,7 +183,6 @@ public class StickerDialog extends JDialog {
 			}
 		});
 		this.getRootPane().setDefaultButton(okButton);
-		
 		boldButton.setText(Local.getString("Bold"));
 		boldButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -312,6 +317,15 @@ public class StickerDialog extends JDialog {
 				fontSize_actionPerformed(e);
 			}
 		});
+		
+		 getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+		            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel"); //$NON-NLS-1$
+		        getRootPane().getActionMap().put("Cancel", new AbstractAction(){ //$NON-NLS-1$
+		            public void actionPerformed(ActionEvent e)
+		            {
+		                dispose();
+		            }
+		        });
 	}
 
 	int findColorIndex(Color c) {		
