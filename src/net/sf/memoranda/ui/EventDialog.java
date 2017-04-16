@@ -476,7 +476,7 @@ public class EventDialog extends JDialog implements WindowListener {
 	        getRootPane().getActionMap().put("Cancel", new AbstractAction(){ //$NON-NLS-1$
 	            public void actionPerformed(ActionEvent e)
 	            {
-	             dispose();
+	            	 cancelB_actionPerformed(e);
 	            }
 	        });
         

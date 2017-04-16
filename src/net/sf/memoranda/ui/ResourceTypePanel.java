@@ -134,7 +134,7 @@ public class ResourceTypePanel extends JPanel {
     jPanel2.add(deleteB, null);
     typesList.setListData(MimeTypesList.getAllMimeTypes());
     //typesList.updateUI();
-   
+    
 
     }
 

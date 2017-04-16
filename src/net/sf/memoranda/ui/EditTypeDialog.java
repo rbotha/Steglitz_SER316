@@ -216,7 +216,7 @@ public class EditTypeDialog extends JDialog {
 	        getRootPane().getActionMap().put("Cancel", new AbstractAction(){ //$NON-NLS-1$
 	            public void actionPerformed(ActionEvent e)
 	            {
-	             dispose();
+	            	cancelB_actionPerformed(e);
 	            }
 	        });
     }
