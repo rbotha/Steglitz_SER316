@@ -30,21 +30,22 @@ import net.sf.memoranda.ui.treetable.TreeTableModel;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Context;
 
-import java.util.Hashtable;
-
 /**
  * JAVADOC:
  * <h1>TaskTableModel</h1>
  * 
- * @version $Id: TaskTableModel.java,v 1.7 2005/12/01 08:12:26 alexeya Exp $
+ * @version $Id: TaskTableModel.java,v 1.7 2017/4/08 drmorri8 Exp $
  * @author $Author: alexeya $
  */
 public class TaskTableModel extends AbstractTreeTableModel implements TreeTableModel {
 
-    String[] columnNames = {"", Local.getString("To-do"),
+	String[] columnNames = {"", Local.getString("To-do"),
             Local.getString("Start date"), Local.getString("End date"),
             Local.getString("Priority"), Local.getString("Status"),
-            "% " + Local.getString("done") };
+            Local.getString("% done"), Local.getString("EST EFFORT(hrs)"),
+            Local.getString("Actual Effort(hrs)"), Local.getString("Errors Added"),
+            Local.getString("Errors Fixed"), Local.getString("Est. LOC"), 
+            Local.getString("Act. LOC") };
 
     protected EventListenerList listenerList = new EventListenerList();
 
@@ -85,7 +86,7 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         case 0:
             return "";
         case 1:
-            return t;
+            return t;		
         case 2:
             return t.getStartDate().getDate();
         case 3:
@@ -100,6 +101,18 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         case 6:            
             //return new Integer(t.getProgress());
 			return t;
+		case 7:
+            return Math.floor((t.getEffort()) / 1000 / 36) / 100;
+		case 8:
+            return Math.floor((t.getActualEffort()) / 1000 / 36) / 100; 
+        case 9:
+        	return t.getErrorsAdded();
+        case 10:
+        	return t.getErrorsFixed();
+        case 11:
+        	return String.valueOf(t.getEstLOC());
+        case 12:
+        	return String.valueOf(t.getActLOC());
         case TaskTable.TASK_ID:
             return t.getID();
         case TaskTable.TASK:
@@ -177,17 +190,31 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
     public Class getColumnClass(int column) {
         try {
             switch (column) {
-            case 1:
-                return TreeTableModel.class;
             case 0:
                 return TaskTable.class;
-            case 4:
-            case 5:
-                return Class.forName("java.lang.String");
+			case 1:
+                return TreeTableModel.class;			
             case 2:
+				return Class.forName("java.util.Date");
             case 3:
                 return Class.forName("java.util.Date");
+			case 4:
+				return Class.forName("java.lang.String");
+            case 5:
+                return Class.forName("java.lang.String");
             case 6:
+            	return Class.forName("java.lang.Integer");
+            case 7:
+                return Class.forName("java.lang.String");
+			case 8:
+                return Class.forName("java.lang.String");
+            case 9:
+            	return Class.forName("java.lang.Integer");
+            case 10:
+                return Class.forName("java.lang.Integer");
+            case 11:
+                return Class.forName("java.lang.Integer");
+            case 12:
                 return Class.forName("java.lang.Integer");
             }
         } catch (Exception ex) {
@@ -223,8 +250,8 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
     }
     
     public boolean isCellEditable(Object node, int column) {
-		if(column == 6) return true; 
-        return super.isCellEditable(node, column); 
+    	if(column == 6) return true;
+    	return super.isCellEditable(node, column);
     }
 
 }
