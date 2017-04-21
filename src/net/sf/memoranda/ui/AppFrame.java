@@ -1,11 +1,15 @@
 package net.sf.memoranda.ui;
 
 import java.awt.AWTEvent;
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -32,6 +36,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+import javax.swing.Popup;
 import javax.swing.UIManager;
 import javax.swing.text.html.HTMLDocument;
 
@@ -63,10 +68,16 @@ import nu.xom.Elements;
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
 
-/*$Id: AppFrame.java,v 1.33 2005/07/05 08:17:24 alexeya Exp $*/
-
+/*$Id: AppFrame.java,v 1.34 04/20/2017 drmorri8 Exp $*/
+/**
+ * Represents the main JFrame window for Memoranda
+ * @author David
+ *
+ */
 public class AppFrame extends JFrame {
 
+	TrayIcon trayIcon = null;
+	
     JPanel contentPane;
     JMenuBar menuBar = new JMenuBar();
     JMenu jMenuFile = new JMenu();
@@ -692,8 +703,55 @@ public class AppFrame extends JFrame {
      * Closes the window and hides Memoranda
      */
     public void doHide() {
+    	activateTrayIcon();
     	exitNotify();
-        App.closeWindow();
+    	setVisible(false);
+        //App.closeWindow();
+    }
+    
+    /**
+     * Toggles system tray icon and hides memoranda.
+     */
+    public void activateTrayIcon() {
+    	if (Configuration.get("DISABLE_SYSTRAY").equals("no")) {
+    		//TrayIcon trayIcon = null;
+    	     if (SystemTray.isSupported()) {
+    	         SystemTray tray = SystemTray.getSystemTray();
+    	         Image image = Toolkit.getDefaultToolkit().getImage(AppFrame.class.getResource("resources/icons/jnotes16.png"));
+    	         // listen for default action executed on the tray icon
+    	         ActionListener listener = new ActionListener() {
+    	             public void actionPerformed(ActionEvent e) {
+    	            	try {
+    	            		System.out.println("Restoring Memoranda from system tray");
+    	            		
+    	            		// Remove this (and any other) tray icon:
+    	            		TrayIcon removeIcons[] = tray.getTrayIcons();
+    	            		for (int i = 0; i < removeIcons.length; i++) {
+    	            			tray.remove(removeIcons[i]);
+    	            		}
+    	            		setVisible(true);
+	                		toFront();
+	                		requestFocus();
+	                		
+	                	} catch (Exception ex) {
+	                		System.err.println(ex);
+	                	}
+    	             }
+    	         };
+    	         // Remove this (and any other) tray icon:
+    	        TrayIcon removeIcons[] = tray.getTrayIcons();
+     			for (int i = 0; i < removeIcons.length; i++) {
+     				tray.remove(removeIcons[i]);
+         		}
+    	        trayIcon = new TrayIcon(image, "Memoranda", null);
+    	        trayIcon.addActionListener(listener);
+    	        try {
+    	        	tray.add(trayIcon);
+    	        } catch (AWTException e) {
+    	        	System.err.println(e);
+    	        }
+    	     }
+    	}
     }
 
     //Help | About action performed
@@ -721,6 +779,7 @@ public class AppFrame extends JFrame {
             if (Configuration.get("ON_MINIMIZE").equals("normal")) {
             	this.setState(Frame.ICONIFIED);
             } else {
+            	this.setState(Frame.NORMAL);
             	doHide();
             }
         } else
