@@ -66,8 +66,9 @@ public class CalendarPanel extends JPanel implements ComponentListener {
 	    this.setToolTipText("");
 	    this.add(cal, BorderLayout.CENTER);
 	    
-	    cal.addComponentListener(this);
-	    cal.addSelectionListener(new ActionListener() {
+	    //addListeners to calendar
+	    cal.addComponentListener(this);//resize listener
+	    cal.addSelectionListener(new ActionListener() {//sync with calendar
             public void actionPerformed(ActionEvent e) {
             	CurrentDate.set(cal.get());
             	cal.set(CurrentDate.get());
@@ -91,7 +92,7 @@ public class CalendarPanel extends JPanel implements ComponentListener {
 	 */
 	@Override
 	public void componentResized(ComponentEvent e) {
-		// TODO Auto-generated method stub
+		// Calls private method for resizing calendar columns
 		refresh();
 		Util.debug("Calendar Resized.");
 	}
@@ -101,7 +102,7 @@ public class CalendarPanel extends JPanel implements ComponentListener {
 	 */
 	@Override
 	public void componentMoved(ComponentEvent e) {
-		// TODO Auto-generated method stub
+		// Do Nothing
 		
 	}
 	
@@ -110,7 +111,7 @@ public class CalendarPanel extends JPanel implements ComponentListener {
 	 */
 	@Override
 	public void componentShown(ComponentEvent e) {
-		// TODO Auto-generated method stub
+		// Do Nothing
 		
 	}
 	
@@ -119,7 +120,7 @@ public class CalendarPanel extends JPanel implements ComponentListener {
 	 */
 	@Override
 	public void componentHidden(ComponentEvent e) {
-		// TODO Auto-generated method stub
+		// Do Nothing
 		
 	}
 }

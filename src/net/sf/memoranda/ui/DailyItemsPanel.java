@@ -319,6 +319,8 @@ public class DailyItemsPanel extends JPanel {
                     return;
                 dateChangedByCalendar = true;
                 CurrentDate.set(calendar.get());
+                //Keeps calendartab calendar sync with calendar
+                calendarPanel.cal.set(CurrentDate.get());
                 dateChangedByCalendar = false;
             }
         });
@@ -542,6 +544,8 @@ public class DailyItemsPanel extends JPanel {
         splitControlPane.setVisible(true);
         splitPane.setDividerLocation((int) controlPanel.getPreferredSize().getWidth());
         if(pan.equals("CALENDAR")){
+        	//If history is called or if out of sync
+        	calendarPanel.cal.set(CurrentDate.get());//Sync
         	splitControlPane.setVisible(false);
         }
         cardLayout1.show(editorsPanel, pan);
