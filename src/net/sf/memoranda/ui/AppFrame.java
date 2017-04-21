@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Point;
+import java.awt.SystemTray;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -111,7 +112,7 @@ public class AppFrame extends JFrame {
 
     public Action minimizeAction = new AbstractAction("Close the window") {
         public void actionPerformed(ActionEvent e) {
-            doMinimize();
+            doHide();
         }
     };
 
@@ -687,8 +688,11 @@ public class AppFrame extends JFrame {
         System.exit(0);
     }
 
-    public void doMinimize() {
-        exitNotify();
+    /**
+     * Closes the window and hides Memoranda
+     */
+    public void doHide() {
+    	exitNotify();
         App.closeWindow();
     }
 
@@ -703,19 +707,23 @@ public class AppFrame extends JFrame {
          dlg.setVisible(true);
     }
 
+    /**
+     * Override to process Window Close and Minimize events.
+     */
     protected void processWindowEvent(WindowEvent e) {
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-            if (Configuration.get("ON_CLOSE").equals("exit"))
+            if (Configuration.get("ON_CLOSE").equals("exit")) {
                 doExit();
-            else
-                doMinimize();
-        }
-        else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
-            super.processWindowEvent(new WindowEvent(this,
-                    WindowEvent.WINDOW_CLOSING));
-            doMinimize();
-        }
-        else
+            } else {
+                doHide();
+            }
+        } else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
+            if (Configuration.get("ON_MINIMIZE").equals("normal")) {
+            	this.setState(Frame.ICONIFIED);
+            } else {
+            	doHide();
+            }
+        } else
             super.processWindowEvent(e);
     }
 
