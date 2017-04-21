@@ -62,6 +62,7 @@ public class JNCalendarPanel extends JPanel {
   BorderLayout borderLayout5 = new BorderLayout();
   JSpinner yearSpin = new JSpinner(new SpinnerNumberModel(jnCalendar.get().getYear(), 1980, 2999, 1));
   JSpinner.NumberEditor yearSpinner = new JSpinner.NumberEditor(yearSpin, "####");
+  boolean check = true;
 
   boolean ignoreChange = false;
 
@@ -195,29 +196,30 @@ public class JNCalendarPanel extends JPanel {
         setCurrentDateDay(jnCalendar.get(), jnCalendar.get().getDay());
       }
     });
-    //Right Mouse Click to enable popup
-    jnCalendar.addMouseListener(new java.awt.event.MouseAdapter()  {
-    	@Override
-        public void mousePressed(java.awt.event.MouseEvent e) {
-    		//Activate when user right clicks Mouse
-    		if(e.getButton() == java.awt.event.MouseEvent.BUTTON3){
-	    		//Variables
-	    		int row = jnCalendar.rowAtPoint(e.getPoint()); //Get Row
-	    		int col = jnCalendar.columnAtPoint(e.getPoint()); //Get Column
-	    		int day;
-	    		if(jnCalendar.getValueAt(row, col)!= null){
-	    			day = (int) jnCalendar.getValueAt(row, col); //Get Day
-		    		//Focus on selected day on calendar
-		    		setCurrentDateDay(new CalendarDate(day,_date.getMonth(),_date.getYear()), day);
-		    		calendarMenu = new CalendarMenu(_parentPanel);//get menu class
-		    		calendarMenu.show(e.getComponent(),e.getX(),e.getY());//Launch menu
-		    	}
-
-    		}
-        }
-    	
-       	
-      });
+    
+    if(check){
+	    //Right Mouse Click to enable popup
+	    jnCalendar.addMouseListener(new java.awt.event.MouseAdapter()  {
+	    	@Override
+	        public void mousePressed(java.awt.event.MouseEvent e) {
+	    		//Activate when user right clicks Mouse
+	    		if(e.getButton() == java.awt.event.MouseEvent.BUTTON3){
+		    		//Variables
+		    		int row = jnCalendar.rowAtPoint(e.getPoint()); //Get Row
+		    		int col = jnCalendar.columnAtPoint(e.getPoint()); //Get Column
+		    		int day;
+		    		if(jnCalendar.getValueAt(row, col)!= null){
+		    			day = (int) jnCalendar.getValueAt(row, col); //Get Day
+			    		//Focus on selected day on calendar
+			    		setCurrentDateDay(new CalendarDate(day,_date.getMonth(),_date.getYear()), day);
+			    		calendarMenu = new CalendarMenu(_parentPanel);//get menu class
+			    		calendarMenu.show(e.getComponent(),e.getX(),e.getY());//Launch menu
+			    	}
+	
+	    		}
+	    	}
+	      });
+    }
     /*CurrentDate.addChangeListener(new ActionListener()  {
       public void actionPerformed(ActionEvent e) {
         _date = CurrentDate.get();
@@ -318,10 +320,15 @@ public class JNCalendarPanel extends JPanel {
     refreshView();
     notifyListeners();
   }
+  public void setActionable(boolean check){
+	  this.check = check;
+  }
 
   void setParentPanel(WorkPanel p){
 	  _parentPanel = p;
   }
-
+  void setChecker(boolean check){
+	  this.check = check;
+  }
 
 }
