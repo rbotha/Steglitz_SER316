@@ -1,0 +1,10 @@
+language: java
+jdk: oraclejdk8
+
+script:
+  - ant compile
+  - ant findbugs
+  - ant checkstyle
+  
+notifications:
+  slack: <here goes your slack info>
