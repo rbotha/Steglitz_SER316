@@ -688,7 +688,8 @@ public class AppFrame extends JFrame {
     }
 
     public void doMinimize() {
-    	this.setState(JFrame.ICONIFIED);
+        exitNotify();
+        App.closeWindow();
     }
 
     //Help | About action performed
@@ -711,7 +712,7 @@ public class AppFrame extends JFrame {
         }
         else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
             super.processWindowEvent(new WindowEvent(this,
-                    WindowEvent.WINDOW_ICONIFIED));
+                    WindowEvent.WINDOW_CLOSING));
             doMinimize();
         }
         else

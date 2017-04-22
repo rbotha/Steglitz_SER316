@@ -231,7 +231,7 @@ public class WorkPanel extends JPanel {
 		
 		calendarB.setFont(new java.awt.Font("Dialog", 1, 10));
 		calendarB.setVerticalAlignment(SwingConstants.TOP);
-		calendarB.setText(Local.getString("Contacts"));
+		calendarB.setText(Local.getString("Calendar"));
 		calendarB.setHorizontalTextPosition(SwingConstants.CENTER);
 		calendarB.setFocusPainted(false);
 		calendarB.setBorderPainted(false);
