@@ -196,7 +196,7 @@ public class JNCalendarPanel extends JPanel {
       }
     });
     //Right Mouse Click to enable popup
-    jnCalendar.addMouseListener(new java.awt.event.MouseAdapter()  {
+    /*jnCalendar.addMouseListener(new java.awt.event.MouseAdapter()  {
     	@Override
         public void mousePressed(java.awt.event.MouseEvent e) {
     		//Activate when user right clicks Mouse
@@ -218,6 +218,7 @@ public class JNCalendarPanel extends JPanel {
     	
        	
       });
+      */
     /*CurrentDate.addChangeListener(new ActionListener()  {
       public void actionPerformed(ActionEvent e) {
         _date = CurrentDate.get();

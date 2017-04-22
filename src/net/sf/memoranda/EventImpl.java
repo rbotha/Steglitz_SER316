@@ -187,7 +187,7 @@ public class EventImpl implements Event, Comparable {
         //System.out.println("SEND EMAIL HAS BEEN CALLED: currently deactivated");
         //destEmail = null;
 
-        if (destEmail != null) {
+        if (destEmail != null && GoogleMail.IsValidEmail(destEmail)) {
             String title, message;
             message = "";
 
@@ -207,11 +207,23 @@ public class EventImpl implements Event, Comparable {
                 message += ".\n\n";
             }
 
-            try {
+            try 
+            {
               GoogleMail.Send("dummyser316", "dummypassword", destEmail, title, message);
 
               return true;
-            } catch (Exception e) {
+            } 
+            //catch (AddressException e) 
+            //{
+                //System.out.println("Invalid Address: " + destEmail);
+                //System.out.println("Error occured at position: " + e.getPos());
+            //} 
+            //catch (MessagingException e) 
+           // {
+               // System.out.println("Error when sending email: " + e.getCause());
+            //}
+            catch (Exception e) 
+            {
               e.printStackTrace();
             }
         }
