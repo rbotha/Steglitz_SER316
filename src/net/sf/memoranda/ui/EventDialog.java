@@ -102,6 +102,7 @@ public class EventDialog extends JDialog implements WindowListener {
     public final JTextField emailInputField = new JTextField();
     private final JLabel lblNote = new JLabel("Note:");
     public final JTextField noteField = new JTextField();
+    JCheckBox MT = new JCheckBox();
     
     public EventDialog(Frame frame, String title) {
         super(frame, title, true);
@@ -141,6 +142,20 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.insets = new Insets(10, 0, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;
         eventPanel.add(timeSpin, gbc);
+        //add Military Time option checkbox to GUI
+        MT.setText(Local.getString("12hr"));  
+        MT.setMinimumSize(new Dimension(100,24));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2; gbc.gridy = 0;
+        gbc.insets = new Insets(5,5,5,5);
+        gbc.anchor = GridBagConstraints.EAST;     
+        eventPanel.add(MT, gbc);//---------      
+        MT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                MTChange_actionPerformed(e);
+            }
+        });
+        //-------
         lblText.setText(Local.getString("Text"));
         lblText.setMinimumSize(new Dimension(120, 24));
         gbc = new GridBagConstraints();
@@ -496,7 +511,16 @@ public class EventDialog extends JDialog implements WindowListener {
 		workingDaysOnlyCB.setEnabled(false);
 		workingDaysOnlyCB.setSelected(false);		
     }
-    
+    //Military Time action listener
+    public void  MTChange_actionPerformed(ActionEvent e){
+    if(MT.isSelected()){
+        ((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("hh:mm a");
+        }
+        else if(!MT.isSelected()){
+        	((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("HH:mm");
+        	}
+    }
+ 
     public void yearlyRepeatRB_actionPerformed(ActionEvent e) {
 		disableElements();
 		startDate.setEnabled(true);
