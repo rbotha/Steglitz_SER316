@@ -201,7 +201,7 @@ public class ContactsAddDialog extends JFrame {
 				try {
 					frame.setVisible(true);
 				}catch(Exception e){
-					
+					new ExceptionDialog(e);
 				}
 			}
 		});

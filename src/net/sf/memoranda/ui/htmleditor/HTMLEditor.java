@@ -56,6 +56,7 @@ import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
+import net.sf.memoranda.ui.ExceptionDialog;
 import net.sf.memoranda.ui.htmleditor.util.Local;
 
 /**
@@ -1692,6 +1693,7 @@ public class HTMLEditor extends JPanel {
 					if (!url.getProtocol().startsWith("http"))
 						path = imagesDir + "/" + url.getFile();
 				} catch (MalformedURLException e1) {
+					new ExceptionDialog(e1);
 				}
 			}
 			try {
