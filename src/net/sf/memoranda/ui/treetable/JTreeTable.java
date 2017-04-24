@@ -209,9 +209,7 @@ public class JTreeTable extends JTable {
 				setBackground(table.getSelectionBackground());
 			else
 				setBackground(table.getBackground());
-			if (value instanceof Task) {
-				
-			}
+			
 			visibleRow = row;
 			return this;
 		}
