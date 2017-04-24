@@ -551,25 +551,33 @@ public class TaskPanel extends JPanel {
         if (!dlg.errorsAddedField.getText().isEmpty())
         try {
         	errorsAdded = Integer.parseInt(dlg.errorsAddedField.getText());
-        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors added.");}
+        }catch(NumberFormatException ex){
+        	JOptionPane.showMessageDialog(this, "Please enter a valid number of errors added.");
+        	}
         t.setErrorsAdded(errorsAdded);
         int errorsFixed = 0;
         if (!dlg.errorsFixedField.getText().isEmpty())
             try {
             	errorsFixed = Integer.parseInt(dlg.errorsFixedField.getText());
-            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors fixed.");}
+            }catch(NumberFormatException ex){
+            	JOptionPane.showMessageDialog(this, "Please enter a valid number of errors fixed.");
+            	}
         t.setErrorsFixed(errorsFixed);
 		int estLOC = 0;
 		if (!dlg.estLOCField.getText().isEmpty())
 		try {
 			estLOC = Integer.parseInt(dlg.estLOCField.getText());
-		}catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors added.");}
+		}catch(NumberFormatException ex){
+			JOptionPane.showMessageDialog(this, "Please enter a valid number of errors added.");
+			}
 		t.setEstLOC(estLOC);
 		int actLOC = 0;
 		if (!dlg.actLOCField.getText().isEmpty())
 		    try {
 		    	actLOC = Integer.parseInt(dlg.actLOCField.getText());
-		    }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors fixed.");}
+		    }catch(NumberFormatException ex){
+		    	JOptionPane.showMessageDialog(this, "Please enter a valid number of errors fixed.");
+		    	}
 		t.setActLOC(actLOC);
 		t.setTimestamp(dlg.timestamp);
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
@@ -611,25 +619,29 @@ public class TaskPanel extends JPanel {
         if (!dlg.errorsAddedField.getText().isEmpty())
 	        try {
 	        	errorsAdded = Integer.parseInt(dlg.errorsAddedField.getText());
-	        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors added."));
+	        }catch(NumberFormatException ex){
+	        	JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors added."));
 	    }
         int errorsFixed = 0;
         if (!dlg.errorsFixedField.getText().isEmpty())
             try {
             	errorsFixed = Integer.parseInt(dlg.errorsFixedField.getText());
-            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors fixed."));
+            }catch(NumberFormatException ex){
+            	JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors fixed."));
         }   
         int estLOC = 0;
         if (!dlg.estLOCField.getText().isEmpty())
 	        try {
 	        	estLOC = Integer.parseInt(dlg.estLOCField.getText());
-	        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid estimated LOC"));
+	        }catch(NumberFormatException ex){
+	        	JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid estimated LOC"));
 	    }
         int actLOC = 0;
         if (!dlg.actLOCField.getText().isEmpty())
             try {
             	actLOC = Integer.parseInt(dlg.actLOCField.getText());
-            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid actual LOC."));
+            }catch(NumberFormatException ex){
+            	JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid actual LOC."));
         } 
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
 
@@ -689,25 +701,29 @@ public class TaskPanel extends JPanel {
         if (!dlg.errorsAddedField.getText().isEmpty())
 	        try {
 	        	errorsAdded = Integer.parseInt(dlg.errorsAddedField.getText());
-	        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors added."));
+	        }catch(NumberFormatException ex){
+	        	JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors added."));
         }
         int errorsFixed = 0;
         if (!dlg.errorsFixedField.getText().isEmpty())
             try {
             	errorsFixed = Integer.parseInt(dlg.errorsFixedField.getText());
-            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors fixed."));
+            }catch(NumberFormatException ex){
+            	JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors fixed."));
         }
 		int estLOC = 0;
 		if (!dlg.estLOCField.getText().isEmpty())
 			try {
 				estLOC = Integer.parseInt(dlg.estLOCField.getText());
-			}catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid estimated LOC."));
+			}catch(NumberFormatException ex){
+				JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid estimated LOC."));
 		}
 		int actLOC = 0;
 		if (!dlg.actLOCField.getText().isEmpty())
 		    try {
 		    	actLOC = Integer.parseInt(dlg.actLOCField.getText());
-		    }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid actual LOC."));
+		    }catch(NumberFormatException ex){
+		    	JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid actual LOC."));
 		}
 		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),
 				effort,actualEffort,timestamp, dlg.descriptionField.getText(),null, errorsAdded, errorsFixed, estLOC, actLOC, new Timestamp(Calendar.getInstance().getTimeInMillis()));

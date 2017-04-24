@@ -179,7 +179,9 @@ public Class getColumnClass(int col) {
                     return Class.forName("java.util.Date");
             }
             }
-            catch (Exception ex) {new ExceptionDialog(ex);}
+            catch (Exception ex) {
+            	new ExceptionDialog(ex);
+            	}
             return null;
         }
     }
