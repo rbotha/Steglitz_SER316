@@ -46,8 +46,9 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
             Local.getString("Actual Effort(hrs)"), Local.getString("Errors Added"),
             Local.getString("Errors Fixed"), Local.getString("Est. LOC"), 
             Local.getString("Act. LOC") };
-
-    protected EventListenerList listenerList = new EventListenerList();
+	
+	//Find bugs - this is not used anywhere so it will be commented out.
+    //protected EventListenerList listenerList = new EventListenerList();
 
     private boolean activeOnly = check_activeOnly();
         

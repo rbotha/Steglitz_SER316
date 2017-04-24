@@ -558,8 +558,8 @@ public class AltHTMLWriter extends AbstractWriter {
     protected void selectContent(AttributeSet attr) throws IOException {
         Object model = attr.getAttribute(StyleConstants.ModelAttribute);
         incrIndent();
-        if (model instanceof OptionListModel) {
-            OptionListModel listModel = (OptionListModel) model;
+        if (model instanceof JOptionListModel) {
+            JOptionListModel listModel = (JOptionListModel) model;
             int size = listModel.getSize();
             for (int i = 0; i < size; i++) {
                 Option option = (Option) listModel.getElementAt(i);
@@ -1283,7 +1283,7 @@ public class AltHTMLWriter extends AbstractWriter {
      * relevant to a SELECT form element which is implemented as a List.
      * If SELECT has a size attribute whose value is greater than 1,
      * or if allows multiple selection then a JList is used to 
-     * represent it and the OptionListModel is used as its model.
+     * represent it and the JOptionListModel is used as its model.
      * It also stores the initial state of the JList, to ensure an
      * accurate reset, if the user requests a reset of the form.
      *
@@ -1291,7 +1291,7 @@ public class AltHTMLWriter extends AbstractWriter {
       @version 1.9 12/03/01
      */
 
-    class OptionListModel extends DefaultListModel implements ListSelectionModel, Serializable {
+    class JOptionListModel extends DefaultListModel implements ListSelectionModel, Serializable {
 
         private static final int MIN = -1;
         private static final int MAX = Integer.MAX_VALUE;
@@ -1355,7 +1355,7 @@ public class AltHTMLWriter extends AbstractWriter {
 
         /**
          * Returns an array of all the <code>ListSelectionListener</code>s added
-         * to this OptionListModel with addListSelectionListener().
+         * to this JOptionListModel with addListSelectionListener().
          *
          * @return all of the <code>ListSelectionListener</code>s added or an empty
          *         array if no listeners have been added
@@ -1712,7 +1712,7 @@ public class AltHTMLWriter extends AbstractWriter {
          *    and (b) define a <code>clone</code> method
          */
         public Object clone() throws CloneNotSupportedException {
-            OptionListModel clone = (OptionListModel) super.clone();
+            JOptionListModel clone = (JOptionListModel) super.clone();
             clone.value = (BitSet) value.clone();
             clone.listenerList = new EventListenerList();
             return clone;
