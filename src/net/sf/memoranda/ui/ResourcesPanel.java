@@ -335,8 +335,8 @@ public class ResourcesPanel extends JPanel {
         }
         catch (Exception ex) {
             new ExceptionDialog(ex, "Failed to run an external application <br><code>"
-                    +command[0]+"</code>", "Check the application path and command line parameters for this resource type " +
-                    		"(File-&gt;Preferences-&gt;Resource types).");
+                    +command[0]+"</code>", "Check the application path and command line parameters for this resource type " 
+            + "(File-&gt;Preferences-&gt;Resource types).");
         }
     }
 

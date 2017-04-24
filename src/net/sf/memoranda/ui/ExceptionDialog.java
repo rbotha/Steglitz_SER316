@@ -76,9 +76,9 @@ public class ExceptionDialog extends JDialog {
             "resources/icons/error.png")));
         
     jLabel2.setFont(new java.awt.Font("Dialog", 0, 11));
-    jLabel2.setText("<html>An internal exception occured. It is may be a result of bug in the " +
-    "program, corrupted data, incorrect configuration or hardware failure.<br><br>" +
-    "Click on <b>Report bug..</b> button to submit a bug to the Memoranda bugs tracker on SourceForge.net </html>");
+    jLabel2.setText("<html>An internal exception occured. It is may be a result of bug in the " 
+    + "program, corrupted data, incorrect configuration or hardware failure.<br><br>" 
+    + "Click on <b>Report bug..</b> button to submit a bug to the Memoranda bugs tracker on SourceForge.net </html>");
     jPanel2.setLayout(borderLayout2);
     jPanel2.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
     borderLayout3.setVgap(5);
