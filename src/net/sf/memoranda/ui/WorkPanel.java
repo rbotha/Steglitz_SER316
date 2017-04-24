@@ -84,9 +84,9 @@ public class WorkPanel extends JPanel {
 		agendaB.setVerticalAlignment(SwingConstants.TOP);
 		agendaB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		agendaB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				agendaB_actionPerformed(e);
-			}
+		    }
 		});
 		agendaB.setIcon(
 			new ImageIcon(
@@ -110,9 +110,9 @@ public class WorkPanel extends JPanel {
 		eventsB.setVerticalAlignment(SwingConstants.TOP);
 		eventsB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		eventsB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				eventsB_actionPerformed(e);
-			}
+		    }
 		});
 		eventsB.setIcon(
 			new ImageIcon(
@@ -131,9 +131,9 @@ public class WorkPanel extends JPanel {
 					"resources/icons/tasks.png")));
 		tasksB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		tasksB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				tasksB_actionPerformed(e);
-			}
+		    }
 		});
 		tasksB.setVerticalAlignment(SwingConstants.TOP);
 		tasksB.setText(Local.getString("Tasks"));
@@ -162,9 +162,9 @@ public class WorkPanel extends JPanel {
 		notesB.setVerticalAlignment(SwingConstants.TOP);
 		notesB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		notesB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				notesB_actionPerformed(e);
-			}
+		    }
 		});
 		notesB.setIcon(
 			new ImageIcon(
@@ -182,9 +182,9 @@ public class WorkPanel extends JPanel {
 					"resources/icons/files.png")));
 		filesB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		filesB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				filesB_actionPerformed(e);
-			}
+		    }
 		});
 		filesB.setFont(new java.awt.Font("Dialog", 1, 10));
 		filesB.setVerticalAlignment(SwingConstants.TOP);
@@ -219,9 +219,9 @@ public class WorkPanel extends JPanel {
 		contactsB.setSelected(true);
 		contactsB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		contactsB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				contactsB_actionPerformed(e);
-			}
+		    }
 		});
 		
 		this.add(toolBar, BorderLayout.WEST);

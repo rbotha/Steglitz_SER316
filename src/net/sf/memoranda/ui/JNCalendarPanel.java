@@ -200,20 +200,19 @@ public class JNCalendarPanel extends JPanel {
     	@Override
         public void mousePressed(java.awt.event.MouseEvent e) {
     		//Activate when user right clicks Mouse
-    		if(e.getButton() == java.awt.event.MouseEvent.BUTTON3){
+            if(e.getButton() == java.awt.event.MouseEvent.BUTTON3){
 	    		//Variables
 	    		int row = jnCalendar.rowAtPoint(e.getPoint()); //Get Row
 	    		int col = jnCalendar.columnAtPoint(e.getPoint()); //Get Column
 	    		int day;
-	    		if(jnCalendar.getValueAt(row, col)!= null){
+              if(jnCalendar.getValueAt(row, col)!= null){
 	    			day = (int) jnCalendar.getValueAt(row, col); //Get Day
 		    		//Focus on selected day on calendar
 		    		setCurrentDateDay(new CalendarDate(day,_date.getMonth(),_date.getYear()), day);
 		    		calendarMenu = new CalendarMenu(_parentPanel);//get menu class
 		    		calendarMenu.show(e.getComponent(),e.getX(),e.getY());//Launch menu
-		    	}
-
-    		}
+              }
+            }
         }
     	
        	
@@ -238,10 +237,10 @@ public class JNCalendarPanel extends JPanel {
       }
     });
     CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {}
-            public void projectWasChanged() {
-                jnCalendar.updateUI();
-            }
+          public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {}
+          public void projectWasChanged() {
+              jnCalendar.updateUI();
+          }
         });
 
 

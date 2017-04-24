@@ -56,31 +56,26 @@ public class JNCalendar extends JTable {
 		final ListSelectionModel rowSM = getSelectionModel();
 		final ListSelectionModel colSM = getColumnModel().getSelectionModel();
 		ListSelectionListener lsl = new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-					//Ignore extra messages.
-	if (e.getValueIsAdjusting())
-					return;
-				if (ignoreChange)
-					return;
-				int row = getSelRow();
-				int col = getSelCol();
-				Object val = getModel().getValueAt(row, col);
-				if (val != null) {
-					if (val
-						.toString()
-						.equals(new Integer(_date.getDay()).toString()))
-						return;
-					_date =
-						new CalendarDate(
-							new Integer(val.toString()).intValue(),
-							_date.getMonth(),
-							_date.getYear());
-					notifyListeners();
-				} else {
-					//getSelectionModel().clearSelection();
-					doSelection();
-				}
-			}
+                  public void valueChanged(ListSelectionEvent e) {
+                      //Ignore extra messages.
+                      if (e.getValueIsAdjusting())
+                          return;
+                      if (ignoreChange)
+                          return;
+                      int row = getSelRow();
+                      int col = getSelCol();
+                      Object val = getModel().getValueAt(row, col);
+                      if (val != null) {
+                          if (val.toString().equals(new Integer(_date.getDay()).toString()))
+                              return;
+                          _date = new CalendarDate(new Integer(val.toString()).intValue(),
+                           _date.getMonth(),_date.getYear());
+                          notifyListeners();
+                      } else {
+                          //getSelectionModel().clearSelection();
+                          doSelection();
+                      }
+                  }
 
 		};
 		rowSM.addListSelectionListener(lsl);

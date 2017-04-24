@@ -52,15 +52,15 @@ public class ContinueSearchDialog extends JPanel {
     cancelB.setText(Local.getString("Cancel"));
     cancelB.setFocusable(false);
     cancelB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cancelB_actionPerformed(e);
-            }
-        });
+        public void actionPerformed(ActionEvent e) {
+            cancelB_actionPerformed(e);
+        }
+      });
     continueB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
                 continueB_actionPerformed(e);
-            }
-        });
+        }
+      });
     continueB.setText(Local.getString("Find next"));
     continueB.setPreferredSize(new Dimension(120, 26));
     continueB.setMinimumSize(new Dimension(80, 26));

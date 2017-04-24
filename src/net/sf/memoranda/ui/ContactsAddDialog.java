@@ -180,30 +180,30 @@ public class ContactsAddDialog extends JFrame {
 		JButton btnAdd = new JButton(Local.getString("Add"));
 		btnAdd.setBounds(116, 479, 117, 29);
 		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
+		    public void actionPerformed(ActionEvent e) {
 				addContact(txtFirstName.getText(), txtLastName.getText(), txtAddress.getText(), 
 						txtPhoneNumber.getText(), txtfaxNumber.getText(), txtOther.getText());
-			}
+		    }
 		});
 		contentPane.add(btnAdd);
 		
 		JButton btnClose = new JButton(Local.getString("Close"));
 		btnClose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-			}
+		    }
 		});
 		btnClose.setBounds(282, 479, 117, 29);
 		contentPane.add(btnClose);
 
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+		    public void run() {
+		        try {
 					frame.setVisible(true);
-				}catch(Exception e){
+		        }catch(Exception e){
 					new ExceptionDialog(e);
-				}
-			}
+		        }
+		    }
 		});
 		getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
 	            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel"); //$NON-NLS-1$

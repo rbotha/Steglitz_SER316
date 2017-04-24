@@ -121,9 +121,9 @@ public class TaskCalcDialog extends JDialog {
 		okB.setPreferredSize(new Dimension(100, 25));
 		okB.setText(Local.getString("Ok"));
 		okB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				okB_actionPerformed(e);
-			}
+		    }
 		});
 		this.getRootPane().setDefaultButton(okB);
 		bottomPanel.add(okB);
@@ -131,9 +131,9 @@ public class TaskCalcDialog extends JDialog {
 		cancelB.setPreferredSize(new Dimension(100, 25));
 		cancelB.setText(Local.getString("Cancel"));
 		cancelB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				cancelB_actionPerformed(e);
-			}
+		    }
 		});
 		bottomPanel.add(cancelB);
 

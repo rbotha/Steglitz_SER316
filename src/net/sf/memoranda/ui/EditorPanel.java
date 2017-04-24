@@ -105,53 +105,53 @@ public class EditorPanel extends JPanel {
 			.getString("Insert current time"), new ImageIcon(
 			net.sf.memoranda.ui.AppFrame.class
 					.getResource("resources/icons/time.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			insTimeB_actionPerformed(e);
-		}
+          public void actionPerformed(ActionEvent e) {
+              insTimeB_actionPerformed(e);
+          }
 	};
 
 	public Action insertDateAction = new AbstractAction(Local
 			.getString("Insert current date"), new ImageIcon(
 			net.sf.memoranda.ui.AppFrame.class
 					.getResource("resources/icons/date.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			insDateB_actionPerformed(e);
-		}
+          public void actionPerformed(ActionEvent e) {
+              insDateB_actionPerformed(e);
+          }
 	};
 
 	public Action newAction = new AbstractAction(Local.getString("New note"),
 			new ImageIcon(net.sf.memoranda.ui.AppFrame.class
 					.getResource("resources/icons/filenew.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			newB_actionPerformed(e);
-		}
+          public void actionPerformed(ActionEvent e) {
+              newB_actionPerformed(e);
+          }
 	};
 
 	public Action exportAction = new AbstractAction(Local
 			.getString("Export note to file"), new ImageIcon(
 			net.sf.memoranda.ui.AppFrame.class
 					.getResource("resources/icons/export.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			exportB_actionPerformed(e);
-		}
+          public void actionPerformed(ActionEvent e) {
+              exportB_actionPerformed(e);
+          }
 	};
 
 	public Action importAction = new AbstractAction(Local
 			.getString("Insert file"), new ImageIcon(
 			net.sf.memoranda.ui.AppFrame.class
 					.getResource("resources/icons/import.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			importB_actionPerformed(e);
-		}
+          public void actionPerformed(ActionEvent e) {
+              importB_actionPerformed(e);
+          }
 	};
 
 	public Action previewAction = new AbstractAction(Local
 			.getString("Preview note in browser"), new ImageIcon(
 			net.sf.memoranda.ui.AppFrame.class
 					.getResource("resources/icons/preview.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			previewB_actionPerformed(e);
-		}
+          public void actionPerformed(ActionEvent e) {
+              previewB_actionPerformed(e);
+          }
 	};
 
 	void jbInit() throws Exception {
@@ -343,17 +343,17 @@ public class EditorPanel extends JPanel {
 		// editor.editor.getInputContext().selectInputMethod(Locale.getDefault());
 		titleField.addKeyListener(new KeyListener() {
 
-			public void keyPressed(KeyEvent ke) {
-				if (ke.getKeyCode() == KeyEvent.VK_ENTER)
-					editor.editor.requestFocus();
-			}
+                  public void keyPressed(KeyEvent ke) {
+                      if (ke.getKeyCode() == KeyEvent.VK_ENTER)
+                          editor.editor.requestFocus();
+                  }
 
-			public void keyReleased(KeyEvent arg0) {
-			}
+                  public void keyReleased(KeyEvent arg0) {
+                  }
 
-			public void keyTyped(KeyEvent arg0) {
-			}
-		});
+                  public void keyTyped(KeyEvent arg0) {
+                  }
+                });
 	}
 
 	public void initCSS() {

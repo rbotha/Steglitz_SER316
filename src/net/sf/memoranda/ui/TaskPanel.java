@@ -88,13 +88,13 @@ public class TaskPanel extends JPanel {
     
     public AbstractAction printAction = new AbstractAction(Local.getString("Print Events"),new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/print.png"))){
     	public void actionPerformed(ActionEvent e) {
-    		try{ 
+    	    try{
     			//boolean completed = taskTable.print();
     			boolean completed = taskTable.print(JTable.PrintMode.FIT_WIDTH,new MessageFormat("Tasks"),new MessageFormat("Page {0}"),true,null,true,null);
     			System.out.println("Print completed -" + completed); // Change to Dialog box for user.
-    		}catch(PrinterException ex){
+    	    }catch(PrinterException ex){
     			System.out.println("Printer failed"); // Change to Dialog box for user.
-    		}
+            }
     	}
     };
     
@@ -211,13 +211,13 @@ public class TaskPanel extends JPanel {
         
         printTaskB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
-        		try{ 
+                try{ 
         			boolean completed = taskTable.print();
         			
         			System.out.println("Print completed -" + completed); // Change to Dialog box for user.
-        		}catch(PrinterException ex){
+                }catch(PrinterException ex){
         			System.out.println("Printer failed"); // Change to Dialog box for user.
-        		}
+                }
             }
         });
         
@@ -248,10 +248,10 @@ public class TaskPanel extends JPanel {
 			Local.getString("Show Active only"));
 		ppShowActiveOnlyChB
 			.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				toggleShowActiveOnly_actionPerformed(e);
-			}
-		});		
+			    public void actionPerformed(ActionEvent e) {
+			        toggleShowActiveOnly_actionPerformed(e);
+			    }
+			});		
 		boolean isShao =
 			(Context.get("SHOW_ACTIVE_TASKS_ONLY") != null)
 				&& (Context.get("SHOW_ACTIVE_TASKS_ONLY").equals("true"));
@@ -280,9 +280,9 @@ public class TaskPanel extends JPanel {
         ppEditTask.setFont(new java.awt.Font("Dialog", 1, 11));
     ppEditTask.setText(Local.getString("Edit task")+"...");
     ppEditTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
                 ppEditTask_actionPerformed(e);
-            }
+        }
         });
     ppEditTask.setEnabled(false);
     ppEditTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_edit.png")));
@@ -290,27 +290,27 @@ public class TaskPanel extends JPanel {
     ppRemoveTask.setFont(new java.awt.Font("Dialog", 1, 11));
     ppRemoveTask.setText(Local.getString("Remove task"));
     ppRemoveTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
                 ppRemoveTask_actionPerformed(e);
-            }
-        });
+        }
+    });
     ppRemoveTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_remove.png")));
     ppRemoveTask.setEnabled(false);
     ppNewTask.setFont(new java.awt.Font("Dialog", 1, 11));
     ppNewTask.setText(Local.getString("New task")+"...");
     ppNewTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
                 ppNewTask_actionPerformed(e);
-            }
-        });
+        }
+    });
     ppNewTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new.png")));
 
     ppAddSubTask.setFont(new java.awt.Font("Dialog", 1, 11));
     ppAddSubTask.setText(Local.getString("Add subtask"));
     ppAddSubTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
                 ppAddSubTask_actionPerformed(e);
-            }
+        }
         });
     ppAddSubTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new_sub.png")));
 
@@ -337,20 +337,20 @@ public class TaskPanel extends JPanel {
 	ppCompleteTask.setFont(new java.awt.Font("Dialog", 1, 11));
 	ppCompleteTask.setText(Local.getString("Complete task"));
 	ppCompleteTask.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+	    public void actionPerformed(ActionEvent e) {
 				ppCompleteTask_actionPerformed(e);
-			}
-		});
+	    }
+	});
 	ppCompleteTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
 	ppCompleteTask.setEnabled(false);
 
 	ppCalcTask.setFont(new java.awt.Font("Dialog", 1, 11));
 	ppCalcTask.setText(Local.getString("Calculate task data"));
 	ppCalcTask.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+	    public void actionPerformed(ActionEvent e) {
 				ppCalcTask_actionPerformed(e);
-			}
-		});
+	    }
+	});
 	ppCalcTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
 	ppCalcTask.setEnabled(false);
 
@@ -462,27 +462,27 @@ public class TaskPanel extends JPanel {
 		// - KEY:INSERT => insert new Task if nothing is selected.
 		// - KEY:SPACE => finish Task.
 		taskTable.addKeyListener(new KeyListener() {
-			public void keyPressed(KeyEvent e){
-				if(taskTable.getSelectedRows().length>0 
+		    public void keyPressed(KeyEvent e){
+		        if(taskTable.getSelectedRows().length>0 
 					&& e.getKeyCode()==KeyEvent.VK_DELETE)
 					ppRemoveTask_actionPerformed(null);
 				
-				else if(e.getKeyCode()==KeyEvent.VK_INSERT) {
-					if(taskTable.getSelectedRows().length>0) {
-						ppAddSubTask_actionPerformed(null);
-					}
-					else {
-						ppNewTask_actionPerformed(null);						
-					}
-				}
+		        else if(e.getKeyCode()==KeyEvent.VK_INSERT) {
+                        if(taskTable.getSelectedRows().length>0) {
+                            ppAddSubTask_actionPerformed(null);
+                        }
+                        else {
+                               ppNewTask_actionPerformed(null);
+                        }
+		        }
 				
-				else if(e.getKeyCode()==KeyEvent.VK_SPACE
+		        else if(e.getKeyCode()==KeyEvent.VK_SPACE
 						&& taskTable.getSelectedRows().length>0) {
 					ppCompleteTask_actionPerformed(null);
-				}
-			}
-			public void	keyReleased(KeyEvent e){}
-			public void keyTyped(KeyEvent e){} 
+		        }
+		    }
+		    public void	keyReleased(KeyEvent e){}
+		    public void keyTyped(KeyEvent e){} 
 		});	
 
     }

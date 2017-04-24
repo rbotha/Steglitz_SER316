@@ -67,7 +67,7 @@ public class StickerDialog extends JDialog {
 	Border border1;
 	Border border2;
 	Color[] colors =
-		{
+        {
 			Color.YELLOW,
 			Color.ORANGE,
 			Color.RED,
@@ -79,7 +79,7 @@ public class StickerDialog extends JDialog {
 			Color.WHITE,
 			Color.PINK };
 	String[] colorLabels =
-		{
+        {
 			Local.getString("Yellow"),
 			Local.getString("Orange"),
 			Local.getString("Red"),
@@ -169,43 +169,43 @@ public class StickerDialog extends JDialog {
 		cancelButton.setPreferredSize(new Dimension(100, 25));
 		cancelButton.setText(Local.getString("Cancel"));
 		cancelButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cancelButton_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      cancelButton_actionPerformed(e);
+                  }
 		});
 		okButton.setMaximumSize(new Dimension(100, 25));
 		okButton.setMinimumSize(new Dimension(100, 25));
 		okButton.setPreferredSize(new Dimension(100, 25));
 		okButton.setText(Local.getString("Ok"));
 		okButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				okButton_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      okButton_actionPerformed(e);
+                  }
 		});
 		this.getRootPane().setDefaultButton(okButton);
 		boldButton.setText(Local.getString("Bold"));
 		boldButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				boldButton_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      boldButton_actionPerformed(e);
+                  }
 		});
 		italicButton.setText(Local.getString("Italic"));
 		italicButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				italicButton_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      italicButton_actionPerformed(e);
+                  }
 		});
 		underlineButton.setText(Local.getString("Underline"));
 		underlineButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				underlineButton_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      underlineButton_actionPerformed(e);
+                  }
 		});
 		unorderedListButton.setText("* "+Local.getString("List"));
 		unorderedListButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				unorderedListButton_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      unorderedListButton_actionPerformed(e);
+                  }
 		});
 		bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		topPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -273,9 +273,9 @@ public class StickerDialog extends JDialog {
 					Local.getCurrentLocale()).format(
 					new java.util.Date())+"\n");
 		stickerColor.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				stickerColor_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      stickerColor_actionPerformed(e);
+                  }
 		});
 		if (Context.get("TEXT_COLOR") != null) {
 			Color d = new Color(new Integer(Context.get("TEXT_COLOR").toString()).intValue());
@@ -298,9 +298,9 @@ public class StickerDialog extends JDialog {
 			textColor.setSelectedIndex(7);
 		}
 		textColor.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				textColor_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      textColor_actionPerformed(e);
+                  }
 		});
 		Font f= stickerText.getFont();
 		if (Context.get("TEXT_SIZE") != null) {
@@ -313,9 +313,9 @@ public class StickerDialog extends JDialog {
 			fontSize.setSelectedIndex(1);
 		}
 		fontSize.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				fontSize_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      fontSize_actionPerformed(e);
+                  }
 		});
 		
 		 getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(

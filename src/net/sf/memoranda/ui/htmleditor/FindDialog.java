@@ -111,9 +111,9 @@ public class FindDialog extends JDialog {
 		areaPanel.add(chkCaseSens, gbc);
 		chkReplace.setText(Local.getString("Replace with") + ":");
 		chkReplace.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				replaceChB_actionPerformed(e);
-			}
+		    }
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0; gbc.gridy = 4;
@@ -139,18 +139,18 @@ public class FindDialog extends JDialog {
 		cancelB.setPreferredSize(new Dimension(100, 26));
 		cancelB.setText(Local.getString("Cancel"));
 		cancelB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				cancelB_actionPerformed(e);
-			}
+		    }
 		});
 		okB.setMaximumSize(new Dimension(100, 26));
 		okB.setMinimumSize(new Dimension(100, 26));
 		okB.setPreferredSize(new Dimension(100, 26));
 		okB.setText(Local.getString("Find"));
 		okB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				okB_actionPerformed(e);
-			}
+		    }
 		});
 		this.getRootPane().setDefaultButton(okB);
 		// build button-panel
