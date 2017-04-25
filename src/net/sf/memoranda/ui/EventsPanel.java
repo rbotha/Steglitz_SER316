@@ -38,7 +38,7 @@ import net.sf.memoranda.util.Configuration;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Util;
-import net.sf.memoranda.GoogleMail;
+
 /*$Id: EventsPanel.java,v 1.25 2005/02/19 10:06:25 rawsushi Exp $*/
 public class EventsPanel extends JPanel {
     BorderLayout borderLayout1 = new BorderLayout();
@@ -335,38 +335,20 @@ public class EventsPanel extends JPanel {
         String text = dlg.textField.getText();
         String note = dlg.noteField.getText();
         String email = dlg.emailInputField.getText();
-        if (dlg.noRepeatRB.isSelected()) 
-        {
-            if(dlg.useEmail == true) 
-            {
-                if (!GoogleMail.IsValidEmail(email)) 
-                {
-                    JOptionPane.showMessageDialog(null, "The email address entered is not valid.",
-                                                "Invalid email error", JOptionPane.ERROR_MESSAGE);
-                    email = null;
-                } 
-                else 
-                {
-                    EventsManager.createEvent(CurrentDate.get(), hh, mm, text, email, note);
-                }
-            } 
-            else 
-            {
+        if (dlg.noRepeatRB.isSelected()) {
+            if(dlg.useEmail == true) {
+                EventsManager.createEvent(CurrentDate.get(), hh, mm, text, email, note);
+            } else {
                 EventsManager.createEvent(CurrentDate.get(), hh, mm, text, note);
             }
-        } 
-        else 
-        {
-            if(dlg.useEmail == true) 
-            {
-                updateEvents(dlg, hh, mm, text, email, note);
-            } 
-            else 
-            {
-                updateEvents(dlg,hh,mm,text, note);
-            }
-       }
-       saveEvents();
+        } else {
+        if(dlg.useEmail == true) {
+            updateEvents(dlg, hh, mm, text, email, note);
+        } else {
+            updateEvents(dlg,hh,mm,text, note);
+        }
+	}    
+	saveEvents();
     }
 
     void newEventB_actionPerformed(ActionEvent e) {
@@ -410,34 +392,18 @@ public class EventsPanel extends JPanel {
 
 		CalendarDate eventCalendarDate = new CalendarDate(dlg.getEventDate());
 		
-    	if (dlg.noRepeatRB.isSelected()) 
-        {
-            if(dlg.useEmail == true) 
-            {
-                if (!GoogleMail.IsValidEmail(email)) 
-                {
-                    JOptionPane.showMessageDialog(null, "The email address entered is not valid."+
-                                            "\nThe new event has not been saved.",
-                                            "Invalid email error", JOptionPane.ERROR_MESSAGE);
-                } 
-                else 
-                {
+    	if (dlg.noRepeatRB.isSelected()) {
+    		if(dlg.useEmail == true)
                     EventsManager.createEvent(eventCalendarDate, hh, mm, text, email, note);
-                }
-            } 
-            else 
-            {
-                EventsManager.createEvent(eventCalendarDate, hh, mm, text, note);
-            }
-        } 
-        else 
-        {
-            if(dlg.useEmail == true)
-                updateEvents(dlg, hh, mm, text, email, note);
-            else
-                updateEvents(dlg,hh,mm,text, note);
-        }
-        saveEvents();
+    		else
+                    EventsManager.createEvent(eventCalendarDate, hh, mm, text, note);
+    	} else {
+    		if(dlg.useEmail == true)
+    			updateEvents(dlg, hh, mm, text, email, note);
+    		else
+    			updateEvents(dlg,hh,mm,text, note);
+    	}
+    	saveEvents();
     }
 
     private void saveEvents() {
