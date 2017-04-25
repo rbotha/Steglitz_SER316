@@ -42,6 +42,9 @@ public class Util {
         return defaultColor;
     }
 
+    public static Color decodeColor(String color) {
+        return decodeColor(color, Color.white);
+    }
     public static Color decodeColor(String color, Color defaultColor) {
         String colorVal = "";
         if (color.length() > 0) {
@@ -62,10 +65,6 @@ public class Util {
     
     public static String encodeColor(Color color) {        
         return "#"+Integer.toHexString(color.getRGB()-0xFF000000).toUpperCase();  
-    }
-
-    public static Color decodeColor(String color) {
-        return decodeColor(color, Color.white);
     }
 
     public static void setBgcolorField(JTextField field) {
