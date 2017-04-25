@@ -22,6 +22,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -62,7 +63,10 @@ public class TaskPanel extends JPanel {
     JButton printTaskB = new JButton();
     
 	JCheckBoxMenuItem ppShowActiveOnlyChB = new JCheckBoxMenuItem();
-		
+	JCheckBoxMenuItem ppHideTaskEffortChB = new JCheckBoxMenuItem();
+	JCheckBoxMenuItem ppHideTaskErrorsChB = new JCheckBoxMenuItem();
+	JCheckBoxMenuItem ppHideTaskLOCChB = new JCheckBoxMenuItem();
+	JMenu ppVisibilitySubmenu = new JMenu(Local.getString("Visibility Options"));
     JScrollPane scrollPane = new JScrollPane();
     TaskTable taskTable = new TaskTable();
 	JMenuItem ppEditTask = new JMenuItem();
@@ -254,9 +258,54 @@ public class TaskPanel extends JPanel {
 		});		
 		boolean isShao =
 			(Context.get("SHOW_ACTIVE_TASKS_ONLY") != null)
-				&& (Context.get("SHOW_ACTIVE_TASKS_ONLY").equals("true"));
+				&& (Context.get("SHOW_ACTIVE_TASKS_ONLY").equals(true));
 		ppShowActiveOnlyChB.setSelected(isShao);
 		toggleShowActiveOnly_actionPerformed(null);
+		
+		ppHideTaskEffortChB.setFont(new java.awt.Font("Dialog", 1, 11));
+		ppHideTaskEffortChB.setText(
+			Local.getString("Hide Effort/Hours columns"));
+		ppHideTaskEffortChB
+			.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				toggleHideTaskEffort_actionPerformed(e);
+			}
+		});	
+		boolean hideEffort =
+			(Context.get("HIDE_TASK_EFFORT_COLUMNS") != null)
+				&& (Context.get("HIDE_TASK_EFFORT_COLUMNS").equals(true));
+		ppHideTaskEffortChB.setSelected(hideEffort);
+		toggleHideTaskEffort_actionPerformed(null);
+		
+		ppHideTaskErrorsChB.setFont(new java.awt.Font("Dialog", 1, 11));
+		ppHideTaskErrorsChB.setText(
+			Local.getString("Hide Errors columns"));
+		ppHideTaskErrorsChB
+			.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				toggleHideTaskErrors_actionPerformed(e);
+			}
+		});	
+		boolean hideErrors =
+			(Context.get("HIDE_TASK_ERRORS_COLUMNS") != null)
+				&& (Context.get("HIDE_TASK_ERRORS_COLUMNS").equals(true));
+		ppHideTaskErrorsChB.setSelected(hideErrors);
+		toggleHideTaskErrors_actionPerformed(null);
+		
+		ppHideTaskLOCChB.setFont(new java.awt.Font("Dialog", 1, 11));
+		ppHideTaskLOCChB.setText(
+			Local.getString("Hide LOC columns"));
+		ppHideTaskLOCChB
+			.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				toggleHideTaskLOC_actionPerformed(e);
+			}
+		});	
+		boolean hideLOC =
+			(Context.get("HIDE_TASK_LOC_COLUMNS") != null)
+				&& (Context.get("HIDE_TASK_LOC_COLUMNS").equals(true));
+		ppHideTaskLOCChB.setSelected(hideLOC);
+		toggleHideTaskLOC_actionPerformed(null);
 
 		/*showActiveOnly.setPreferredSize(new Dimension(24, 24));
 		showActiveOnly.setRequestFocusEnabled(false);
@@ -453,7 +502,11 @@ public class TaskPanel extends JPanel {
     //taskPPMenu.add(ppParentTask);
     
     taskPPMenu.addSeparator();
-	taskPPMenu.add(ppShowActiveOnlyChB);
+    taskPPMenu.add(ppVisibilitySubmenu);
+    ppVisibilitySubmenu.add(ppShowActiveOnlyChB);
+    ppVisibilitySubmenu.add(ppHideTaskEffortChB);
+    ppVisibilitySubmenu.add(ppHideTaskErrorsChB);
+    ppVisibilitySubmenu.add(ppHideTaskLOCChB);
 
 	
 		// define key actions in TaskPanel:
@@ -863,6 +916,45 @@ public class TaskPanel extends JPanel {
 		Context.put(
 			"SHOW_ACTIVE_TASKS_ONLY",
 			new Boolean(ppShowActiveOnlyChB.isSelected()));
+		taskTable.tableChanged();
+		
+	}
+	
+	/**
+	 * Toggle visibility of task Effort columns
+	 * @param e the event
+	 */
+	void toggleHideTaskEffort_actionPerformed(ActionEvent e) {
+		Context.put(
+			"HIDE_TASK_EFFORT_COLUMNS",
+			new Boolean(ppHideTaskEffortChB.isSelected()));
+		taskTable.initColumnWidths();
+		taskTable.tableChanged();
+		System.out.println("Context for Effort is: " + Context.get("HIDE_TASK_EFFORT_COLUMNS"));
+		System.out.println("Is equal to true?" + (Context.get("HIDE_TASK_EFFORT_COLUMNS")));
+	}
+	
+	/**
+	 * Toggle visibility of task Errors columns
+	 * @param e the event
+	 */
+	void toggleHideTaskErrors_actionPerformed(ActionEvent e) {
+		Context.put(
+			"HIDE_TASK_ERRORS_COLUMNS",
+			new Boolean(ppHideTaskErrorsChB.isSelected()));
+		taskTable.initColumnWidths();
+		taskTable.tableChanged();
+	}
+	
+	/**
+	 * Toggle visibility of task LOC columns
+	 * @param e the event
+	 */
+	void toggleHideTaskLOC_actionPerformed(ActionEvent e) {
+		Context.put(
+			"HIDE_TASK_LOC_COLUMNS",
+			new Boolean(ppHideTaskLOCChB.isSelected()));
+		taskTable.initColumnWidths();
 		taskTable.tableChanged();
 	}
 
