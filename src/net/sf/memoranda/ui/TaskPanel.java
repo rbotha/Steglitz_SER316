@@ -49,7 +49,13 @@ import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Util;
 
-/*$Id: TaskPanel.java,v 1.27 2007/01/17 20:49:12 killerjoe Exp $*/
+
+/**
+ * Instantiates the Task Panel of the Task Tab
+ * @author killerjoe
+ *
+ */
+/*$Id: TaskPanel.java,v 1.27 2017/04/24 drmorri8 Exp $*/
 public class TaskPanel extends JPanel {
     BorderLayout borderLayout1 = new BorderLayout();
     JButton historyBackB = new JButton();
@@ -102,6 +108,10 @@ public class TaskPanel extends JPanel {
     	}
     };
     
+    /**
+     * JPanel instantiation.
+     * @throws Exception
+     */
     void jbInit() throws Exception {
         tasksToolBar.setFloatable(false);
 
@@ -249,7 +259,7 @@ public class TaskPanel extends JPanel {
 		
 		ppShowActiveOnlyChB.setFont(new java.awt.Font("Dialog", 1, 11));
 		ppShowActiveOnlyChB.setText(
-			Local.getString("Show Active only"));
+			Local.getString("Hide completed tasks"));
 		ppShowActiveOnlyChB
 			.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -921,40 +931,40 @@ public class TaskPanel extends JPanel {
 	}
 	
 	/**
-	 * Toggle visibility of task Effort columns
+	 * Catch check-box event. Toggle visibility of task Effort columns
 	 * @param e the event
 	 */
 	void toggleHideTaskEffort_actionPerformed(ActionEvent e) {
 		Context.put(
 			"HIDE_TASK_EFFORT_COLUMNS",
 			new Boolean(ppHideTaskEffortChB.isSelected()));
-		taskTable.initColumnWidths();
+		taskTable.updateColumnWidths();
 		taskTable.tableChanged();
 		System.out.println("Context for Effort is: " + Context.get("HIDE_TASK_EFFORT_COLUMNS"));
 		System.out.println("Is equal to true?" + (Context.get("HIDE_TASK_EFFORT_COLUMNS")));
 	}
 	
 	/**
-	 * Toggle visibility of task Errors columns
+	 * Catch check-box event. Toggle visibility of task Errors columns
 	 * @param e the event
 	 */
 	void toggleHideTaskErrors_actionPerformed(ActionEvent e) {
 		Context.put(
 			"HIDE_TASK_ERRORS_COLUMNS",
 			new Boolean(ppHideTaskErrorsChB.isSelected()));
-		taskTable.initColumnWidths();
+		taskTable.updateColumnWidths();
 		taskTable.tableChanged();
 	}
 	
 	/**
-	 * Toggle visibility of task LOC columns
+	 * Catch check-box event. Toggle visibility of task LOC columns
 	 * @param e the event
 	 */
 	void toggleHideTaskLOC_actionPerformed(ActionEvent e) {
 		Context.put(
 			"HIDE_TASK_LOC_COLUMNS",
 			new Boolean(ppHideTaskLOCChB.isSelected()));
-		taskTable.initColumnWidths();
+		taskTable.updateColumnWidths();
 		taskTable.tableChanged();
 	}
 

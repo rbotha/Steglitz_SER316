@@ -174,13 +174,16 @@ public class TaskTable extends JTable {
 		//if (tree.getRowHeight() < 1) {
 			setRowHeight(18);
 		//}
-		initColumnWidths();
+		updateColumnWidths();
 		
 		// do not allow moving columns
 		getTableHeader().setReorderingAllowed(false);
     }
 
-    void initColumnWidths() {
+    /**
+     * Updates columns using values from Context.
+     */
+    void updateColumnWidths() {
         for (int i = 0; i < getColumnCount(); i++) {
             TableColumn column = getColumnModel().getColumn(i);
             if (i == 0) {
@@ -194,15 +197,19 @@ public class TaskTable extends JTable {
             	System.out.println("TaskTable ln 194: Got here");
             	column.setPreferredWidth(0);
             	column.setMinWidth(0);
+            	column.setMaxWidth(0);
             } else if ((i == 9 || i == 10) && Context.get("HIDE_TASK_ERRORS_COLUMNS").equals(true)) {
             	column.setPreferredWidth(0);
             	column.setMinWidth(0);
+            	column.setMaxWidth(0);
             } else if ((i == 11 || i == 12) && Context.get("HIDE_TASK_LOC_COLUMNS").equals(true)) {
             	column.setPreferredWidth(0);
             	column.setMinWidth(0);
+            	column.setMaxWidth(0);
             } else {
-            	column.setPreferredWidth(67); //65);
-            	column.setMinWidth(67); // 65);
+            	column.setMaxWidth(67);
+            	column.setMinWidth(67);
+            	column.setPreferredWidth(67);
             }
         }
     }
