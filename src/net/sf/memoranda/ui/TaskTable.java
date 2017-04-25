@@ -183,7 +183,7 @@ public class TaskTable extends JTable {
     /**
      * Updates columns using values from Context.
      */
-    void updateColumnWidths() {
+    public void updateColumnWidths() {
         for (int i = 0; i < getColumnCount(); i++) {
             TableColumn column = getColumnModel().getColumn(i);
             if (i == 0) {
