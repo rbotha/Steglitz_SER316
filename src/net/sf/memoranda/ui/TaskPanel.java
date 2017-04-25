@@ -940,8 +940,6 @@ public class TaskPanel extends JPanel {
 			new Boolean(ppHideTaskEffortChB.isSelected()));
 		taskTable.updateColumnWidths();
 		taskTable.tableChanged();
-		System.out.println("Context for Effort is: " + Context.get("HIDE_TASK_EFFORT_COLUMNS"));
-		System.out.println("Is equal to true?" + (Context.get("HIDE_TASK_EFFORT_COLUMNS")));
 	}
 	
 	/**
