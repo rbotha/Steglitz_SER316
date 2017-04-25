@@ -194,7 +194,6 @@ public class TaskTable extends JTable {
             	column.setPreferredWidth(100);
             	column.setMinWidth(100);
             } else if ((i == 7 || i == 8) && Context.get("HIDE_TASK_EFFORT_COLUMNS").equals(true)) {
-            	System.out.println("TaskTable ln 194: Got here");
             	column.setPreferredWidth(0);
             	column.setMinWidth(0);
             	column.setMaxWidth(0);
