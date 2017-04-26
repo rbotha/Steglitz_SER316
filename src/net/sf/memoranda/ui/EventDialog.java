@@ -56,7 +56,7 @@ import java.awt.GridLayout;
 /*$Id: EventDialog.java,v 1.28 2005/02/19 10:06:25 rawsushi Exp $*/
 public class EventDialog extends JDialog implements WindowListener {	
     public boolean CANCELLED = false;
-	public boolean useEmail = true;
+	public boolean useEmail = false;
     boolean ignoreStartChanged = false;
     boolean ignoreEndChanged = false;
     JPanel topPanel = new JPanel(new BorderLayout());
@@ -136,7 +136,7 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.insets = new Insets(10, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
         eventPanel.add(lblTime, gbc);
-        timeSpin.setPreferredSize(new Dimension(60, 24));
+        timeSpin.setPreferredSize(new Dimension(70, 24));
         gbc = new GridBagConstraints();
         gbc.gridx = 1; gbc.gridy = 0;
         gbc.insets = new Insets(10, 0, 5, 5);
@@ -435,18 +435,18 @@ public class EventDialog extends JDialog implements WindowListener {
         middlePanel.add(emailPanel);
         emailPanel.setLayout(new BoxLayout(emailPanel, BoxLayout.X_AXIS));
         emailToggle.setPreferredSize(new Dimension(100, 30));
-        emailToggle.setSelected(true);
         emailToggle.setToolTipText("Use this to toggle email functionality on and off");
-        emailToggle.addItemListener(new ItemListener() {
+        emailToggle.setSelected(false); 
+        emailInputField.setEnabled(false);
+        emailToggle.addItemListener(new ItemListener() {    
         	public void itemStateChanged(ItemEvent ie) {
+
         		switch (ie.getStateChange()) {
 	        		case 1: //if selected.
-	        			emailInputField.setVisible(true);
 	        			emailInputField.setEnabled(true);
 	        			useEmail = true;
 	        			break;
 	        		case 2: //if deselected.
-	        			emailInputField.setVisible(false);
 	        			emailInputField.setEnabled(false);
 	        			useEmail = false;
 	        			break;
@@ -513,12 +513,19 @@ public class EventDialog extends JDialog implements WindowListener {
     }
     //Military Time action listener
     public void  MTChange_actionPerformed(ActionEvent e){
-    if(MT.isSelected()){
-        ((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("hh:mm a");
+        //Get current time spinner set to.
+        Date currentTimeSpin = new Date(timeSpin.getValue().toString());
+        //Change value in spinner to trigger event.
+        timeSpin.setValue(Calendar.getInstance().getTime());
+        
+        if(MT.isSelected()){
+            ((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("hh:mm a");
         }
         else if(!MT.isSelected()){
         	((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("HH:mm");
-        	}
+        }
+        
+        timeSpin.setValue(currentTimeSpin);
     }
  
     public void yearlyRepeatRB_actionPerformed(ActionEvent e) {
