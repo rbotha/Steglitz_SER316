@@ -585,11 +585,12 @@ public class EventDialog extends JDialog implements WindowListener {
     }
     
     public void setEventDate(Date d) {
-	    eventDate = d;
+	    eventDate = Date.from(d.toInstant());
 	}
 	
 	public Date getEventDate() {
-		return eventDate;
+	    ;
+		return Date.from(eventDate.toInstant());
 	}
 	
     public void windowClosed( WindowEvent e ) {}

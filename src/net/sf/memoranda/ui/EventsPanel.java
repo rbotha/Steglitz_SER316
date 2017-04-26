@@ -295,12 +295,12 @@ public class EventsPanel extends JPanel {
             else if (rep == EventsManager.REPEAT_MONTHLY) {
                 dlg.monthlyRepeatRB.setSelected(true);
                 dlg.monthlyRepeatRB_actionPerformed(null);
-                dlg.dayOfMonthSpin.setValue(new Integer(ev.getPeriod()));
+                dlg.dayOfMonthSpin.setValue(Integer.valueOf(ev.getPeriod()));
             }
 	    else if (rep == EventsManager.REPEAT_YEARLY) {
 		dlg.yearlyRepeatRB.setSelected(true);
 		dlg.yearlyRepeatRB_actionPerformed(null);
-		dlg.dayOfMonthSpin.setValue(new Integer(ev.getPeriod()));
+		dlg.dayOfMonthSpin.setValue(Integer.valueOf(ev.getPeriod()));
 	    }
         if (ev.getEndDate() != null) {
            dlg.endDate.getModel().setValue(ev.getEndDate().getDate());
