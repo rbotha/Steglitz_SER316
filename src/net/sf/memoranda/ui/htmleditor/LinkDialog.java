@@ -20,36 +20,79 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import net.sf.memoranda.ui.htmleditor.util.Local;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>Title: </p>
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>
+ * <p>Company: </p>.
+ *
  * @author unascribed
  * @version 1.0
  */
 
 public class LinkDialog extends JDialog {
+    
+    /** The top panel. */
     JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    
+    /** The header. */
     public JLabel header = new JLabel();
+    
+    /** The area panel. */
     JPanel areaPanel = new JPanel(new GridBagLayout());
+    
+    /** The gbc. */
     GridBagConstraints gbc;
+    
+    /** The lbl URL. */
     JLabel lblURL = new JLabel();
+    
+    /** The txt URL. */
     public JTextField txtURL = new JTextField();
+    
+    /** The lbl name. */
     JLabel lblName = new JLabel();
+    
+    /** The txt name. */
     public JTextField txtName = new JTextField();
+    
+    /** The lbl title. */
     JLabel lblTitle = new JLabel();
+    
+    /** The txt title. */
     public JTextField txtTitle = new JTextField();
+    
+    /** The lbl desc. */
     JLabel lblDesc = new JLabel();
+    
+    /** The txt desc. */
     JTextField txtDesc = new JTextField();
+    
+    /** The chk new win. */
     JCheckBox chkNewWin = new JCheckBox();
+    
+    /** The buttons panel. */
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+    
+    /** The ok B. */
     JButton okB = new JButton();
+  
+  /** The cancel B. */
   JButton cancelB = new JButton();
+  
+  /** The aligns. */
   String[] aligns = {"", Local.getString("left"), 
   Local.getString("center"), Local.getString("right")};
+  
+  /** The cancelled. */
   public boolean CANCELLED = false;
 
+  /**
+   * Instantiates a new link dialog.
+   *
+   * @param frame the frame
+   */
   public LinkDialog(Frame frame) {
     super(frame, Local.getString("Insert hyperlink"), true);
     try {
@@ -61,11 +104,19 @@ public class LinkDialog extends JDialog {
     }
   }
 
+  /**
+   * Instantiates a new link dialog.
+   */
   public LinkDialog() {
     this(null);
   }
 
 
+  /**
+   * Jb init.
+   *
+   * @throws Exception the exception
+   */
   void jbInit() throws Exception {
 	this.setResizable(false);
         header.setFont(new java.awt.Font("Dialog", 0, 20));
@@ -163,10 +214,20 @@ public class LinkDialog extends JDialog {
         
   }
 
+  /**
+   * Ok B action performed.
+   *
+   * @param e the e
+   */
   void okB_actionPerformed(ActionEvent e) {
     this.dispose();
   }
 
+  /**
+   * Cancel B action performed.
+   *
+   * @param e the e
+   */
   void cancelB_actionPerformed(ActionEvent e) {
     CANCELLED = true;
     this.dispose();

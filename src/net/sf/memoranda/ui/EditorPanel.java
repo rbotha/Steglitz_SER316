@@ -42,56 +42,90 @@ import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Configuration;
 import net.sf.memoranda.util.Printer;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EditorPanel.
+ */
 /*$Id: EditorPanel.java,v 1.21 2006/06/28 22:58:31 alexeya Exp $*/
 public class EditorPanel extends JPanel {
+	
+	/** The border layout 1. */
 	BorderLayout borderLayout1 = new BorderLayout();
 
+	/** The j panel 1. */
 	JPanel jPanel1 = new JPanel();
 
+	/** The editor. */
 	public HTMLEditor editor = null;
 
+	/** The printer. */
 	public Printer printer = null;
 	
+	/** The import B. */
 	JButton importB = new JButton();
 
+	/** The export B. */
 	JButton exportB = new JButton();
 
+	/** The redo B. */
 	JButton redoB = new JButton();
 
+	/** The copy B. */
 	JButton copyB = new JButton();
 
+	/** The history back B. */
 	JButton historyBackB = new JButton();
 
+	/** The editor tool bar. */
 	JToolBar editorToolBar = new JToolBar();
 
+	/** The paste B. */
 	JButton pasteB = new JButton();
 
+	/** The history forward B. */
 	JButton historyForwardB = new JButton();
 
+	/** The ins date B. */
 	JButton insDateB = new JButton();
 
+	/** The ins time B. */
 	JButton insTimeB = new JButton();
 
+	/** The print B. */
 	JButton printB = new JButton();
 	
+	/** The undo B. */
 	JButton undoB = new JButton();
 
+	/** The cut B. */
 	JButton cutB = new JButton();
 
+	/** The border layout 2. */
 	BorderLayout borderLayout2 = new BorderLayout();
 
+	/** The title bar. */
 	JToolBar titleBar = new JToolBar();
 
+	/** The title label. */
 	JLabel titleLabel = new JLabel();
 
+	/** The title field. */
 	public JTextField titleField = new JTextField();
 
+	/** The new B. */
 	JButton newB = new JButton();
 
+	/** The preview B. */
 	JButton previewB = new JButton();
 
+	/** The parent panel. */
 	DailyItemsPanel parentPanel = null;
 
+	/**
+	 * Instantiates a new editor panel.
+	 *
+	 * @param parent the parent
+	 */
 	public EditorPanel(DailyItemsPanel parent) {
 		try {
 			parentPanel = parent;
@@ -101,6 +135,7 @@ public class EditorPanel extends JPanel {
 		}
 	}
 
+	/** The insert time action. */
 	public Action insertTimeAction = new AbstractAction(Local
 			.getString("Insert current time"), new ImageIcon(
 			net.sf.memoranda.ui.AppFrame.class
@@ -110,6 +145,7 @@ public class EditorPanel extends JPanel {
 		}
 	};
 
+	/** The insert date action. */
 	public Action insertDateAction = new AbstractAction(Local
 			.getString("Insert current date"), new ImageIcon(
 			net.sf.memoranda.ui.AppFrame.class
@@ -119,6 +155,7 @@ public class EditorPanel extends JPanel {
 		}
 	};
 
+	/** The new action. */
 	public Action newAction = new AbstractAction(Local.getString("New note"),
 			new ImageIcon(net.sf.memoranda.ui.AppFrame.class
 					.getResource("resources/icons/filenew.png"))) {
@@ -127,6 +164,7 @@ public class EditorPanel extends JPanel {
 		}
 	};
 
+	/** The export action. */
 	public Action exportAction = new AbstractAction(Local
 			.getString("Export note to file"), new ImageIcon(
 			net.sf.memoranda.ui.AppFrame.class
@@ -136,6 +174,7 @@ public class EditorPanel extends JPanel {
 		}
 	};
 
+	/** The import action. */
 	public Action importAction = new AbstractAction(Local
 			.getString("Insert file"), new ImageIcon(
 			net.sf.memoranda.ui.AppFrame.class
@@ -145,6 +184,7 @@ public class EditorPanel extends JPanel {
 		}
 	};
 
+	/** The preview action. */
 	public Action previewAction = new AbstractAction(Local
 			.getString("Preview note in browser"), new ImageIcon(
 			net.sf.memoranda.ui.AppFrame.class
@@ -154,6 +194,11 @@ public class EditorPanel extends JPanel {
 		}
 	};
 
+	/**
+	 * Jb init.
+	 *
+	 * @throws Exception the exception
+	 */
 	void jbInit() throws Exception {
 
 		if (!Configuration.get("DISABLE_L10N").equals("yes"))
@@ -356,6 +401,9 @@ public class EditorPanel extends JPanel {
 		});
 	}
 
+	/**
+	 * Inits the CSS.
+	 */
 	public void initCSS() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(
 				net.sf.memoranda.ui.EditorPanel.class
@@ -396,6 +444,12 @@ public class EditorPanel extends JPanel {
 			}
 
 	}
+
+/**
+ * Ins date B action performed.
+ *
+ * @param e the e
+ */
 //-----------edited 3/30/17
 	void insDateB_actionPerformed(ActionEvent e) {
 		if(Configuration.get("MMYYDD").equals("no")){
@@ -409,12 +463,22 @@ public class EditorPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Ins time B action performed.
+	 *
+	 * @param e the e
+	 */
 	void insTimeB_actionPerformed(ActionEvent e) {
 		java.util.Date d = new java.util.Date();
 		editor.editor.replaceSelection(DateFormat.getTimeInstance(
 				DateFormat.SHORT, Local.getCurrentLocale()).format(d));
 	}
 
+	/**
+	 * Export B action performed.
+	 *
+	 * @param e the e
+	 */
 	void exportB_actionPerformed(ActionEvent e) {
 		// Fix until Sun's JVM supports more locales...
 		UIManager.put("FileChooser.lookInLabelText", Local
@@ -501,8 +565,14 @@ public class EditorPanel extends JPanel {
 				dlg.numentChB.isSelected(), template, dlg.xhtmlChB.isSelected());
 	}
 
+	/** The initial title. */
 	String initialTitle = "";
 
+	/**
+	 * Sets the document.
+	 *
+	 * @param note the new document
+	 */
 	public void setDocument(Note note) {
 		// Note note = CurrentProject.getNoteList().getActiveNote();
 		// try {
@@ -525,15 +595,30 @@ public class EditorPanel extends JPanel {
 		// .setDocument(CurrentStorage.get().openNote(note));
 	}
 
+	/**
+	 * Gets the document.
+	 *
+	 * @return the document
+	 */
 	public javax.swing.text.Document getDocument() {
 		return this.editor.document;
 	}
 
+	/**
+	 * Checks if is document changed.
+	 *
+	 * @return true, if is document changed
+	 */
 	public boolean isDocumentChanged() {
 		return editor.isDocumentChanged()
 				|| !titleField.getText().equals(initialTitle);
 	}
 
+	/**
+	 * Import B action performed.
+	 *
+	 * @param e the e
+	 */
 	void importB_actionPerformed(ActionEvent e) {
 		// Fix until Sun's JVM supports more locales...
 		UIManager.put("FileChooser.lookInLabelText", Local
@@ -578,12 +663,22 @@ public class EditorPanel extends JPanel {
 		new HTMLFileImport(f, editor);
 	}
 
+	/**
+	 * New B action performed.
+	 *
+	 * @param e the e
+	 */
 	void newB_actionPerformed(ActionEvent e) {
 		CurrentNote.set(null, true);
 		setDocument(null);
 		this.titleField.requestFocus();
 	}
 
+	/**
+	 * Preview B action performed.
+	 *
+	 * @param e the e
+	 */
 	void previewB_actionPerformed(ActionEvent e) {
 		File f;
 		try {

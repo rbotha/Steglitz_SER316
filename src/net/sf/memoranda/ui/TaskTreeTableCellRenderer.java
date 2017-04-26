@@ -22,30 +22,53 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 
+// TODO: Auto-generated Javadoc
 /**
- * 
+ * The Class TaskTreeTableCellRenderer.
  */
 public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implements TreeCellRenderer, TableCellRenderer {
+    
+    /** The pr highest icon. */
     static ImageIcon PR_HIGHEST_ICON = new ImageIcon(net.sf.memoranda.ui.AppFrame.class
             .getResource("resources/icons/pr_highest.png"));
+    
+    /** The pr high icon. */
     static ImageIcon PR_HIGH_ICON = new ImageIcon(net.sf.memoranda.ui.AppFrame.class
             .getResource("resources/icons/pr_high.png"));
+    
+    /** The pr normal icon. */
     static ImageIcon PR_NORMAL_ICON = new ImageIcon(net.sf.memoranda.ui.AppFrame.class
             .getResource("resources/icons/pr_normal.png"));
+    
+    /** The pr low icon. */
     static ImageIcon PR_LOW_ICON = new ImageIcon(net.sf.memoranda.ui.AppFrame.class
             .getResource("resources/icons/pr_low.png"));
+    
+    /** The pr lowest icon. */
     static ImageIcon PR_LOWEST_ICON = new ImageIcon(net.sf.memoranda.ui.AppFrame.class
             .getResource("resources/icons/pr_lowest.png"));
+    
+    /** The task active icon. */
     static ImageIcon TASK_ACTIVE_ICON = new ImageIcon(net.sf.memoranda.ui.AppFrame.class
             .getResource("resources/icons/task_active.png"));
+    
+    /** The task scheduled icon. */
     static ImageIcon TASK_SCHEDULED_ICON = new ImageIcon(net.sf.memoranda.ui.AppFrame.class
             .getResource("resources/icons/task_scheduled.png"));
+    
+    /** The task deadline icon. */
     static ImageIcon TASK_DEADLINE_ICON = new ImageIcon(net.sf.memoranda.ui.AppFrame.class
             .getResource("resources/icons/task_deadline.png"));
+    
+    /** The task failed icon. */
     static ImageIcon TASK_FAILED_ICON = new ImageIcon(net.sf.memoranda.ui.AppFrame.class
             .getResource("resources/icons/task_failed.png"));
+    
+    /** The task completed icon. */
     static ImageIcon TASK_COMPLETED_ICON = new ImageIcon(net.sf.memoranda.ui.AppFrame.class
             .getResource("resources/icons/task_completed.png"));
+    
+    /** The colors. */
     static Color[] colors =
         {
             Color.YELLOW,
@@ -58,18 +81,32 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             Color.BLACK,
             Color.WHITE,
             Color.PINK };
+    
+    /** The label. */
     // reusable cellrenderers
     JLabel label = new JLabel();
+    
+    /** The progress label. */
     //JLabel tree_label = new JLabel();
     TaskProgressLabel progressLabel;
+    
+    /** The empty panel. */
     JPanel empty_panel = new JPanel();
+    
+    /** The table. */
     // get Task objects via table (maybe not most elegant solution)
     TaskTable table;
     
     //SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.yyyy");
+    /** The date format. */
     //  use localized date format, modified from default locale's short format if possible
     DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);//createModifiedShortFormat();
 
+    /**
+     * Instantiates a new task tree table cell renderer.
+     *
+     * @param table the table
+     */
     public TaskTreeTableCellRenderer(TaskTable table) {
         super();
         this.table = table;
@@ -77,6 +114,9 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         label.setOpaque(true);
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.tree.DefaultTreeCellRenderer#getTreeCellRendererComponent(javax.swing.JTree, java.lang.Object, boolean, boolean, boolean, int, boolean)
+     */
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected,
             boolean expanded, boolean leaf, int row, boolean hasFocus) {
         // if root then just return some component
@@ -98,6 +138,9 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.table.TableCellRenderer#getTableCellRendererComponent(javax.swing.JTable, java.lang.Object, boolean, boolean, int, int)
+     */
     public Component getTableCellRendererComponent(JTable ignore, Object value, boolean selected,
             boolean hasFocus, int row, int column) {
         Task t = (Task) table.getValueAt(row, 1);
@@ -153,7 +196,12 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
     }
 
     /**
-     * Component used to render tree cells in treetable
+     * Component used to render tree cells in treetable.
+     *
+     * @param t the t
+     * @param selected the selected
+     * @param hasFocus the has focus
+     * @return the task tree cell renderer
      */
     private Component getTaskTreeCellRenderer(Task t, boolean selected, boolean hasFocus) {
         JLabel tree_label = new JLabel();       
@@ -166,7 +214,13 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
     }
 
     /**
-     * Component showing task progress
+     * Component showing task progress.
+     *
+     * @param t the t
+     * @param selected the selected
+     * @param hasFocus the has focus
+     * @param column the column
+     * @return the progress cell renderer
      */
     private Component getProgressCellRenderer(Task t, boolean selected, boolean hasFocus, int column) {
         progressLabel.setTask(t);
@@ -175,6 +229,14 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         return progressLabel;
     }
 
+    /**
+     * Gets the priority icon cell renderer.
+     *
+     * @param t the t
+     * @param selected the selected
+     * @param hasFocus the has focus
+     * @return the priority icon cell renderer
+     */
     private Component getPriorityIconCellRenderer(Task t, boolean selected, boolean hasFocus) {
         applyFocus(false, label); // disable focus borders
         label.setIcon(getPriorityIcon(t));
@@ -182,6 +244,12 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         return label;
     }
 
+    /**
+     * Apply selection style.
+     *
+     * @param selected the selected
+     * @param c the c
+     */
     // some convenience methods
     private void applySelectionStyle(boolean selected, JComponent c) {
         if (selected)
@@ -190,6 +258,12 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
             c.setBackground(table.getBackground());
     }
 
+    /**
+     * Apply focus.
+     *
+     * @param hasFocus the has focus
+     * @param c the c
+     */
     private void applyFocus(boolean hasFocus, JComponent c) {
         if (hasFocus) {
             c.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, table.getSelectionBackground()
@@ -201,6 +275,12 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         }
     }
 
+    /**
+     * Apply font.
+     *
+     * @param t the t
+     * @param c the c
+     */
     private void applyFont(Task t, JComponent c) {
         if ((t.getStatus(CurrentDate.get()) == Task.ACTIVE)
                 || (t.getStatus(CurrentDate.get()) == Task.DEADLINE))
@@ -211,7 +291,11 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
 
     /**
      * Color representing task status, "light" color is useful for backgrounds
-     * and other for text
+     * and other for text.
+     *
+     * @param t the t
+     * @param light the light
+     * @return the color for task status
      */
     public static Color getColorForTaskStatus(Task t, boolean light) {
         if (light) {
@@ -245,6 +329,12 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         return null;
     }
 
+    /**
+     * Gets the status icon.
+     *
+     * @param t the t
+     * @return the status icon
+     */
     public static ImageIcon getStatusIcon(Task t) {
         switch (t.getStatus(CurrentDate.get())) {
         case Task.ACTIVE:
@@ -262,6 +352,12 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         return null;
     }
 
+    /**
+     * Gets the priority icon.
+     *
+     * @param t the t
+     * @return the priority icon
+     */
     public static ImageIcon getPriorityIcon(Task t) {
         switch (t.getPriority()) {
         case Task.PRIORITY_NORMAL:

@@ -24,20 +24,27 @@ import nu.xom.Elements;
 import nu.xom.Node;
 import nu.xom.Nodes;
 import sun.awt.SunHints.Key;
+// TODO: Auto-generated Javadoc
 //import nu.xom.converters.*;
 //import org.apache.xerces.dom.*;
 //import nux.xom.xquery.XQueryUtil;
 
 /**
- * 
+ * The Class TaskListImpl.
  */
 /*$Id: TaskListImpl.java,v 1.14 2006/07/03 11:59:19 alexeya Exp $*/
 public class TaskListImpl implements TaskList {
 
+    /** The project. */
     private Project _project = null;
+    
+    /** The doc. */
     private Document _doc = null;
+    
+    /** The root. */
     private Element _root = null;
 	
+	/** The elements. */
 	/*
 	 * Hastable of "task" XOM elements for quick searching them by ID's
 	 * (ID => element) 
@@ -46,6 +53,9 @@ public class TaskListImpl implements TaskList {
     
     /**
      * Constructor for TaskListImpl.
+     *
+     * @param doc the doc
+     * @param prj the prj
      */
     public TaskListImpl(Document doc, Project prj) {
         _doc = doc;
@@ -54,16 +64,29 @@ public class TaskListImpl implements TaskList {
 		buildElements(_root);
     }
     
+    /**
+     * Instantiates a new task list impl.
+     *
+     * @param prj the prj
+     */
     public TaskListImpl(Project prj) {            
             _root = new Element("tasklist");
             _doc = new Document(_root);
             _project = prj;
     }
     
+	/* (non-Javadoc)
+	 * @see net.sf.memoranda.TaskList#getProject()
+	 */
 	public Project getProject() {
 		return _project;
 	}
 		
+	/**
+	 * Builds the elements.
+	 *
+	 * @param parent the parent
+	 */
 	/*
 	 * Build the hashtable recursively
 	 */
@@ -79,6 +102,9 @@ public class TaskListImpl implements TaskList {
     /**
      * All methods to obtain list of tasks are consolidated under getAllSubTasks and getActiveSubTasks.
      * If a root task is required, just send a null taskId
+     *
+     * @param taskId the task id
+     * @return the all sub tasks
      */
     public Collection getAllSubTasks(String taskId) {
     	if ((taskId == null) || (taskId.length() == 0)) {
@@ -93,6 +119,9 @@ public class TaskListImpl implements TaskList {
     	}
     }
     
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.TaskList#getAllTask()
+     */
     //Method for returning all task
     public Collection getAllTask()
     {//Beginning of method
@@ -107,6 +136,9 @@ public class TaskListImpl implements TaskList {
     	return v;
     }//End of Method
     
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.TaskList#getTopLevelTasks()
+     */
     public Collection getTopLevelTasks() {
         return getAllRootTasks();
     }
@@ -114,12 +146,19 @@ public class TaskListImpl implements TaskList {
     /**
      * All methods to obtain list of tasks are consolidated under getAllSubTasks and getActiveSubTasks.
      * If a root task is required, just send a null taskId
+     *
+     * @param taskId the task id
+     * @param date the date
+     * @return the active sub tasks
      */
     public Collection getActiveSubTasks(String taskId,CalendarDate date) {
         Collection allTasks = getAllSubTasks(taskId);        
         return filterActiveTasks(allTasks,date);
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.TaskList#createTask(net.sf.memoranda.date.CalendarDate, net.sf.memoranda.date.CalendarDate, java.lang.String, int, long, long, long, java.lang.String, java.lang.String, int, int, int, int, java.sql.Timestamp)
+     */
     public Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority,
     		long effort,long actualEffort, long timestamp, String description, String parentTaskId, int errorsAdded, int errorsFixed, int estLOC, int actualLOC, Timestamp edit) {
 
@@ -163,8 +202,11 @@ public class TaskListImpl implements TaskList {
     }
 	
 	/**
-     * @see net.sf.memoranda.TaskList#removeTask(import net.sf.memoranda.Task)
-     */
+	 * Removes the task.
+	 *
+	 * @param task the task
+	 * @see net.sf.memoranda.TaskList#removeTask(import net.sf.memoranda.Task)
+	 */
 
     public void removeTask(Task task) {
         String parentTaskId = task.getParentId();
@@ -178,6 +220,9 @@ public class TaskListImpl implements TaskList {
 		elements.remove(task.getID());
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.TaskList#hasSubTasks(java.lang.String)
+     */
     public boolean hasSubTasks(String id) {
         Element task = getTaskElement(id);
         if (task == null) return false;
@@ -189,11 +234,17 @@ public class TaskListImpl implements TaskList {
         }
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.TaskList#getTask(java.lang.String)
+     */
     public Task getTask(String id) {
         Util.debug("Getting task " + id);          
         return new TaskImpl(getTaskElement(id), this);          
     }
     
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.TaskList#hasParentTask(java.lang.String)
+     */
     public boolean hasParentTask(String id) {
     	Element t = getTaskElement(id);
     	
@@ -213,6 +264,9 @@ public class TaskListImpl implements TaskList {
     }
 
     /**
+     * Gets the XML content.
+     *
+     * @return the XML content
      * @see net.sf.memoranda.TaskList#getXMLContent()
      */	 
     public Document getXMLContent() {
@@ -221,10 +275,10 @@ public class TaskListImpl implements TaskList {
     
     /**
      * Recursively calculate total effort based on subtasks for every node in the task tree
-     * The values are saved as they are calculated as well
-     * 
-     * @param t
-     * @return
+     * The values are saved as they are calculated as well.
+     *
+     * @param t the t
+     * @return the long
      */
     public long calculateTotalEffortFromSubTasks(Task t) {
         long totalEffort = 0;
@@ -243,10 +297,10 @@ public class TaskListImpl implements TaskList {
     }
 
     /**
-     * Looks through the entire sub task tree and corrects any inconsistencies in start dates
-     * 
-     * @param t
-     * @return
+     * Looks through the entire sub task tree and corrects any inconsistencies in start dates.
+     *
+     * @param t the t
+     * @return the earliest start date from sub tasks
      */
     public CalendarDate getEarliestStartDateFromSubTasks(Task t) {
         CalendarDate d = t.getStartDate();
@@ -268,10 +322,10 @@ public class TaskListImpl implements TaskList {
     }
 
     /**
-     * Looks through the entire sub task tree and corrects any inconsistencies in start dates
-     * 
-     * @param t
-     * @return
+     * Looks through the entire sub task tree and corrects any inconsistencies in start dates.
+     *
+     * @param t the t
+     * @return the latest end date from sub tasks
      */
     public CalendarDate getLatestEndDateFromSubTasks(Task t) {
         CalendarDate d = t.getEndDate();
@@ -293,9 +347,9 @@ public class TaskListImpl implements TaskList {
     }
     
     /**
-     * Looks through the entire sub task tree and calculates progress on all parent task nodes
-     * 
-     * @param t
+     * Looks through the entire sub task tree and calculates progress on all parent task nodes.
+     *
+     * @param t the t
      * @return long[] of size 2. First long is expended effort in milliseconds, 2nd long is total effort in milliseconds
      */
     public long[] calculateCompletionFromSubTasks(Task t) {
@@ -335,6 +389,13 @@ public class TaskListImpl implements TaskList {
             return res;
         }
     }    
+    
+    /**
+     * Gets the task element.
+     *
+     * @param id the id
+     * @return the task element
+     */
     /*
      * private methods below this line
      */
@@ -356,11 +417,22 @@ public class TaskListImpl implements TaskList {
 		return el;
     }
     
+    /**
+     * Gets the all root tasks.
+     *
+     * @return the all root tasks
+     */
     private Collection getAllRootTasks() {
         Elements tasks = _root.getChildElements("task");
         return convertToTaskObjects(tasks);    	    		
     }
     
+    /**
+     * Convert to task objects.
+     *
+     * @param tasks the tasks
+     * @return the collection
+     */
     private Collection convertToTaskObjects(Elements tasks) {
         Vector v = new Vector();
 
@@ -371,6 +443,13 @@ public class TaskListImpl implements TaskList {
         return v;
     }
 
+    /**
+     * Filter active tasks.
+     *
+     * @param tasks the tasks
+     * @param date the date
+     * @return the collection
+     */
     private Collection filterActiveTasks(Collection tasks,CalendarDate date) {
         Vector v = new Vector();
         for (Iterator iter = tasks.iterator(); iter.hasNext();) {
@@ -382,6 +461,13 @@ public class TaskListImpl implements TaskList {
         return v;
     }
 
+    /**
+     * Checks if is active.
+     *
+     * @param t the t
+     * @param date the date
+     * @return true, if is active
+     */
     private boolean isActive(Task t,CalendarDate date) {
     	if ((t.getStatus(date) == Task.ACTIVE) || (t.getStatus(date) == Task.DEADLINE) || (t.getStatus(date) == Task.FAILED)) {
     		return true;

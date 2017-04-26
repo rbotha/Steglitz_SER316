@@ -13,22 +13,54 @@ import javax.swing.JTextField;
 
 import net.sf.memoranda.ui.htmleditor.util.Local;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ContinueSearchDialog.
+ */
 public class ContinueSearchDialog extends JPanel {
+  
+  /** The panel 1. */
   JPanel panel1 = new JPanel();
+  
+  /** The border layout 1. */
   BorderLayout borderLayout1 = new BorderLayout();
+  
+  /** The flow layout 1. */
   FlowLayout flowLayout1 = new FlowLayout();
+  
+  /** The cancel B. */
   JButton cancelB = new JButton();
+  
+  /** The continue B. */
   JButton continueB = new JButton();
+  
+  /** The buttons panel. */
   JPanel buttonsPanel = new JPanel();
+  
+  /** The j label 1. */
   JLabel jLabel1 = new JLabel();
+  
+  /** The text F. */
   JTextField textF = new JTextField();
+  
+  /** The text. */
   String text;
   
+  /** The thread. */
   Thread thread;
 
+  /** The cont. */
   public boolean cont = false;
+  
+  /** The cancel. */
   public boolean cancel = false;
 
+  /**
+   * Instantiates a new continue search dialog.
+   *
+   * @param t the t
+   * @param txt the txt
+   */
   public ContinueSearchDialog(Thread t, String txt) {    
     try {
       text = txt;   
@@ -41,6 +73,11 @@ public class ContinueSearchDialog extends JPanel {
   }
 
   
+  /**
+   * Jb init.
+   *
+   * @throws Exception the exception
+   */
   void jbInit() throws Exception {
   
     this.setLayout(borderLayout1);
@@ -78,12 +115,22 @@ public class ContinueSearchDialog extends JPanel {
     this.add(buttonsPanel,  BorderLayout.EAST);
   }
 
+  /**
+   * Cancel B action performed.
+   *
+   * @param e the e
+   */
   void cancelB_actionPerformed(ActionEvent e) {
     cont = true;
     cancel = true;    
     thread.resume();
   }
 
+  /**
+   * Continue B action performed.
+   *
+   * @param e the e
+   */
   void continueB_actionPerformed(ActionEvent e) {
      cont = true;     
      thread.resume();

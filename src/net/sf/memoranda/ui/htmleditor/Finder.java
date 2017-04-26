@@ -15,19 +15,37 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 import net.sf.memoranda.ui.htmleditor.util.Local;
+// TODO: Auto-generated Javadoc
+
 /**
- *
+ * The Class Finder.
  */
 public class Finder extends Thread {
 
+    /** The pattern. */
     Pattern pattern;
+    
+    /** The find. */
     String _find = null;
+    
+    /** The disp text. */
     String dispText = "";
+    
+    /** The replace. */
     String _replace = null;
+    
+    /** The editor. */
     HTMLEditor editor;
 
     /**
      * Constructor for Finder.
+     *
+     * @param theEditor the the editor
+     * @param find the find
+     * @param wholeWord the whole word
+     * @param matchCase the match case
+     * @param regexp the regexp
+     * @param replace the replace
      */
     public Finder(
         HTMLEditor theEditor,
@@ -57,10 +75,22 @@ public class Finder extends Thread {
         _replace = replace;
     }
 
+    /**
+     * Instantiates a new finder.
+     *
+     * @param theEditor the the editor
+     * @param find the find
+     * @param wholeWord the whole word
+     * @param matchCase the match case
+     * @param regexp the regexp
+     */
     public Finder(HTMLEditor theEditor, String find, boolean wholeWord, boolean matchCase, boolean regexp) {
         this(theEditor, find, wholeWord, matchCase, regexp, null);
     }
 
+    /**
+     * Find all.
+     */
     public void findAll() {
         if (pattern == null)
             return;
@@ -153,6 +183,9 @@ public class Finder extends Thread {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Thread#run()
+     */
     public void run() {
         findAll();
     }

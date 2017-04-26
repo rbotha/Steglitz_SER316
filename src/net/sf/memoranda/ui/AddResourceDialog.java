@@ -33,26 +33,70 @@ import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AddResourceDialog.
+ */
 /*$Id: AddResourceDialog.java,v 1.12 2007/03/20 06:21:46 alexeya Exp $*/
 public class AddResourceDialog extends JDialog {
+    
+    /** The dialog title panel. */
     JPanel dialogTitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    
+    /** The header. */
     JLabel header = new JLabel();
+    
+    /** The button group 1. */
     ButtonGroup buttonGroup1 = new ButtonGroup();
+    
+    /** The area panel. */
     JPanel areaPanel = new JPanel(new GridBagLayout());
+    
+    /** The gbc. */
     GridBagConstraints gbc;
+    
+    /** The local file RB. */
     public JRadioButton localFileRB = new JRadioButton();
+    
+    /** The project file CB. */
     public JCheckBox projectFileCB = new JCheckBox("Copy file to memoranda", false);
+    
+    /** The j label 1. */
     JLabel jLabel1 = new JLabel();
+    
+    /** The path field. */
     public JTextField pathField = new JTextField();
+    
+    /** The browse B. */
     JButton browseB = new JButton();
+    
+    /** The j label 2. */
     JLabel jLabel2 = new JLabel();
+    
+    /** The inet shortcut RB. */
     public JRadioButton inetShortcutRB = new JRadioButton();
+    
+    /** The url field. */
     public JTextField urlField = new JTextField();
+    
+    /** The buttons panel. */
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 15));
+    
+    /** The ok B. */
     JButton okB = new JButton();
+    
+    /** The cancel B. */
     JButton cancelB = new JButton();
+    
+    /** The cancelled. */
     public boolean CANCELLED = true;
 
+    /**
+     * Instantiates a new adds the resource dialog.
+     *
+     * @param frame the frame
+     * @param title the title
+     */
     public AddResourceDialog(Frame frame, String title) {
         super(frame, title, true);
         try {
@@ -66,7 +110,9 @@ public class AddResourceDialog extends JDialog {
     }
 
 	/**
-	 * setup user interface and init dialog
+	 * setup user interface and init dialog.
+	 *
+	 * @throws Exception the exception
 	 */
 	 
     void jbInit() throws Exception {
@@ -209,6 +255,8 @@ public class AddResourceDialog extends JDialog {
 	/**
 	 * set CANCELLED variable to false so we can know the user 
 	 * pressed the ok buton and close this dialog.
+	 *
+	 * @param e the e
 	 */
 	 
     void okB_actionPerformed(ActionEvent e) {
@@ -217,7 +265,9 @@ public class AddResourceDialog extends JDialog {
     }
 
 	/**
-	 * close the dialog window
+	 * close the dialog window.
+	 *
+	 * @param e the e
 	 */
 	 
     void cancelB_actionPerformed(ActionEvent e) {
@@ -227,6 +277,8 @@ public class AddResourceDialog extends JDialog {
 	/**
 	 * enable localRB fields. Request focus for the text field 
 	 * so the user can start typing and set the pathField text selected
+	 *
+	 * @param e the e
 	 */
 	 
     void localFileRB_actionPerformed(ActionEvent e) {
@@ -240,6 +292,8 @@ public class AddResourceDialog extends JDialog {
 	/**
 	 * enable inetShorcutRB fields. Request focus for the text field 
 	 * so the user can start typing and set the urlField text selected
+	 *
+	 * @param e the e
 	 */
 	
     void inetShortcutRB_actionPerformed(ActionEvent e) {
@@ -251,7 +305,9 @@ public class AddResourceDialog extends JDialog {
 	}
 
 	/**
-	 * setup the JFileChooser so the user can select the resource file
+	 * setup the JFileChooser so the user can select the resource file.
+	 *
+	 * @param e the e
 	 */
 	 
     void browseB_actionPerformed(ActionEvent e) {
@@ -299,7 +355,9 @@ public class AddResourceDialog extends JDialog {
     }
 
 	/**
-	 * disable the ok button if pathField is empty
+	 * disable the ok button if pathField is empty.
+	 *
+	 * @param e the e
 	 */
 	 
     void pathField_caretUpdate(CaretEvent e) {
@@ -307,7 +365,9 @@ public class AddResourceDialog extends JDialog {
     }
 
 	/**
-	 * disable the ok button if urlField is empty
+	 * disable the ok button if urlField is empty.
+	 *
+	 * @param e the e
 	 */
 	
     void urlField_caretUpdate(CaretEvent e) {        
@@ -325,8 +385,9 @@ public class AddResourceDialog extends JDialog {
          );
     }
 
-	/** 
-	 * enable and disable fields when user selects the radio buttons options
+	/**
+	 *  
+	 * enable and disable fields when user selects the radio buttons options.
 	 */
 	 
 	void enableFields() {

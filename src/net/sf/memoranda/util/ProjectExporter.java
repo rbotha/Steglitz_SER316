@@ -16,23 +16,53 @@ import java.util.Collections;
 
 import javax.swing.text.html.HTMLDocument;
 
+// TODO: Auto-generated Javadoc
 /**
- *  
+ * The Class ProjectExporter.
  */
 /* $Id: ProjectExporter.java,v 1.7 2005/07/05 08:17:28 alexeya Exp $ */
 public class ProjectExporter {
 
+    /** The chunked. */
     static boolean _chunked = false;
+    
+    /** The num. */
     static boolean _num = false;
+    
+    /** The xhtml. */
     static boolean _xhtml = false;
+    
+    /** The copy images. */
     static boolean _copyImages = false;
+    
+    /** The output. */
     static File output = null;
+    
+    /** The charset. */
     static String _charset = null;
+    
+    /** The titles as headers. */
     static boolean _titlesAsHeaders = false;
+    
+    /** The navigation. */
     static boolean _navigation = false;
     
+    /** The charset string. */
     static String charsetString = "\n";
 
+    /**
+     * Export.
+     *
+     * @param prj the prj
+     * @param f the f
+     * @param charset the charset
+     * @param xhtml the xhtml
+     * @param chunked the chunked
+     * @param navigation the navigation
+     * @param num the num
+     * @param titlesAsHeaders the titles as headers
+     * @param copyImages the copy images
+     */
     public static void export(Project prj, File f, String charset,
             boolean xhtml, boolean chunked, boolean navigation, boolean num,
             boolean titlesAsHeaders, boolean copyImages) {
@@ -95,6 +125,12 @@ public class ProjectExporter {
         }
     }
 
+    /**
+     * Generate toc.
+     *
+     * @param w the w
+     * @param notes the notes
+     */
     private static void generateToc(Writer w, Vector notes) {
         write(w, "<div class=\"toc\"><ul>\n");
         for (Iterator i = notes.iterator(); i.hasNext(); ) {
@@ -113,6 +149,12 @@ public class ProjectExporter {
         write(w, "</ul></div>\n");
     }
 
+    /**
+     * Gets the note HTML.
+     *
+     * @param note the note
+     * @return the note HTML
+     */
     private static String getNoteHTML(Note note) {
         String text = "";
         StringWriter sw = new StringWriter();
@@ -153,6 +195,13 @@ public class ProjectExporter {
         return text;
     }
 
+    /**
+     * Generate nav.
+     *
+     * @param prev the prev
+     * @param next the next
+     * @return the string
+     */
     private static String generateNav(Note prev, Note next) {
         String s = "<hr></hr><div class=\"navigation\"><table border=\"0\" width=\"100%\" cellpadding=\"2\"><tr><td width=\"33%\">";
         if (prev != null)   
@@ -178,6 +227,12 @@ public class ProjectExporter {
         return s;
     }
 
+    /**
+     * Generate chunks.
+     *
+     * @param w the w
+     * @param notes the notes
+     */
     private static void generateChunks(Writer w, Vector notes) {
         Object[] n = notes.toArray();
         for (int i = 0; i < n.length; i++) {
@@ -219,6 +274,12 @@ public class ProjectExporter {
         }
     }
 
+    /**
+     * Write.
+     *
+     * @param w the w
+     * @param s the s
+     */
     private static void write(Writer w, String s) {
         try {
             w.write(s);

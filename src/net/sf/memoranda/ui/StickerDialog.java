@@ -38,34 +38,83 @@ import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.Local;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StickerDialog.
+ */
 /*$Id: StickerDialog.java,v 1.5 2004/10/07 21:31:33 ivanrise Exp $*/
 public class StickerDialog extends JDialog {
+	
+	/** The cancelled. */
 	public boolean CANCELLED = true;
+	
+	/** The panel 1. */
 	JPanel panel1 = new JPanel();
+	
+	/** The border layout 1. */
 	BorderLayout borderLayout1 = new BorderLayout();
+	
+	/** The border layout 2. */
 	BorderLayout borderLayout2 = new BorderLayout();
 	
+	/** The cancel button. */
 	JButton cancelButton = new JButton();
+	
+	/** The ok button. */
 	JButton okButton = new JButton();
+	
+	/** The bold button. */
 	JButton boldButton= new JButton();
+	
+	/** The italic button. */
 	JButton italicButton= new JButton();
+	
+	/** The underline button. */
 	JButton underlineButton= new JButton();
+	
+	/** The unordered list button. */
 	JButton unorderedListButton= new JButton();
 	
+	/** The bottom panel. */
 	JPanel bottomPanel = new JPanel();
+	
+	/** The top panel. */
 	JPanel topPanel = new JPanel();
+	
+	/** The header. */
 	JLabel header = new JLabel();
+	
+	/** The j scroll pane 1. */
 	JScrollPane jScrollPane1 = new JScrollPane();
+	
+	/** The j panel 1. */
 	JPanel jPanel1 = new JPanel();
+	
+	/** The sticker text. */
 	JTextArea stickerText = new JTextArea();
+	
+	/** The j label 1. */
 	JLabel jLabel1 = new JLabel();
+	
+	/** The j label 2. */
 	JLabel jLabel2 = new JLabel();
+	
+	/** The j label 3. */
 	JLabel jLabel3 = new JLabel();
+	
+	/** The j label 4. */
 	JLabel jLabel4 = new JLabel();
+	
+	/** The grid layout 1. */
 	GridLayout gridLayout1 = new GridLayout(6,2);
 
+	/** The border 1. */
 	Border border1;
+	
+	/** The border 2. */
 	Border border2;
+	
+	/** The colors. */
 	Color[] colors =
 		{
 			Color.YELLOW,
@@ -78,6 +127,8 @@ public class StickerDialog extends JDialog {
 			Color.BLACK,
 			Color.WHITE,
 			Color.PINK };
+	
+	/** The color labels. */
 	String[] colorLabels =
 		{
 			Local.getString("Yellow"),
@@ -91,20 +142,39 @@ public class StickerDialog extends JDialog {
 			Local.getString("White"),
 			Local.getString("Pink"),
 			Local.getString("Custom")+"..."};
+	
+	/** The priorities. */
 	String[] priorities = {
 			Local.getString("HIGHEST"),
 			Local.getString("HIGH"),
 			Local.getString("NORMAL"),
 			Local.getString("LOW"),
 			Local.getString("LOWEST")};
+	
+	/** The font. */
 	int[] font={10,15,20};
+	
+	/** The font labels. */
 	String[] fontLabels= {"10px","15px","20px"};
+	
+	/** The sticker color. */
 	JComboBox stickerColor = new JComboBox(colorLabels);
+	
+	/** The text color. */
 	JComboBox textColor = new JComboBox(colorLabels);
+	
+	/** The font size. */
 	JComboBox fontSize = new JComboBox(fontLabels);
+	
+	/** The priority list. */
 	JComboBox priorityList = new JComboBox(priorities);
 	
 
+	/**
+	 * Instantiates a new sticker dialog.
+	 *
+	 * @param frame the frame
+	 */
 	public StickerDialog(Frame frame) {
 		super(frame, Local.getString("Sticker"), true);
 		try {
@@ -114,6 +184,17 @@ public class StickerDialog extends JDialog {
 			new ExceptionDialog(ex);
 		}
 	}
+	
+	/**
+	 * Instantiates a new sticker dialog.
+	 *
+	 * @param frame the frame
+	 * @param text the text
+	 * @param backcolor the backcolor
+	 * @param forecolor the forecolor
+	 * @param sP the s P
+	 * @param size the size
+	 */
 	public StickerDialog(Frame frame, String text, String backcolor, String forecolor, int sP, int size){
 		super(frame, Local.getString("Sticker"), true);
 		try {
@@ -146,9 +227,18 @@ public class StickerDialog extends JDialog {
 		else fontSize.setSelectedIndex(1);
 	}
 
+	/**
+	 * Instantiates a new sticker dialog.
+	 */
 	public StickerDialog() {
 		this(null);
 	}
+	
+	/**
+	 * Jb init.
+	 *
+	 * @throws Exception the exception
+	 */
 	void jbInit() throws Exception {
 		stickerColor.setRenderer(new ComboBoxRenderer());
 		stickerColor.setMaximumRowCount(11);
@@ -328,6 +418,12 @@ public class StickerDialog extends JDialog {
 		        });
 	}
 
+	/**
+	 * Find color index.
+	 *
+	 * @param c the c
+	 * @return the int
+	 */
 	int findColorIndex(Color c) {		
 		for (int i = 0; i < colors.length; i++)
 			if (c.equals(colors[i]))
@@ -335,60 +431,129 @@ public class StickerDialog extends JDialog {
 		return -1;
 	}
 
+	/**
+	 * Gets the sticker text.
+	 *
+	 * @return the sticker text
+	 */
 	public String getStickerText() {
 		return stickerText.getText();
 	}
+	
+	/**
+	 * Gets the sticker text size.
+	 *
+	 * @return the sticker text size
+	 */
 	public String getStickerTextSize() {
 		return ""+stickerText.getFont().getSize();
 	}
+	
+	/**
+	 * Gets the sticker text color.
+	 *
+	 * @return the sticker text color
+	 */
 	public String getStickerTextColor(){
 		return "#"
 				+ Integer
 					.toHexString(stickerText.getForeground().getRGB() - 0xFF000000)
 					.toUpperCase();	
 		}
+	
+	/**
+	 * Gets the sticker color.
+	 *
+	 * @return the sticker color
+	 */
 	public String getStickerColor() {
 		return "#"
 			+ Integer
 				.toHexString(stickerText.getBackground().getRGB() - 0xFF000000)
 				.toUpperCase();
 	}
+	
+	/**
+	 * Gets the priority.
+	 *
+	 * @return the priority
+	 */
 	int getPriority(){
 		return priorityList.getSelectedIndex();
 	}
 
+	/**
+	 * Cancel button action performed.
+	 *
+	 * @param e the e
+	 */
 	void cancelButton_actionPerformed(ActionEvent e) {
 		this.dispose();
 	}
 
+	/**
+	 * Ok button action performed.
+	 *
+	 * @param e the e
+	 */
 	void okButton_actionPerformed(ActionEvent e) {
 		CANCELLED = false;
 		this.dispose();
 	}
+	
+	/**
+	 * Bold button action performed.
+	 *
+	 * @param e the e
+	 */
 	void boldButton_actionPerformed(ActionEvent e) {
 		int pos=stickerText.getCaretPosition();
 		stickerText.insert("<b></b>", pos);
 		stickerText.requestFocusInWindow();
 		stickerText.setCaretPosition(pos+3);
 	}
+	
+	/**
+	 * Italic button action performed.
+	 *
+	 * @param e the e
+	 */
 	void italicButton_actionPerformed(ActionEvent e) {
 		int pos=stickerText.getCaretPosition();
 		stickerText.insert("<i></i>", pos);
 		stickerText.requestFocusInWindow();
 		stickerText.setCaretPosition(pos+3);
 	}
+	
+	/**
+	 * Underline button action performed.
+	 *
+	 * @param e the e
+	 */
 	protected void underlineButton_actionPerformed(ActionEvent e) {
 		int pos=stickerText.getCaretPosition();
 		stickerText.insert("<u></u>", pos);
 		stickerText.requestFocusInWindow();
 		stickerText.setCaretPosition(pos+3);
 	}
+	
+	/**
+	 * Unordered list button action performed.
+	 *
+	 * @param e the e
+	 */
 	void unorderedListButton_actionPerformed(ActionEvent e) {
 		int pos=stickerText.getCaretPosition();
 		stickerText.insert("<li></li>", pos);
 		stickerText.requestFocusInWindow();
 		stickerText.setCaretPosition(pos+4);
 	}
+	
+	/**
+	 * Sticker color action performed.
+	 *
+	 * @param e the e
+	 */
 	void stickerColor_actionPerformed(ActionEvent e) {
 		int i=stickerColor.getSelectedIndex();
 		if (i< colors.length){
@@ -414,6 +579,12 @@ public class StickerDialog extends JDialog {
 		}
 		Context.put("STICKER_COLOR", new Integer(stickerText.getBackground().getRGB()));
 	}
+	
+	/**
+	 * Text color action performed.
+	 *
+	 * @param e the e
+	 */
 	void textColor_actionPerformed(ActionEvent e) {
 		int i=textColor.getSelectedIndex();
 		if (i < colors.length){
@@ -439,6 +610,12 @@ public class StickerDialog extends JDialog {
 		}
 		Context.put("TEXT_COLOR", new Integer(stickerText.getForeground().getRGB()));		
 	}
+	
+	/**
+	 * Font size action performed.
+	 *
+	 * @param e the e
+	 */
 	protected void fontSize_actionPerformed(ActionEvent e) {
 		int i=fontSize.getSelectedIndex();
 		if (i < fontLabels.length){
@@ -448,11 +625,23 @@ public class StickerDialog extends JDialog {
 		fontSize.setSelectedIndex(i);
 		Context.put("TEXT_SIZE", new Integer(stickerText.getFont().getSize()));		
 		}
+	
+	/**
+	 * The Class ComboBoxRenderer.
+	 */
 	class ComboBoxRenderer extends JLabel implements ListCellRenderer {
+		
+		/**
+		 * Instantiates a new combo box renderer.
+		 */
 		public ComboBoxRenderer() {
 			setOpaque(true);
 
 		}
+		
+		/* (non-Javadoc)
+		 * @see javax.swing.ListCellRenderer#getListCellRendererComponent(javax.swing.JList, java.lang.Object, int, boolean, boolean)
+		 */
 		public Component getListCellRendererComponent(
 			JList list,
 			Object value,
@@ -476,11 +665,23 @@ public class StickerDialog extends JDialog {
 			return this;
 		}
 	}
+	
+	/**
+	 * The Class ComboBoxRenderer2.
+	 */
 	class ComboBoxRenderer2 extends JLabel implements ListCellRenderer {
+		
+		/**
+		 * Instantiates a new combo box renderer 2.
+		 */
 		public ComboBoxRenderer2() {
 			setOpaque(true);
 
 		}
+		
+		/* (non-Javadoc)
+		 * @see javax.swing.ListCellRenderer#getListCellRendererComponent(javax.swing.JList, java.lang.Object, int, boolean, boolean)
+		 */
 		public Component getListCellRendererComponent(
 			JList list,
 			Object value,

@@ -23,15 +23,21 @@ import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.date.DateListener;
 import net.sf.memoranda.util.Local;
+// TODO: Auto-generated Javadoc
+
 /**
- *
+ * The Class EventsTable.
  */
 /*$Id: EventsTable.java,v 1.6 2004/10/11 08:48:20 alexeya Exp $*/
 public class EventsTable extends JTable {
 
+    /** The Constant EVENT. */
     public static final int EVENT = 100;
+    
+    /** The Constant EVENT_ID. */
     public static final int EVENT_ID = 101;
 
+    /** The events. */
     Vector events = new Vector();
     /**
      * Constructor for EventsTable.
@@ -49,6 +55,11 @@ public class EventsTable extends JTable {
         });
     }
 
+    /**
+     * Inits the table.
+     *
+     * @param d the d
+     */
     public void initTable(CalendarDate d) {
         events = (Vector)EventsManager.getEventsForDate(d);
         getColumnModel().getColumn(0).setPreferredWidth(60);
@@ -57,10 +68,16 @@ public class EventsTable extends JTable {
         updateUI();
     }
 
+    /**
+     * Refresh.
+     */
     public void refresh() {
         initTable(CurrentDate.get());
     }
 
+     /* (non-Javadoc)
+      * @see javax.swing.JTable#getCellRenderer(int, int)
+      */
      public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
 
@@ -93,22 +110,35 @@ public class EventsTable extends JTable {
 
     }
 
+    /**
+     * The Class EventsTableModel.
+     */
     class EventsTableModel extends AbstractTableModel {
     	
+        /** The column names. */
         String[] columnNames = {
             //Local.getString("Task name"),
             Local.getString("Time"),
                 Local.getString("Text")
         };
 
+        /**
+         * Instantiates a new events table model.
+         */
         EventsTableModel() {
             super();
         }
 
+        /* (non-Javadoc)
+         * @see javax.swing.table.TableModel#getColumnCount()
+         */
         public int getColumnCount() {
             return 2;
         }
 
+        /* (non-Javadoc)
+         * @see javax.swing.table.TableModel#getRowCount()
+         */
         public int getRowCount() {
 			int i;
 			try {
@@ -120,6 +150,9 @@ public class EventsTable extends JTable {
 			return i;
         }
 
+        /* (non-Javadoc)
+         * @see javax.swing.table.TableModel#getValueAt(int, int)
+         */
         public Object getValueAt(int row, int col) {
            Event ev = (Event)events.get(row);
            if (col == 0)
@@ -132,6 +165,9 @@ public class EventsTable extends JTable {
            else return ev;
         }
 
+        /* (non-Javadoc)
+         * @see javax.swing.table.AbstractTableModel#getColumnName(int)
+         */
         public String getColumnName(int col) {
             return columnNames[col];
         }

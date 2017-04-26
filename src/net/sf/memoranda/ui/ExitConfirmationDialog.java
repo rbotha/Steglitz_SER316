@@ -22,21 +22,45 @@ import javax.swing.SwingConstants;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Configuration;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ExitConfirmationDialog.
+ */
 public class ExitConfirmationDialog extends JDialog implements WindowListener {
     
+    /** The cancelled. */
     public boolean CANCELLED = false;
+	
+	/** The header. */
 	public JLabel header = new JLabel();
+	
+	/** The header panel. */
 	JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	
+	/** The bottom panel. */
 	JPanel bottomPanel = new JPanel(new BorderLayout());
 	
+    /** The buttons panel. */
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+    
+    /** The ok B. */
     JButton okB = new JButton();
+    
+    /** The cancel B. */
     JButton cancelB = new JButton();
 	
+	/** The donotask CB. */
 	public JCheckBox donotaskCB = new JCheckBox();
 	
+	/** The main panel. */
 	JPanel mainPanel = new JPanel(new BorderLayout());
 	
+    /**
+     * Instantiates a new exit confirmation dialog.
+     *
+     * @param frame the frame
+     * @param title the title
+     */
     public ExitConfirmationDialog(Frame frame, String title) {
        super(frame, title, true);
        try {
@@ -49,6 +73,11 @@ public class ExitConfirmationDialog extends JDialog implements WindowListener {
        super.addWindowListener(this);
     }
 
+	/**
+	 * Jb init.
+	 *
+	 * @throws Exception the exception
+	 */
 	void jbInit() throws Exception {
 		this.setResizable(false);
         
@@ -106,6 +135,9 @@ public class ExitConfirmationDialog extends JDialog implements WindowListener {
 		this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 	}
 	
+	/**
+	 * Check do not ask.
+	 */
 	// if donotaskCB is checked update Configuration.
 	public void  checkDoNotAsk() {
 		if (this.donotaskCB.isSelected()) {
@@ -114,12 +146,22 @@ public class ExitConfirmationDialog extends JDialog implements WindowListener {
 		}
 	}
 	
+	/**
+	 * Ok B action performed.
+	 *
+	 * @param e the e
+	 */
 	// ok button action
     void okB_actionPerformed(ActionEvent e) {
 		checkDoNotAsk();
         this.dispose();
     }
 
+	/**
+	 * Cancel B action performed.
+	 *
+	 * @param e the e
+	 */
 	//cancel button action
     void cancelB_actionPerformed(ActionEvent e) {
         CANCELLED = true;
@@ -127,15 +169,41 @@ public class ExitConfirmationDialog extends JDialog implements WindowListener {
         this.dispose();
     }
 	
+    /* (non-Javadoc)
+     * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
+     */
     public void windowClosing( WindowEvent e ) {
         CANCELLED = true;
         this.dispose();
     }
     
+	/* (non-Javadoc)
+	 * @see java.awt.event.WindowListener#windowOpened(java.awt.event.WindowEvent)
+	 */
 	public void windowOpened( WindowEvent e ) {}
+    
+    /* (non-Javadoc)
+     * @see java.awt.event.WindowListener#windowClosed(java.awt.event.WindowEvent)
+     */
     public void windowClosed( WindowEvent e ) {}
+	
+	/* (non-Javadoc)
+	 * @see java.awt.event.WindowListener#windowIconified(java.awt.event.WindowEvent)
+	 */
 	public void windowIconified( WindowEvent e ) {}
+	
+	/* (non-Javadoc)
+	 * @see java.awt.event.WindowListener#windowDeiconified(java.awt.event.WindowEvent)
+	 */
 	public void windowDeiconified( WindowEvent e ) {}
+	
+	/* (non-Javadoc)
+	 * @see java.awt.event.WindowListener#windowActivated(java.awt.event.WindowEvent)
+	 */
 	public void windowActivated( WindowEvent e ) {}
+	
+	/* (non-Javadoc)
+	 * @see java.awt.event.WindowListener#windowDeactivated(java.awt.event.WindowEvent)
+	 */
 	public void windowDeactivated( WindowEvent e ) {}
 }

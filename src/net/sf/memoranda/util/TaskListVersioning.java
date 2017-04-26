@@ -16,26 +16,46 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author ryanho
+ * The Class TaskListVersioning.
  *
+ * @author ryanho
+ * 
  * Upgrades data files from older versions to new versions
  */
 public class TaskListVersioning {
     
+    /** The Constant VERSIONS. */
     public static final String[] VERSIONS = new String[]{
             "-//Memoranda//DTD Tasklist 1.0//EN",
             "-//Memoranda//DTD Tasklist 1.1d1//EN"
     };
 
+    /**
+     * Gets the current doc type.
+     *
+     * @return the current doc type
+     */
     public static DocType getCurrentDocType() {
         return new DocType("tasklist",TaskListVersioning.getCurrentVersionPublicId(),"tasklist.dtd");
     }
     
+    /**
+     * Gets the current version public id.
+     *
+     * @return the current version public id
+     */
     public static String getCurrentVersionPublicId() {
         return VERSIONS[VERSIONS.length - 1];
     }
         
+    /**
+     * Gets the index of version.
+     *
+     * @param publicId the public id
+     * @return the index of version
+     */
     public static int getIndexOfVersion(String publicId) {
         if (publicId == null) {
             // earlier versions do not have public ID, it is version 1.0 which is the first entry
@@ -50,6 +70,12 @@ public class TaskListVersioning {
         return -1;
     }
     
+    /**
+     * Upgrade task list.
+     *
+     * @param publicId the public id
+     * @return true, if successful
+     */
     public static boolean upgradeTaskList(String publicId) {
         int vid = getIndexOfVersion(publicId);
         
@@ -78,6 +104,11 @@ public class TaskListVersioning {
         }
     }
     
+    /**
+     * Upgrade 1 1 d 1.
+     *
+     * @param projectIds the project ids
+     */
     private static void upgrade1_1d1(String[] projectIds) {
         for (int i = 0; i < projectIds.length; i++) {
             Util.debug("Upgrading project " + projectIds[i] + " from version 1.0 to version 1.1d1");

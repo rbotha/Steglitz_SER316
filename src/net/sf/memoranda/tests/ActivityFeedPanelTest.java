@@ -17,6 +17,7 @@ import net.sf.memoranda.ui.ActivityFeedPanel;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
+// TODO: Auto-generated Javadoc
 /**
  * Testing Activity Panel.
  * Apr 9, 2017
@@ -24,15 +25,29 @@ import java.util.Calendar;
  *
  */
 public class ActivityFeedPanelTest {
+	
+	/** The activity panel. */
 	private ActivityFeedPanel activityPanel = null;
+	
+	/** The project. */
 	private CurrentProject project = null;
+	
+	/** The task list. */
 	private TaskList taskList = null;
+	
+	/** The note list. */
 	private NoteList noteList = null;
+	
+	/** The hr behind. */
 	private long pastHr, hrAhead, minAhead, hrBehind;
+	
+	/** The zone. */
 	private Calendar zone = null;
 
-	/**Method
-	 * @throws java.lang.Exception
+	/**
+	 * Method.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -64,8 +79,10 @@ public class ActivityFeedPanelTest {
 		
 	}
 
-	/**Method
-	 * @throws java.lang.Exception
+	/**
+	 * Method.
+	 *
+	 * @throws Exception the exception
 	 */
 	@After
 	public void tearDown() throws Exception {
@@ -78,6 +95,9 @@ public class ActivityFeedPanelTest {
 		zone.clear();
 	}
 
+	/**
+	 * Refresh test.
+	 */
 	@Test
 	public void RefreshTest() {	
 

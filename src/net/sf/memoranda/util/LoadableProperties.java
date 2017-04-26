@@ -11,13 +11,26 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LoadableProperties.
+ */
 /*$Id: LoadableProperties.java,v 1.4 2004/01/30 12:17:42 alexeya Exp $*/
 public class LoadableProperties extends Hashtable {
 
+    /**
+     * Instantiates a new loadable properties.
+     */
     public LoadableProperties() {
         super();
     }
 
+    /**
+     * Load.
+     *
+     * @param inStream the in stream
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public void load(InputStream inStream) throws IOException {
 
         BufferedReader in = new BufferedReader(new InputStreamReader(inStream, "UTF-8"));
@@ -38,6 +51,13 @@ public class LoadableProperties extends Hashtable {
         }
     }
 
+    /**
+     * Save.
+     *
+     * @param outStream the out stream
+     * @param sorted the sorted
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public void save(OutputStream outStream, boolean sorted) throws IOException {
     	if (!sorted) {
     		save(outStream);
@@ -57,6 +77,12 @@ public class LoadableProperties extends Hashtable {
         out.close();
     }
     
+    /**
+     * Save.
+     *
+     * @param outStream the out stream
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public void save(OutputStream outStream) throws IOException {
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(outStream, "UTF-8"));
         String aKey;
@@ -71,6 +97,12 @@ public class LoadableProperties extends Hashtable {
         out.close();
     }
 
+    /**
+     * Checks if is valid.
+     *
+     * @param str the str
+     * @return true, if is valid
+     */
     private boolean isValid(String str) {
         if (str == null)
             return false;
@@ -92,6 +124,12 @@ public class LoadableProperties extends Hashtable {
         }
     }
 
+    /**
+     * Gets the next line.
+     *
+     * @param br the br
+     * @return the next line
+     */
     private String getNextLine(BufferedReader br) {
         try {
             return br.readLine();

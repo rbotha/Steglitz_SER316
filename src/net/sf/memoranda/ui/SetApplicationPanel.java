@@ -19,23 +19,58 @@ import javax.swing.event.CaretEvent;
 
 import net.sf.memoranda.util.Local;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SetApplicationPanel.
+ */
 /*$Id: SetApplicationPanel.java,v 1.6 2004/04/05 10:05:44 alexeya Exp $*/
 public class SetApplicationPanel extends JPanel {
+    
+    /** The border layout 1. */
     BorderLayout borderLayout1 = new BorderLayout();
+    
+    /** The application field. */
     public JTextField applicationField = new JTextField();
+    
+    /** The border layout 5. */
     BorderLayout borderLayout5 = new BorderLayout();
+    
+    /** The select app browse B. */
     JButton selectAppBrowseB = new JButton();
+    
+    /** The j panel 3. */
     JPanel jPanel3 = new JPanel();
+    
+    /** The border 1. */
     Border border1;
+    
+    /** The titled border 1. */
     TitledBorder titledBorder1;
+    
+    /** The arguments field. */
     public JTextField argumentsField = new JTextField();
+    
+    /** The border layout 6. */
     BorderLayout borderLayout6 = new BorderLayout();
+    
+    /** The j panel 4. */
     JPanel jPanel4 = new JPanel();
+    
+    /** The border 2. */
     Border border2;
+    
+    /** The titled border 2. */
     TitledBorder titledBorder2;
+    
+    /** The arg help label. */
     JLabel argHelpLabel = new JLabel();
+    
+    /** The d. */
     public File d = null;
     
+    /**
+     * Instantiates a new sets the application panel.
+     */
     public SetApplicationPanel() {
         try {
             jbInit();
@@ -44,6 +79,12 @@ public class SetApplicationPanel extends JPanel {
             new ExceptionDialog(ex);
         }
     }
+    
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
         border1 = BorderFactory.createEmptyBorder();
         titledBorder1 = new TitledBorder(BorderFactory.createEmptyBorder(),Local.getString("Path to executable"));
@@ -86,10 +127,20 @@ public class SetApplicationPanel extends JPanel {
         this.add(jPanel3,  BorderLayout.NORTH);
     }
     
+    /**
+     * Application field caret update.
+     *
+     * @param e the e
+     */
     void applicationField_caretUpdate(CaretEvent e) {
         
     }
     
+    /**
+     * Select app browse B action performed.
+     *
+     * @param e the e
+     */
     void selectAppBrowseB_actionPerformed(ActionEvent e) {
         // Fix until Sun's JVM supports more locales...
         UIManager.put("FileChooser.lookInLabelText", Local.getString("Look in:"));
@@ -124,6 +175,11 @@ public class SetApplicationPanel extends JPanel {
             applicationField.setText(chooser.getSelectedFile().getPath());
         }
         
+        /**
+         * Arguments field caret update.
+         *
+         * @param e the e
+         */
         void argumentsField_caretUpdate(CaretEvent e) {
             
         }

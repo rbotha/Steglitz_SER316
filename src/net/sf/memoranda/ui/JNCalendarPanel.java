@@ -35,6 +35,7 @@ import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.util.Local;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
@@ -43,33 +44,78 @@ import net.sf.memoranda.util.Local;
 /*$Id: JNCalendarPanel.java,v 1.9 2004/04/05 10:05:44 alexeya Exp $*/
 public class JNCalendarPanel extends JPanel {
 
+  /** The parent panel. */
   private WorkPanel _parentPanel;
+  
+  /** The calendar menu. */
   CalendarMenu calendarMenu;
+  
+  /** The date. */
   CalendarDate _date = CurrentDate.get();
+  
+  /** The navigation bar. */
   JToolBar navigationBar = new JToolBar();
+  
+  /** The mnty panel. */
   JPanel mntyPanel = new JPanel(new BorderLayout());
+  
+  /** The navb panel. */
   JPanel navbPanel = new JPanel(new BorderLayout());
+  
+  /** The day forward B. */
   JButton dayForwardB = new JButton();
+  
+  /** The day forward B panel. */
   JPanel dayForwardBPanel = new JPanel();
+  
+  /** The today B. */
   JButton todayB = new JButton();
+  
+  /** The today B panel. */
   JPanel todayBPanel = new JPanel();
+  
+  /** The day back B panel. */
   JPanel dayBackBPanel = new JPanel();
+  
+  /** The day back B. */
   JButton dayBackB = new JButton();
+  
+  /** The months CB. */
   JComboBox monthsCB = new JComboBox(Local.getMonthNames());
+  
+  /** The border layout 4. */
   BorderLayout borderLayout4 = new BorderLayout();
+  
+  /** The jn calendar. */
   JNCalendar jnCalendar = new JNCalendar(CurrentDate.get());
+  
+  /** The jn calendar panel. */
   JPanel jnCalendarPanel = new JPanel();
+  
+  /** The border layout 5. */
   BorderLayout borderLayout5 = new BorderLayout();
+  
+  /** The year spin. */
   JSpinner yearSpin = new JSpinner(new SpinnerNumberModel(jnCalendar.get().getYear(), 1980, 2999, 1));
+  
+  /** The year spinner. */
   JSpinner.NumberEditor yearSpinner = new JSpinner.NumberEditor(yearSpin, "####");
 
+  /** The ignore change. */
   boolean ignoreChange = false;
 
+  /** The selection listeners. */
   private Vector selectionListeners = new Vector();
 
+  /** The border 1. */
   Border border1;
+  
+  /** The border 2. */
   Border border2;
 
+  /**
+   * Instantiates a new JN calendar panel.
+   */
   public JNCalendarPanel() {
     try {
       jbInit();
@@ -79,6 +125,7 @@ public class JNCalendarPanel extends JPanel {
     }
   }
 
+  /** The day back action. */
   public Action dayBackAction =
         new AbstractAction(
             "Go one day back",
@@ -88,6 +135,7 @@ public class JNCalendarPanel extends JPanel {
         }
   };
   
+  /** The day forward action. */
   public Action dayForwardAction =
         new AbstractAction(
             "Go one day forward",
@@ -97,6 +145,7 @@ public class JNCalendarPanel extends JPanel {
         }
   };
   
+  /** The today action. */
   public Action todayAction =
         new AbstractAction(
             "Go to today",
@@ -106,6 +155,11 @@ public class JNCalendarPanel extends JPanel {
         }
   };
       
+  /**
+   * Jb init.
+   *
+   * @throws Exception the exception
+   */
   void jbInit() throws Exception {
     //dayBackAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_DOWN, KeyEvent.ALT_MASK));
     //dayForwardAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_UP, KeyEvent.ALT_MASK));
@@ -250,24 +304,48 @@ public class JNCalendarPanel extends JPanel {
     
   }
 
+  /**
+   * Sets the.
+   *
+   * @param date the date
+   */
   public void set(CalendarDate date) {
     _date = date;
     refreshView();
   }
 
+  /**
+   * Gets the.
+   *
+   * @return the calendar date
+   */
   public CalendarDate get() {
     return _date;
   }
 
+  /**
+   * Adds the selection listener.
+   *
+   * @param al the al
+   */
   public void addSelectionListener(ActionListener al) {
         selectionListeners.add(al);
     }
 
+  /**
+   * Notify listeners.
+   */
   private void notifyListeners() {
         for (Enumeration en = selectionListeners.elements(); en.hasMoreElements();)
              ((ActionListener) en.nextElement()).actionPerformed(new ActionEvent(this, 0, "Calendar event"));
   }
 
+  /**
+   * Sets the current date day.
+   *
+   * @param dt the dt
+   * @param d the d
+   */
   private void setCurrentDateDay(CalendarDate dt, int d) {
     if (ignoreChange) return;
     if (_date.equals(dt)) return;
@@ -275,6 +353,9 @@ public class JNCalendarPanel extends JPanel {
     notifyListeners();
   }
 
+  /**
+   * Refresh view.
+   */
   private void refreshView() {
     ignoreChange = true;
     jnCalendar.set(_date);
@@ -283,6 +364,11 @@ public class JNCalendarPanel extends JPanel {
     ignoreChange = false;
   }
 
+  /**
+   * Months C B action performed.
+   *
+   * @param e the e
+   */
   void monthsCB_actionPerformed(ActionEvent e) {
     if (ignoreChange) return;
     _date = new CalendarDate(_date.getDay(), monthsCB.getSelectedIndex(), _date.getYear());
@@ -290,6 +376,9 @@ public class JNCalendarPanel extends JPanel {
     notifyListeners();
   }
 
+  /**
+   * Year spin action performed.
+   */
   void yearSpin_actionPerformed() {
     if (ignoreChange) return;
     _date = new CalendarDate(_date.getDay(), _date.getMonth(), ((Integer)yearSpin.getValue()).intValue());
@@ -297,6 +386,11 @@ public class JNCalendarPanel extends JPanel {
     notifyListeners();
   }
 
+  /**
+   * Day back B action performed.
+   *
+   * @param e the e
+   */
   void dayBackB_actionPerformed(ActionEvent e) {
     Calendar cal = _date.getCalendar();
     cal.add(Calendar.DATE, -1); cal.getTime();
@@ -305,12 +399,22 @@ public class JNCalendarPanel extends JPanel {
     notifyListeners();
   }
 
+  /**
+   * Today B action performed.
+   *
+   * @param e the e
+   */
   void todayB_actionPerformed(ActionEvent e) {
     _date = CalendarDate.today();
     refreshView();
     notifyListeners();
   }
 
+  /**
+   * Day forward B action performed.
+   *
+   * @param e the e
+   */
   void dayForwardB_actionPerformed(ActionEvent e) {
     Calendar cal = _date.getCalendar();
     cal.add(Calendar.DATE, 1); cal.getTime();
@@ -319,6 +423,11 @@ public class JNCalendarPanel extends JPanel {
     notifyListeners();
   }
 
+  /**
+   * Sets the parent panel.
+   *
+   * @param p the new parent panel
+   */
   void setParentPanel(WorkPanel p){
 	  _parentPanel = p;
   }

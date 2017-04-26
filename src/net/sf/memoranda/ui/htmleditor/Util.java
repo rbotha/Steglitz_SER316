@@ -5,17 +5,20 @@ import java.util.Hashtable;
 
 import javax.swing.JTextField;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>Title: </p>
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>
+ * <p>Company: </p>.
+ *
  * @author unascribed
  * @version 1.0
  */
 
 public class Util {
     
+    /** The HTML colors. */
     public static Hashtable HTMLColors;
     static {
         HTMLColors = new Hashtable();
@@ -36,12 +39,26 @@ public class Util {
         
         
         
+    /**
+     * Gets the color for name.
+     *
+     * @param name the name
+     * @param defaultColor the default color
+     * @return the color for name
+     */
     public static Color getColorForName(String name, Color defaultColor) {
         if (HTMLColors.contains(name.toLowerCase()))
             return (Color)HTMLColors.get(name.toLowerCase());
         return defaultColor;
     }
 
+    /**
+     * Decode color.
+     *
+     * @param color the color
+     * @param defaultColor the default color
+     * @return the color
+     */
     public static Color decodeColor(String color, Color defaultColor) {
         String colorVal = "";
         if (color.length() > 0) {
@@ -60,24 +77,48 @@ public class Util {
         return getColorForName(color, defaultColor);
     }
     
+    /**
+     * Encode color.
+     *
+     * @param color the color
+     * @return the string
+     */
     public static String encodeColor(Color color) {        
         return "#"+Integer.toHexString(color.getRGB()-0xFF000000).toUpperCase();  
     }
 
+    /**
+     * Decode color.
+     *
+     * @param color the color
+     * @return the color
+     */
     public static Color decodeColor(String color) {
         return decodeColor(color, Color.white);
     }
+    
+    /**
+     * Sets the color field.
+     *
+     * @param field the new color field
+     */
+    public static void setColorField(JTextField field) {
+        Color c = Util.decodeColor(field.getText(), Color.black);
+        field.setForeground(c);
+        //field.setForeground(new Color(~c.getRGB()));
+    }
 
+    /**
+     * Sets the bgcolor field.
+     *
+     * @param field the new bgcolor field
+     */
     public static void setBgcolorField(JTextField field) {
         Color c = Util.decodeColor(field.getText());
         field.setBackground(c);
         field.setForeground(new Color(~c.getRGB()));
     }
 
-    public static void setColorField(JTextField field) {
-        Color c = Util.decodeColor(field.getText(), Color.black);
-        field.setForeground(c);
-        //field.setForeground(new Color(~c.getRGB()));
-    }
+    
 
 }

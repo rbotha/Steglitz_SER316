@@ -22,22 +22,32 @@ import javax.swing.event.TreeExpansionListener;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 
+// TODO: Auto-generated Javadoc
 /**
  * This is a wrapper class takes a TreeTableModel and implements 
  * the table model interface. The implementation is trivial, with 
  * all of the event dispatching support provided by the superclass: 
  * the AbstractTableModel. 
  *
- * @version 1.2 10/27/98
- *
  * @author Philip Milne
  * @author Scott Violet
+ * @version 1.2 10/27/98
  */
 public class TreeTableModelAdapter extends AbstractTableModel
 {
+    
+    /** The tree. */
     JTree tree;
+    
+    /** The tree table model. */
     TreeTableModel treeTableModel;
 
+    /**
+     * Instantiates a new tree table model adapter.
+     *
+     * @param treeTableModel the tree table model
+     * @param tree the tree
+     */
     public TreeTableModelAdapter(TreeTableModel treeTableModel, JTree tree) {
         this.tree = tree;
         this.treeTableModel = treeTableModel;
@@ -78,35 +88,62 @@ public class TreeTableModelAdapter extends AbstractTableModel
 
     // Wrappers, implementing TableModel interface. 
 
+    /* (non-Javadoc)
+     * @see javax.swing.table.TableModel#getColumnCount()
+     */
     public int getColumnCount() {
 	return treeTableModel.getColumnCount();
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.table.AbstractTableModel#getColumnName(int)
+     */
     public String getColumnName(int column) {
 	return treeTableModel.getColumnName(column);
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.table.AbstractTableModel#getColumnClass(int)
+     */
     public Class getColumnClass(int column) {
 	return treeTableModel.getColumnClass(column);
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.table.TableModel#getRowCount()
+     */
     public int getRowCount() {
 	return tree.getRowCount();
     }
 
+    /**
+     * Node for row.
+     *
+     * @param row the row
+     * @return the object
+     */
     protected Object nodeForRow(int row) {
 	TreePath treePath = tree.getPathForRow(row);
 	return treePath.getLastPathComponent();         
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.table.TableModel#getValueAt(int, int)
+     */
     public Object getValueAt(int row, int column) {
 	return treeTableModel.getValueAt(nodeForRow(row), column);
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.table.AbstractTableModel#isCellEditable(int, int)
+     */
     public boolean isCellEditable(int row, int column) {
          return treeTableModel.isCellEditable(nodeForRow(row), column); 
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.table.AbstractTableModel#setValueAt(java.lang.Object, int, int)
+     */
     public void setValueAt(Object value, int row, int column) {
 	treeTableModel.setValueAt(value, nodeForRow(row), column);
     }

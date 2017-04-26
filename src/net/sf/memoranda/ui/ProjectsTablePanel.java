@@ -18,10 +18,20 @@ import net.sf.memoranda.ProjectManager;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Local;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ProjectsTablePanel.
+ */
 /*$Id: ProjectsTablePanel.java,v 1.6 2004/04/05 10:05:44 alexeya Exp $*/
 public class ProjectsTablePanel extends JPanel {
+    
+    /** The border layout 1. */
     BorderLayout borderLayout1 = new BorderLayout();
+    
+    /** The scroll pane. */
     JScrollPane scrollPane = new JScrollPane();
+    
+    /** The projects table. */
     public JTable projectsTable = new JTable() {
         public TableCellRenderer getCellRenderer(int row, int column) {
             if (((String) getModel().getValueAt(row, PROJECT_ID)).equals(CurrentProject.get().getID())) {
@@ -64,13 +74,20 @@ public class ProjectsTablePanel extends JPanel {
         }
     };
 
+    /** The active only. */
     boolean activeOnly = false;
 
+    /* (non-Javadoc)
+     * @see javax.swing.JPanel#updateUI()
+     */
     public void updateUI() {
 		if(projectsTable!=null) projectsTable.updateUI();
 		super.updateUI();
     }
 
+    /**
+     * Instantiates a new projects table panel.
+     */
     public ProjectsTablePanel() {
         try {
             jbInit();
@@ -79,6 +96,12 @@ public class ProjectsTablePanel extends JPanel {
             new ExceptionDialog(ex);
         }
     }
+    
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
         projectsTable.getTableHeader().setFont(new java.awt.Font("Dialog", 1, 10));
         projectsTable.setFont(new java.awt.Font("Dialog", 0, 11));
@@ -96,6 +119,9 @@ public class ProjectsTablePanel extends JPanel {
         initProjectsTable();
     }
 
+    /**
+     * Inits the projects table.
+     */
     void initProjectsTable() {
         projectsTable.setModel(new PrjTableModel());
         for (int i = 0; i < 4; i++) {
@@ -110,25 +136,47 @@ public class ProjectsTablePanel extends JPanel {
         }
     }
 
+    /**
+     * Sets the show active only.
+     *
+     * @param shao the new show active only
+     */
     public void setShowActiveOnly(boolean shao) {
         activeOnly = shao;
         projectsTable.updateUI();
         //projectsTable.setModel(new PrjTableModel());
     }
 
+    /**
+     * Gets the selected project ID.
+     *
+     * @return the selected project ID
+     */
     public String getSelectedProjectID() {
         return (String) projectsTable.getModel().getValueAt(projectsTable.getSelectedRow(), PROJECT_ID);
     }
 
+    /**
+     * Gets the selected project.
+     *
+     * @return the selected project
+     */
     public Project getSelectedProject() {
         return (Project) projectsTable.getModel().getValueAt(projectsTable.getSelectedRow(), PROJECT);
     }
 
+    /** The Constant PROJECT. */
     static final int PROJECT = 101;
+    
+    /** The Constant PROJECT_ID. */
     static final int PROJECT_ID = 100;
 
+    /**
+     * The Class PrjTableModel.
+     */
     class PrjTableModel extends AbstractTableModel {
 
+        /** The column names. */
         String[] columnNames =
             {
                 Local.getString("Project title"),
@@ -137,14 +185,23 @@ public class ProjectsTablePanel extends JPanel {
                 //Local.getString("Execution"),
                 Local.getString("Status")};
 
+        /**
+         * Instantiates a new prj table model.
+         */
         PrjTableModel() {
             super();
         }
 
+        /* (non-Javadoc)
+         * @see javax.swing.table.TableModel#getColumnCount()
+         */
         public int getColumnCount() {
             return 4;
         }
 
+        /* (non-Javadoc)
+         * @see javax.swing.table.TableModel#getValueAt(int, int)
+         */
         public Object getValueAt(int row, int col) {
 			if(row==-1) return "";
 			Project pr;
@@ -174,17 +231,29 @@ public class ProjectsTablePanel extends JPanel {
             return "";
         }
 
+        /* (non-Javadoc)
+         * @see javax.swing.table.TableModel#getRowCount()
+         */
         public int getRowCount() {
             if (activeOnly)
                 return ProjectManager.getActiveProjectsNumber();
             return ProjectManager.getAllProjectsNumber();
         }
 
+        /* (non-Javadoc)
+         * @see javax.swing.table.AbstractTableModel#getColumnName(int)
+         */
         public String getColumnName(int col) {
             return columnNames[col];
         }
     }
 
+    /**
+     * Gets the status string.
+     *
+     * @param status the status
+     * @return the status string
+     */
     String getStatusString(int status) {
         switch (status) {
             case Project.ACTIVE :

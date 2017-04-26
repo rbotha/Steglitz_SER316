@@ -13,12 +13,18 @@ import nu.xom.Attribute;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
+// TODO: Auto-generated Javadoc
+
 /**
- *
+ * The Class MimeTypesList.
  */
 /*$Id: MimeTypesList.java,v 1.3 2004/01/30 12:17:42 alexeya Exp $*/
 public class MimeTypesList {
+    
+    /** The doc. */
     public static Document _doc = null;
+    
+    /** The root. */
     static Element _root = null;
 
     static {
@@ -26,6 +32,11 @@ public class MimeTypesList {
         _root = _doc.getRootElement();
     }
 
+    /**
+     * Gets the all mime types.
+     *
+     * @return the all mime types
+     */
     public static Vector getAllMimeTypes() {
         Vector v = new Vector();
         Elements els = _root.getChildElements("mime-type");
@@ -34,10 +45,22 @@ public class MimeTypesList {
         return v;
     }
 
+    /**
+     * Gets the mime type for file.
+     *
+     * @param path the path
+     * @return the mime type for file
+     */
     public static MimeType getMimeTypeForFile(String path) {
         return getMimeTypeByExt(getExtension(path));
     }
 
+    /**
+     * Gets the mime type.
+     *
+     * @param mimeId the mime id
+     * @return the mime type
+     */
     public static MimeType getMimeType(String mimeId) {
         Elements els = _root.getChildElements("mime-type");
         for (int i = 0; i < els.size(); i++)
@@ -46,6 +69,12 @@ public class MimeTypesList {
         return new MimeType();
     }
 
+    /**
+     * Gets the mime type by ext.
+     *
+     * @param ext the ext
+     * @return the mime type by ext
+     */
     public static MimeType getMimeTypeByExt(String ext) {
         Elements els = _root.getChildElements("mime-type");
         for (int i = 0; i < els.size(); i++) {
@@ -58,6 +87,12 @@ public class MimeTypesList {
         return new MimeType();
     }
 
+    /**
+     * Adds the mime type.
+     *
+     * @param mimeId the mime id
+     * @return the mime type
+     */
     public static MimeType addMimeType(String mimeId) {
         Element el = new Element("mime-type");
         el.addAttribute(new Attribute("id", mimeId));
@@ -65,6 +100,11 @@ public class MimeTypesList {
         return new MimeType(el);
     }
 
+    /**
+     * Removes the mime type.
+     *
+     * @param mimeId the mime id
+     */
     public static void removeMimeType(String mimeId) {
         Elements els = _root.getChildElements("mime-type");
         for (int i = 0; i < els.size(); i++)
@@ -74,10 +114,21 @@ public class MimeTypesList {
             }
     }
 
+    /**
+     * Gets the app list.
+     *
+     * @return the app list
+     */
     public static AppList getAppList() {
         return new AppList(_root.getChildElements("applications").get(0));
     }
 
+    /**
+     * Gets the extension.
+     *
+     * @param s the s
+     * @return the extension
+     */
     public static String getExtension(String s) {
         String ext = null;
         int i = s.lastIndexOf('.');

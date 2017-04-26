@@ -20,24 +20,47 @@ import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.EventsManager;
 import net.sf.memoranda.Task;
 import net.sf.memoranda.date.CalendarDate;
+// TODO: Auto-generated Javadoc
+
 /**
- *
+ * The Class JNCalendarCellRenderer.
  */
 /*$Id: JNCalendarCellRenderer.java,v 1.5 2004/10/11 08:48:20 alexeya Exp $*/
 public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRenderer {
+    
+    /** The d. */
     private CalendarDate d = null;
+    
+    /** The disabled. */
     boolean disabled = false;
+    
+    /** The ev icon. */
     ImageIcon evIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/en.png"));
+    
+    /** The t. */
     Task t = null;
     
+    /**
+     * Sets the task.
+     *
+     * @param _t the new task
+     */
     public void setTask(Task _t) {
         t = _t;
     }
     
+    /**
+     * Gets the task.
+     *
+     * @return the task
+     */
     public Task getTask() {
         return t;
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.table.DefaultTableCellRenderer#getTableCellRendererComponent(javax.swing.JTable, java.lang.Object, boolean, boolean, int, int)
+     */
     public Component getTableCellRendererComponent(
         JTable table,
         Object value,
@@ -111,6 +134,11 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
         return label;
     }
 
+    /**
+     * Sets the date.
+     *
+     * @param date the new date
+     */
     public void setDate(CalendarDate date) {
         d = date;
     }

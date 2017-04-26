@@ -21,32 +21,69 @@ import javax.swing.JTextField;
 
 import net.sf.memoranda.ui.htmleditor.util.Local;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>Title: </p>
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>
+ * <p>Company: </p>.
+ *
  * @author unascribed
  * @version 1.0
  */
 
 public class FindDialog extends JDialog {
+	
+	/** The area panel. */
 	JPanel areaPanel = new JPanel(new GridBagLayout());
+	
+	/** The buttons panel. */
 	JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+	
+	/** The cancel B. */
 	JButton cancelB = new JButton();
+	
+	/** The ok B. */
 	JButton okB = new JButton();
+	
+	/** The header panel. */
 	JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	
+	/** The header. */
 	public JLabel header = new JLabel();
+	
+	/** The cancelled. */
 	public boolean CANCELLED = false;
+	
+	/** The lbl search. */
 	JLabel lblSearch = new JLabel();
+	
+	/** The txt search. */
 	public JTextField txtSearch = new JTextField();
+	
+	/** The chk replace. */
 	public JCheckBox chkReplace = new JCheckBox();
+	
+	/** The chk case sens. */
 	public JCheckBox chkCaseSens = new JCheckBox();
+	
+	/** The chk whole word. */
 	public JCheckBox chkWholeWord = new JCheckBox();
+	
+	/** The chk reg exp. */
 	public JCheckBox chkRegExp = new JCheckBox();
+	
+	/** The txt replace. */
 	public JTextField txtReplace = new JTextField();
+	
+	/** The gbc. */
 	GridBagConstraints gbc;
 
+	/**
+	 * Instantiates a new find dialog.
+	 *
+	 * @param frame the frame
+	 */
 	public FindDialog(Frame frame) {
 		super(frame, Local.getString("Find & replace"), true);
 		try {
@@ -57,10 +94,18 @@ public class FindDialog extends JDialog {
 		}
 	}
 
+	/**
+	 * Instantiates a new find dialog.
+	 */
 	public FindDialog() {
 		this(null);
 	}
 
+	/**
+	 * Jb init.
+	 *
+	 * @throws Exception the exception
+	 */
 	void jbInit() throws Exception {
 		this.setResizable(false);
 		// Build Header and its layout
@@ -159,15 +204,30 @@ public class FindDialog extends JDialog {
 		getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * Ok B action performed.
+	 *
+	 * @param e the e
+	 */
 	void okB_actionPerformed(ActionEvent e) {
 		this.dispose();
 	}
 
+	/**
+	 * Cancel B action performed.
+	 *
+	 * @param e the e
+	 */
 	void cancelB_actionPerformed(ActionEvent e) {
 		CANCELLED = true;
 		this.dispose();
 	}
 
+	/**
+	 * Replace ch B action performed.
+	 *
+	 * @param e the e
+	 */
 	void replaceChB_actionPerformed(ActionEvent e) {
 		txtReplace.setEnabled(chkReplace.isSelected());
 	}

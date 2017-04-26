@@ -40,27 +40,57 @@ import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Util;
 import nu.xom.Element;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AgendaPanel.
+ */
 /*$Id: AgendaPanel.java,v 1.11 2005/02/15 16:58:02 rawsushi Exp $*/
 public class AgendaPanel extends JPanel {
+	
+	/** The border layout 1. */
 	BorderLayout borderLayout1 = new BorderLayout();
+	
+	/** The history back B. */
 	JButton historyBackB = new JButton();
+	
+	/** The tool bar. */
 	JToolBar toolBar = new JToolBar();
+	
+	/** The history forward B. */
 	JButton historyForwardB = new JButton();
+	
+	/** The export. */
 	JButton export = new JButton();
+	
+	/** The viewer. */
 	JEditorPane viewer = new JEditorPane("text/html", "");
+	
+	/** The priorities. */
 	String[] priorities = {Local.getString("Highest"),Local.getString("High"),Local.getString("Normal"),Local.getString("Low"),Local.getString("Lowest")};
+	
+	/** The scroll pane. */
 	JScrollPane scrollPane = new JScrollPane();
 
+	/** The parent panel. */
 	DailyItemsPanel parentPanel = null;
 
 	//	JPopupMenu agendaPPMenu = new JPopupMenu();
 	//	JCheckBoxMenuItem ppShowActiveOnlyChB = new JCheckBoxMenuItem();
 
+	/** The expanded tasks. */
 	Collection expandedTasks;
+	
+	/** The goto task. */
 	String gotoTask = null;
 
+	/** The is active. */
 	boolean isActive = true;
 
+	/**
+	 * Instantiates a new agenda panel.
+	 *
+	 * @param _parentPanel the parent panel
+	 */
 	public AgendaPanel(DailyItemsPanel _parentPanel) {
 		try {
 			parentPanel = _parentPanel;
@@ -70,6 +100,12 @@ public class AgendaPanel extends JPanel {
 			ex.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Jb init.
+	 *
+	 * @throws Exception the exception
+	 */
 	void jbInit() throws Exception {
 		expandedTasks = new ArrayList();
 
@@ -291,6 +327,11 @@ public class AgendaPanel extends JPanel {
 		//		toggleShowActiveOnly_actionPerformed(null);		
 	}
 
+	/**
+	 * Refresh.
+	 *
+	 * @param date the date
+	 */
 	public void refresh(CalendarDate date) {
 		viewer.setText(AgendaGenerator.getAgenda(date,expandedTasks));
 		SwingUtilities.invokeLater(new Runnable() {
@@ -306,6 +347,11 @@ public class AgendaPanel extends JPanel {
 		Util.debug("Summary updated.");
 	}
 
+	/**
+	 * Sets the active.
+	 *
+	 * @param isa the new active
+	 */
 	public void setActive(boolean isa) {
 		isActive = isa;
 	}

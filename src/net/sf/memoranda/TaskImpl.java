@@ -20,35 +20,54 @@ import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Node;
 
+// TODO: Auto-generated Javadoc
 /**
- *
+ * The Class TaskImpl.
  */
 /*$Id: TaskImpl.java,v 1.15 2005/12/01 08:12:26 alexeya Exp $*/
 public class TaskImpl implements Task, Comparable {
 
+    /** The element. */
     private Element _element = null;
+    
+    /** The tl. */
     private TaskList _tl = null;
 
     /**
      * Constructor for DefaultTask.
+     *
+     * @param taskElement the task element
+     * @param tl the tl
      */
     public TaskImpl(Element taskElement, TaskList tl) {
         _element = taskElement;
         _tl = tl;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.Task#getContent()
+     */
     public Element getContent() {
         return _element;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.Task#getStartDate()
+     */
     public CalendarDate getStartDate() {
         return new CalendarDate(_element.getAttribute("startDate").getValue());
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.Task#setStartDate(net.sf.memoranda.date.CalendarDate)
+     */
     public void setStartDate(CalendarDate date) {
            setAttr("startDate", date.toString());
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.Task#getEndDate()
+     */
     public CalendarDate getEndDate() {
 		String ed = _element.getAttribute("endDate").getValue();
 		if (ed != "")
@@ -63,6 +82,9 @@ public class TaskImpl implements Task, Comparable {
         
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.Task#setEndDate(net.sf.memoranda.date.CalendarDate)
+     */
     public void setEndDate(CalendarDate date) {
 		if (date == null)
 			setAttr("endDate", "");
@@ -70,6 +92,9 @@ public class TaskImpl implements Task, Comparable {
 		setAttr("endDate", date.toString());
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.Task#getEffort()
+     */
     public long getEffort() {
     	Attribute attr = _element.getAttribute("effort");
     	if (attr == null) {
@@ -85,13 +110,18 @@ public class TaskImpl implements Task, Comparable {
     	}
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.Task#setEffort(long)
+     */
     public void setEffort(long effort) {
         setAttr("effort", String.valueOf(effort));
     }
     
 	/**
-	*	Gets the actual effort (in hours) spent on a task
-	*/
+	 * 	Gets the actual effort (in hours) spent on a task.
+	 *
+	 * @return the actual effort
+	 */
     public long getActualEffort() {
     	Attribute attr = _element.getAttribute("actualEffort");
     	if (attr == null) {
@@ -108,15 +138,19 @@ public class TaskImpl implements Task, Comparable {
     }
 
 	/**
-	*	Sets the actual effort (in hours) spent on a task
-	*/
+	 * 	Sets the actual effort (in hours) spent on a task.
+	 *
+	 * @param actualEffort the new actual effort
+	 */
     public void setActualEffort(long actualEffort) {
         setAttr("actualEffort", String.valueOf(actualEffort));
     }
     
 	/**
-	*	Gets the number of logged errors in a task.
-	*/
+	 * 	Gets the number of logged errors in a task.
+	 *
+	 * @return the errors added
+	 */
     public int getErrorsAdded() {
     	Attribute attr = _element.getAttribute("errorsAdded");
     	if (attr == null) {
@@ -133,15 +167,19 @@ public class TaskImpl implements Task, Comparable {
     }
 
 	/**
-	*	Sets the number of logged errors in a task.
-	*/
+	 * 	Sets the number of logged errors in a task.
+	 *
+	 * @param errorsAdded the new errors added
+	 */
     public void setErrorsAdded(int errorsAdded) {
         setAttr("errorsAdded", String.valueOf(errorsAdded));
     }
     
 	/**
-	*	Gets the number of fixed errors in a task.
-	*/
+	 * 	Gets the number of fixed errors in a task.
+	 *
+	 * @return the errors fixed
+	 */
     public int getErrorsFixed() {
     	Attribute attr = _element.getAttribute("errorsFixed");
     	if (attr == null) {
@@ -158,16 +196,20 @@ public class TaskImpl implements Task, Comparable {
     }
 
 	/**
-	*	Sets the number of fixed errors in a task.
-	*/
+	 * 	Sets the number of fixed errors in a task.
+	 *
+	 * @param errorsFixed the new errors fixed
+	 */
     public void setErrorsFixed(int errorsFixed) {
         setAttr("errorsFixed", String.valueOf(errorsFixed));
     }
 	
 	/**
-	*	Returns the timestamped time in milliseconds from the epoch (1970-01-01T00:00:00Z)
-	* 		or -1 if there is no timestamp or error.
-	*/
+	 * 	Returns the timestamped time in milliseconds from the epoch (1970-01-01T00:00:00Z)
+	 * 		or -1 if there is no timestamp or error.
+	 *
+	 * @return the timestamp
+	 */
 	public long getTimestamp() {
     	Attribute attr = _element.getAttribute("timestamp");
     	if (attr == null) {
@@ -184,12 +226,17 @@ public class TaskImpl implements Task, Comparable {
     }
 
 	/**
-	*	Sets the timestamped time in milliseconds from the epoch (1970-01-01T00:00:00Z)
-	*/
+	 * 	Sets the timestamped time in milliseconds from the epoch (1970-01-01T00:00:00Z).
+	 *
+	 * @param timestamp the new timestamp
+	 */
     public void setTimestamp(long timestamp) {
         setAttr("timestamp", String.valueOf(timestamp));
     }
 	
+	/* (non-Javadoc)
+	 * @see net.sf.memoranda.Task#getParentTask()
+	 */
 	/* 
 	 * @see net.sf.memoranda.Task#getParentTask()
 	 */
@@ -203,6 +250,9 @@ public class TaskImpl implements Task, Comparable {
     	return null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see net.sf.memoranda.Task#getParentId()
+	 */
 	public String getParentId() {
 		Task parent = this.getParentTask();
 		if (parent != null)
@@ -210,6 +260,9 @@ public class TaskImpl implements Task, Comparable {
 		return null;
 	}
 
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.Task#getDescription()
+     */
     public String getDescription() {
     	Element thisElement = _element.getFirstChildElement("description");
     	if (thisElement == null) {
@@ -220,6 +273,9 @@ public class TaskImpl implements Task, Comparable {
     	}
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.Task#setDescription(java.lang.String)
+     */
     public void setDescription(String s) {
     	Element desc = _element.getFirstChildElement("description");
     	if (desc == null) {
@@ -233,7 +289,11 @@ public class TaskImpl implements Task, Comparable {
     	}
     }
 
-    /**s
+    /**
+     * s.
+     *
+     * @param date the date
+     * @return the status
      * @see net.sf.memoranda.Task#getStatus()
      */
     public int getStatus(CalendarDate date) {
@@ -280,11 +340,19 @@ public class TaskImpl implements Task, Comparable {
         return _element.getAttribute("frozen") != null;
     }
 
+    /**
+     * Checks if is completed.
+     *
+     * @return true, if is completed
+     */
     private boolean isCompleted() {
         return getProgress() == 100;
     }
 
     /**
+     * Gets the id.
+     *
+     * @return the id
      * @see net.sf.memoranda.Task#getID()
      */
     public String getID() {
@@ -292,17 +360,26 @@ public class TaskImpl implements Task, Comparable {
     }
 
     /**
+     * Gets the text.
+     *
+     * @return the text
      * @see net.sf.memoranda.Task#getText()
      */
     public String getText() {
         return _element.getFirstChildElement("text").getValue();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     public String toString() {
         return getText();
     }
     
     /**
+     * Sets the text.
+     *
+     * @param s the new text
      * @see net.sf.memoranda.Task#setText()
      */
     public void setText(String s) {
@@ -311,6 +388,8 @@ public class TaskImpl implements Task, Comparable {
     }
 
     /**
+     * Freeze.
+     *
      * @see net.sf.memoranda.Task#freeze()
      */
     public void freeze() {
@@ -318,6 +397,8 @@ public class TaskImpl implements Task, Comparable {
     }
 
     /**
+     * Unfreeze.
+     *
      * @see net.sf.memoranda.Task#unfreeze()
      */
     public void unfreeze() {
@@ -326,6 +407,9 @@ public class TaskImpl implements Task, Comparable {
     }
 
     /**
+     * Gets the depends from.
+     *
+     * @return the depends from
      * @see net.sf.memoranda.Task#getDependsFrom()
      */
     public Collection getDependsFrom() {
@@ -339,7 +423,11 @@ public class TaskImpl implements Task, Comparable {
         }
         return v;
     }
+    
     /**
+     * Adds the depends from.
+     *
+     * @param task the task
      * @see net.sf.memoranda.Task#addDependsFrom(net.sf.memoranda.Task)
      */
     public void addDependsFrom(Task task) {
@@ -347,7 +435,11 @@ public class TaskImpl implements Task, Comparable {
         dep.addAttribute(new Attribute("idRef", task.getID()));
         _element.appendChild(dep);
     }
+    
     /**
+     * Removes the depends from.
+     *
+     * @param task the task
      * @see net.sf.memoranda.Task#removeDependsFrom(net.sf.memoranda.Task)
      */
     public void removeDependsFrom(Task task) {
@@ -360,20 +452,32 @@ public class TaskImpl implements Task, Comparable {
             }
         }
     }
+    
     /**
+     * Gets the progress.
+     *
+     * @return the progress
      * @see net.sf.memoranda.Task#getProgress()
      */
     public int getProgress() {
         return new Integer(_element.getAttribute("progress").getValue()).intValue();
     }
+    
     /**
+     * Sets the progress.
+     *
+     * @param p the new progress
      * @see net.sf.memoranda.Task#setProgress(int)
      */
     public void setProgress(int p) {
         if ((p >= 0) && (p <= 100))
             setAttr("progress", new Integer(p).toString());
     }
+    
     /**
+     * Gets the priority.
+     *
+     * @return the priority
      * @see net.sf.memoranda.Task#getPriority()
      */
     public int getPriority() {
@@ -382,13 +486,23 @@ public class TaskImpl implements Task, Comparable {
             return Task.PRIORITY_NORMAL;
         return new Integer(pa.getValue()).intValue();
     }
+    
     /**
+     * Sets the priority.
+     *
+     * @param p the new priority
      * @see net.sf.memoranda.Task#setPriority(int)
      */
     public void setPriority(int p) {
         setAttr("priority", String.valueOf(p));
     }
 
+    /**
+     * Sets the attr.
+     *
+     * @param a the a
+     * @param value the value
+     */
     private void setAttr(String a, String value) {
         Attribute attr = _element.getAttribute(a);
         if (attr == null)
@@ -403,7 +517,8 @@ public class TaskImpl implements Task, Comparable {
 	 * progress. 
 	 * 
 	 * rate = (100-progress) / (numOfDays+1) * (priority+1)
-	 * @param CalendarDate
+	 *
+	 * @param d the d
 	 * @return long
 	 */
 
@@ -417,6 +532,9 @@ public class TaskImpl implements Task, Comparable {
 	}
 
     /**
+     * Gets the rate.
+     *
+     * @return the rate
      * @see net.sf.memoranda.Task#getRate()
      */
 	 
@@ -437,7 +555,10 @@ public class TaskImpl implements Task, Comparable {
 	  * Comparable interface
 	  */
 	  
-	 public int compareTo(Object o) {
+	 /* (non-Javadoc)
+ 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+ 	 */
+ 	public int compareTo(Object o) {
 		 Task task = (Task) o;
 		 	if(getRate() > task.getRate())
 				return 1;
@@ -447,10 +568,16 @@ public class TaskImpl implements Task, Comparable {
 				return 0;
 	 }
 	 
-	 public boolean equals(Object o) {
+	 /* (non-Javadoc)
+ 	 * @see java.lang.Object#equals(java.lang.Object)
+ 	 */
+ 	public boolean equals(Object o) {
 	     return ((o instanceof Task) && (((Task)o).getID().equals(this.getID())));
 	 }
 
+	/* (non-Javadoc)
+	 * @see net.sf.memoranda.Task#getSubTasks()
+	 */
 	/* 
 	 * @see net.sf.memoranda.Task#getSubTasks()
 	 */
@@ -459,6 +586,12 @@ public class TaskImpl implements Task, Comparable {
             return convertToTaskObjects(subTasks);
 	}
 
+	/**
+	 * Convert to task objects.
+	 *
+	 * @param tasks the tasks
+	 * @return the collection
+	 */
 	private Collection convertToTaskObjects(Elements tasks) {
         Vector v = new Vector();
         for (int i = 0; i < tasks.size(); i++) {
@@ -468,6 +601,9 @@ public class TaskImpl implements Task, Comparable {
         return v;
     }
 	
+	/* (non-Javadoc)
+	 * @see net.sf.memoranda.Task#getSubTask(java.lang.String)
+	 */
 	/* 
 	 * @see net.sf.memoranda.Task#getSubTask(java.lang.String)
 	 */
@@ -480,6 +616,9 @@ public class TaskImpl implements Task, Comparable {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see net.sf.memoranda.Task#hasSubTasks(java.lang.String)
+	 */
 	/* 
 	 * @see net.sf.memoranda.Task#hasSubTasks()
 	 */
@@ -517,11 +656,18 @@ public class TaskImpl implements Task, Comparable {
 			ts.setValue(s.toString());
 		
 	}
+  
+  /* (non-Javadoc)
+   * @see net.sf.memoranda.Task#setEstLOC(long)
+   */
   public void setEstLOC(long estLOC) {
 	  	setAttr("estloc", String.valueOf(estLOC));
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see net.sf.memoranda.Task#getEstLOC()
+	 */
 	public int getEstLOC() {
 		// TODO Auto-generated method stub
 		Attribute attr = _element.getAttribute("estloc");
@@ -538,11 +684,17 @@ public class TaskImpl implements Task, Comparable {
     	}
 	}
 
+	/* (non-Javadoc)
+	 * @see net.sf.memoranda.Task#setActLOC(long)
+	 */
 	public void setActLOC(long actLOC) {
 		setAttr("actloc", String.valueOf(actLOC));
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see net.sf.memoranda.Task#getActLOC()
+	 */
 	public int getActLOC() {
 		Attribute attr = _element.getAttribute("actloc");
     	if (attr == null) {
@@ -557,10 +709,12 @@ public class TaskImpl implements Task, Comparable {
     		}
     	}
 	}
+	
 	/**
-     * This function returns the color value (-1 for none, otherwise 0-9)
-     * @return color value
-     */
+	 * This function returns the color value (-1 for none, otherwise 0-9).
+	 *
+	 * @return color value
+	 */
     public int getColor() {
         try {
             return new Integer(_element.getAttribute("taskColor").getValue());
@@ -568,9 +722,11 @@ public class TaskImpl implements Task, Comparable {
             return -1;
         }
     }
+    
     /**
-     * This function sets the color field in task
-     * @param  c the color to set to
+     * This function sets the color field in task.
+     *
+     * @param c the new color
      */
     public void setColor(int c) {
         if (c >= -1) {

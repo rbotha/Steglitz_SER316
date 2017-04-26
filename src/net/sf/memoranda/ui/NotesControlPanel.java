@@ -30,32 +30,69 @@ import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Configuration;
+// TODO: Auto-generated Javadoc
 //import net.sf.memoranda.ui.App;
 //import net.sf.memoranda.ui.AppFrame;
 
+/**
+ * The Class NotesControlPanel.
+ */
 /*$Id: NotesControlPanel.java,v 1.16 2005/05/05 16:19:16 ivanrise Exp $*/
 public class NotesControlPanel extends JPanel {
+    
+    /** The border layout 1. */
     BorderLayout borderLayout1 = new BorderLayout();
+    
+    /** The search panel. */
     SearchPanel searchPanel = new SearchPanel();
+    
+    /** The notes list panel. */
     NotesListPanel notesListPanel = new NotesListPanel();
+    
+    /** The bookmarks list panel. */
     BookmarksPanel bookmarksListPanel = new BookmarksPanel();
+    
+    /** The tabbed pane. */
     JTabbedPane tabbedPane = new JTabbedPane();
+    
+    /** The tool bar. */
     JToolBar toolBar = new JToolBar();
 
+    /** The notes list. */
     NotesList notesList = null;
 
+    /** The flow layout 1. */
     FlowLayout flowLayout1 = new FlowLayout();
+    
+    /** The pp open B. */
     JButton ppOpenB = new JButton();
+    
+    /** The buttons panel. */
     JPanel buttonsPanel = new JPanel();
+    
+    /** The pp add bkmrk. */
     JMenuItem ppAddBkmrk = new JMenuItem();
+    
+    /** The pp clear note. */
     JMenuItem ppClearNote = new JMenuItem();
+
+/** The pp invert sort. */
 //    JMenuItem ppInvertSort = new JMenuItem();
 	JCheckBoxMenuItem ppInvertSort = new JCheckBoxMenuItem();
+    
+    /** The notes PP menu. */
     JPopupMenu notesPPMenu = new JPopupMenu();
+    
+    /** The pp open note. */
     JMenuItem ppOpenNote = new JMenuItem();
+    
+    /** The pp remove bkmrk. */
     JMenuItem ppRemoveBkmrk = new JMenuItem();
 
 	
+    /**
+     * Instantiates a new notes control panel.
+     */
     public NotesControlPanel() {
         try {
             jbInit();
@@ -66,6 +103,11 @@ public class NotesControlPanel extends JPanel {
         }
     }
 
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
         tabbedPane.setFont(new java.awt.Font("Dialog", 1, 10));
         tabbedPane.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -196,11 +238,19 @@ public class NotesControlPanel extends JPanel {
 		searchPanel.notesList.addKeyListener(delNotes);
     }
 
+    /**
+     * Refresh.
+     */
     public void refresh() {
         notesListPanel.notesList.update();
         bookmarksListPanel.notesList.update();
     }
 
+    /**
+     * Tabbed pane state changed.
+     *
+     * @param e the e
+     */
     void tabbedPane_stateChanged(ChangeEvent e) {
 	if(notesList!=null) notesList.clearSelection();
         switch (tabbedPane.getSelectedIndex()) {
@@ -219,21 +269,46 @@ public class NotesControlPanel extends JPanel {
 	ppRemoveBkmrk.setEnabled(false);
     }
 
+    /**
+     * The listener interface for receiving popup events.
+     * The class that is interested in processing a popup
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>addPopupListener<code> method. When
+     * the popup event occurs, that object's appropriate
+     * method is invoked.
+     *
+     * @see PopupEvent
+     */
     class PopupListener extends MouseAdapter {
 
+        /* (non-Javadoc)
+         * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
+         */
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2)
                 setActiveNote();
         }
 
+        /* (non-Javadoc)
+         * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
+         */
         public void mousePressed(MouseEvent e) {
              maybeShowPopup(e);
          }
         
+         /* (non-Javadoc)
+          * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
+          */
          public void mouseReleased(MouseEvent e) {
              maybeShowPopup(e);
          }
         
+         /**
+          * Maybe show popup.
+          *
+          * @param e the e
+          */
          private void maybeShowPopup(MouseEvent e) {
              if (e.isPopupTrigger()) {
                  notesPPMenu.show(e.getComponent(), e.getX(), e.getY());
@@ -241,6 +316,9 @@ public class NotesControlPanel extends JPanel {
          }
     }
 
+    /**
+     * Sets the active note.
+     */
     void setActiveNote() {
         Note note = (Note) notesList.getNote(notesList.getSelectedIndex());
         CurrentDate.set(note.getDate());
@@ -248,6 +326,11 @@ public class NotesControlPanel extends JPanel {
     }
    
 
+    /**
+     * Pp open B action performed.
+     *
+     * @param e the e
+     */
     void ppOpenB_actionPerformed(ActionEvent e) {
         notesPPMenu.show(
             toolBar,
@@ -255,6 +338,11 @@ public class NotesControlPanel extends JPanel {
             (int) ppOpenB.getLocation().getY() + 24);
     }
 
+    /**
+     * Pp add bkmrk action performed.
+     *
+     * @param e the e
+     */
     void ppAddBkmrk_actionPerformed(ActionEvent e) {
         for (int i = 0; i < notesList.getSelectedIndices().length; i++) {
             Note note = (Note) notesList.getNote(notesList.getSelectedIndices()[i]);
@@ -265,6 +353,11 @@ public class NotesControlPanel extends JPanel {
 	ppSetEnabled();
     }
 
+    /**
+     * Pp clear note action performed.
+     *
+     * @param e the e
+     */
     void ppClearNote_actionPerformed(ActionEvent e) {
         String msg;
         if (notesList.getSelectedIndices().length > 1)
@@ -311,10 +404,20 @@ public class NotesControlPanel extends JPanel {
 //		((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.editorPanel.editor.requestFocus();
     }
 	
+    /**
+     * Pp open note action performed.
+     *
+     * @param e the e
+     */
     void ppOpenNote_actionPerformed(ActionEvent e) {
         setActiveNote();
     }
 
+    /**
+     * Pp invert sort action performed.
+     *
+     * @param e the e
+     */
     void ppInvertSort_actionPerformed(ActionEvent e) {
 		Configuration.put(
 			"NOTES_SORT_ORDER",
@@ -324,6 +427,11 @@ public class NotesControlPanel extends JPanel {
         notesList.update();
     }
 
+    /**
+     * Pp remove bkmrk action performed.
+     *
+     * @param e the e
+     */
     void ppRemoveBkmrk_actionPerformed(ActionEvent e) {
         for (int i = 0; i < notesList.getSelectedIndices().length; i++) {
             Note note = (Note) notesList.getNote(notesList.getSelectedIndices()[i]);
@@ -336,6 +444,9 @@ public class NotesControlPanel extends JPanel {
 	((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.editorPanel.editor.requestFocus();	
     }
 
+    /**
+     * Pp set enabled.
+     */
     void ppSetEnabled() {
     boolean enbl = (notesList.getModel().getSize() > 0) && (notesList.getSelectedIndex() > -1);
 

@@ -28,33 +28,70 @@ import javax.swing.border.TitledBorder;
 
 import net.sf.memoranda.ui.htmleditor.util.Local;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>Title: </p>
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>
+ * <p>Company: </p>.
+ *
  * @author unascribed
  * @version 1.0
  */
 
 public class FontDialog extends JDialog {
+    
+    /** The area panel. */
     JPanel areaPanel = new JPanel(new GridBagLayout());
+    
+    /** The gbc. */
     GridBagConstraints gbc;
+    
+    /** The buttons panel. */
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+    
+    /** The cancel B. */
     JButton cancelB = new JButton();
+    
+    /** The ok B. */
     JButton okB = new JButton();
+    
+    /** The header panel. */
     JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    
+    /** The header. */
     public JLabel header = new JLabel();
+    
+    /** The cancelled. */
     public boolean CANCELLED = false;
+    
+    /** The font size CB. */
     public JComboBox fontSizeCB = new JComboBox(new Object[] 
     	{"", "1","2","3","4","5","6","7"});
+    
+    /** The font family CB. */
     public JComboBox fontFamilyCB;
+    
+    /** The sample. */
     public JLabel sample = new JLabel();
+    
+    /** The sample panel. */
     JPanel samplePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    
+    /** The color field. */
     public JTextField colorField = new JTextField();
+    
+    /** The lbl text color. */
     JLabel lblTextColor = new JLabel();
+    
+    /** The color B. */
     JButton colorB = new JButton();
 
+    /**
+     * Instantiates a new font dialog.
+     *
+     * @param frame the frame
+     */
     public FontDialog(Frame frame) {
         super(frame, Local.getString("Text properties"), true);
         try {
@@ -66,10 +103,18 @@ public class FontDialog extends JDialog {
         }
     }
 
+    /**
+     * Instantiates a new font dialog.
+     */
     public FontDialog() {
         this(null);
     }
 
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
 	this.setResizable(false);
         GraphicsEnvironment gEnv = 
@@ -193,15 +238,30 @@ public class FontDialog extends JDialog {
         this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Ok B action performed.
+     *
+     * @param e the e
+     */
     void okB_actionPerformed(ActionEvent e) {
         this.dispose();
     }
 
+    /**
+     * Cancel B action performed.
+     *
+     * @param e the e
+     */
     void cancelB_actionPerformed(ActionEvent e) {
         CANCELLED = true;
         this.dispose();
     }
 
+    /**
+     * Font changed.
+     *
+     * @param e the e
+     */
     void fontChanged(ActionEvent e) {
         int[] sizes = {8,10,13,16,18,24,32};
         int size = 16;
@@ -215,6 +275,11 @@ public class FontDialog extends JDialog {
         sample.setFont(new Font(face,Font.PLAIN, size));
     }
    
+    /**
+     * Color B action performed.
+     *
+     * @param e the e
+     */
     void colorB_actionPerformed(ActionEvent e) {
 		// Fix until Sun's JVM supports more locales...
 		UIManager.put(

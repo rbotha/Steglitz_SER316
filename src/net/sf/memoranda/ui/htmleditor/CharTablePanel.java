@@ -14,12 +14,22 @@ import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CharTablePanel.
+ */
 public class CharTablePanel extends JPanel {
 
+    /** The editor. */
     JEditorPane editor;
+    
+    /** The border 1. */
     Border border1;
+    
+    /** The flow layout 1. */
     FlowLayout flowLayout1 = new FlowLayout();
     
+    /** The chars. */
     String[] chars =
         {
             "\u00A9",
@@ -51,8 +61,14 @@ public class CharTablePanel extends JPanel {
             "\u263A",
             "\u00A0" };
 
+    /** The buttons. */
     Vector buttons = new Vector();
 
+    /**
+     * Instantiates a new char table panel.
+     *
+     * @param ed the ed
+     */
     public CharTablePanel(JEditorPane ed) {
         try {
             editor = ed;
@@ -63,6 +79,12 @@ public class CharTablePanel extends JPanel {
         }
 
     }
+    
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     private void jbInit() throws Exception {
         
 
@@ -81,6 +103,9 @@ public class CharTablePanel extends JPanel {
 
     }
 
+    /**
+     * Creates the buttons.
+     */
     void createButtons() {
         for (int i = 0; i < chars.length; i++) {
             JButton button = new JButton(new CharAction(chars[i]));
@@ -102,12 +127,24 @@ public class CharTablePanel extends JPanel {
         }
     }
 
+    /**
+     * The Class CharAction.
+     */
     class CharAction extends AbstractAction {
+        
+        /**
+         * Instantiates a new char action.
+         *
+         * @param name the name
+         */
         CharAction(String name) {
             super(name);
             //putValue(Action.SHORT_DESCRIPTION, name);
         }
 
+        /* (non-Javadoc)
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
         public void actionPerformed(ActionEvent e) {
             String s = this.getValue(Action.NAME).toString();
             editor.replaceSelection(s);

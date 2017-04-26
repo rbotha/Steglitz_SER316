@@ -31,31 +31,58 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JLabel;
 
+// TODO: Auto-generated Javadoc
 /**
  * <h1>TaskProgressLabel</h1>
  * 
- * Component showing task progress as colorful bar>
- * 
- * @version $Name:  $ $Revision: 1.1 $
+ * Component showing task progress as colorful bar>.
+ *
  * @author Alex Alishevskikh, alexeya(at)gmail.com
- * 
+ * @version $Name:  $ $Revision: 1.1 $
  */
 
 class TaskProgressLabel extends JLabel{
+    
+    /** The table. */
     TaskTable table;
+    
+    /** The column. */
     int column;
+    
+    /** The task. */
     Task task;
+    
+    /**
+     * Instantiates a new task progress label.
+     *
+     * @param table the table
+     */
     public TaskProgressLabel( TaskTable table ){
         this.table = table;
         setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     }
+    
+    /**
+     * Sets the task.
+     *
+     * @param t the new task
+     */
     public void setTask(Task t){ 
     	task = t;
     	}
+    
+    /**
+     * Sets the column.
+     *
+     * @param col the new column
+     */
     public void setColumn(int col){ 
     	column = col;
     	}
     
+    /* (non-Javadoc)
+     * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+     */
     public void paintComponent(Graphics g) {
         int val = task.getProgress();
         int width = table.getColumnModel().getColumn(column).getWidth();

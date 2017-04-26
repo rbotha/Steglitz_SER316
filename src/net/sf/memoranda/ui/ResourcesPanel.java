@@ -33,21 +33,52 @@ import net.sf.memoranda.util.Util;
 
 import java.io.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ResourcesPanel.
+ */
 /*$Id: ResourcesPanel.java,v 1.13 2007/03/20 08:22:41 alexeya Exp $*/
 public class ResourcesPanel extends JPanel {
+    
+    /** The border layout 1. */
     BorderLayout borderLayout1 = new BorderLayout();
+    
+    /** The tool bar. */
     JToolBar toolBar = new JToolBar();
+    
+    /** The new res B. */
     JButton newResB = new JButton();
+    
+    /** The resources table. */
     ResourcesTable resourcesTable = new ResourcesTable();
+    
+    /** The remove res B. */
     JButton removeResB = new JButton();
+    
+    /** The scroll pane. */
     JScrollPane scrollPane = new JScrollPane();
+    
+    /** The refresh B. */
     JButton refreshB = new JButton();
+  
+  /** The res PP menu. */
   JPopupMenu resPPMenu = new JPopupMenu();
+  
+  /** The pp run. */
   JMenuItem ppRun = new JMenuItem();
+  
+  /** The pp remove res. */
   JMenuItem ppRemoveRes = new JMenuItem();
+  
+  /** The pp new res. */
   JMenuItem ppNewRes = new JMenuItem();
+  
+  /** The pp refresh. */
   JMenuItem ppRefresh = new JMenuItem();
 
+    /**
+     * Instantiates a new resources panel.
+     */
     public ResourcesPanel() {
         try {
             jbInit();
@@ -56,6 +87,12 @@ public class ResourcesPanel extends JPanel {
            new ExceptionDialog(ex);
         }
     }
+    
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
         toolBar.setFloatable(false);
         this.setLayout(borderLayout1);
@@ -187,6 +224,11 @@ public class ResourcesPanel extends JPanel {
 		});
     }
 
+    /**
+     * New res B action performed.
+     *
+     * @param e the e
+     */
     void newResB_actionPerformed(ActionEvent e) {
         AddResourceDialog dlg = new AddResourceDialog(App.getFrame(), Local.getString("New resource"));
         Dimension frmSize = App.getFrame().getSize();
@@ -223,6 +265,11 @@ public class ResourcesPanel extends JPanel {
         }
     }
 
+    /**
+     * Removes the res B action performed.
+     *
+     * @param e the e
+     */
     void removeResB_actionPerformed(ActionEvent e) {
         int[] toRemove = resourcesTable.getSelectedRows();
         String msg = "";
@@ -253,6 +300,12 @@ public class ResourcesPanel extends JPanel {
         resourcesTable.tableChanged();
     }
 
+    /**
+     * Adds the resource type.
+     *
+     * @param fpath the fpath
+     * @return the mime type
+     */
     MimeType addResourceType(String fpath) {
         ResourceTypeDialog dlg = new ResourceTypeDialog(App.getFrame(), Local.getString("Resource type"));
         Dimension dlgSize = new Dimension(420, 300);
@@ -271,6 +324,12 @@ public class ResourcesPanel extends JPanel {
         return mt;
     }
 
+    /**
+     * Check app.
+     *
+     * @param mt the mt
+     * @return true, if successful
+     */
     boolean checkApp(MimeType mt) {
         String appId = mt.getAppId();
         AppList appList = MimeTypesList.getAppList();
@@ -316,6 +375,11 @@ public class ResourcesPanel extends JPanel {
     }
     
 
+    /**
+     * Run app.
+     *
+     * @param fpath the fpath
+     */
     void runApp(String fpath) {
         MimeType mt = MimeTypesList.getMimeTypeForFile(fpath);
         if (mt.getMimeTypeId().equals("__UNKNOWN")) {
@@ -340,12 +404,31 @@ public class ResourcesPanel extends JPanel {
         }
     }
 
+    /**
+     * Run browser.
+     *
+     * @param url the url
+     */
     void runBrowser(String url) {
         Util.runBrowser(url);
     }
 
+    /**
+     * The listener interface for receiving popup events.
+     * The class that is interested in processing a popup
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>addPopupListener<code> method. When
+     * the popup event occurs, that object's appropriate
+     * method is invoked.
+     *
+     * @see PopupEvent
+     */
     class PopupListener extends MouseAdapter {
 
+        /* (non-Javadoc)
+         * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
+         */
         public void mouseClicked(MouseEvent e) {
             if ((e.getClickCount() == 2) && (resourcesTable.getSelectedRow() > -1)) {
                 String path = (String) resourcesTable.getValueAt(resourcesTable.getSelectedRow(), 3);
@@ -357,14 +440,25 @@ public class ResourcesPanel extends JPanel {
             //editTaskB_actionPerformed(null);
         }
 
+                /* (non-Javadoc)
+                 * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
+                 */
                 public void mousePressed(MouseEvent e) {
                     maybeShowPopup(e);
                 }
 
+                /* (non-Javadoc)
+                 * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
+                 */
                 public void mouseReleased(MouseEvent e) {
                     maybeShowPopup(e);
                 }
 
+                /**
+                 * Maybe show popup.
+                 *
+                 * @param e the e
+                 */
                 private void maybeShowPopup(MouseEvent e) {
                     if (e.isPopupTrigger()) {
                         resPPMenu.show(e.getComponent(), e.getX(), e.getY());
@@ -372,10 +466,21 @@ public class ResourcesPanel extends JPanel {
                 }
 
     }
+    
+    /**
+     * Refresh B action performed.
+     *
+     * @param e the e
+     */
     void refreshB_actionPerformed(ActionEvent e) {
         resourcesTable.tableChanged();
     }
 
+  /**
+   * Pp run action performed.
+   *
+   * @param e the e
+   */
   void ppRun_actionPerformed(ActionEvent e) {
     String path = (String) resourcesTable.getValueAt(resourcesTable.getSelectedRow(), 3);
                 if (path.length() >0)
@@ -383,21 +488,38 @@ public class ResourcesPanel extends JPanel {
                 else
                     runBrowser((String) resourcesTable.getValueAt(resourcesTable.getSelectedRow(), 0));
   }
+  
+  /**
+   * Pp remove res action performed.
+   *
+   * @param e the e
+   */
   void ppRemoveRes_actionPerformed(ActionEvent e) {
     removeResB_actionPerformed(e);
   }
+  
+  /**
+   * Pp new res action performed.
+   *
+   * @param e the e
+   */
   void ppNewRes_actionPerformed(ActionEvent e) {
     newResB_actionPerformed(e);
   }
 
+  /**
+   * Pp refresh action performed.
+   *
+   * @param e the e
+   */
   void ppRefresh_actionPerformed(ActionEvent e) {
      resourcesTable.tableChanged();
   }
   
   /**
-   * Copy a file to the directory of the current project
+   * Copy a file to the directory of the current project.
+   *
    * @param srcStr The path of the source file.
-   * @param destStr The destination path.
    * @return The new path of the file.
    */
   String copyFileToProjectDir(String srcStr) {

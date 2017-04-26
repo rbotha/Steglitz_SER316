@@ -16,6 +16,7 @@ import javax.swing.JLayeredPane;
 
 import net.sf.memoranda.util.Local;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
@@ -24,14 +25,28 @@ import net.sf.memoranda.util.Local;
 /*$Id: AppFrame_AboutBox.java,v 1.13 2005/11/09 22:38:07 alexeya Exp $*/
 public class AppFrame_AboutBox extends JDialog implements ActionListener {
 
+  /** The button 1. */
   JButton button1 = new JButton();
+  
+  /** The image label. */
   JLabel imageLabel = new JLabel();
+  
+  /** The lbl text. */
   JLabel lblText = new JLabel();
   
+  /** The product. */
   String product = "Version "+App.VERSION_INFO + " (Build " + App.BUILD_INFO + ")";
+  
+  /** The copyright. */
   String copyright = "Copyright (c) 2003, 2004 Memoranda team";
+  
+  /** The url. */
   String url = App.WEBSITE_URL;
+  
+  /** The developers head. */
   String developersHead = Local.getString("Developers") + ":";
+  
+  /** The developers. */
   String[] developers = {
               "Alex Alishevskikh (alexeya@users.sourceforge.net)",
               "Patrick Bielen (bielen@stafa.nl)",
@@ -40,7 +55,11 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
               "Jyrki Velhonoja (velhonoja@kapsi.fi>)",
   			  "Jeremy Whitlock (jwhitlock@starprecision.com)"              
   };
+  
+  /** The others head. */
   String othersHead = Local.getString("Other contributors") + ":";
+  
+  /** The others. */
   String[] others = {
               "Thomas Chuffart (informatique@pierrelouiscarlier.fr)",
               "Willy Dobe (wdobe@gmx.de)",
@@ -52,10 +71,20 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
               "Toru Watanabe (t-wata@cablenet.ne.jp)"                            
  };
     
+  /** The layered pane. */
   JLayeredPane layeredPane;
+  
+  /** The image. */
   ImageIcon image;
+  
+  /** The img label. */
   JLabel imgLabel;
                                    
+  /**
+   * Instantiates a new app frame about box.
+   *
+   * @param parent the parent
+   */
   public AppFrame_AboutBox(Frame parent) {
     super(parent);
     enableEvents(AWTEvent.WINDOW_EVENT_MASK);
@@ -67,6 +96,12 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
     }
     setSize(400, 500);
   }
+  
+  /**
+   * Jb init.
+   *
+   * @throws Exception the exception
+   */
   //Component initialization
   private void jbInit() throws Exception  {    
     String text = "<html>";
@@ -105,6 +140,10 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
     layeredPane.add(button1, new Integer(2));
     this.getContentPane().setBackground(new Color(251, 197, 63));
   }
+  
+  /* (non-Javadoc)
+   * @see javax.swing.JDialog#processWindowEvent(java.awt.event.WindowEvent)
+   */
   //Overridden so we can exit when window is closed
   protected void processWindowEvent(WindowEvent e) {
     if (e.getID() == WindowEvent.WINDOW_CLOSING) {
@@ -112,10 +151,18 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
     }
     super.processWindowEvent(e);
   }
+  
+  /**
+   * Cancel.
+   */
   //Close the dialog
   void cancel() {
     dispose();
   }
+  
+  /* (non-Javadoc)
+   * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+   */
   //Close the dialog on a button event
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == button1) {

@@ -18,16 +18,26 @@ import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Storage;
 
+// TODO: Auto-generated Javadoc
 /**
- *
+ * The Class CurrentProject.
  */
 /*$Id: CurrentProject.java,v 1.6 2005/12/01 08:12:26 alexeya Exp $*/
 public class CurrentProject {
 
+    /** The project. */
     private static Project _project = null;
+    
+    /** The tasklist. */
     private static TaskList _tasklist = null;
+    
+    /** The notelist. */
     private static NoteList _notelist = null;
+    
+    /** The resources. */
     private static ResourcesList _resources = null;
+    
+    /** The project listeners. */
     private static Vector projectListeners = new Vector();
 
         
@@ -61,22 +71,47 @@ public class CurrentProject {
     }
         
 
+    /**
+     * Gets the.
+     *
+     * @return the project
+     */
     public static Project get() {
         return _project;
     }
 
+    /**
+     * Gets the task list.
+     *
+     * @return the task list
+     */
     public static TaskList getTaskList() {
             return _tasklist;
     }
 
+    /**
+     * Gets the note list.
+     *
+     * @return the note list
+     */
     public static NoteList getNoteList() {
             return _notelist;
     }
     
+    /**
+     * Gets the resources list.
+     *
+     * @return the resources list
+     */
     public static ResourcesList getResourcesList() {
             return _resources;
     }
 
+    /**
+     * Sets the.
+     *
+     * @param project the project
+     */
     public static void set(Project project) {
         if (project.getID().equals(_project.getID())) return;
         TaskList newtasklist = CurrentStorage.get().openTaskList(project);
@@ -91,14 +126,32 @@ public class CurrentProject {
         Context.put("LAST_OPENED_PROJECT_ID", project.getID());
     }
 
+    /**
+     * Adds the project listener.
+     *
+     * @param pl the pl
+     */
     public static void addProjectListener(ProjectListener pl) {
         projectListeners.add(pl);
     }
 
+    /**
+     * Gets the change listeners.
+     *
+     * @return the change listeners
+     */
     public static Collection getChangeListeners() {
         return projectListeners;
     }
 
+    /**
+     * Notify listeners before.
+     *
+     * @param project the project
+     * @param nl the nl
+     * @param tl the tl
+     * @param rl the rl
+     */
     private static void notifyListenersBefore(Project project, NoteList nl, TaskList tl, ResourcesList rl) {
         for (int i = 0; i < projectListeners.size(); i++) {
             ((ProjectListener)projectListeners.get(i)).projectChange(project, nl, tl, rl);
@@ -106,12 +159,18 @@ public class CurrentProject {
         }
     }
     
+    /**
+     * Notify listeners after.
+     */
     private static void notifyListenersAfter() {
         for (int i = 0; i < projectListeners.size(); i++) {
             ((ProjectListener)projectListeners.get(i)).projectWasChanged();            
         }
     }
 
+    /**
+     * Save.
+     */
     public static void save() {
         Storage storage = CurrentStorage.get();
 
@@ -121,6 +180,9 @@ public class CurrentProject {
         storage.storeProjectManager();
     }
     
+    /**
+     * Free.
+     */
     public static void free() {
         _project = null;
         _tasklist = null;

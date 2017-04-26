@@ -26,112 +26,303 @@ import javax.swing.border.Border;
 
 import net.sf.memoranda.ui.htmleditor.util.Local;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>Title: </p>
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>
+ * <p>Company: </p>.
+ *
  * @author unascribed
  * @version 1.0
  */
 
 public class TdDialog extends JDialog {
+  
+  /** The panel 1. */
   JPanel panel1 = new JPanel();
+  
+  /** The border layout 1. */
   BorderLayout borderLayout1 = new BorderLayout();
+  
+  /** The buttons panel. */
   JPanel buttonsPanel = new JPanel();
+  
+  /** The cancel B. */
   JButton cancelB = new JButton();
+  
+  /** The ok B. */
   JButton okB = new JButton();
+  
+  /** The flow layout 1. */
   FlowLayout flowLayout1 = new FlowLayout();
+  
+  /** The border 1. */
   Border border1;
 
+  /** The aligns. */
   String[] aligns = {"", "left", "center", "right"};
+  
+  /** The valigns. */
   String[] valigns = {"", "top", "center", "bottom"};
+  
+  /** The tdvaligns. */
   String[] tdvaligns = {"", "top", "middle", "bottom", "baseline"};
+  
+  /** The border 2. */
   Border border2;
+  
+  /** The header panel. */
   JPanel headerPanel = new JPanel();
+  
+  /** The header. */
   JLabel header = new JLabel();
+  
+  /** The flow layout 7. */
   FlowLayout flowLayout7 = new FlowLayout();
 
+  /** The cancelled. */
   public boolean CANCELLED = false;
+  
+  /** The border 3. */
   Border border3;
+  
+  /** The border 4. */
   Border border4;
+  
+  /** The j tabbed pane 1. */
   JTabbedPane jTabbedPane1 = new JTabbedPane();
+  
+  /** The j label 4. */
   JLabel jLabel4 = new JLabel();
+  
+  /** The flow layout 5. */
   FlowLayout flowLayout5 = new FlowLayout();
+  
+  /** The td height field. */
   JTextField tdHeightField = new JTextField();
+  
+  /** The flow layout 2. */
   FlowLayout flowLayout2 = new FlowLayout();
+  
+  /** The j label 7. */
   JLabel jLabel7 = new JLabel();
+  
+  /** The flow layout 6. */
   FlowLayout flowLayout6 = new FlowLayout();
+  
+  /** The component 1. */
   Component component1;
+  
+  /** The j panel 7. */
   JPanel jPanel7 = new JPanel();
+  
+  /** The td panel. */
   JPanel tdPanel = new JPanel();
+  
+  /** The td width field. */
   JTextField tdWidthField = new JTextField();
+  
+  /** The component 2. */
   Component component2;
+  
+  /** The j panel 6. */
   JPanel jPanel6 = new JPanel();
+  
+  /** The td align CB. */
   JComboBox tdAlignCB = new JComboBox(aligns);
+  
+  /** The j label 6. */
   JLabel jLabel6 = new JLabel();
+  
+  /** The grid layout 2. */
   GridLayout gridLayout2 = new GridLayout();
+  
+  /** The j panel 5. */
   JPanel jPanel5 = new JPanel();
+  
+  /** The j label 9. */
   JLabel jLabel9 = new JLabel();
+  
+  /** The j label 5. */
   JLabel jLabel5 = new JLabel();
+  
+  /** The tr panel. */
   JPanel trPanel = new JPanel();
+  
+  /** The grid layout 4. */
   GridLayout gridLayout4 = new GridLayout();
+  
+  /** The j label 20. */
   JLabel jLabel20 = new JLabel();
+  
+  /** The td valign CB. */
   JComboBox tdValignCB = new JComboBox(tdvaligns);
+  
+  /** The flow layout 12. */
   FlowLayout flowLayout12 = new FlowLayout();
+  
+  /** The td bgcolor field. */
   JTextField tdBgcolorField = new JTextField();
+  
+  /** The j panel 14. */
   JPanel jPanel14 = new JPanel();
+  
+  /** The j label 21. */
   JLabel jLabel21 = new JLabel();
+  
+  /** The td bgcolor B. */
   JButton tdBgcolorB = new JButton();
+  
+  /** The component 11. */
   Component component11;
+  
+  /** The td nowrap ch B. */
   JCheckBox tdNowrapChB = new JCheckBox();
+  
+  /** The tr align CB. */
   JComboBox trAlignCB = new JComboBox(aligns);
+  
+  /** The tr valign CB. */
   JComboBox trValignCB = new JComboBox(tdvaligns);
+  
+  /** The component 12. */
   Component component12;
+  
+  /** The j label 22. */
   JLabel jLabel22 = new JLabel();
+  
+  /** The component 7. */
   Component component7;
+  
+  /** The flow layout 10. */
   FlowLayout flowLayout10 = new FlowLayout();
+  
+  /** The j label 16. */
   JLabel jLabel16 = new JLabel();
+  
+  /** The j panel 11. */
   JPanel jPanel11 = new JPanel();
+  
+  /** The tr bgcolor field. */
   JTextField trBgcolorField = new JTextField();
+  
+  /** The j label 23. */
   JLabel jLabel23 = new JLabel();
+  
+  /** The j panel 15. */
   JPanel jPanel15 = new JPanel();
+  
+  /** The flow layout 13. */
   FlowLayout flowLayout13 = new FlowLayout();
+  
+  /** The tr bgcolor B. */
   JButton trBgcolorB = new JButton();
+  
+  /** The td colspan. */
   JSpinner tdColspan = new JSpinner(new SpinnerNumberModel(0,0,999,1));
+  
+  /** The td rowspan. */
   JSpinner tdRowspan = new JSpinner(new SpinnerNumberModel(0,0,999,1));
+  
+  /** The j label 8. */
   JLabel jLabel8 = new JLabel();
+  
+  /** The j label 12. */
   JLabel jLabel12 = new JLabel();
+  
+  /** The cellpadding. */
   JSpinner cellpadding = new JSpinner(new SpinnerNumberModel(0,0,999,1));
+  
+  /** The flow layout 8. */
   FlowLayout flowLayout8 = new FlowLayout();
+  
+  /** The flow layout 4. */
   FlowLayout flowLayout4 = new FlowLayout();
+  
+  /** The component 3. */
   Component component3;
+  
+  /** The j label 24. */
   JLabel jLabel24 = new JLabel();
+  
+  /** The table panel. */
   JPanel tablePanel = new JPanel();
+  
+  /** The grid layout 3. */
   GridLayout gridLayout3 = new GridLayout();
+  
+  /** The border. */
   JSpinner border = new JSpinner(new SpinnerNumberModel(1,0,999,1));
+  
+  /** The j panel 10. */
   JPanel jPanel10 = new JPanel();
+  
+  /** The j panel 12. */
   JPanel jPanel12 = new JPanel();
+  
+  /** The v align CB. */
   JComboBox vAlignCB = new JComboBox(valigns);
+  
+  /** The bgcolor field. */
   JTextField bgcolorField = new JTextField();
+  
+  /** The height field. */
   JTextField heightField = new JTextField();
+  
+  /** The j label 13. */
   JLabel jLabel13 = new JLabel();
+  
+  /** The cellspacing. */
   JSpinner cellspacing = new JSpinner(new SpinnerNumberModel(0,0,999,1));
+  
+  /** The j label 17. */
   JLabel jLabel17 = new JLabel();
+  
+  /** The j label 25. */
   JLabel jLabel25 = new JLabel();
+  
+  /** The bg color B. */
   JButton bgColorB = new JButton();
+  
+  /** The component 5. */
   Component component5;
+  
+  /** The width field. */
   JTextField widthField = new JTextField();
+  
+  /** The flow layout 11. */
   FlowLayout flowLayout11 = new FlowLayout();
+  
+  /** The j panel 13. */
   JPanel jPanel13 = new JPanel();
+  
+  /** The align CB. */
   JComboBox alignCB = new JComboBox(aligns);
+  
+  /** The j label 14. */
   JLabel jLabel14 = new JLabel();
+  
+  /** The component 6. */
   Component component6;
+  
+  /** The j panel 9. */
   JPanel jPanel9 = new JPanel();
+  
+  /** The flow layout 9. */
   FlowLayout flowLayout9 = new FlowLayout();
+  
+  /** The j label 15. */
   JLabel jLabel15 = new JLabel();
+  
+  /** The border 5. */
   Border border5;
 
+  /**
+   * Instantiates a new td dialog.
+   *
+   * @param frame the frame
+   */
   public TdDialog(Frame frame) {
     super(frame, Local.getString("Table properties"), true);
     try {
@@ -143,11 +334,19 @@ public class TdDialog extends JDialog {
     }
   }
 
+  /**
+   * Instantiates a new td dialog.
+   */
   public TdDialog() {
     this(null);
   }
 
 
+  /**
+   * Jb init.
+   *
+   * @throws Exception the exception
+   */
   void jbInit() throws Exception {
     border1 = BorderFactory.createEmptyBorder(5,5,5,5);
     border2 = BorderFactory.createEtchedBorder(Color.white,new Color(142, 142, 142));
@@ -440,16 +639,31 @@ public class TdDialog extends JDialog {
     jTabbedPane1.add(tablePanel,  Local.getString("Table"));
   }
 
+  /**
+   * Ok B action performed.
+   *
+   * @param e the e
+   */
   void okB_actionPerformed(ActionEvent e) {
     this.dispose();
   }
 
+  /**
+   * Cancel B action performed.
+   *
+   * @param e the e
+   */
   void cancelB_actionPerformed(ActionEvent e) {
     CANCELLED = true;
     this.dispose();
   }
 
 
+  /**
+   * Td bgcolor B action performed.
+   *
+   * @param e the e
+   */
   void tdBgcolorB_actionPerformed(ActionEvent e) {
      Color c = JColorChooser.showDialog(this, Local.getString("Table cell background color"), Util.decodeColor(tdBgcolorField.getText()));
      if (c == null) return;
@@ -457,6 +671,11 @@ public class TdDialog extends JDialog {
      Util.setBgcolorField(tdBgcolorField);
   }
 
+  /**
+   * Tr bgcolor B action performed.
+   *
+   * @param e the e
+   */
   void trBgcolorB_actionPerformed(ActionEvent e) {
      Color c = JColorChooser.showDialog(this, Local.getString("Table row background color"), Util.decodeColor(trBgcolorField.getText()));
      if (c == null) return;
@@ -464,6 +683,11 @@ public class TdDialog extends JDialog {
      Util.setBgcolorField(trBgcolorField);
   }
 
+  /**
+   * Bg color B action performed.
+   *
+   * @param e the e
+   */
   void bgColorB_actionPerformed(ActionEvent e) {
     Color c = JColorChooser.showDialog(this, Local.getString("Table background color"), Util.decodeColor(bgcolorField.getText()));
      if (c == null) return;

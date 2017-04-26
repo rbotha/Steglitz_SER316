@@ -57,36 +57,40 @@ import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.date.DateListener;
 import net.sf.memoranda.ui.treetable.*;
 
+// TODO: Auto-generated Javadoc
 /**
  * JAVADOC:
  * <h1>TaskTable</h1>
  * <p>
  * JTable whick uses JTree as a CellRenderer to show
  * Tasks and subtasks logically.</p>
- *
+ * 
  * <p>
  * Datamodel is TaskTableModel whick is not used directly but
  * via TaskTableSorter whick extends TaskTableModel and
  * adds sorting capability.
  * </p>
- *
+ * 
  * <p>
  * To make this class simpler, most cellrendering code
  * has been moved to TaskTreeTableCellRenderer.
  * </p>
- *
- * <p>Article about <a href="http://java.sun.com/products/jfc/tsc/articles/treetable1/">treetables</a>.</p>
  * 
- * @see	net.sf.memoranda.ui.TaskTreeTableCellRenderer
- * @version $Id: TaskTable.java,v 1.26 2007/01/05 10:33:26 alexeya Exp $
+ * <p>Article about <a href="http://java.sun.com/products/jfc/tsc/articles/treetable1/">treetables</a>.</p>
+ *
  * @author $Author: alexeya $
+ * @version $Id: TaskTable.java,v 1.26 2007/01/05 10:33:26 alexeya Exp $
+ * @see net.sf.memoranda.ui.TaskTreeTableCellRenderer
  */
 public class TaskTable extends JTable {
 
+    /** The Constant TASK_ID. */
     public static final int TASK_ID = 100;
 
+    /** The Constant TASK. */
     public static final int TASK = 101;
 
+    /** The colors. */
     static Color[] colors =
         {
             Color.YELLOW,
@@ -99,16 +103,25 @@ public class TaskTable extends JTable {
             Color.BLACK,
             Color.WHITE,
             Color.PINK };
+    
+    /** The tree. */
     protected TreeTableCellRenderer tree;
 
+    /** The model. */
     protected TaskTableModel model;
     
+    /** The model adapter. */
     protected TreeTableModelAdapter modelAdapter;
     
+    /** The renderer. */
     protected TaskTreeTableCellRenderer renderer;
 	
+	/** The expansion. */
 	protected ExpansionHandler expansion; 
     
+    /**
+     * Instantiates a new task table.
+     */
     public TaskTable() {
         super();
         initTable();
@@ -136,6 +149,9 @@ public class TaskTable extends JTable {
 	
     }
 
+    /**
+     * Inits the table.
+     */
     private void initTable() {
 	
 		//model = new TaskTableModel();
@@ -189,6 +205,9 @@ public class TaskTable extends JTable {
 		getTableHeader().setReorderingAllowed(false);
     }
 
+    /**
+     * Inits the column widths.
+     */
     void initColumnWidths() {
         for (int i = 0; i < getColumnCount(); i++) {
             TableColumn column = getColumnModel().getColumn(i);
@@ -209,6 +228,9 @@ public class TaskTable extends JTable {
         }
     }
     
+    /**
+     * Table changed.
+     */
     public void tableChanged() {
 		model.fireUpdateCache();
 		model.fireTreeStructureChanged();
@@ -234,6 +256,9 @@ public class TaskTable extends JTable {
                 "Tree.foreground", "Tree.font");
     }
 
+    /* (non-Javadoc)
+     * @see javax.swing.JTable#getEditingRow()
+     */
     /*
      * Workaround for BasicTableUI anomaly. Make sure the UI never tries to
      * paint the editor. The UI currently uses different techniques to paint the
@@ -248,6 +273,8 @@ public class TaskTable extends JTable {
 
     /**
      * Overridden to pass the new rowHeight to the tree.
+     *
+     * @param rowHeight the new row height
      */
     public void setRowHeight(int rowHeight) {
         super.setRowHeight(rowHeight);
@@ -258,6 +285,8 @@ public class TaskTable extends JTable {
 
     /**
      * Returns the tree that is being shared between the model.
+     *
+     * @return the tree
      */
     public TreeTableCellRenderer getTree() {
         return tree;
@@ -271,6 +300,11 @@ public class TaskTable extends JTable {
         /** Last table/tree row asked to renderer. */
         protected int visibleRow;
 
+        /**
+         * Instantiates a new tree table cell renderer.
+         *
+         * @param model the model
+         */
         public TreeTableCellRenderer(TreeModel model) {
             super(model);
             //ToolTipManager.sharedInstance().registerComponent(this);//XXX
@@ -303,6 +337,8 @@ public class TaskTable extends JTable {
         /**
          * Sets the row height of the tree, and forwards the row height to the
          * table.
+         *
+         * @param rowHeight the new row height
          */
         public void setRowHeight(int rowHeight) {
             if (rowHeight > 0) {
@@ -316,6 +352,11 @@ public class TaskTable extends JTable {
 
         /**
          * This is overridden to set the height to match that of the JTable.
+         *
+         * @param x the x
+         * @param y the y
+         * @param w the w
+         * @param h the h
          */
         public void setBounds(int x, int y, int w, int h) {
             super.setBounds(x, 0, w, TaskTable.this.getHeight());
@@ -324,6 +365,8 @@ public class TaskTable extends JTable {
         /**
          * Subclassed to translate the graphics such that the last visible row
          * will be drawn at 0,0.
+         *
+         * @param g the g
          */
         public void paint(Graphics g) {
             g.translate(0, -visibleRow * getRowHeight());
@@ -332,6 +375,14 @@ public class TaskTable extends JTable {
 
         /**
          * TreeCellRenderer method. Overridden to update the visible row.
+         *
+         * @param table the table
+         * @param value the value
+         * @param isSelected the is selected
+         * @param hasFocus the has focus
+         * @param row the row
+         * @param column the column
+         * @return the table cell renderer component
          */
         public Component getTableCellRendererComponent(JTable table,
                 Object value, boolean isSelected, boolean hasFocus, int row,
@@ -358,6 +409,10 @@ public class TaskTable extends JTable {
      */
 	 public class TreeTableCellEditor extends AbstractCellEditor implements //{{{
             TableCellEditor {
+        
+        /* (non-Javadoc)
+         * @see javax.swing.table.TableCellEditor#getTableCellEditorComponent(javax.swing.JTable, java.lang.Object, boolean, int, int)
+         */
         public Component getTableCellEditorComponent(JTable table,
                 Object value, boolean isSelected, int r, int c) {
             return tree;
@@ -381,6 +436,9 @@ public class TaskTable extends JTable {
          * <p>
          * By returning false we are also enforcing the policy that the tree
          * will never be editable (at least by a key sequence).
+         *
+         * @param e the e
+         * @return true, if is cell editable
          */
         public boolean isCellEditable(EventObject e) {
             if (e instanceof MouseEvent) {
@@ -411,6 +469,9 @@ public class TaskTable extends JTable {
         /** Set to true when we are updating the ListSelectionModel. */
         protected boolean updatingListSelectionModel;
 
+        /**
+         * Instantiates a new list to tree selection model wrapper.
+         */
         public ListToTreeSelectionModelWrapper() {
             super();
             getListSelectionModel().addListSelectionListener(
@@ -421,6 +482,8 @@ public class TaskTable extends JTable {
          * Returns the list selection model. ListToTreeSelectionModelWrapper
          * listens for changes to this model and updates the selected paths
          * accordingly.
+         *
+         * @return the list selection model
          */
         public ListSelectionModel getListSelectionModel() {
             return listSelectionModel;
@@ -449,6 +512,8 @@ public class TaskTable extends JTable {
 
         /**
          * Creates and returns an instance of ListSelectionHandler.
+         *
+         * @return the list selection listener
          */
         protected ListSelectionListener createListSelectionListener() {
             return new ListSelectionHandler();
@@ -491,6 +556,10 @@ public class TaskTable extends JTable {
 	 * when the selection of the list changse.
 	 */
 	class ListSelectionHandler implements ListSelectionListener {
+            
+            /* (non-Javadoc)
+             * @see javax.swing.event.ListSelectionListener#valueChanged(javax.swing.event.ListSelectionEvent)
+             */
             public void valueChanged(ListSelectionEvent e) {
                 updateSelectedPathsFromSelectedRows();
             }
@@ -501,16 +570,23 @@ public class TaskTable extends JTable {
 	/**
 	 * Stores expanded treepaths so that they
 	 * can be restored after treeStructureChanged-method call
-	 * which collapses everything
+	 * which collapses everything.
 	 */
 	 class ExpansionHandler implements TreeExpansionListener { // {{{
 	
-		private java.util.Set expanded = new java.util.HashSet();
+		/** The expanded. */
+ private java.util.Set expanded = new java.util.HashSet();
 		
+		/* (non-Javadoc)
+		 * @see javax.swing.event.TreeExpansionListener#treeExpanded(javax.swing.event.TreeExpansionEvent)
+		 */
 		public void treeExpanded(TreeExpansionEvent e) {
 			expanded.add(e.getPath());
 		}
 		
+		/* (non-Javadoc)
+		 * @see javax.swing.event.TreeExpansionListener#treeCollapsed(javax.swing.event.TreeExpansionEvent)
+		 */
 		public void treeCollapsed(TreeExpansionEvent e) {
 			TreePath p = e.getPath();
 			int index = p.getPathCount() - 1;
@@ -540,6 +616,8 @@ public class TaskTable extends JTable {
 		 * if expanded paths have been removed from model, but
 		 * effect of this is quite insignificant.
 		 * </p>
+		 *
+		 * @param tree the tree
 		 */
 		public void expand(JTree tree){
 			Iterator iter = expanded.iterator();

@@ -6,33 +6,86 @@ import java.awt.event.*;
 import java.io.*;
 import net.sf.memoranda.util.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ExceptionDialog.
+ */
 /*$Id: ExceptionDialog.java,v 1.2 2004/10/18 19:09:10 ivanrise Exp $*/
 public class ExceptionDialog extends JDialog {
+  
+  /** The panel 1. */
   JPanel panel1 = new JPanel();
+  
+  /** The border layout 1. */
   BorderLayout borderLayout1 = new BorderLayout();
+  
+  /** The j panel 1. */
   private JPanel jPanel1 = new JPanel();
+  
+  /** The j label 1. */
   private JLabel jLabel1 = new JLabel();
+  
+  /** The j panel 2. */
   private JPanel jPanel2 = new JPanel();
+  
+  /** The j label 2. */
   private JLabel jLabel2 = new JLabel();
+  
+  /** The border layout 2. */
   private BorderLayout borderLayout2 = new BorderLayout();
+  
+  /** The border layout 3. */
   private BorderLayout borderLayout3 = new BorderLayout();
+  
+  /** The desc label. */
   private JLabel descLabel = new JLabel();
 
+  /** The description. */
   private String description;
+  
+  /** The tip. */
   private String tip;
+  
+  /** The trace. */
   private String trace;
+  
+  /** The j panel 3. */
   private JPanel jPanel3 = new JPanel();
+  
+  /** The j scroll pane 1. */
   private JScrollPane jScrollPane1 = new JScrollPane();
+  
+  /** The trace text area. */
   private JTextArea traceTextArea = new JTextArea();
+  
+  /** The report B. */
   private JButton reportB = new JButton();
+  
+  /** The close B. */
   private JButton closeB = new JButton();
+  
+  /** The flow layout 1. */
   private FlowLayout flowLayout1 = new FlowLayout();
+  
+  /** The j panel 4. */
   private JPanel jPanel4 = new JPanel();
+  
+  /** The copy B. */
   private JButton copyB = new JButton();
+  
+  /** The border layout 4. */
   private BorderLayout borderLayout4 = new BorderLayout();
   
+  /** The owner. */
   private Frame owner; 
     
+  /**
+   * Instantiates a new exception dialog.
+   *
+   * @param exc the exc
+   * @param description the description
+   * @param tip the tip
+   */
   public ExceptionDialog(Exception exc, String description, String tip) {
     super(App.getFrame(), "Problem", true);
     exc.printStackTrace();
@@ -56,14 +109,27 @@ public class ExceptionDialog extends JDialog {
     }
   }
   
+  /**
+   * Instantiates a new exception dialog.
+   *
+   * @param exc the exc
+   */
   public ExceptionDialog(Exception exc) {
       this(exc, "", "");
   }
 
+  /**
+   * Instantiates a new exception dialog.
+   */
   public ExceptionDialog() {
     this(null, "", "");
   }
 
+  /**
+   * Jb init.
+   *
+   * @throws Exception the exception
+   */
   private void jbInit() throws Exception {    
     panel1.setLayout(borderLayout1);    
     jPanel1.setBackground(Color.white);
@@ -143,16 +209,31 @@ public class ExceptionDialog extends JDialog {
     }
   }
 
+  /**
+   * Copy B action performed.
+   *
+   * @param e the e
+   */
   void copyB_actionPerformed(ActionEvent e) {
     traceTextArea.selectAll();
     traceTextArea.copy();
     traceTextArea.setSelectionEnd(0);
   }
 
+  /**
+   * Close B action performed.
+   *
+   * @param e the e
+   */
   void closeB_actionPerformed(ActionEvent e) {
     this.dispose();
   }
 
+  /**
+   * Report B action performed.
+   *
+   * @param e the e
+   */
   void reportB_actionPerformed(ActionEvent e) {
       Util.runBrowser(App.BUGS_TRACKER_URL);
   }

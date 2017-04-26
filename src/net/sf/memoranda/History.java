@@ -21,18 +21,34 @@ import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
 
 import net.sf.memoranda.util.Local;
+// TODO: Auto-generated Javadoc
+
 /**
- * 
+ * The Class History.
  */
 /*$Id: History.java,v 1.7 2006/10/31 15:34:14 hglas Exp $*/
 public class History {
 
+    /** The list. */
     static Vector _list = new Vector();
+    
+    /** The p. */
     static int p = -1;
+    
+    /** The history listeners. */
     static Vector historyListeners = new Vector();
+    
+    /** The next. */
     static Object next = null;
+    
+    /** The prev. */
     static Object prev = null;     
     
+    /**
+     * Adds the.
+     *
+     * @param item the item
+     */
     public static void add(HistoryItem item) {
         if (prev != null)   
             if (item.equals(prev)) return;
@@ -55,6 +71,11 @@ public class History {
             _list.remove(0);     
     }
 
+    /**
+     * Roll back.
+     *
+     * @return the history item
+     */
     public static HistoryItem rollBack() {        
         Object n = prev;        
         if (p > 1) {                          
@@ -74,6 +95,11 @@ public class History {
         return (HistoryItem)n;
     }
 
+    /**
+     * Roll forward.
+     *
+     * @return the history item
+     */
     public static HistoryItem rollForward() {
         Object n = next;        
         if (p < _list.size() - 1) {
@@ -91,18 +117,38 @@ public class History {
         return (HistoryItem)n;    
     }
 
+    /**
+     * Can roll back.
+     *
+     * @return true, if successful
+     */
     public static boolean canRollBack() {
         return prev != null;
     }
 
+    /**
+     * Can roll forward.
+     *
+     * @return true, if successful
+     */
     public static boolean canRollForward() {
         return next != null;
     }
 
+    /**
+     * Adds the history listener.
+     *
+     * @param hl the hl
+     */
     public static void addHistoryListener(HistoryListener hl) {
         historyListeners.add(hl);
     }
     
+    /**
+     * Removes the project history.
+     *
+     * @param prj the prj
+     */
     public static void removeProjectHistory(Project prj) {
         Vector list = new Vector();
         String id;
@@ -130,16 +176,30 @@ public class History {
         }
     }
 
+    /**
+     * Notify listeners.
+     *
+     * @param n the n
+     */
     private static void notifyListeners(HistoryItem n) {
         for (int i = 0; i < historyListeners.size(); i++)            
                  ((HistoryListener) historyListeners.get(i)).historyWasRolledTo(n);
     }
 
+    /** The history back action. */
     public static HistoryBackAction historyBackAction = new HistoryBackAction();
+    
+    /** The history forward action. */
     public static HistoryForwardAction historyForwardAction = new HistoryForwardAction();
 
+    /**
+     * The Class HistoryBackAction.
+     */
     static class HistoryBackAction extends AbstractAction {
 
+        /**
+         * Instantiates a new history back action.
+         */
         public HistoryBackAction() {
             super(Local.getString("History back"), 
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/hist_back.png")));
@@ -147,6 +207,9 @@ public class History {
             setEnabled(false);
         }
 
+        /* (non-Javadoc)
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
         public void actionPerformed(ActionEvent e) {            
             notifyListeners(rollBack());
             update();
@@ -157,6 +220,9 @@ public class History {
             return canRollBack();
         }*/
 
+        /**
+         * Update.
+         */
         void update() {
             if (canRollBack()) {
                 setEnabled(true);
@@ -177,8 +243,14 @@ public class History {
         }
     }
 
+    /**
+     * The Class HistoryForwardAction.
+     */
     static class HistoryForwardAction extends AbstractAction {
 
+        /**
+         * Instantiates a new history forward action.
+         */
         public HistoryForwardAction() {
             super(Local.getString("History forward"), 
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/hist_forward.png")));
@@ -186,6 +258,9 @@ public class History {
             setEnabled(false);
         }
 
+        /* (non-Javadoc)
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
         public void actionPerformed(ActionEvent e) {            
             notifyListeners(rollForward());
             update();
@@ -196,6 +271,9 @@ public class History {
             return canRollForward();
         }*/
 
+        /**
+         * Update.
+         */
         void update() {
             if (canRollForward()) {
                 setEnabled(true);

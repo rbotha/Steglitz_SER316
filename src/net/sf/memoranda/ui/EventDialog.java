@@ -53,56 +53,160 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.GridLayout;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EventDialog.
+ */
 /*$Id: EventDialog.java,v 1.28 2005/02/19 10:06:25 rawsushi Exp $*/
 public class EventDialog extends JDialog implements WindowListener {	
+    
+    /** The cancelled. */
     public boolean CANCELLED = false;
+	
+	/** The use email. */
 	public boolean useEmail = true;
+    
+    /** The ignore start changed. */
     boolean ignoreStartChanged = false;
+    
+    /** The ignore end changed. */
     boolean ignoreEndChanged = false;
+    
+    /** The top panel. */
     JPanel topPanel = new JPanel(new BorderLayout());
+    
+    /** The bottom panel. */
     JPanel bottomPanel = new JPanel(new BorderLayout());
+    
+    /** The header panel. */
     JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    
+    /** The header. */
     public JLabel header = new JLabel();
+    
+    /** The event panel. */
     JPanel eventPanel = new JPanel(new GridBagLayout());
+    
+    /** The note panel. */
     private final JPanel notePanel = new JPanel();
+    
+    /** The gbc. */
     GridBagConstraints gbc;
+    
+    /** The lbl time. */
     JLabel lblTime = new JLabel();
+    
+    /** The time spin. */
     public JSpinner timeSpin = new JSpinner(new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE));
+    
+    /** The lbl text. */
     JLabel lblText = new JLabel();
+    
+    /** The text field. */
     public JTextField textField = new JTextField();
+    
+    /** The repeat border. */
     TitledBorder repeatBorder;
+    
+    /** The repeat panel. */
     JPanel repeatPanel = new JPanel(new GridBagLayout());
+    
+    /** The no repeat RB. */
     public JRadioButton noRepeatRB = new JRadioButton();
+    
+    /** The daily repeat RB. */
     public JRadioButton dailyRepeatRB = new JRadioButton();
+    
+    /** The day spin. */
     public JSpinner daySpin = new JSpinner(new SpinnerNumberModel(1,1,365,1));
+    
+    /** The lbl days. */
     JLabel lblDays = new JLabel();
+    
+    /** The lbl since. */
     JLabel lblSince = new JLabel();
+    
+    /** The start date. */
     public JSpinner startDate = new JSpinner(new SpinnerDateModel());
+    
+    /** The set start date B. */
     JButton setStartDateB = new JButton();
+    
+    /** The weekly repeat RB. */
     public JRadioButton weeklyRepeatRB = new JRadioButton();
+    
+    /** The weekdays CB. */
     public JComboBox weekdaysCB = new JComboBox(Local.getWeekdayNames());
+    
+    /** The enable end date CB. */
     public JCheckBox enableEndDateCB = new JCheckBox();
+	
+	/** The working days only CB. */
 	public JCheckBox workingDaysOnlyCB = new JCheckBox();
+    
+    /** The end date. */
     public JSpinner endDate = new JSpinner(new SpinnerDateModel());
+    
+    /** The set end date B. */
     JButton setEndDateB = new JButton();
+    
+    /** The monthly repeat RB. */
     public JRadioButton monthlyRepeatRB = new JRadioButton();
+    
+    /** The day of month spin. */
     public JSpinner dayOfMonthSpin = new JSpinner(new SpinnerNumberModel(1,1,31,1));
+    
+    /** The lbl do M. */
     JLabel lblDoM = new JLabel();
+    
+    /** The yearly repeat RB. */
     public JRadioButton yearlyRepeatRB = new JRadioButton();
+    
+    /** The repeat RB group. */
     ButtonGroup repeatRBGroup = new ButtonGroup();
+    
+    /** The buttons panel. */
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+    
+    /** The ok B. */
     JButton okB = new JButton();
+    
+    /** The cancel B. */
     JButton cancelB = new JButton();
+    
+    /** The end cal frame. */
     CalendarFrame endCalFrame = new CalendarFrame();
+    
+    /** The start cal frame. */
     CalendarFrame startCalFrame = new CalendarFrame();
+    
+    /** The event date. */
     private Date eventDate;
+    
+    /** The middle panel. */
     private final JPanel middlePanel = new JPanel();
+    
+    /** The email panel. */
     private final JPanel emailPanel = new JPanel();
+    
+    /** The email toggle. */
     public final JCheckBox emailToggle = new JCheckBox("Email:");
+    
+    /** The email input field. */
     public final JTextField emailInputField = new JTextField();
+    
+    /** The lbl note. */
     private final JLabel lblNote = new JLabel("Note:");
+    
+    /** The note field. */
     public final JTextField noteField = new JTextField();
     
+    /**
+     * Instantiates a new event dialog.
+     *
+     * @param frame the frame
+     * @param title the title
+     */
     public EventDialog(Frame frame, String title) {
         super(frame, title, true);
         try {
@@ -115,6 +219,11 @@ public class EventDialog extends JDialog implements WindowListener {
         super.addWindowListener(this);
     }
 
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
     	this.setResizable(false);
         // Build headerPanel
@@ -482,6 +591,9 @@ public class EventDialog extends JDialog implements WindowListener {
         
     }
 
+    /**
+     * Disable elements.
+     */
     void disableElements() {
         dayOfMonthSpin.setEnabled(false);
         daySpin.setEnabled(false);
@@ -497,6 +609,11 @@ public class EventDialog extends JDialog implements WindowListener {
 		workingDaysOnlyCB.setSelected(false);		
     }
     
+    /**
+     * Yearly repeat R B action performed.
+     *
+     * @param e the e
+     */
     public void yearlyRepeatRB_actionPerformed(ActionEvent e) {
 		disableElements();
 		startDate.setEnabled(true);
@@ -508,6 +625,11 @@ public class EventDialog extends JDialog implements WindowListener {
 			startCalFrame.cal.get().getCalendar().getTime());
     }
 
+    /**
+     * Monthly repeat R B action performed.
+     *
+     * @param e the e
+     */
     public void monthlyRepeatRB_actionPerformed(ActionEvent e) {
         disableElements();
         dayOfMonthSpin.setEnabled(true);
@@ -520,6 +642,11 @@ public class EventDialog extends JDialog implements WindowListener {
 			startCalFrame.cal.get().getCalendar().getTime());        
     }
 
+    /**
+     * Daily repeat R B action performed.
+     *
+     * @param e the e
+     */
     public void dailyRepeatRB_actionPerformed(ActionEvent e) {
         disableElements();
         daySpin.setEnabled(true);
@@ -532,6 +659,11 @@ public class EventDialog extends JDialog implements WindowListener {
 			startCalFrame.cal.get().getCalendar().getTime());        
     }
 
+    /**
+     * Weekly repeat R B action performed.
+     *
+     * @param e the e
+     */
     public void weeklyRepeatRB_actionPerformed(ActionEvent e) {
         disableElements();
         weekdaysCB.setEnabled(true);
@@ -543,19 +675,39 @@ public class EventDialog extends JDialog implements WindowListener {
 			startCalFrame.cal.get().getCalendar().getTime());        
     }
 
+    /**
+     * No repeat R B action performed.
+     *
+     * @param e the e
+     */
     public void noRepeatRB_actionPerformed(ActionEvent e) {
         disableElements();
     }
 
+    /**
+     * Ok B action performed.
+     *
+     * @param e the e
+     */
     void okB_actionPerformed(ActionEvent e) {
         this.dispose();
     }
 
+    /**
+     * Cancel B action performed.
+     *
+     * @param e the e
+     */
     void cancelB_actionPerformed(ActionEvent e) {
         CANCELLED = true;
         this.dispose();
     }
 
+    /**
+     * Sets the start date B action performed.
+     *
+     * @param e the new start date B action performed
+     */
     void setStartDateB_actionPerformed(ActionEvent e) {
         //startCalFrame.setLocation(setStartDateB.getLocation());
         startCalFrame.setSize(200, 190);
@@ -564,6 +716,11 @@ public class EventDialog extends JDialog implements WindowListener {
         startCalFrame.show();
     }
 
+    /**
+     * Sets the end date B action performed.
+     *
+     * @param e the new end date B action performed
+     */
     void setEndDateB_actionPerformed(ActionEvent e) {
         //endCalFrame.setLocation(setEndDateB.getLocation());
         endCalFrame.setSize(200, 190);
@@ -572,34 +729,70 @@ public class EventDialog extends JDialog implements WindowListener {
         endCalFrame.show();
     }
 
+    /**
+     * Enable end date C B action performed.
+     *
+     * @param e the e
+     */
     public void enableEndDateCB_actionPerformed(ActionEvent e) {
         endDate.setEnabled(enableEndDateCB.isSelected());
         setEndDateB.setEnabled(enableEndDateCB.isSelected());        
     }
     
+    /* (non-Javadoc)
+     * @see java.awt.event.WindowListener#windowOpened(java.awt.event.WindowEvent)
+     */
     public void windowOpened( WindowEvent e ) {}
 
+    /* (non-Javadoc)
+     * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
+     */
     public void windowClosing( WindowEvent e ) {
         CANCELLED = true;
         this.dispose();
     }
     
+    /**
+     * Sets the event date.
+     *
+     * @param d the new event date
+     */
     public void setEventDate(Date d) {
 	    eventDate = d;
 	}
 	
+	/**
+	 * Gets the event date.
+	 *
+	 * @return the event date
+	 */
 	public Date getEventDate() {
 		return eventDate;
 	}
 	
+    /* (non-Javadoc)
+     * @see java.awt.event.WindowListener#windowClosed(java.awt.event.WindowEvent)
+     */
     public void windowClosed( WindowEvent e ) {}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.WindowListener#windowIconified(java.awt.event.WindowEvent)
+	 */
 	public void windowIconified( WindowEvent e ) {}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.WindowListener#windowDeiconified(java.awt.event.WindowEvent)
+	 */
 	public void windowDeiconified( WindowEvent e ) {}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.WindowListener#windowActivated(java.awt.event.WindowEvent)
+	 */
 	public void windowActivated( WindowEvent e ) {}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.WindowListener#windowDeactivated(java.awt.event.WindowEvent)
+	 */
 	public void windowDeactivated( WindowEvent e ) {}
 
 }

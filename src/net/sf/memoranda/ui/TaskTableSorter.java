@@ -14,14 +14,21 @@ import net.sf.memoranda.*;
 import net.sf.memoranda.util.*;
 import net.sf.memoranda.date.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TaskTableSorter.
+ */
 public class TaskTableSorter extends TaskTableModel{
 	
+	/** The sorting column. */
 	// -1 == no sorting
 	int sorting_column = -1;
 	
+	/** The opposite. */
 	// sort opposite direction
 	boolean opposite = false;
 	
+	/** The comparator. */
 	Comparator comparator = new Comparator(){
 		public int compare(Object o1, Object o2){
 			if(sorting_column == -1) return 0;
@@ -53,12 +60,20 @@ public class TaskTableSorter extends TaskTableModel{
 		}
 	};
 	
+	/**
+	 * Instantiates a new task table sorter.
+	 *
+	 * @param table the table
+	 */
 	public TaskTableSorter( TaskTable table ){
 		JTableHeader tableHeader = table.getTableHeader();
 		tableHeader.addMouseListener( new MouseHandler() );
 		tableHeader.setDefaultRenderer( new SortableHeaderRenderer());
 	}
 	
+	/* (non-Javadoc)
+	 * @see net.sf.memoranda.ui.TaskTableModel#getChild(java.lang.Object, int)
+	 */
 	public Object getChild(Object parent, int index) {
 		Collection c = null;
 		
@@ -82,7 +97,14 @@ public class TaskTableSorter extends TaskTableModel{
 
 	
     
+    /**
+     * The Class MouseHandler.
+     */
     private class MouseHandler extends MouseAdapter {
+        
+        /* (non-Javadoc)
+         * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
+         */
         public void mouseClicked(MouseEvent e) {
             JTableHeader h = (JTableHeader) e.getSource();
             TableColumnModel columnModel = h.getColumnModel();
@@ -111,12 +133,15 @@ public class TaskTableSorter extends TaskTableModel{
     }
     
 	/**
-	* Render sorting header differently
-	*/
+	 * Render sorting header differently.
+	 */
 	private class SortableHeaderRenderer implements TableCellRenderer {
 	    
 	    
 	    
+		/* (non-Javadoc)
+		 * @see javax.swing.table.TableCellRenderer#getTableCellRendererComponent(javax.swing.JTable, java.lang.Object, boolean, boolean, int, int)
+		 */
 		public Component getTableCellRendererComponent(JTable table, 
 							       Object value,
 							       boolean isSelected, 

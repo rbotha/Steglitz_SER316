@@ -51,86 +51,204 @@ import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Util;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TaskDialog.
+ */
 /*$Id: TaskDialog.java,v 1.25 2005/12/01 08:12:26 alexeya Exp $*/
 public class TaskDialog extends JDialog {
+	
+	/** The timestamp. */
 	public long timestamp = (long)-1; //tracks a timestamp in milliseconds from epoch (1970-01-01T00:00:00Z). if < 0, no timestamp.
 	
+	/** The m panel. */
 	JPanel mPanel = new JPanel(new BorderLayout());
+    
+    /** The area panel. */
     JPanel areaPanel = new JPanel(new BorderLayout());	
+    
+    /** The buttons panel. */
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    
+    /** The cancel B. */
     JButton cancelB = new JButton();
+    
+    /** The ok B. */
     JButton okB = new JButton();
+    
+    /** The border 1. */
     Border border1;
+    
+    /** The border 2. */
     Border border2;
+    
+    /** The dialog title panel. */
     JPanel dialogTitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    
+    /** The header. */
     JLabel header = new JLabel();
+    
+    /** The cancelled. */
     public boolean CANCELLED = true;
+    
+    /** The j panel 8. */
     JPanel jPanel8 = new JPanel(new GridBagLayout());
+    
+    /** The border 3. */
     Border border3;
+    
+    /** The border 4. */
     Border border4;
 //    Border border5;
+/** The j panel 2. */
 //    Border border6;
     JPanel jPanel2 = new JPanel(new GridLayout(3, 2));
+    
+    /** The todo field. */
     JTextField todoField = new JTextField();
     
+    /** The effort field. */
     // added by rawsushi
     JTextField effortField = new JTextField();
+    
+    /** The description field. */
     JTextArea descriptionField = new JTextArea();
+    
+    /** The description scroll pane. */
     JScrollPane descriptionScrollPane = new JScrollPane(descriptionField);
     	
+	/** The j label actual effort. */
 	// Added by drmorri8 for actualEffort functionality:
 	JLabel jLabelActualEffort = new JLabel();
+	
+	/** The actual effort field. */
 	JTextField actualEffortField = new JTextField();
+	
+	/** The time panel. */
 	JPanel timePanel = new JPanel(new GridLayout(2, 1));
+	
+	/** The j label timestamp. */
 	JLabel jLabelTimestamp = new JLabel();
+	
+	/** The timestamp B. */
 	JButton timestampB = new JButton();
 	
+	/** The psp tracking panel. */
 	// Added by drmorri8 for errorsAdded/errorsFixed
 	JPanel pspTrackingPanel = new JPanel(new BorderLayout());
+	
+	/** The psp input panel. */
 	JPanel pspInputPanel = new JPanel(new GridLayout(3, 2));
+	
+	/** The psp effort panel. */
 	JPanel pspEffortPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	
+	/** The psp actual effort panel. */
 	JPanel pspActualEffortPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	
+	/** The psp errors added panel. */
 	JPanel pspErrorsAddedPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	
+	/** The psp errors fixed panel. */
 	JPanel pspErrorsFixedPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	
+	/** The psp est LOC panel. */
 	JPanel pspEstLOCPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	
+	/** The psp act LOC panel. */
 	JPanel pspActLOCPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 	
+	/** The j label errors added. */
 	JLabel jLabelErrorsAdded = new JLabel();
+	
+	/** The errors added field. */
 	JTextField errorsAddedField = new JTextField();
+	
+	/** The j label errors fixed. */
 	JLabel jLabelErrorsFixed= new JLabel();
+	
+	/** The errors fixed field. */
 	JTextField errorsFixedField = new JTextField();
+	
+	/** The j label est LOC. */
 	JLabel jLabelEstLOC = new JLabel();
+	
+	/** The j label act LOC. */
 	JLabel jLabelActLOC = new JLabel();
+	
+	/** The est LOC field. */
 	JTextField estLOCField = new JTextField();
+	
+	/** The act LOC field. */
 	JTextField actLOCField = new JTextField();
 
+/** The border 8. */
 //    Border border7;
     Border border8;
+    
+    /** The start cal frame. */
     CalendarFrame startCalFrame = new CalendarFrame();
+    
+    /** The end cal frame. */
     CalendarFrame endCalFrame = new CalendarFrame();
+    
+    /** The priority. */
     String[] priority = {Local.getString("Lowest"), Local.getString("Low"),
         Local.getString("Normal"), Local.getString("High"),
         Local.getString("Highest")};
+    
+    /** The ignore start changed. */
     boolean ignoreStartChanged = false;
+    
+    /** The ignore end changed. */
     boolean ignoreEndChanged = false;
+    
+    /** The j panel 4. */
     JPanel jPanel4 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    
+    /** The j panel 6. */
     JPanel jPanel6 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    
+    /** The j label 6. */
     JLabel jLabel6 = new JLabel();
+    
+    /** The set start date B. */
     JButton setStartDateB = new JButton();
+    
+    /** The j panel 1. */
     JPanel jPanel1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    
+    /** The j label 2. */
     JLabel jLabel2 = new JLabel();
+    
+    /** The start date. */
     JSpinner startDate;
+    
+    /** The end date. */
     JSpinner endDate;
+
+/** The set end date B. */
 //    JSpinner endDate = new JSpinner(new SpinnerDateModel());
     JButton setEndDateB = new JButton();
+    
+    /** The j panel 3. */
     //JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    
+    /** The j panel blank. */
     JPanel jPanelBlank = new JPanel(new FlowLayout(FlowLayout.CENTER));
 //    JPanel jPanelNotes = new JPanel(new FlowLayout(FlowLayout.LEFT));
     
-    JButton setNotifB = new JButton();
+    /** The set notif B. */
+JButton setNotifB = new JButton();
+    
+    /** The priority CB. */
     JComboBox priorityCB = new JComboBox(priority);
+    
+    /** The j label 7. */
     JLabel jLabel7 = new JLabel();
+    
+    /** The colors. */
     //color setting
     String[] colors = {
         Local.getString("Yellow"),
@@ -145,23 +263,51 @@ public class TaskDialog extends JDialog {
         Local.getString("Pink"),
         Local.getString("None")
     };
+    
+    /** The task color. */
     JComboBox taskColor = new JComboBox(colors);
+    
+    /** The j label 8. */
     JLabel jLabel8 = new JLabel();
+    
+    /** The j label effort. */
     // added by rawsushi
     JLabel jLabelEffort = new JLabel();
+    
+    /** The j label description. */
     JLabel jLabelDescription = new JLabel();
+	
+	/** The chk end date. */
 	JCheckBox chkEndDate = new JCheckBox();
 	
+	/** The j panel progress. */
 	JPanel jPanelProgress = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+	
+	/** The j label progress. */
 	JLabel jLabelProgress = new JLabel();
+	
+	/** The progress. */
 	JSpinner progress = new JSpinner(new SpinnerNumberModel(0, 0, 100, 5));
 	
+	/** The start date min. */
 	//Forbid to set dates outside the bounds
 	CalendarDate startDateMin = CurrentProject.get().getStartDate();
+	
+	/** The start date max. */
 	CalendarDate startDateMax = CurrentProject.get().getEndDate();
+	
+	/** The end date min. */
 	CalendarDate endDateMin = startDateMin;
+	
+	/** The end date max. */
 	CalendarDate endDateMax = startDateMax;
     
+    /**
+     * Instantiates a new task dialog.
+     *
+     * @param frame the frame
+     * @param title the title
+     */
     public TaskDialog(Frame frame, String title) {
         super(frame, title, true);
         try {
@@ -173,6 +319,11 @@ public class TaskDialog extends JDialog {
         }
     }
     
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
 	this.setResizable(false);
 	this.setSize(new Dimension(430,400));
@@ -528,38 +679,72 @@ public class TaskDialog extends JDialog {
         
     }
 
+	/**
+	 * Sets the start date.
+	 *
+	 * @param d the new start date
+	 */
 	public void setStartDate(CalendarDate d) {
 		this.startDate.getModel().setValue(d.getDate());
 	}
 	
+	/**
+	 * Sets the end date.
+	 *
+	 * @param d the new end date
+	 */
 	public void setEndDate(CalendarDate d) {		
 		if (d != null) 
 			this.endDate.getModel().setValue(d.getDate());
 	}
 	
+	/**
+	 * Sets the start date limit.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 */
 	public void setStartDateLimit(CalendarDate min, CalendarDate max) {
 		this.startDateMin = min;
 		this.startDateMax = max;
 	}
 	
+	/**
+	 * Sets the end date limit.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 */
 	public void setEndDateLimit(CalendarDate min, CalendarDate max) {
 		this.endDateMin = min;
 		this.endDateMax = max;
 	}
 	
+    /**
+     * Ok B action performed.
+     *
+     * @param e the e
+     */
     void okB_actionPerformed(ActionEvent e) {
 	CANCELLED = false;
         this.dispose();
     }
 
+    /**
+     * Cancel B action performed.
+     *
+     * @param e the e
+     */
     void cancelB_actionPerformed(ActionEvent e) {
         this.dispose();
     }
 	
 	/**
-	* On click action for timestamp button.
-	* Toggles the timestamp to start/stop and allows the user to add the clocked time to actualEffort.
-	*/
+	 * On click action for timestamp button.
+	 * Toggles the timestamp to start/stop and allows the user to add the clocked time to actualEffort.
+	 *
+	 * @param e the e
+	 */
 	void timestampB_actionPerformed(ActionEvent e) {
         if (timestamp < 0) {
 			timestamp = System.currentTimeMillis();
@@ -584,6 +769,11 @@ public class TaskDialog extends JDialog {
 		}
     }
 	
+	/**
+	 * Chk end date action performed.
+	 *
+	 * @param e the e
+	 */
 	void chkEndDate_actionPerformed(ActionEvent e) {
 		endDate.setEnabled(chkEndDate.isSelected());
 		setEndDateB.setEnabled(chkEndDate.isSelected());
@@ -597,6 +787,11 @@ public class TaskDialog extends JDialog {
 		}
 	}
 
+    /**
+     * Sets the start date B action performed.
+     *
+     * @param e the new start date B action performed
+     */
     void setStartDateB_actionPerformed(ActionEvent e) {
         startCalFrame.setLocation(setStartDateB.getLocation());
         startCalFrame.setSize(200, 200);
@@ -605,6 +800,11 @@ public class TaskDialog extends JDialog {
 
     }
 
+    /**
+     * Sets the end date B action performed.
+     *
+     * @param e the new end date B action performed
+     */
     void setEndDateB_actionPerformed(ActionEvent e) {
         endCalFrame.setLocation(setEndDateB.getLocation());
         endCalFrame.setSize(200, 200);
@@ -612,6 +812,11 @@ public class TaskDialog extends JDialog {
         endCalFrame.show();
     }
     
+    /**
+     * Sets the notif B action performed.
+     *
+     * @param e the new notif B action performed
+     */
     void setNotifB_actionPerformed(ActionEvent e) {
     	((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.eventsPanel.newEventB_actionPerformed(e, 
 			this.todoField.getText(), (Date)startDate.getModel().getValue(),(Date)endDate.getModel().getValue());

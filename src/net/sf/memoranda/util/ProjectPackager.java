@@ -26,12 +26,15 @@ import net.sf.memoranda.ProjectManager;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.ui.App;
 import net.sf.memoranda.ui.ExceptionDialog;
+// TODO: Auto-generated Javadoc
+
 /**
- * 
+ * The Class ProjectPackager.
  */
 /*$Id: ProjectPackager.java,v 1.10 2007/03/20 06:21:46 alexeya Exp $*/
 public class ProjectPackager {
 
+    /** The jn docpath. */
     /*private static String JN_DOCPATH = System.getProperty("user.home") 
         + File.separator + ".memoranda" + File.separator;  //Chaned .jnotes2 to be
         //.memoranda so the pack feature would work.  (jcscoobyrs) on 17-Nov-2003
@@ -40,6 +43,12 @@ public class ProjectPackager {
     private static String JN_DOCPATH = Util.getEnvDir(); 
     // for compatibility with previous installations (jnotes2) [alexeyA]
 
+    /**
+     * Pack.
+     *
+     * @param prj the prj
+     * @param zipfile the zipfile
+     */
     public static void pack(Project prj, File zipfile) {
         ZipOutputStream zip = null;
         
@@ -67,6 +76,11 @@ public class ProjectPackager {
         }
     }
 
+    /**
+     * Unpack.
+     *
+     * @param zipfile the zipfile
+     */
     public static void unpack(File zipfile) {
         try {
             ZipFile zip = new ZipFile(zipfile);
@@ -131,6 +145,11 @@ public class ProjectPackager {
     /**
      * Packs all files in the given directory into the given ZIP stream.
      * Also recurses down into subdirectories.
+     *
+     * @param startingDirectory the starting directory
+     * @param theDirectory the the directory
+     * @param theZIPStream the the ZIP stream
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void PackDirectory( String startingDirectory,
                                     File theDirectory,

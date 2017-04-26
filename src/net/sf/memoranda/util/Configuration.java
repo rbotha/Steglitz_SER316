@@ -12,13 +12,18 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 import net.sf.memoranda.ui.ExceptionDialog;
+// TODO: Auto-generated Javadoc
+
 /**
- *
+ * The Class Configuration.
  */
 /*$Id: Configuration.java,v 1.5 2004/10/11 08:48:21 alexeya Exp $*/
 public class Configuration {
 
+    /** The config. */
     static LoadableProperties config  = new LoadableProperties();
+    
+    /** The config path. */
     static String configPath = getConfigPath();
 
     static {
@@ -41,6 +46,11 @@ public class Configuration {
     }
   }
   
+  /**
+   * Gets the config path.
+   *
+   * @return the config path
+   */
   static String getConfigPath() {
     String p = Util.getEnvDir()+"memoranda.properties";
     if (new File(p).exists()) 
@@ -53,6 +63,9 @@ public class Configuration {
     return p;
   }
 
+  /**
+   * Save config.
+   */
   public static void saveConfig() {
     try {
     config.save(new FileOutputStream(configPath));
@@ -62,6 +75,12 @@ public class Configuration {
     }
   }
 
+  /**
+   * Gets the.
+   *
+   * @param key the key
+   * @return the object
+   */
   public static Object get(String key) {
     if ((config.get(key)) == null) {
         /*DEBUG*///System.out.println("Configuration: Key '"+key+"' not found.");
@@ -70,6 +89,12 @@ public class Configuration {
     return config.get(key);
   }
 
+  /**
+   * Put.
+   *
+   * @param key the key
+   * @param value the value
+   */
   @SuppressWarnings("unchecked")
 public static void put(String key, Object value) {
     config.put(key, value);

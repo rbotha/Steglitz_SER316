@@ -1,4 +1,5 @@
 package net.sf.memoranda.ui.treetable;
+// TODO: Auto-generated Javadoc
 /*
  * MergeSort.java
  *
@@ -26,9 +27,18 @@ package net.sf.memoranda.ui.treetable;
  * @author Scott Violet
  */
 public abstract class MergeSort extends Object {
+    
+    /** The to sort. */
     protected Object           toSort[];
+    
+    /** The swap space. */
     protected Object           swapSpace[];
 
+    /**
+     * Sort.
+     *
+     * @param array the array
+     */
     public void sort(Object array[]) {
 	if(array != null && array.length > 1)
 	{
@@ -43,8 +53,21 @@ public abstract class MergeSort extends Object {
 	}
     }
 
+    /**
+     * Compare elements at.
+     *
+     * @param beginLoc the begin loc
+     * @param endLoc the end loc
+     * @return the int
+     */
     public abstract int compareElementsAt(int beginLoc, int endLoc);
 
+    /**
+     * Merge sort.
+     *
+     * @param begin the begin
+     * @param end the end
+     */
     protected void mergeSort(int begin, int end) {
 	if(begin != end)
 	{
@@ -57,6 +80,13 @@ public abstract class MergeSort extends Object {
 	}
     }
 
+    /**
+     * Merge.
+     *
+     * @param begin the begin
+     * @param middle the middle
+     * @param end the end
+     */
     protected void merge(int begin, int middle, int end) {
 	int           firstHalf, secondHalf, count;
 

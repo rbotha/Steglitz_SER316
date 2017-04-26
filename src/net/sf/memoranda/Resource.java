@@ -8,20 +8,28 @@
  */
 package net.sf.memoranda;
 
+// TODO: Auto-generated Javadoc
 /**
- * 
+ * The Class Resource.
  */
 /*$Id: Resource.java,v 1.4 2007/03/20 06:21:46 alexeya Exp $*/
 public class Resource {
     
+    /** The path. */
     private String _path = null;	// the path to the file
+    
+    /** The is inet shortcut. */
     private boolean _isInetShortcut = false; // true if Internet shortcut
+    
+    /** The is project file. */
     private boolean _isProjectFile = false;	// true if file is in project directory 
+    
     /**
      * Constructor for Resource.
-     * @param path, the path to the file.
-     * @param isInetShortcut, if the resource is a internet shortcut.
-     * @param isProjectFile, if file is copied to project directory.
+     *
+     * @param path the path
+     * @param isInetShortcut the is inet shortcut
+     * @param isProjectFile the is project file
      */
     public Resource(String path, boolean isInetShortcut, boolean isProjectFile) {
         _path = path;
@@ -29,18 +37,38 @@ public class Resource {
         _isProjectFile = isProjectFile;
     }
     
+    /**
+     * Instantiates a new resource.
+     *
+     * @param path the path
+     */
     public Resource(String path) {
         _path = path;         
     }
     
+    /**
+     * Gets the path.
+     *
+     * @return the path
+     */
     public String getPath() {
         return _path;
     }
     
+    /**
+     * Checks if is inet shortcut.
+     *
+     * @return true, if is inet shortcut
+     */
     public boolean isInetShortcut() {
         return _isInetShortcut;
     }
     
+    /**
+     * Checks if is project file.
+     *
+     * @return true, if is project file
+     */
     public boolean isProjectFile() {
     	return _isProjectFile;
     }

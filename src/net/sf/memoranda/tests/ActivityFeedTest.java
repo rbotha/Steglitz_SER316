@@ -17,19 +17,30 @@ import org.junit.Test;
 
 import net.sf.memoranda.ui.ActivityFeed;
 
+// TODO: Auto-generated Javadoc
 /**
- * Apr 14, 2017
- * @author Jesus Rodriguez Jr
+ * Apr 14, 2017.
  *
+ * @author Jesus Rodriguez Jr
  */
 public class ActivityFeedTest {
+	
+	/** The activity feed. */
 	private ActivityFeed activityFeed = null;
+	
+	/** The names. */
 	private ArrayList<String> names = null;
+	
+	/** The times. */
 	private ArrayList<String> times	= null;
+	
+	/** The time. */
 	private String name = null, time = null;
 
-	/**Method setting up
-	 * @throws java.lang.Exception
+	/**
+	 * Method setting up.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -42,8 +53,10 @@ public class ActivityFeedTest {
 		activityFeed = new ActivityFeed(names, times);
 	}
 
-	/**Method for tearing down
-	 * @throws java.lang.Exception
+	/**
+	 * Method for tearing down.
+	 *
+	 * @throws Exception the exception
 	 */
 	@After
 	public void tearDown() throws Exception {
@@ -54,6 +67,9 @@ public class ActivityFeedTest {
 		time = null;
 	}
 
+	/**
+	 * Activity feed constructor test.
+	 */
 	@Test
 	public void ActivityFeedConstructorTest() {
 		
@@ -77,6 +93,9 @@ public class ActivityFeedTest {
 		
 	}
 	
+	/**
+	 * Gets the names test.
+	 */
 	@Test
 	public void GetNamesTest(){
 		
@@ -88,6 +107,9 @@ public class ActivityFeedTest {
 		assertNotEquals("names != getNames)", activityFeed.getNames(), names);
 	}
 	
+	/**
+	 * Gets the times test.
+	 */
 	@Test
 	public void GetTimesTest(){
 		
@@ -100,6 +122,9 @@ public class ActivityFeedTest {
 		
 	}
 	
+	/**
+	 * Gets the name index test.
+	 */
 	@Test
 	public void GetNameIndexTest(){
 		
@@ -111,6 +136,9 @@ public class ActivityFeedTest {
 		assertNotNull(activityFeed.getName(0));
 	}
 	
+	/**
+	 * Gets the time index test.
+	 */
 	@Test
 	public void GetTimeIndexTest(){
 		
@@ -122,6 +150,9 @@ public class ActivityFeedTest {
 		assertNotNull(activityFeed.getName(0));
 	}
 	
+	/**
+	 * Sets the name test.
+	 */
 	@Test
 	public void SetNameTest(){
 		assertNotEquals(activityFeed.getName(0), name);
@@ -134,6 +165,9 @@ public class ActivityFeedTest {
 		
 	}
 	
+	/**
+	 * Sets the time test.
+	 */
 	@Test
 	public void SetTimeTest(){
 		assertNotEquals(activityFeed.getTime(0), time);
@@ -146,6 +180,9 @@ public class ActivityFeedTest {
 		
 	}
 	
+	/**
+	 * Adds the three param test.
+	 */
 	@Test
 	public void AddThreeParamTest(){
 
@@ -166,6 +203,9 @@ public class ActivityFeedTest {
 		
 	}
 	
+	/**
+	 * Adds the two param test.
+	 */
 	@Test
 	public void AddTwoParamTest(){
 
@@ -191,6 +231,9 @@ public class ActivityFeedTest {
 		
 	}
 	
+	/**
+	 * Clear test.
+	 */
 	@Test
 	public void ClearTest(){
 
@@ -202,6 +245,9 @@ public class ActivityFeedTest {
 		assertNotEquals(activityFeed.getTimes(), times);		
 	}
 	
+	/**
+	 * Order by date test.
+	 */
 	@Test
 	public void OrderByDateTest(){
 		Timestamp currTime = new Timestamp(Calendar.getInstance().getTimeInMillis());
@@ -214,6 +260,9 @@ public class ActivityFeedTest {
 		assertTrue(activityFeed.getTime(0).equals(currTime.toString()));
 	}
 
+	/**
+	 * Gets the ordered by date test.
+	 */
 	@Test
 	public void GetOrderedByDateTest(){
 		

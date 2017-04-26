@@ -30,15 +30,17 @@ import net.sf.memoranda.ui.treetable.TreeTableModel;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Context;
 
+// TODO: Auto-generated Javadoc
 /**
  * JAVADOC:
- * <h1>TaskTableModel</h1>
- * 
- * @version $Id: TaskTableModel.java,v 1.7 2017/4/08 drmorri8 Exp $
+ * <h1>TaskTableModel</h1>.
+ *
  * @author $Author: alexeya $
+ * @version $Id: TaskTableModel.java,v 1.7 2017/4/08 drmorri8 Exp $
  */
 public class TaskTableModel extends AbstractTreeTableModel implements TreeTableModel {
 
+	/** The column names. */
 	String[] columnNames = {"", Local.getString("To-do"),
             Local.getString("Start date"), Local.getString("End date"),
             Local.getString("Priority"), Local.getString("Status"),
@@ -47,20 +49,23 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
             Local.getString("Errors Fixed"), Local.getString("Est. LOC"), 
             Local.getString("Act. LOC") };
 
+    /** The listener list. */
     protected EventListenerList listenerList = new EventListenerList();
 
+    /** The active only. */
     private boolean activeOnly = check_activeOnly();
         
     /**
-     * JAVADOC: Constructor of <code>TaskTableModel</code>
-     * 
-     * @param root
+     * JAVADOC: Constructor of <code>TaskTableModel</code>.
      */
     public TaskTableModel(){
         super(CurrentProject.get());
     }
 
     /**
+     * Gets the column count.
+     *
+     * @return the column count
      * @see net.sf.memoranda.ui.treetable.TreeTableModel#getColumnCount()
      */
     public int getColumnCount() {
@@ -68,6 +73,10 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
     }
 
     /**
+     * Gets the column name.
+     *
+     * @param column the column
+     * @return the column name
      * @see net.sf.memoranda.ui.treetable.TreeTableModel#getColumnName(int)
      */
     public String getColumnName(int column) {
@@ -75,6 +84,11 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
     }
 
     /**
+     * Gets the value at.
+     *
+     * @param node the node
+     * @param column the column
+     * @return the value at
      * @see net.sf.memoranda.ui.treetable.TreeTableModel#getValueAt(java.lang.Object,
      *      int)
      */
@@ -121,6 +135,12 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         return "";
     }
 
+    /**
+     * Gets the status string.
+     *
+     * @param status the status
+     * @return the status string
+     */
     String getStatusString(int status) {
         switch (status) {
         case Task.ACTIVE:
@@ -141,6 +161,12 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         return "";
     }
 
+    /**
+     * Gets the priority string.
+     *
+     * @param p the p
+     * @return the priority string
+     */
     String getPriorityString(int p) {
         switch (p) {
         case Task.PRIORITY_NORMAL:
@@ -158,6 +184,10 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
     }
 
     /**
+     * Gets the child count.
+     *
+     * @param parent the parent
+     * @return the child count
      * @see javax.swing.tree.TreeModel#getChildCount(java.lang.Object)
      */
     public int getChildCount(Object parent) {
@@ -173,6 +203,11 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
     }
 
     /**
+     * Gets the child.
+     *
+     * @param parent the parent
+     * @param index the index
+     * @return the child
      * @see javax.swing.tree.TreeModel#getChild(java.lang.Object, int)
      */
     public Object getChild(Object parent, int index) {
@@ -185,6 +220,10 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
     }
 
     /**
+     * Gets the column class.
+     *
+     * @param column the column
+     * @return the column class
      * @see net.sf.memoranda.ui.treetable.TreeTableModel#getColumnClass(int)
      */
     public Class getColumnClass(int column) {
@@ -223,6 +262,9 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         return null;
     }
     
+    /**
+     * Fire tree structure changed.
+     */
     public void fireTreeStructureChanged(){	    
 	    fireTreeStructureChanged( this,
 	    			new Object[]{getRoot()},
@@ -233,22 +275,35 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
     
     
     /**
-     * Update cached data
+     * Update cached data.
      */
     public void fireUpdateCache(){
 		activeOnly = check_activeOnly();
     }
 
+    /**
+     * Check active only.
+     *
+     * @return true, if successful
+     */
     public static boolean check_activeOnly(){
 		Object o = Context.get("SHOW_ACTIVE_TASKS_ONLY");
 		if(o == null) return false;
 		return o.toString().equals("true");
 	}
 
+    /**
+     * Active only.
+     *
+     * @return true, if successful
+     */
     public boolean activeOnly(){
 		return activeOnly;
     }
     
+    /* (non-Javadoc)
+     * @see net.sf.memoranda.ui.treetable.AbstractTreeTableModel#isCellEditable(java.lang.Object, int)
+     */
     public boolean isCellEditable(Object node, int column) {
     	if(column == 6) return true;
     	return super.isCellEditable(node, column);
