@@ -83,11 +83,6 @@ public class AppFrame extends JFrame {
     JMenu jMenuFile = new JMenu();
     JMenuItem jMenuFileExit = new JMenuItem();
     
-    //-----View menu Skeleton
-    JMenu jMenuView = new JMenu();
-    JMenuItem jMenuViewDay = new JMenuItem();
-    JMenuItem jMenuViewWeek = new JMenuItem();
-    //----
     JToolBar toolBar = new JToolBar();
     JButton jButton3 = new JButton();
     ImageIcon image1;
@@ -291,8 +286,6 @@ public class AppFrame extends JFrame {
 
         jMenuFile.setText(Local.getString("File"));
         jMenuFileExit.setText(Local.getString("Exit"));
-        //----Set label to jMenuView
-        jMenuView.setText(Local.getString("View"));
         
         jMenuFileExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -300,10 +293,6 @@ public class AppFrame extends JFrame {
             }
         });
         jMenuHelp.setText(Local.getString("Help"));
-        
-       
-        jMenuViewDay.setText(Local.getString("Set Day View"));
-        jMenuViewWeek.setText(Local.getString("Set to Week View"));
         
         jMenuHelpGuide.setText(Local.getString("Online user's guide"));
         jMenuHelpGuide.setIcon(new ImageIcon(AppFrame.class.getResource(
@@ -504,7 +493,6 @@ public class AppFrame extends JFrame {
         menuBar.add(jMenuGo);
         menuBar.add(jMenuHelp);
         
-        menuBar.add(jMenuView);
         this.setJMenuBar(menuBar);
         //contentPane.add(toolBar, BorderLayout.NORTH);
         contentPane.add(statusBar, BorderLayout.SOUTH);
@@ -538,11 +526,7 @@ public class AppFrame extends JFrame {
         jMenuInsert.add(jMenuInsertDate);
         jMenuInsert.add(jMenuInsertTime);
         jMenuInsert.addSeparator();
-        jMenuInsert.add(jMenuInsertFile);
-
-        jMenuView.add(jMenuViewDay);
-        jMenuView.add(jMenuViewWeek);
-        
+        jMenuInsert.add(jMenuInsertFile);       
         jMenuFormat.add(jMenuFormatPStyle);
         jMenuFormat.add(jjMenuFormatChStyle);
         jMenuFormat.add(jMenuFormatAlign);
