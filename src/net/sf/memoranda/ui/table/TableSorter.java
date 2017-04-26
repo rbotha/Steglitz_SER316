@@ -124,7 +124,7 @@ public class TableSorter extends TableMap {
 	    int result;
 	    if(data.getColumnName(column).equals(Local.getString("Priority"))) {
 		    Hashtable priority = new Hashtable();
-		    priority.put(Local.getString("Lowest"), new Integer(1));
+		    priority.put(Local.getString("Lowest"), Integer.valueOf(1));
 		    priority.put(Local.getString("Low"), new Integer(2));
 		    priority.put(Local.getString("Normal"), new Integer(3));
 		    priority.put(Local.getString("High"), new Integer(4));
@@ -331,7 +331,7 @@ public class TableSorter extends TableMap {
         sortBy = column;
         this.ascending = ascending;
         sortingColumns.removeAllElements();
-        sortingColumns.addElement(new Integer(column));
+        sortingColumns.addElement(Integer.valueOf(column));
         sort(this);
         super.tableChanged(new TableModelEvent(this)); 
     }

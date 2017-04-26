@@ -1206,7 +1206,7 @@ public class HTMLEditor extends JPanel {
 					.getAttributes();
 
 		if (charattrs
-			.containsAttribute(StyleConstants.Bold, new Boolean(true))) {
+			.containsAttribute(StyleConstants.Bold, Boolean.valueOf(true))) {
 			boldActionB.setBorder(border2);
 			bold = true;
 		} else if (bold) {
@@ -1678,12 +1678,6 @@ public class HTMLEditor extends JPanel {
 		dlg.setVisible(true);
 
 		if (!dlg.CANCELLED) {
-			String parentname =
-				document
-					.getParagraphElement(editor.getCaretPosition())
-					.getParentElement()
-					.getName();
-			//HTML.Tag parentTag = HTML.getTag(parentname);
 			String urlString = dlg.fileField.getText();
 			String path = urlString;
 			if (imagesDir != null) {
@@ -2113,7 +2107,7 @@ public class HTMLEditor extends JPanel {
 		if (tda.isDefined(HTML.Attribute.COLSPAN))
 			try {
 				Integer i =
-					new Integer(
+				        Integer.valueOf(
 						tda.getAttribute(HTML.Attribute.COLSPAN).toString());
 				dlg.tdColspan.setValue(i);
 			} catch (Exception ex) {

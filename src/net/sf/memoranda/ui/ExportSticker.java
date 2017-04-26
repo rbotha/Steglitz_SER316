@@ -57,7 +57,7 @@ public class ExportSticker {
         
         public boolean export(String src){
                 boolean result = true;
-                String fs = System.getProperty("file.separator");
+//                String fs = System.getProperty("file.separator");
                 
                 String contents = getSticker();
                 try {

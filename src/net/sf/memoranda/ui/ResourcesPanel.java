@@ -277,7 +277,7 @@ public class ResourcesPanel extends JPanel {
         File d;
         if (appId == null) {
             appId = Util.generateId();
-            d = new File("/");
+            d = new File(Local.getString("/"));
         }
         else {
             File exe = new File(appList.getFindPath(appId) + "/" + appList.getExec(appId));

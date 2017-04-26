@@ -280,7 +280,7 @@ public class EventsPanel extends JPanel {
             if (rep == EventsManager.REPEAT_DAILY) {
                 dlg.dailyRepeatRB.setSelected(true);
                 dlg.dailyRepeatRB_actionPerformed(null);
-                dlg.daySpin.setValue(new Integer(ev.getPeriod()));
+                dlg.daySpin.setValue(Integer.valueOf(ev.getPeriod()));
             }
             else if (rep == EventsManager.REPEAT_WEEKLY) {
                 dlg.weeklyRepeatRB.setSelected(true);
