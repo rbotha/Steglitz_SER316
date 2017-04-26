@@ -69,7 +69,7 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
               "Carel-J Rischmuller (carel-j.rischmuller@epiuse.com)",
               "Milena Vitali-Charewicz (milo22370@yahoo.com)",
               "Toru Watanabe (t-wata@cablenet.ne.jp)"                            
- };
+  };
     
   /** The layered pane. */
   JLayeredPane layeredPane;

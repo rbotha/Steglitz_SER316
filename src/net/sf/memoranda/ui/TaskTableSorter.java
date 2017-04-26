@@ -30,18 +30,18 @@ public class TaskTableSorter extends TaskTableModel{
 	
 	/** The comparator. */
 	Comparator comparator = new Comparator(){
-		public int compare(Object o1, Object o2){
-			if(sorting_column == -1) return 0;
-			if( (o1 instanceof Task) == false) return 0;
-			if( (o2 instanceof Task) == false ) return 0;
+          public int compare(Object o1, Object o2){
+              if(sorting_column == -1) return 0;
+              if( (o1 instanceof Task) == false) return 0;
+              if( (o2 instanceof Task) == false ) return 0;
 			
 			
 			Task task1 = (Task) o1;
 			Task task2 = (Task) o2;
 			
 			// based on TaskTableModel.columnNames
-			switch(sorting_column){
-				case 0: return task1.getPriority() - task2.getPriority();	
+              switch(sorting_column){
+                case 0: return task1.getPriority() - task2.getPriority();	
 				case 1: return task1.getText().compareTo(task2.getText());
 				case 2: return task1.getStartDate().getDate().compareTo(task2.getStartDate().getDate());
 				case 3: return task1.getEndDate().getDate().compareTo(task2.getEndDate().getDate());
@@ -54,11 +54,10 @@ public class TaskTableSorter extends TaskTableModel{
 				case 10: return task1.getErrorsFixed() - task2.getErrorsFixed();
 				case 11: return task1.getEstLOC() - task2.getEstLOC();
 				case 12: return task1.getActLOC() - task2.getActLOC();
-			}
-			
-			return 0;
-		}
-	};
+              }
+              return 0;
+            }
+          };
 	
 	/**
 	 * Instantiates a new task table sorter.

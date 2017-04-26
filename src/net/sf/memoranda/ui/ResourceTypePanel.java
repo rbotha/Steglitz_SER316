@@ -133,9 +133,9 @@ public class ResourceTypePanel extends JPanel {
     newTypeB.setPreferredSize(new Dimension(110, 25));
     newTypeB.setText(Local.getString("New"));
     newTypeB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                newTypeB_actionPerformed(e);
-            }
+          public void actionPerformed(ActionEvent e) {
+              newTypeB_actionPerformed(e);
+          }
         });
     areaPanel.setLayout(borderLayout2);
     jPanel2.setMaximumSize(new Dimension(120, 32767));
@@ -144,9 +144,9 @@ public class ResourceTypePanel extends JPanel {
     jPanel2.setBorder(border3);
     editB.setText(Local.getString("Edit"));
     editB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                editB_actionPerformed(e);
-            }
+          public void actionPerformed(ActionEvent e) {
+              editB_actionPerformed(e);
+          }
         });
     editB.setEnabled(false);
     editB.setMaximumSize(new Dimension(110, 25));
@@ -156,9 +156,9 @@ public class ResourceTypePanel extends JPanel {
     deleteB.setPreferredSize(new Dimension(110, 25));
     deleteB.setText(Local.getString("Delete"));
     deleteB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                deleteB_actionPerformed(e);
-            }
+          public void actionPerformed(ActionEvent e) {
+              deleteB_actionPerformed(e);
+          }
         });
     typesList.setCellRenderer(new TypesListRenderer());
     typesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

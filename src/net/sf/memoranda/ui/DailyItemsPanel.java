@@ -379,7 +379,7 @@ public class DailyItemsPanel extends JPanel {
         	        public void propertyChange(PropertyChangeEvent pce) {
         	        	calendar.jnCalendar.setRowHeight((int)(splitControlPane.getDividerLocation()-74)/6);
         	        }
-        	});
+                    });
         CurrentDate.addDateListener(new DateListener() {
             public void dateChange(CalendarDate d) {
                 currentDateChanged(d);

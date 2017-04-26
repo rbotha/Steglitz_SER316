@@ -464,12 +464,12 @@ public class TableSorter extends TableMap {
                     //System.out.println("Sorting ..."); 
                     //int shiftPressed = e.getModifiers()&InputEvent.SHIFT_MASK; 
                     //boolean ascending = (shiftPressed == 0);
-                    if (column == sortBy)                    
-                        ascending = !ascending;
-                    else
-                        ascending = true; 
-                    sorter.sortByColumn(column, ascending);   
-                    tableView.getTableHeader().updateUI();                  
+                  if (column == sortBy)                    
+                      ascending = !ascending;
+                  else
+                      ascending = true; 
+                  sorter.sortByColumn(column, ascending);   
+                  tableView.getTableHeader().updateUI();                  
                 }
             }
         };

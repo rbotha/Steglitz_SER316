@@ -54,10 +54,10 @@ public class ContactsMenu extends JPopupMenu{
 		
 		//Menu Events
 		emailMenu.addActionListener(new java.awt.event.ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				getContactEmail(contactIndex);
-				openEmailClient(emailAddress);
-			}
+                    public void actionPerformed(ActionEvent e){
+		                getContactEmail(contactIndex);
+		                openEmailClient(emailAddress);
+                    }
 		});		
 	}
 	

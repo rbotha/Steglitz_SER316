@@ -171,11 +171,12 @@ public class AppFrame extends JFrame {
     public Action exportNotesAction =
                 new AbstractAction(Local.getString("Export notes") + "...") {
 
-                public void actionPerformed(ActionEvent e) {
-                        ppExport_actionPerformed(e);
-                }
-        };
+        public void actionPerformed(ActionEvent e) {
+            ppExport_actionPerformed(e);
+        }
+    };
         
+<<<<<<< HEAD
         /** The import notes action. */
         public Action importNotesAction =
                         new AbstractAction(Local.getString("Import multiple notes")) {
@@ -187,12 +188,22 @@ public class AppFrame extends JFrame {
         
         /** The import one note action. */
         public Action importOneNoteAction =
+=======
+      public Action importNotesAction =
+                        new AbstractAction(Local.getString("Import multiple notes")) {
+
+        public void actionPerformed(ActionEvent e) {
+                ppImport_actionPerformed(e);
+        }
+      };
+      public Action importOneNoteAction =
+>>>>>>> origin/US-106
                 new AbstractAction(Local.getString("Import one note")) {
 
-                public void actionPerformed(ActionEvent e) {
-                        p1Import_actionPerformed(e);
-                }
-        };
+        public void actionPerformed(ActionEvent e) {
+                p1Import_actionPerformed(e);
+        }
+      };
     
     /** The j menu file new prj. */
     JMenuItem jMenuFileNewPrj = new JMenuItem();
@@ -809,10 +820,10 @@ public class AppFrame extends JFrame {
 
         this.workPanel.notesB.addActionListener(
                 new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                         setEnabledEditorMenus(true);
-                    }
-                });
+            }
+          });
 
         Object fwo = Context.get("FRAME_WIDTH");
         Object fho = Context.get("FRAME_HEIGHT");

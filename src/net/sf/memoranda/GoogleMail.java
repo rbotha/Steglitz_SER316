@@ -32,12 +32,16 @@ public class GoogleMail {
     private GoogleMail() {
     }
 
+<<<<<<< HEAD
     /**
      * Send email using GMail SMTP server.
      *
      * @param e the e
      * @return true, if successful
      */
+=======
+
+>>>>>>> origin/US-106
     public static boolean IsValidEmail(final String e) {
         if (e == null) {
             return false;
@@ -48,6 +52,7 @@ public class GoogleMail {
         return matcher.matches();
     }
 	
+<<<<<<< HEAD
 	/**
 	 * Method: 	Send()
 	 * Inputs: 	String username, String password, String recipientEmail, 
@@ -64,6 +69,19 @@ public class GoogleMail {
 	 * @throws AddressException the address exception
 	 * @throws MessagingException the messaging exception
 	 */   
+=======
+    /**
+     * Send email using GMail SMTP server.
+     *
+     * @param username **GMail username**
+     * @param password **GMail password**
+     * @param recipientEmail **TO recipient**
+     * @param title **Title of the message**
+     * @param message **Message to be sent**
+     * @throws AddressException if the email address parse failed
+     * @throws MessagingException if the connection is dead or not in the connected state or if the message is not a MimeMessage
+     */
+>>>>>>> origin/US-106
     public static void Send(final String username, final String password, String recipientEmail, String title, String message) throws AddressException, MessagingException {
         GoogleMail.Send(username, password, recipientEmail, "", title, message);
     }

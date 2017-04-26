@@ -117,18 +117,18 @@ public class StickerConfirmation extends JDialog {
                 cancelButton.setPreferredSize(new Dimension(100, 25));
                 cancelButton.setText(Local.getString("Cancel"));
                 cancelButton.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                                cancelButton_actionPerformed(e);
-                        }
+                    public void actionPerformed(ActionEvent e) {
+                            cancelButton_actionPerformed(e);
+                    }
                 });
                 okButton.setMaximumSize(new Dimension(100, 25));
                 okButton.setMinimumSize(new Dimension(100, 25));
                 okButton.setPreferredSize(new Dimension(100, 25));
                 okButton.setText(Local.getString("Ok"));
                 okButton.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                                okButton_actionPerformed(e);
-                        }
+                    public void actionPerformed(ActionEvent e) {
+                            okButton_actionPerformed(e);
+                    }
                 });
                 this.getRootPane().setDefaultButton(okButton);
                 

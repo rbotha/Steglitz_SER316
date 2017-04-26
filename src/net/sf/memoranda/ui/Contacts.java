@@ -126,18 +126,18 @@ public class Contacts extends JPanel{
 		JButton btnAddContact = new JButton(Local.getString("Add Contact"));
 		btnAddContact.setBounds(71, 90, 117, 29);
 		btnAddContact.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dialog.Invoke(listModel);
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        dialog.Invoke(listModel);
+		    }
 		});
 		this.add(btnAddContact);
 		
 		JButton btnDeleteContact = new JButton(Local.getString("Delete Contact"));
 		btnDeleteContact.setBounds(450, 90, 130, 29);
-		btnDeleteContact.addActionListener(new ActionListener() {		
-			public void actionPerformed(ActionEvent e) {
-				dialog.deleteContact(list, listModel);
-			}
+		btnDeleteContact.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        dialog.deleteContact(list, listModel);
+		    }
 		});
 		this.add(btnDeleteContact);
 		loadContacts();
@@ -146,15 +146,15 @@ public class Contacts extends JPanel{
 		//Sprint 2
 		//Mouse Listener for opening right-click menu. Default options only currently show email option for contacts. 
 		list.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mousePressed(MouseEvent e){
-				if(e.getButton() == MouseEvent.BUTTON3){
-						if(list.getSelectedIndex() != -1){
-						ContactsMenu menu = new ContactsMenu(list.getSelectedIndex());
-						menu.show(e.getComponent(),e.getX(),e.getY());
-					}
-				}
-			}
+		    @Override
+		    public void mousePressed(MouseEvent e){
+		        if(e.getButton() == MouseEvent.BUTTON3){
+                      if(list.getSelectedIndex() != -1){
+                          ContactsMenu menu = new ContactsMenu(list.getSelectedIndex());
+                          menu.show(e.getComponent(),e.getX(),e.getY());
+                      }
+		        }
+		    }
 		});
 		
 		loadContacts();

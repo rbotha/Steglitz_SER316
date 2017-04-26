@@ -26,10 +26,16 @@ public class Resource {
     
     /**
      * Constructor for Resource.
+<<<<<<< HEAD
      *
      * @param path the path
      * @param isInetShortcut the is inet shortcut
      * @param isProjectFile the is project file
+=======
+     * @param path **The path to the file.**
+     * @param isInetShortcut **If the resource is a internet shortcut.**
+     * @param isProjectFile **If file is copied to project directory.**
+>>>>>>> origin/US-106
      */
     public Resource(String path, boolean isInetShortcut, boolean isProjectFile) {
         _path = path;

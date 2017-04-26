@@ -356,9 +356,9 @@ JButton setNotifB = new JButton();
         chkEndDate.setSelected(false);
 		chkEndDate_actionPerformed(null);
 		chkEndDate.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				chkEndDate_actionPerformed(e);
-			}
+		    }
 		});
         okB.setMaximumSize(new Dimension(100, 26));
         okB.setMinimumSize(new Dimension(100, 26));
@@ -484,10 +484,10 @@ JButton setNotifB = new JButton();
                     startDate.getModel().setValue(ed);
                     sd = ed;
                 }
-				if ((startDateMax != null) && sd.after(startDateMax.getDate())) {
+                if ((startDateMax != null) && sd.after(startDateMax.getDate())) {
 					startDate.getModel().setValue(startDateMax.getDate());
                     sd = startDateMax.getDate();
-				}
+                }
                 if ((startDateMin != null) && sd.before(startDateMin.getDate())) {
                     startDate.getModel().setValue(startDateMin.getDate());
                     sd = startDateMin.getDate();
@@ -532,14 +532,14 @@ JButton setNotifB = new JButton();
                 ignoreEndChanged = true;
                 Date sd = (Date) startDate.getModel().getValue();
                 Date ed = (Date) endDate.getModel().getValue();				
-				if (ed.before(sd)) {
+                if (ed.before(sd)) {
                     endDate.getModel().setValue(ed);
                     ed = sd;
                 }
-				if ((endDateMax != null) && ed.after(endDateMax.getDate())) {
+                if ((endDateMax != null) && ed.after(endDateMax.getDate())) {
 					endDate.getModel().setValue(endDateMax.getDate());
                     ed = endDateMax.getDate();
-				}
+                }
                 if ((endDateMin != null) && ed.before(endDateMin.getDate())) {
                     endDate.getModel().setValue(endDateMin.getDate());
                     ed = endDateMin.getDate();

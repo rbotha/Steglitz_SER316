@@ -147,9 +147,9 @@ public class FontDialog extends JDialog {
 			Local.getString("Font family")));
 		fontFamilyCB.setPreferredSize(new Dimension(200, 50));
 		fontFamilyCB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				fontChanged(e);
-			}
+		    }
 		});
         gbc = new GridBagConstraints();
         gbc.gridx = 0; gbc.gridy = 0;
@@ -159,9 +159,9 @@ public class FontDialog extends JDialog {
         areaPanel.add(fontFamilyCB, gbc);
 		fontSizeCB.setEditable(true);
 		fontSizeCB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				fontChanged(e);
-			}
+		    }
 		});
 		fontSizeCB.setBorder(new TitledBorder(
 			BorderFactory.createEmptyBorder(), Local.getString("Font size")));
@@ -184,9 +184,9 @@ public class FontDialog extends JDialog {
 		gbc.insets = new Insets(5, 5, 5, 5);
 		areaPanel.add(colorField, gbc);
 		colorB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				colorB_actionPerformed(e);
-			}
+		    }
 		});
 		colorB.setIcon(new ImageIcon(
 			net.sf.memoranda.ui.htmleditor.FontDialog.class.getResource(
