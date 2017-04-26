@@ -19,9 +19,9 @@ public class Resource {
     private boolean _isProjectFile = false;	// true if file is in project directory 
     /**
      * Constructor for Resource.
-     * @param path, the path to the file.
-     * @param isInetShortcut, if the resource is a internet shortcut.
-     * @param isProjectFile, if file is copied to project directory.
+     * @param path **The path to the file.**
+     * @param isInetShortcut **If the resource is a internet shortcut.**
+     * @param isProjectFile **If file is copied to project directory.**
      */
     public Resource(String path, boolean isInetShortcut, boolean isProjectFile) {
         _path = path;
