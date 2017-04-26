@@ -27,25 +27,16 @@ import net.sf.memoranda.util.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
 import java.util.EventObject;
-import java.util.Collection;
-import java.util.Vector;
 import java.util.Iterator;
-import java.util.Hashtable;
-import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.LookAndFeel;
-import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.event.*;
 import javax.swing.table.*;
@@ -183,28 +174,41 @@ public class TaskTable extends JTable {
 		//if (tree.getRowHeight() < 1) {
 			setRowHeight(18);
 		//}
-		initColumnWidths();
+		updateColumnWidths();
 		
 		// do not allow moving columns
 		getTableHeader().setReorderingAllowed(false);
     }
 
-    void initColumnWidths() {
+    /**
+     * Updates columns using values from Context.
+     */
+    public void updateColumnWidths() {
         for (int i = 0; i < getColumnCount(); i++) {
             TableColumn column = getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(8);
-            } 
-            else if (i == 1) {
+            } else if (i == 1) {
             	column.setPreferredWidth(30000); //32767, decreased to fit new columns.
-            }
-            else if( i == 6 ){
+            } else if( i == 6 ){
             	column.setPreferredWidth(100);
             	column.setMinWidth(100);
-            }
-            else {
-            	column.setPreferredWidth(67); //65);
-            	column.setMinWidth(67); // 65);
+            } else if ((i == 7 || i == 8) && (Context.get("HIDE_TASK_EFFORT_COLUMNS") != null && Context.get("HIDE_TASK_EFFORT_COLUMNS").equals(true))) {
+            	column.setPreferredWidth(0);
+            	column.setMinWidth(0);
+            	column.setMaxWidth(0);
+            } else if ((i == 9 || i == 10) && (Context.get("HIDE_TASK_ERRORS_COLUMNS") != null && Context.get("HIDE_TASK_ERRORS_COLUMNS").equals(true))) {
+            	column.setPreferredWidth(0);
+            	column.setMinWidth(0);
+            	column.setMaxWidth(0);
+            } else if ((i == 11 || i == 12) && (Context.get("HIDE_TASK_LOC_COLUMNS") != null && Context.get("HIDE_TASK_LOC_COLUMNS").equals(true))) {
+            	column.setPreferredWidth(0);
+            	column.setMinWidth(0);
+            	column.setMaxWidth(0);
+            } else {
+            	column.setMaxWidth(67);
+            	column.setMinWidth(67);
+            	column.setPreferredWidth(67);
             }
         }
     }
