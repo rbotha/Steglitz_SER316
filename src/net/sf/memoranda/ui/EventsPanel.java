@@ -39,64 +39,25 @@ import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Util;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class EventsPanel.
- */
 /*$Id: EventsPanel.java,v 1.25 2005/02/19 10:06:25 rawsushi Exp $*/
 public class EventsPanel extends JPanel {
-    
-    /** The border layout 1. */
     BorderLayout borderLayout1 = new BorderLayout();
-    
-    /** The history back B. */
     JButton historyBackB = new JButton();
-    
-    /** The events tool bar. */
     JToolBar eventsToolBar = new JToolBar();
-    
-    /** The history forward B. */
     JButton historyForwardB = new JButton();
-    
-    /** The new event B. */
     JButton newEventB = new JButton();
-    
-    /** The edit event B. */
     JButton editEventB = new JButton();
-    
-    /** The remove event B. */
     JButton removeEventB = new JButton();
-    
-    /** The print event B. */
     JButton printEventB = new JButton();
-    
-    /** The scroll pane. */
     JScrollPane scrollPane = new JScrollPane();
-    
-    /** The events table. */
     EventsTable eventsTable = new EventsTable();
-    
-    /** The event PP menu. */
     JPopupMenu eventPPMenu = new JPopupMenu();
-    
-    /** The pp edit event. */
     JMenuItem ppEditEvent = new JMenuItem();
-    
-    /** The pp remove event. */
     JMenuItem ppRemoveEvent = new JMenuItem();
-    
-    /** The pp new event. */
     JMenuItem ppNewEvent = new JMenuItem();
-    
-    /** The parent panel. */
     DailyItemsPanel parentPanel = null;
 
     
-    /**
-     * Instantiates a new events panel.
-     *
-     * @param _parentPanel the parent panel
-     */
     public EventsPanel(DailyItemsPanel _parentPanel) {
         try {
             parentPanel = _parentPanel;
@@ -107,11 +68,6 @@ public class EventsPanel extends JPanel {
         }
     }
     
-    /**
-     * Jb init.
-     *
-     * @throws Exception the exception
-     */
     void jbInit() throws Exception {
     	    	
         eventsToolBar.setFloatable(false);
@@ -302,11 +258,6 @@ public class EventsPanel extends JPanel {
 		});
     }
 
-    /**
-     * Edits the event B action performed.
-     *
-     * @param e the e
-     */
     void editEventB_actionPerformed(ActionEvent e) {
         EventDialog dlg = new EventDialog(App.getFrame(), Local.getString("Event"));
         net.sf.memoranda.Event ev =
@@ -400,11 +351,6 @@ public class EventsPanel extends JPanel {
 	saveEvents();
     }
 
-    /**
-     * New event B action performed.
-     *
-     * @param e the e
-     */
     void newEventB_actionPerformed(ActionEvent e) {
         Calendar cdate = CurrentDate.get().getCalendar();
         // round down to hour
@@ -413,14 +359,6 @@ public class EventsPanel extends JPanel {
     	newEventB_actionPerformed(e, null, cdate.getTime(), cdate.getTime());
     }
     
-    /**
-     * New event B action performed.
-     *
-     * @param e the e
-     * @param tasktext the tasktext
-     * @param startDate the start date
-     * @param endDate the end date
-     */
     void newEventB_actionPerformed(ActionEvent e, String tasktext, Date startDate, Date endDate) {
     	EventDialog dlg = new EventDialog(App.getFrame(), Local.getString("New event"));
     	Dimension frmSize = App.getFrame().getSize();
@@ -468,9 +406,6 @@ public class EventsPanel extends JPanel {
     	saveEvents();
     }
 
-    /**
-     * Save events.
-     */
     private void saveEvents() {
 	CurrentStorage.get().storeEventsManager();
         eventsTable.refresh();
@@ -479,15 +414,6 @@ public class EventsPanel extends JPanel {
         parentPanel.updateIndicators();
     }
 
-    /**
-     * Update events.
-     *
-     * @param dlg the dlg
-     * @param hh the hh
-     * @param mm the mm
-     * @param text the text
-     * @param note the note
-     */
     private void updateEvents(EventDialog dlg, int hh, int mm, 
 			String text, String note) {
 	int rtype;
@@ -520,16 +446,6 @@ public class EventsPanel extends JPanel {
         EventsManager.createRepeatableEvent(rtype, sd, ed, period, hh, mm, text, note, dlg.workingDaysOnlyCB.isSelected());
     }
     
-    /**
-     * Update events.
-     *
-     * @param dlg the dlg
-     * @param hh the hh
-     * @param mm the mm
-     * @param text the text
-     * @param email the email
-     * @param note the note
-     */
     private void updateEvents(EventDialog dlg, int hh, int mm,
     		String text, String email, String note) {
     	int rtype;
@@ -562,11 +478,6 @@ public class EventsPanel extends JPanel {
             EventsManager.createRepeatableEvent(rtype, sd, ed, period, hh, mm, text, email, dlg.workingDaysOnlyCB.isSelected());
         }
 
-    /**
-     * Removes the event B action performed.
-     *
-     * @param e the e
-     */
     void removeEventB_actionPerformed(ActionEvent e) {
 		String msg;
 		net.sf.memoranda.Event ev;
@@ -604,46 +515,21 @@ public class EventsPanel extends JPanel {
 */ saveEvents();  
   }
 
-    /**
-     * The listener interface for receiving popup events.
-     * The class that is interested in processing a popup
-     * event implements this interface, and the object created
-     * with that class is registered with a component using the
-     * component's <code>addPopupListener<code> method. When
-     * the popup event occurs, that object's appropriate
-     * method is invoked.
-     *
-     * @see PopupEvent
-     */
     class PopupListener extends MouseAdapter {
 
-        /* (non-Javadoc)
-         * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
-         */
         public void mouseClicked(MouseEvent e) {
             if ((e.getClickCount() == 2) && (eventsTable.getSelectedRow() > -1))
                 editEventB_actionPerformed(null);
         }
 
-        /* (non-Javadoc)
-         * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
-         */
         public void mousePressed(MouseEvent e) {
             maybeShowPopup(e);
         }
 
-        /* (non-Javadoc)
-         * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
-         */
         public void mouseReleased(MouseEvent e) {
             maybeShowPopup(e);
         }
 
-        /**
-         * Maybe show popup.
-         *
-         * @param e the e
-         */
         private void maybeShowPopup(MouseEvent e) {
             if (e.isPopupTrigger()) {
                 eventPPMenu.show(e.getComponent(), e.getX(), e.getY());
@@ -651,30 +537,12 @@ public class EventsPanel extends JPanel {
         }
 
     }
-    
-    /**
-     * Pp edit event action performed.
-     *
-     * @param e the e
-     */
     void ppEditEvent_actionPerformed(ActionEvent e) {
         editEventB_actionPerformed(e);
     }
-    
-    /**
-     * Pp remove event action performed.
-     *
-     * @param e the e
-     */
     void ppRemoveEvent_actionPerformed(ActionEvent e) {
         removeEventB_actionPerformed(e);
     }
-    
-    /**
-     * Pp new event action performed.
-     *
-     * @param e the e
-     */
     void ppNewEvent_actionPerformed(ActionEvent e) {
         newEventB_actionPerformed(e);
     }

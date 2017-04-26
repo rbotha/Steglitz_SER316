@@ -16,18 +16,14 @@ import java.util.regex.Pattern;
 import net.sf.memoranda.ui.ExceptionDialog;
 import net.sf.memoranda.ui.htmleditor.HTMLEditor;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class HTMLFileImport.
+ * 
  */
 /*$Id: HTMLFileImport.java,v 1.5 2005/07/05 08:17:28 alexeya Exp $*/
 public class HTMLFileImport {
 
     /**
      * Constructor for HTMLFileImport.
-     *
-     * @param f the f
-     * @param editor the editor
      */
     public HTMLFileImport(File f, HTMLEditor editor) {
         String text = "";

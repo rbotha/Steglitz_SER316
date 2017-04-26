@@ -21,7 +21,6 @@ package net.sf.memoranda.ui.treetable;
 
 import javax.swing.tree.TreeModel;
 
-// TODO: Auto-generated Javadoc
 /**
  * TreeTableModel is the model used by a JTreeTable. It extends TreeModel
  * to add methods for getting inforamtion about the set of columns each 
@@ -35,57 +34,36 @@ import javax.swing.tree.TreeModel;
  */
 public interface TreeTableModel extends TreeModel
 {
-    
     /**
      * Returns the number ofs availible column.
-     *
-     * @return the column count
      */
     public int getColumnCount();
 
     /**
      * Returns the name for column number <code>column</code>.
-     *
-     * @param column the column
-     * @return the column name
      */
     public String getColumnName(int column);
 
     /**
      * Returns the type for column number <code>column</code>.
-     *
-     * @param column the column
-     * @return the column class
      */
     public Class getColumnClass(int column);
 
     /**
      * Returns the value to be displayed for node <code>node</code>, 
      * at column number <code>column</code>.
-     *
-     * @param node the node
-     * @param column the column
-     * @return the value at
      */
     public Object getValueAt(Object node, int column);
 
     /**
      * Indicates whether the the value for node <code>node</code>, 
      * at column number <code>column</code> is editable.
-     *
-     * @param node the node
-     * @param column the column
-     * @return true, if is cell editable
      */
     public boolean isCellEditable(Object node, int column);
 
     /**
      * Sets the value for node <code>node</code>, 
      * at column number <code>column</code>.
-     *
-     * @param aValue the a value
-     * @param node the node
-     * @param column the column
      */
     public void setValueAt(Object aValue, Object node, int column);
 }

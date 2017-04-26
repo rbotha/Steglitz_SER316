@@ -18,30 +18,29 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-// TODO: Auto-generated Javadoc
 /**
- *   Class: 		GoogleMail	
- *   
- *   Description:	Send e-mail using Google's GMAIL SMTP server.
- */
+  Class: 		GoogleMail	
+  
+  Description:	Send e-mail using Google's GMAIL SMTP server
+*/
 public class GoogleMail {
-    
-    /**
-     * Instantiates a new google mail.
-     */
     private GoogleMail() {
     }
 
-<<<<<<< HEAD
+
     /**
      * Send email using GMail SMTP server.
      *
-     * @param e the e
-     * @return true, if successful
+     * @param username GMail username
+     * @param password GMail password
+     * @param recipientEmail TO recipient
+     * @param title title of the message
+     * @param message message to be sent
+     * @throws AddressException if the email address parse failed
+     * @throws MessagingException if the connection is dead or not in the connected state or if the message is not a MimeMessage
      */
-=======
 
->>>>>>> origin/US-106
+
     public static boolean IsValidEmail(final String e) {
         if (e == null) {
             return false;
@@ -52,14 +51,15 @@ public class GoogleMail {
         return matcher.matches();
     }
 	
-<<<<<<< HEAD
+
 	/**
-	 * Method: 	Send()
+     * Method: 	Send()
 	 * Inputs: 	String username, String password, String recipientEmail, 
 	 * 			String title, String message
 	 * Returns: none
 	 * 
 	 * Description: This function will send an e-mail using Google's GMAIL SMTP server. 
+
 	 *
 	 * @param username the username
 	 * @param password the password
@@ -69,7 +69,7 @@ public class GoogleMail {
 	 * @throws AddressException the address exception
 	 * @throws MessagingException the messaging exception
 	 */   
-=======
+
     /**
      * Send email using GMail SMTP server.
      *
@@ -81,29 +81,20 @@ public class GoogleMail {
      * @throws AddressException if the email address parse failed
      * @throws MessagingException if the connection is dead or not in the connected state or if the message is not a MimeMessage
      */
->>>>>>> origin/US-106
     public static void Send(final String username, final String password, String recipientEmail, String title, String message) throws AddressException, MessagingException {
         GoogleMail.Send(username, password, recipientEmail, "", title, message);
     }
 
     
 	/**
-	 * Method: 	Send() - Overloaded, with ccEmail.
+     * Method: 	Send() - Overloaded, with ccEmail.
 	 * Inputs: 	String username, String password, String recipientEmail, 
 	 * 			String ccEmail, String title, String message
 	 * Returns: none (void)
 	 * 
 	 * Description: This function will send an e-mail using Google's GMAIL SMTP server. 
-	 *
-	 * @param username the username
-	 * @param password the password
-	 * @param recipientEmail the recipient email
-	 * @param ccEmail the cc email
-	 * @param title the title
-	 * @param message the message
-	 * @throws AddressException the address exception
-	 * @throws MessagingException the messaging exception
-	 */
+	 * 
+     */
     public static void Send(final String username, final String password, String recipientEmail, String ccEmail, String title, String message) throws AddressException, MessagingException {
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
         final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";

@@ -19,17 +19,14 @@ import org.junit.Test;
 import net.sf.memoranda.GoogleMail;
 
 
-// TODO: Auto-generated Javadoc
 /**
   Class:      GoogleMailTest
 
   Description:    Tests the GoogleMail's IsValidEmail() method.
 */
 public class GoogleMailTest {
-  
   /**
-   * Sets up before making the EventTest class.
-   *
+   * Sets up before making the EventTest class
    * @throws Exception problem with setting up the class
    */
   @BeforeClass
@@ -37,8 +34,7 @@ public class GoogleMailTest {
   }
 
   /**
-   * Tears down the after taking down the EventTest class.
-   *
+   * Tears down the after taking down the EventTest class
    * @throws Exception problem with tearing down the class
    */
   @AfterClass
@@ -46,8 +42,7 @@ public class GoogleMailTest {
   }
 
   /**
-   * Sets up the EventTest class.
-   *
+   * Sets up the EventTest class
    * @throws Exception if there is a problem setting up
    */
   @Before
@@ -56,8 +51,7 @@ public class GoogleMailTest {
   }
 
   /**
-   * Tears down the EventTest class.
-   *
+   * Tears down the EventTest class
    * @throws Exception if there is a problem tearing down the class
    */
   @After

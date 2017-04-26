@@ -26,38 +26,20 @@ import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.date.DateListener;
 import net.sf.memoranda.util.Configuration;
-// TODO: Auto-generated Javadoc
 //import net.sf.memoranda.util.NotesVectorSorter;
 
-/**
- * The Class NotesList.
- */
 /*$Id: NotesList.java,v 1.9 2005/05/05 16:19:16 ivanrise Exp $*/
 public class NotesList extends JList {
 
-    /** The Constant EMPTY. */
     public static final int EMPTY = 0;    
-    
-    /** The Constant ALL. */
     public static final int ALL = 1;
-    
-    /** The Constant BOOKMARKS. */
     public static final int BOOKMARKS = 2;
 
-    /** The notes. */
     private Vector notes = null;
-    
-    /** The sort order desc. */
     boolean sortOrderDesc = false;
 
-    /** The type. */
     int _type = ALL;
 
-    /**
-     * Instantiates a new notes list.
-     *
-     * @param type the type
-     */
     public NotesList(int type) {
         super();
 		if(Configuration.get("NOTES_SORT_ORDER").toString().equalsIgnoreCase("true")) {
@@ -88,16 +70,10 @@ public class NotesList extends JList {
         this.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
     }
 
-    /**
-     * Instantiates a new notes list.
-     */
     public NotesList() {
         this(ALL);
     }
 
-    /**
-     * Update.
-     */
     public void update() {
         if (_type != EMPTY) {
             update(CurrentProject.getNoteList());
@@ -107,11 +83,6 @@ public class NotesList extends JList {
 		}
     }
 
-    /**
-     * Update.
-     *
-     * @param nl the nl
-     */
     public void update(NoteList nl) {
         if (_type == ALL)
             notes = (Vector) nl.getAllNotes();
@@ -127,11 +98,6 @@ public class NotesList extends JList {
         updateUI();
     }
 
-    /**
-     * Update.
-     *
-     * @param ns the ns
-     */
     public void update(Vector ns) {
         notes = ns;
         // NotesVectorSorter.sort(notes);
@@ -142,60 +108,35 @@ public class NotesList extends JList {
         updateUI();
     }
 
-    /**
-     * Gets the note.
-     *
-     * @param index the index
-     * @return the note
-     */
     public Note getNote(int index){
         return (Note) notes.get(index);
     }
     
-    /**
-     * Invert sort order.
-     */
     void invertSortOrder() {
         sortOrderDesc = !sortOrderDesc;
     }
 
 
-    /**
-     * The Class NotesListModel.
-     */
     /*$Id: NotesList.java,v 1.9 2005/05/05 16:19:16 ivanrise Exp $*/
 public class NotesListModel extends AbstractListModel {
 
-        /**
-         * Instantiates a new notes list model.
-         */
         public NotesListModel() {
             update();
         }
 
-        /* (non-Javadoc)
-         * @see javax.swing.ListModel#getElementAt(int)
-         */
         public Object getElementAt(int i) {
             Note note = (Note)notes.get(i);
             return note.getDate().getShortDateString() + " " + note.getTitle();
         }
 
-        /* (non-Javadoc)
-         * @see javax.swing.ListModel#getSize()
-         */
         public int getSize() {
             return notes.size();
         }
 
     }
 
-    /** The bookmark icon. */
     ImageIcon bookmarkIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/star8.png"));
 
-    /* (non-Javadoc)
-     * @see javax.swing.JList#getCellRenderer()
-     */
     public ListCellRenderer getCellRenderer() {
         return new DefaultListCellRenderer()  {
 

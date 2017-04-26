@@ -12,7 +12,6 @@ import java.util.Collections;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Util;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class creates a collection of name and time strings.
  * It allows the ordering of the collection by its timestamp.
@@ -22,14 +21,12 @@ import net.sf.memoranda.util.Util;
  */
 public class ActivityFeed {
 	
-	/** The name. */
 	private ArrayList<String> name = null;
-	
-	/** The time. */
 	private ArrayList<String> time = null;
 	
 	/**
-	 * Default ConstructorConstructor.
+	 * Default ConstructorConstructor
+	 *
 	 */
 	public ActivityFeed(){
 		this.name = new ArrayList<String>();
@@ -37,10 +34,7 @@ public class ActivityFeed {
 	}
 	
 	/**
-	 * Two Parameter constructor.
-	 *
-	 * @param name the name
-	 * @param time the time
+	 * Two Parameter constructor
 	 */
 	public ActivityFeed(ArrayList<String> name, ArrayList<String> time){
 		
@@ -56,8 +50,7 @@ public class ActivityFeed {
 	
 	//Getters
 	/**
-	 * Method for getting array of names.
-	 *
+	 * Method for getting array of names
 	 * @return name
 	 */
 	public final ArrayList<String> getNames(){
@@ -66,10 +59,8 @@ public class ActivityFeed {
 		
 		return null;
 	}
-	
 	/**
-	 * Method for getting array of times.
-	 *
+	 * Method for getting array of times
 	 * @return time
 	 */
 	public ArrayList<String> getTimes(){
@@ -78,11 +69,9 @@ public class ActivityFeed {
 		
 		return null;
 	}
-	
 	/**
-	 * Method for getting a given name within an index location of Array.
-	 *
-	 * @param index the index
+	 * Method for getting a given name within an index location of Array
+	 * 
 	 * @return name, if null return string "NULL"
 	 */
 	public String getName(int index){
@@ -94,11 +83,9 @@ public class ActivityFeed {
 		
 		return Local.getString(this.name.get(index));
 	}
-	
 	/**
-	 * Method for getting a given time within an index location of Array.
-	 *
-	 * @param index the index
+	 * Method for getting a given time within an index location of Array
+	 * 
 	 * @return name, if null return string "NULL"
 	 */
 	public String getTime(int index){
@@ -112,8 +99,7 @@ public class ActivityFeed {
 	
 	//Setters
 	/**
-	 * Method for setting time within an index location.
-	 *
+	 * Method for setting time within an index location
 	 * @param index - Integer index location to place name
 	 * @param name - String name of new location
 	 */
@@ -123,10 +109,8 @@ public class ActivityFeed {
 			this.time.add(index, "NULL");
 		}
 	}
-	
 	/**
-	 * Method for setting time within an index location.
-	 *
+	 * Method for setting time within an index location
 	 * @param index - Integer index location to place name
 	 * @param time - String time of new location
 	 */
@@ -136,10 +120,8 @@ public class ActivityFeed {
 			this.name.add(index, "NULL");
 		}
 	}
-	
 	/**
-	 * Method for adding the time and name from an index location.
-	 *
+	 * Method for adding the time and name from an index location
 	 * @param index - Integer index of location to place params
 	 * @param name - String name
 	 * @param time - String time, if cannot be converted to timestamp throw exception
@@ -172,9 +154,9 @@ public class ActivityFeed {
 			Util.debug(e.getMessage() + " Exception: "+ e.getCause()+" - "+e.getStackTrace());
 		}
 	}
-	
 	/**
-	 * Method for clearing all values within arrays.
+	 * Method for clearing all values within arrays
+	 *
 	 */
 	public void clear(){
 		this.time.clear();
@@ -210,8 +192,7 @@ public class ActivityFeed {
 	}
 	
 	/**
-	 * Method for returning the ordered array by recent times.
-	 *
+	 * Method for returning the ordered array by recent times
 	 * @return ArrayList - return new array list updated with ordered list.
 	 */
 	public ArrayList<String> getOrderedByDate(){
@@ -232,8 +213,7 @@ public class ActivityFeed {
 	
 	
 	/**
-	 * Method for getting within hour time, within day time and within past 2 days time.
-	 *
+	 * Method for getting within hour time, within day time and within past 2 days time
 	 * @param s - string timestamp to compare to current timestamp
 	 * @return String - returns results.
 	 */

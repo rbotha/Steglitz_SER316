@@ -25,119 +25,50 @@ import javax.swing.UIManager;
 
 import net.sf.memoranda.ui.htmleditor.util.Local;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>Title: </p>
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>.
- *
+ * <p>Company: </p>
  * @author unascribed
  * @version 1.0
  */
 
 public class TableDialog extends JDialog {
-	
-	/** The area panel. */
 	JPanel areaPanel = new JPanel(new GridBagLayout());
-	
-	/** The gbc. */
 	GridBagConstraints gbc;
-	
-	/** The buttons panel. */
 	JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-	
-	/** The cancel B. */
 	JButton cancelB = new JButton();
-	
-	/** The ok B. */
 	JButton okB = new JButton();
-	
-	/** The lbl width. */
 	JLabel lblWidth = new JLabel();
-	
-	/** The height field. */
 	public JTextField heightField = new JTextField();
-	
-	/** The lbl height. */
 	JLabel lblHeight = new JLabel();
-	
-	/** The width field. */
 	public JTextField widthField = new JTextField();
-	
-	/** The aligns. */
 	String[] aligns = {"", Local.getString("left"), Local.getString("center"),
 		Local.getString("right")};
-	
-	/** The valigns. */
 	String[] valigns = {"", Local.getString("top"), Local.getString("center"),
 		Local.getString("bottom")};
-	
-	/** The lbl padding. */
 	JLabel lblPadding = new JLabel();
-	
-	/** The lbl spacing. */
 	JLabel lblSpacing = new JLabel();
-	
-	/** The header panel. */
 	JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-	
-	/** The header. */
 	JLabel header = new JLabel();
-	
-	/** The cancelled. */
 	public boolean CANCELLED = false;
-	
-	/** The lbl columns. */
 	JLabel lblColumns = new JLabel();
-	
-	/** The lbl rows. */
 	JLabel lblRows = new JLabel();
-	
-	/** The v align CB. */
 	JComboBox vAlignCB = new JComboBox(valigns);
-	
-	/** The lbl outline. */
 	JLabel lblOutline = new JLabel();
-	
-	/** The align CB. */
 	JComboBox alignCB = new JComboBox(aligns);
-	
-	/** The lbl vert outline. */
 	JLabel lblVertOutline = new JLabel();
-	
-	/** The bgcolor field. */
 	JTextField bgcolorField = new JTextField();
-	
-	/** The lbl fill color. */
 	JLabel lblFillColor = new JLabel();
-	
-	/** The bg color B. */
 	JButton bgColorB = new JButton();
-	
-	/** The lbl border. */
 	JLabel lblBorder = new JLabel();
-	
-	/** The columns. */
 	public JSpinner columns = new JSpinner(new SpinnerNumberModel(1, 1, 999, 1));
-	
-	/** The rows. */
 	public JSpinner rows = new JSpinner(new SpinnerNumberModel(1, 1, 999, 1));
-	
-	/** The cellpadding. */
 	public JSpinner cellpadding = new JSpinner(new SpinnerNumberModel(0, 0, 999, 1));
-	
-	/** The cellspacing. */
 	public JSpinner cellspacing = new JSpinner(new SpinnerNumberModel(0, 0, 999, 1));
-	
-	/** The border. */
 	public JSpinner border = new JSpinner(new SpinnerNumberModel(1, 0, 999, 1));
 
-	/**
-	 * Instantiates a new table dialog.
-	 *
-	 * @param frame the frame
-	 */
 	public TableDialog(Frame frame) {
 		super(frame, Local.getString("Table"), true);
 		try {
@@ -148,18 +79,10 @@ public class TableDialog extends JDialog {
 		}
 	}
 
-	/**
-	 * Instantiates a new table dialog.
-	 */
 	public TableDialog() {
 		this(null);
 	}
 
-	/**
-	 * Jb init.
-	 *
-	 * @throws Exception the exception
-	 */
 	void jbInit() throws Exception {
 		this.setResizable(false);
 		headerPanel.setBackground(Color.WHITE);
@@ -328,30 +251,15 @@ public class TableDialog extends JDialog {
 		this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
 	}
 
-	/**
-	 * Ok B action performed.
-	 *
-	 * @param e the e
-	 */
 	void okB_actionPerformed(ActionEvent e) {
 		this.dispose();
 	}
 
-	/**
-	 * Cancel B action performed.
-	 *
-	 * @param e the e
-	 */
 	void cancelB_actionPerformed(ActionEvent e) {
 		CANCELLED = true;
 		this.dispose();
 	}
 
-	/**
-	 * Bg color B action performed.
-	 *
-	 * @param e the e
-	 */
 	void bgColorB_actionPerformed(ActionEvent e) {
 		// Fix until Sun's JVM supports more locales...
 		UIManager.put(

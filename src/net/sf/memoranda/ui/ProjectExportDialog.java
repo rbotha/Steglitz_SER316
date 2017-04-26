@@ -19,77 +19,30 @@ import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ProjectExportDialog.
- */
 /*$Id: ProjectExportDialog.java,v 1.3 2004/04/05 10:05:44 alexeya Exp $*/
 public class ProjectExportDialog extends JDialog {
 
-  /** The border layout 1. */
   BorderLayout borderLayout1 = new BorderLayout();
-  
-  /** The j panel 2. */
   JPanel jPanel2 = new JPanel();
-  
-  /** The file chooser. */
   public JFileChooser fileChooser = null;
-  
-  /** The border layout 3. */
   BorderLayout borderLayout3 = new BorderLayout();
-  
-  /** The j panel 3. */
   JPanel jPanel3 = new JPanel();
-  
-  /** The ok B. */
   JButton okB = new JButton();
-  
-  /** The cancel B. */
   JButton cancelB = new JButton();
-  
-  /** The flow layout 1. */
   FlowLayout flowLayout1 = new FlowLayout();
 
-  /** The cancelled. */
   public boolean CANCELLED = true;
-  
-  /** The border 1. */
   Border border1;
-  
-  /** The border 2. */
   Border border2;
-  
-  /** The j panel 4. */
   JPanel jPanel4 = new JPanel();
-  
-  /** The j panel 1. */
   JPanel jPanel1 = new JPanel();
-  
-  /** The border layout 2. */
   BorderLayout borderLayout2 = new BorderLayout();
-  
-  /** The enc CB. */
   JComboBox encCB = new JComboBox(new String[]{Local.getString("System default"), "UTF-8", "ANSI"});
-  
-  /** The j label 1. */
   JLabel jLabel1 = new JLabel();
-  
-  /** The grid layout 1. */
   GridLayout gridLayout1 = new GridLayout();
-  
-  /** The split ch B. */
   JCheckBox splitChB = new JCheckBox();
-  
-  /** The titles as headers ch B. */
   JCheckBox titlesAsHeadersChB = new JCheckBox();
 
-  /**
-   * Instantiates a new project export dialog.
-   *
-   * @param frame the frame
-   * @param title the title
-   * @param chooser the chooser
-   */
   public ProjectExportDialog(Frame frame, String title, JFileChooser chooser) {
     super(frame, title, true);
     try {
@@ -103,11 +56,6 @@ public class ProjectExportDialog extends JDialog {
   }
 
 
-  /**
-   * Jb init.
-   *
-   * @throws Exception the exception
-   */
   void jbInit() throws Exception {
     this.setResizable(false);
 
@@ -180,20 +128,10 @@ public class ProjectExportDialog extends JDialog {
    
   }
 
-   /**
-    * Cancel B action performed.
-    *
-    * @param e the e
-    */
    void cancelB_actionPerformed(ActionEvent e) {
         this.dispose();
     }
 
-    /**
-     * Ok B action performed.
-     *
-     * @param e the e
-     */
     void okB_actionPerformed(ActionEvent e) {
         CANCELLED = false;
         this.dispose();

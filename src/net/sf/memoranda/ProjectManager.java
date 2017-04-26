@@ -19,27 +19,20 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class ProjectManager.
+ *
  */
 /*$Id: ProjectManager.java,v 1.9 2005/12/01 08:12:26 alexeya Exp $*/
 public class ProjectManager {
 //    public static final String NS_JNPROJECT = "http://www.openmechanics.org/2003/jnotes-projects-file";
 
-    /** The doc. */
-public static Document _doc = null;
-    
-    /** The root. */
+    public static Document _doc = null;
     static Element _root = null;
     
     static {
     	init();
     }
 
-    /**
-     * Inits the.
-     */
     public static void init() {
         CurrentStorage.get().openProjectManager();
         if (_doc == null) {
@@ -53,12 +46,6 @@ public static Document _doc = null;
             _root = _doc.getRootElement();
     }
 
-    /**
-     * Gets the project.
-     *
-     * @param id the id
-     * @return the project
-     */
     public static Project getProject(String id) {
         Elements prjs = _root.getChildElements("project");
         for (int i = 0; i < prjs.size(); i++) {
@@ -70,11 +57,6 @@ public static Document _doc = null;
         return null;
     }
 
-    /**
-     * Gets the all projects.
-     *
-     * @return the all projects
-     */
     public static Vector getAllProjects() {
         Elements prjs = _root.getChildElements("project");
         Vector v = new Vector();
@@ -83,11 +65,6 @@ public static Document _doc = null;
         return v;
     }
 
-    /**
-     * Gets the all projects number.
-     *
-     * @return the all projects number
-     */
     public static int getAllProjectsNumber() {
 		int i;
         try {
@@ -99,11 +76,6 @@ public static Document _doc = null;
 		return i;
     }
 
-    /**
-     * Gets the active projects.
-     *
-     * @return the active projects
-     */
     public static Vector getActiveProjects() {
         Elements prjs = _root.getChildElements("project");
         Vector v = new Vector();
@@ -115,11 +87,6 @@ public static Document _doc = null;
         return v;
     }
 		
-    /**
-     * Gets the active projects number.
-     *
-     * @return the active projects number
-     */
     public static int getActiveProjectsNumber() {
         Elements prjs = _root.getChildElements("project");
         int count = 0;
@@ -131,15 +98,6 @@ public static Document _doc = null;
         return count;
     }
 
-    /**
-     * Creates the project.
-     *
-     * @param id the id
-     * @param title the title
-     * @param startDate the start date
-     * @param endDate the end date
-     * @return the project
-     */
     public static Project createProject(String id, String title, CalendarDate startDate, CalendarDate endDate) {
         Element el = new Element("project");
         el.addAttribute(new Attribute("id", id));
@@ -152,23 +110,10 @@ public static Document _doc = null;
         return prj;
     }
 
-    /**
-     * Creates the project.
-     *
-     * @param title the title
-     * @param startDate the start date
-     * @param endDate the end date
-     * @return the project
-     */
     public static Project createProject(String title, CalendarDate startDate, CalendarDate endDate) {
         return createProject(Util.generateId(), title, startDate, endDate);
     }
     
-    /**
-     * Removes the project.
-     *
-     * @param id the id
-     */
     public static void removeProject(String id) {
         Project prj = getProject(id);
         if (prj == null)

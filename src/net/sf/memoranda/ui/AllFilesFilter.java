@@ -14,56 +14,28 @@ import javax.swing.filechooser.FileFilter;
 
 import net.sf.memoranda.util.Local;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class AllFilesFilter.
+ *
  */
 /*$Id: AllFilesFilter.java,v 1.5 2004/01/30 12:17:41 alexeya Exp $*/
 public class AllFilesFilter extends FileFilter {
 
-    /** The Constant RTF. */
     public static final String RTF = "RTF";
-    
-    /** The Constant HTML. */
     public static final String HTML = "HTML";
-    
-    /** The Constant HTM. */
     public static final String HTM = "HTM";
-    
-    /** The Constant XHTML. */
     public static final String XHTML = "XHTML";
-    
-    /** The Constant XML. */
     public static final String XML = "XML";
-    
-    /** The Constant ZIP. */
     public static final String ZIP = "ZIP";
-    
-    /** The Constant EXE. */
     public static final String EXE = "EXE";
-    
-    /** The Constant COM. */
     public static final String COM = "COM";
-    
-    /** The Constant BAT. */
     public static final String BAT = "BAT";
-    
-    /** The Constant JAR. */
     public static final String JAR = "JAR";
-    
-    /** The Constant ICO. */
     public static final String ICO = "ICO";
-    
-    /** The Constant WAV. */
     public static final String WAV = "WAV";
 
-    /** The type. */
     String _type = "";
-    
     /**
      * Constructor for AllFilesFilter.
-     *
-     * @param type the type
      */
     public AllFilesFilter(String type) {
         super();
@@ -71,10 +43,6 @@ public class AllFilesFilter extends FileFilter {
     }
 
     /**
-     * Accept.
-     *
-     * @param f the f
-     * @return true, if successful
      * @see javax.swing.filechooser.FileFilter#accept(java.io.File)
      */
     public boolean accept(File f) {
@@ -99,9 +67,6 @@ public class AllFilesFilter extends FileFilter {
     }
 
     /**
-     * Gets the description.
-     *
-     * @return the description
      * @see javax.swing.filechooser.FileFilter#getDescription()
      */
     public String getDescription() {
@@ -122,12 +87,6 @@ public class AllFilesFilter extends FileFilter {
         return "HTML files (*.html, *.htm)";
     }
 
-    /**
-     * Gets the extension.
-     *
-     * @param f the f
-     * @return the extension
-     */
     private static String getExtension(File f) {
         String ext = "";
         String s = f.getName();

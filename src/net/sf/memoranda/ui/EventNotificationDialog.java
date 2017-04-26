@@ -23,50 +23,19 @@ import java.io.File;
 import java.net.URL;
 
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class EventNotificationDialog.
- */
 /*$Id: EventNotificationDialog.java,v 1.8 2004/10/18 19:08:56 ivanrise Exp $*/
 public class EventNotificationDialog extends JFrame {
-  
-  /** The panel 1. */
   JPanel panel1 = new JPanel();
-  
-  /** The border layout 1. */
   BorderLayout borderLayout1 = new BorderLayout();
-  
-  /** The j button 1. */
   JButton jButton1 = new JButton();
-  
-  /** The border 1. */
   Border border1;
-  
-  /** The border 2. */
   Border border2;
-  
-  /** The border 3. */
   Border border3;
-  
-  /** The j panel 1. */
   JPanel jPanel1 = new JPanel();
-  
-  /** The text label. */
   JLabel textLabel = new JLabel();
-  
-  /** The time label. */
   JLabel timeLabel = new JLabel();
-  
-  /** The border 4. */
   Border border4;
 
-  /**
-   * Instantiates a new event notification dialog.
-   *
-   * @param title the title
-   * @param time the time
-   * @param text the text
-   */
   public EventNotificationDialog(String title, String time, String text) {
     super();
     this.setTitle(title);
@@ -89,18 +58,9 @@ public class EventNotificationDialog extends JFrame {
     //jButton1.requestFocus();
   }
 
-  /**
-   * Instantiates a new event notification dialog.
-   */
   public EventNotificationDialog() {
     this("", "", "");
   }
-  
-  /**
-   * Jb init.
-   *
-   * @throws Exception the exception
-   */
   void jbInit() throws Exception {
     this.setResizable(false);
     this.setIconImage(new ImageIcon(EventNotificationDialog.class.getResource("resources/icons/jnotes16.png")).getImage());
@@ -137,18 +97,10 @@ public class EventNotificationDialog extends JFrame {
     playSoundNotification();
   }
 
-  /**
-   * J button 1 action performed.
-   *
-   * @param e the e
-   */
   void jButton1_actionPerformed(ActionEvent e) {
        this.dispose();
   }
   
-  /**
-   * Play sound notification.
-   */
   private void playSoundNotification() {
 		if (Configuration.get("NOTIFY_SOUND").equals("DISABLED"))
 			return;

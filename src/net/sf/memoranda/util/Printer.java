@@ -12,46 +12,23 @@ import java.awt.event.ActionEvent;
 import net.sf.memoranda.ui.ExceptionDialog;
 import net.sf.memoranda.ui.htmleditor.HTMLEditor;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Printer.
- */
 public class Printer implements Printable{
 
-	/** The editor. */
 	HTMLEditor editor = null;
-	
-	/** The g. */
 	Graphics g;
 	
-	/**
-	 * Instantiates a new printer.
-	 *
-	 * @param editor the editor
-	 */
 	public Printer(HTMLEditor editor) {
 		this.editor = editor;
 	}
 	
-	/**
-	 * Instantiates a new printer.
-	 *
-	 * @param g the g
-	 */
 	public Printer(Graphics g){
 		this.g = g;
 	}
 
 	
-	/** The text. */
 	public String text;
-	
-	/** The cl. */
 	Class cl = net.sf.memoranda.ui.htmleditor.HTMLEditor.class;
 	
-	/* (non-Javadoc)
-	 * @see java.awt.print.Printable#print(java.awt.Graphics, java.awt.print.PageFormat, int)
-	 */
 	public int print(Graphics g, PageFormat pf, int page) throws PrinterException{
 		
 		if(page > 0) {
@@ -68,7 +45,6 @@ public class Printer implements Printable{
 	}
 	
 	
-	/** The print action. */
 	public Action printAction = new AbstractAction(Local.getString("Print"),new ImageIcon(net.sf.memoranda.ui.AppFrame.class
 			.getResource("resources/icons/print.png"))){
 		public void actionPerformed(ActionEvent e){
@@ -76,9 +52,6 @@ public class Printer implements Printable{
 		}
 	};
 	
-	/**
-	 * Prints the job.
-	 */
 	void printJob(){
 		text = editor.editor.getText();
 		PrinterJob job = PrinterJob.getPrinterJob();
@@ -94,7 +67,6 @@ public class Printer implements Printable{
 		}
 	}
 	
-	/** The print event action. */
 	public Action printEventAction = new AbstractAction(Local.getString("Print"),new ImageIcon(net.sf.memoranda.ui.AppFrame.class
 			.getResource("resources/icons/print.png"))){
 		public void actionPerformed(ActionEvent e){
@@ -102,9 +74,6 @@ public class Printer implements Printable{
 		}
 	};
 	
-	/**
-	 * Prints the event job.
-	 */
 	void printEventJob(){
 		text = editor.editor.getText();
 		PrinterJob job = PrinterJob.getPrinterJob();

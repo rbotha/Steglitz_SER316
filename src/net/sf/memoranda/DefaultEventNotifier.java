@@ -9,9 +9,8 @@ package net.sf.memoranda;
 
 import net.sf.memoranda.ui.EventNotificationDialog;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class DefaultEventNotifier.
+ *  
  */
 /*$Id: DefaultEventNotifier.java,v 1.4 2004/01/30 12:17:41 alexeya Exp $*/
 public class DefaultEventNotifier implements EventNotificationListener {
@@ -24,9 +23,6 @@ public class DefaultEventNotifier implements EventNotificationListener {
 	}
 
 	/**
-	 * Event is occured.
-	 *
-	 * @param ev the ev
 	 * @see net.sf.memoranda.EventNotificationListener#eventIsOccured(net.sf.memoranda.Event)
 	 */
 	public void eventIsOccured(Event ev) {		
@@ -35,10 +31,7 @@ public class DefaultEventNotifier implements EventNotificationListener {
 			ev.getTimeString(),
 			ev.getText());
 	}
-	
 	/**
-	 * Events changed.
-	 *
 	 * @see net.sf.memoranda.EventNotificationListener#eventsChanged()
 	 */
 	public void eventsChanged() {

@@ -18,25 +18,16 @@ import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 import net.sf.memoranda.util.Local;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class FileExportDialog.
  *
  * @author  Alex
  */
 public class FileExportDialog extends javax.swing.JDialog {
     
-    /** The cancelled. */
     public boolean CANCELLED = true;
     
     
-    /**
-     *  Creates new form ExportDialog.
-     *
-     * @param parent the parent
-     * @param title the title
-     * @param chooser the chooser
-     */
+    /** Creates new form ExportDialog */
     public FileExportDialog(java.awt.Frame parent, String title, JFileChooser chooser) {
         super(parent, title, true);
         fileChooser = chooser;
@@ -44,9 +35,6 @@ public class FileExportDialog extends javax.swing.JDialog {
     }
     
    
-    /**
-     * Inits the components.
-     */
     private void initComponents() {//GEN-BEGIN:initComponents
     	
     	 /**
@@ -199,25 +187,14 @@ public class FileExportDialog extends javax.swing.JDialog {
        
     }//GEN-END:initComponents
 
-    /**
-     * Xhtml ch B action performed.
-     *
-     * @param evt the evt
-     */
     private void xhtmlChBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xhtmlChBActionPerformed
         // TODO add your handling code here:
     }
 
-    /**
-     * Chooser action performed.
-     */
     private void chooserActionPerformed() {//GEN-FIRST:event_chooserActionPerformed
         okB.setEnabled(fileChooser.getSelectedFile() != null);            
     }
     
-    /**
-     * Browse template.
-     */
     private void browseTemplate() {
     	JFileChooser chooser = new JFileChooser();
         chooser.setFileHidingEnabled(false);
@@ -230,52 +207,22 @@ public class FileExportDialog extends javax.swing.JDialog {
         	templF.setText(chooser.getSelectedFile().getPath());
     }
     
-    /** The cancel B. */
     private javax.swing.JButton cancelB;
-    
-    /** The file chooser. */
     private javax.swing.JFileChooser fileChooser;
     
-    /** The enc panel. */
     private javax.swing.JPanel encPanel;
-    
-    /** The file panel. */
     private javax.swing.JPanel filePanel;
-    
-    /** The j label 2. */
     private javax.swing.JLabel jLabel2;
-    
-    /** The j panel 2. */
     private javax.swing.JPanel jPanel2;
-    
-    /** The j panel 6. */
     private javax.swing.JPanel jPanel6;
-    
-    /** The nument ch B. */
     public javax.swing.JCheckBox numentChB;
-    
-    /** The ok B. */
     private javax.swing.JButton okB;
-    
-    /** The options panel. */
     private javax.swing.JPanel optionsPanel;
-    
-    /** The templ browse B. */
     private javax.swing.JButton templBrowseB;
-    
-    /** The templ F. */
     public javax.swing.JTextField templF;
-    
-    /** The templ panel. */
     private javax.swing.JPanel templPanel;
-    
-    /** The usetempl ch B. */
     public javax.swing.JCheckBox usetemplChB;
-    
-    /** The xhtml ch B. */
     public javax.swing.JCheckBox xhtmlChB;
-    
-    /** The enc CB. */
     public JComboBox encCB;
     // End of variables declaration//GEN-END:variables
     

@@ -12,32 +12,20 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class ExportFilter.
+ * 
  */
 /*$Id: ExportFilter.java,v 1.2 2004/01/30 12:17:41 alexeya Exp $*/
 public class ExportFilter extends FileFilter {
 
-    /** The Constant RTF. */
     public static final String RTF = "RTF";
-    
-    /** The Constant HTML. */
     public static final String HTML = "HTML";
-    
-    /** The Constant XHTML. */
     public static final String XHTML = "XHTML";
-    
-    /** The Constant ZIP. */
     public static final String ZIP = "ZIP";
 
-    /** The type. */
     String _type = "";
-    
     /**
      * Constructor for ExportFilter.
-     *
-     * @param type the type
      */
     public ExportFilter(String type) {
         super();
@@ -45,10 +33,6 @@ public class ExportFilter extends FileFilter {
     }
 
     /**
-     * Accept.
-     *
-     * @param f the f
-     * @return true, if successful
      * @see javax.swing.filechooser.FileFilter#accept(java.io.File)
      */
     public boolean accept(File f) {
@@ -65,9 +49,6 @@ public class ExportFilter extends FileFilter {
     }
 
     /**
-     * Gets the description.
-     *
-     * @return the description
      * @see javax.swing.filechooser.FileFilter#getDescription()
      */
     public String getDescription() {
@@ -80,12 +61,6 @@ public class ExportFilter extends FileFilter {
         return "HTML files (*.html, *.htm)";
     }
 
-    /**
-     * Gets the extension.
-     *
-     * @param f the f
-     * @return the extension
-     */
     private static String getExtension(File f) {
         String ext = "";
         String s = f.getName();

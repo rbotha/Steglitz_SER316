@@ -4,15 +4,8 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ImageFilter.
- */
 public class ImageFilter extends FileFilter {
 
-    /* (non-Javadoc)
-     * @see javax.swing.filechooser.FileFilter#accept(java.io.File)
-     */
     // Accept all directories and all gif, jpg, or tiff files.
     public boolean accept(File f) {
         if (f.isDirectory()) {
@@ -34,9 +27,6 @@ public class ImageFilter extends FileFilter {
         return false;
     }
 
-    /* (non-Javadoc)
-     * @see javax.swing.filechooser.FileFilter#getDescription()
-     */
     // The description of this filter
     public String getDescription() {
         return "Images (GIF, JPEG, PNG)";

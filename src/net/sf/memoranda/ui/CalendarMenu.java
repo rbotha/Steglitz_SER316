@@ -17,77 +17,41 @@ import net.sf.memoranda.date.CurrentDate;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
 
-// TODO: Auto-generated Javadoc
 /**
- * Apr 4, 2017.
- *
+ * Apr 4, 2017
  * @author Jesus Rodriguez Jr
+ *
  */
 public class CalendarMenu extends JPopupMenu{
 	
-	/** The parent panel. */
 	//Set Parent
 	private WorkPanel _parentPanel;
 	
-	/** The dialog. */
 	//dialogs
 	ContactsAddDialog dialog;
 	
 	//menus for popup menu
-	/** The new event. */
 	//Create New menu items
 	JMenuItem newEvent;
-	
-	/** The new task. */
 	JMenuItem newTask;
-	
-	/** The new contact. */
 	JMenuItem newContact;
-	
-	/** The new sticker. */
 	JMenuItem newSticker;
-	
-	/** The task menu. */
 	//GoTo Menu items
 	JMenuItem taskMenu;
-	
-	/** The agenda menu. */
 	JMenuItem agendaMenu;
-	
-	/** The event menu. */
 	JMenuItem eventMenu;
-	
-	/** The note menu. */
 	JMenuItem noteMenu;
-	
-	/** The resource menu. */
 	JMenuItem resourceMenu;
-	
-	/** The contacts menu. */
 	JMenuItem contactsMenu;
-	
-	/** The view weekly. */
 	//View Menut Items
 	JMenuItem viewWeekly;
-	
-	/** The view daily. */
 	JMenuItem viewDaily;
 	
-	/** The create new. */
 	//SubMenu
 	JMenu createNew;
-	
-	/** The go to. */
 	JMenu goTo;
-	
-	/** The view. */
 	JMenu view;
 	
-	/**
-	 * Instantiates a new calendar menu.
-	 *
-	 * @param parentPanel the parent panel
-	 */
 	//Single parameter Constructor
 	public CalendarMenu(WorkPanel parentPanel) {
 		
@@ -229,12 +193,6 @@ public class CalendarMenu extends JPopupMenu{
 		    }
 		});
 	}
-	
-	/**
-	 * Sets the parent panel.
-	 *
-	 * @param p the new parent panel
-	 */
 	//get parent
 	void setParentPanel(WorkPanel p){
 		  _parentPanel = p;

@@ -25,25 +25,14 @@ import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.MimeType;
 import net.sf.memoranda.util.MimeTypesList;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ResourcesTable.
- */
 /*$Id: ResourcesTable.java,v 1.4 2004/04/05 10:05:44 alexeya Exp $*/
 public class ResourcesTable extends JTable {
 
-    /** The files. */
     Vector files = null;
-    
-    /** The sorter. */
     TableSorter sorter = null;
     
-    /** The inet icon. */
     ImageIcon inetIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/mimetypes/inetshortcut.png"));
 
-    /**
-     * Instantiates a new resources table.
-     */
     public ResourcesTable() {
         super();
         initTable();
@@ -64,9 +53,6 @@ public class ResourcesTable extends JTable {
         });
     }
 
-    /**
-     * Inits the colums width.
-     */
     void initColumsWidth() {
         for (int i = 0; i < 4; i++) {
             TableColumn column = getColumnModel().getColumn(i);
@@ -80,9 +66,6 @@ public class ResourcesTable extends JTable {
         }
     }
 
-    /**
-     * Table changed.
-     */
     public void tableChanged() {
         initTable();
         sorter.tableChanged(null);
@@ -90,9 +73,6 @@ public class ResourcesTable extends JTable {
         updateUI();
     }
 
-    /**
-     * Inits the table.
-     */
     public void initTable() {
         Vector v = CurrentProject.getResourcesList().getAllResources();
         files = new Vector();
@@ -109,12 +89,8 @@ public class ResourcesTable extends JTable {
 
     }
     
-     /** The Constant _RESOURCE. */
      public static final int _RESOURCE = 100;
 
-    /* (non-Javadoc)
-     * @see javax.swing.JTable#getCellRenderer(int, int)
-     */
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
 
@@ -141,44 +117,28 @@ public class ResourcesTable extends JTable {
 
     }
 
-    /**
-     * The Class ResourcesTableModel.
-     */
     class ResourcesTableModel extends AbstractTableModel {
 
-        /** The column names. */
         String[] columnNames = {
                 Local.getString("Name"),
                 Local.getString("Type"),
                 Local.getString("Date modified"),
                 Local.getString("Path")};
 
-        /* (non-Javadoc)
-         * @see javax.swing.table.AbstractTableModel#getColumnName(int)
-         */
         public String getColumnName(int i) {
             return columnNames[i];
         }
 
-        /* (non-Javadoc)
-         * @see javax.swing.table.TableModel#getColumnCount()
-         */
         public int getColumnCount() {
             return columnNames.length;
         }
 
-        /* (non-Javadoc)
-         * @see javax.swing.table.TableModel#getRowCount()
-         */
         public int getRowCount() {
             return files.size();
         }
         
        
         
-        /* (non-Javadoc)
-         * @see javax.swing.table.TableModel#getValueAt(int, int)
-         */
         public Object getValueAt(int row, int col) {
             Resource r = (Resource)files.get(row);
             if (col == _RESOURCE)
@@ -208,9 +168,6 @@ public class ResourcesTable extends JTable {
         }
 
         
-/* (non-Javadoc)
- * @see javax.swing.table.AbstractTableModel#getColumnClass(int)
- */
 public Class getColumnClass(int col) {
             try {
             switch (col) {

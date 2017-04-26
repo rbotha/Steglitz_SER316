@@ -9,30 +9,17 @@
 package net.sf.memoranda.ui.htmleditor.util;
 import java.util.Hashtable;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Local.
+ * 
  */
 public class Local {
 
-   /** The messages. */
    static Hashtable messages = null;
    
-   /**
-    * Sets the messages.
-    *
-    * @param msgs the new messages
-    */
    public static void setMessages(Hashtable msgs) {
         messages = msgs;
    }  
    
-   /**
-    * Gets the string.
-    *
-    * @param key the key
-    * @return the string
-    */
    public static String getString(String key) {
         if (messages == null){
             return key;

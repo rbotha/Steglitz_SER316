@@ -16,29 +16,17 @@ package net.sf.memoranda.ui.treetable;
 import javax.swing.tree.*;
 import javax.swing.event.*;
  
-// TODO: Auto-generated Javadoc
 /**
- * The Class AbstractTreeTableModel.
- *
- * @author Philip Milne
  * @version 1.2 10/27/98
  * An abstract implementation of the TreeTableModel interface, handling the list 
  * of listeners. 
+ * @author Philip Milne
  */
 
 public abstract class AbstractTreeTableModel implements TreeTableModel {
-    
-    /** The root. */
     protected Object root;     
-    
-    /** The listener list. */
     protected EventListenerList listenerList = new EventListenerList();
   
-    /**
-     * Instantiates a new abstract tree table model.
-     *
-     * @param root the root
-     */
     public AbstractTreeTableModel(Object root) {
         this.root = root; 
     }
@@ -47,28 +35,16 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
     // Default implmentations for methods in the TreeModel interface. 
     //
 
-    /* (non-Javadoc)
-     * @see javax.swing.tree.TreeModel#getRoot()
-     */
     public Object getRoot() {
         return root;
     }
 
-    /* (non-Javadoc)
-     * @see javax.swing.tree.TreeModel#isLeaf(java.lang.Object)
-     */
     public boolean isLeaf(Object node) {
         return getChildCount(node) == 0; 
     }
 
-    /* (non-Javadoc)
-     * @see javax.swing.tree.TreeModel#valueForPathChanged(javax.swing.tree.TreePath, java.lang.Object)
-     */
     public void valueForPathChanged(TreePath path, Object newValue) {}
 
-    /* (non-Javadoc)
-     * @see javax.swing.tree.TreeModel#getIndexOfChild(java.lang.Object, java.lang.Object)
-     */
     // This is not called in the JTree's default mode: use a naive implementation. 
     public int getIndexOfChild(Object parent, Object child) {
         for (int i = 0; i < getChildCount(parent); i++) {
@@ -79,28 +55,14 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
 	return -1; 
     }
 
-    /* (non-Javadoc)
-     * @see javax.swing.tree.TreeModel#addTreeModelListener(javax.swing.event.TreeModelListener)
-     */
     public void addTreeModelListener(TreeModelListener l) {
         listenerList.add(TreeModelListener.class, l);
     }
 
-    /* (non-Javadoc)
-     * @see javax.swing.tree.TreeModel#removeTreeModelListener(javax.swing.event.TreeModelListener)
-     */
     public void removeTreeModelListener(TreeModelListener l) {
         listenerList.remove(TreeModelListener.class, l);
     }
 
-    /**
-     * Fire tree nodes changed.
-     *
-     * @param source the source
-     * @param path the path
-     * @param childIndices the child indices
-     * @param children the children
-     */
     /*
      * Notify all listeners that have registered interest for
      * notification on this event type.  The event instance 
@@ -127,14 +89,6 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
         }
     }
 
-    /**
-     * Fire tree nodes inserted.
-     *
-     * @param source the source
-     * @param path the path
-     * @param childIndices the child indices
-     * @param children the children
-     */
     /*
      * Notify all listeners that have registered interest for
      * notification on this event type.  The event instance 
@@ -161,14 +115,6 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
         }
     }
 
-    /**
-     * Fire tree nodes removed.
-     *
-     * @param source the source
-     * @param path the path
-     * @param childIndices the child indices
-     * @param children the children
-     */
     /*
      * Notify all listeners that have registered interest for
      * notification on this event type.  The event instance 
@@ -195,14 +141,6 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
         }
     }
 
-    /**
-     * Fire tree structure changed.
-     *
-     * @param source the source
-     * @param path the path
-     * @param childIndices the child indices
-     * @param children the children
-     */
     /*
      * Notify all listeners that have registered interest for
      * notification on this event type.  The event instance 
@@ -233,29 +171,18 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
     // Default impelmentations for methods in the TreeTableModel interface. 
     //
 
-    /* (non-Javadoc)
-     * @see net.sf.memoranda.ui.treetable.TreeTableModel#getColumnClass(int)
-     */
     public Class getColumnClass(int column) { 
     	return Object.class; 
     	}
 
-   /**
-    *  By default, make the column with the Tree in it the only editable one. 
+   /** By default, make the column with the Tree in it the only editable one. 
     *  Making this column editable causes the JTable to forward mouse 
-    *  and keyboard events in the Tree column to the underlying JTree.
-    *
-    * @param node the node
-    * @param column the column
-    * @return true, if is cell editable
+    *  and keyboard events in the Tree column to the underlying JTree. 
     */ 
     public boolean isCellEditable(Object node, int column) { 
          return getColumnClass(column) == TreeTableModel.class; 
     }
 
-    /* (non-Javadoc)
-     * @see net.sf.memoranda.ui.treetable.TreeTableModel#setValueAt(java.lang.Object, java.lang.Object, int)
-     */
     public void setValueAt(Object aValue, Object node, int column) {}
 
 

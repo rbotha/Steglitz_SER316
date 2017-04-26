@@ -27,109 +27,46 @@ import javax.swing.border.EtchedBorder;
 
 import net.sf.memoranda.ui.htmleditor.util.Local;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>Title: </p>
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>.
- *
+ * <p>Company: </p>
  * @author unascribed
  * @version 1.0
  */
 public class ImageDialog extends JDialog implements WindowListener {
-    
-    /** The header panel. */
     JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    
-    /** The header. */
     JLabel header = new JLabel();
-    
-    /** The area panel. */
     JPanel areaPanel = new JPanel(new GridBagLayout());
-    
-    /** The gbc. */
     GridBagConstraints gbc;
-    
-    /** The j label 1. */
     JLabel jLabel1 = new JLabel();
-    
-    /** The file field. */
     public JTextField fileField = new JTextField();
-    
-    /** The browse B. */
     JButton browseB = new JButton();
-    
-    /** The j label 2. */
     JLabel jLabel2 = new JLabel();
-    
-    /** The alt field. */
     public JTextField altField = new JTextField();
-    
-    /** The j label 3. */
     JLabel jLabel3 = new JLabel();
-    
-    /** The width field. */
     public JTextField widthField = new JTextField();
-    
-    /** The j label 4. */
     JLabel jLabel4 = new JLabel();
-    
-    /** The height field. */
     public JTextField heightField = new JTextField();
-    
-    /** The j label 5. */
     JLabel jLabel5 = new JLabel();
-    
-    /** The hspace field. */
     public JTextField hspaceField = new JTextField();
-    
-    /** The j label 6. */
     JLabel jLabel6 = new JLabel();
-    
-    /** The vspace field. */
     public JTextField vspaceField = new JTextField();
-    
-    /** The j label 7. */
     JLabel jLabel7 = new JLabel();
-    
-    /** The border field. */
     public JTextField borderField = new JTextField();
-    
-    /** The j label 8. */
     JLabel jLabel8 = new JLabel();
-    
-    /** The aligns. */
     String[] aligns = {"left", "right", "top", "middle", "bottom", "absmiddle",
         "texttop", "baseline"}; 
-    
-    /** The align CB. */
     // Note: align values are not localized because they are HTML keywords 
     public JComboBox alignCB = new JComboBox(aligns);
-    
-    /** The j label 9. */
     JLabel jLabel9 = new JLabel();
-    
-    /** The url field. */
     public JTextField urlField = new JTextField();
-    
-    /** The buttons panel. */
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-    
-    /** The ok B. */
     JButton okB = new JButton();
-    
-    /** The cancel B. */
     JButton cancelB = new JButton();
-    
-    /** The cancelled. */
     public boolean CANCELLED = false;
 
-    /**
-     * Instantiates a new image dialog.
-     *
-     * @param frame the frame
-     */
     public ImageDialog(Frame frame) {
         super(frame, Local.getString("Image"), true);
         try {
@@ -142,18 +79,10 @@ public class ImageDialog extends JDialog implements WindowListener {
         super.addWindowListener(this);
     }
 
-    /**
-     * Instantiates a new image dialog.
-     */
     public ImageDialog() {
         this(null);
     }
 
-    /**
-     * Jb init.
-     *
-     * @throws Exception the exception
-     */
     void jbInit() throws Exception {
         this.setResizable(false);
         // three Panels, so used BorderLayout for this dialog.
@@ -359,31 +288,15 @@ public class ImageDialog extends JDialog implements WindowListener {
         this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
     }
 
-    /**
-     * Ok B action performed.
-     *
-     * @param e the e
-     */
     void okB_actionPerformed(ActionEvent e) {
         this.dispose();
     }
 
-    /**
-     * Cancel B action performed.
-     *
-     * @param e the e
-     */
     void cancelB_actionPerformed(ActionEvent e) {
         CANCELLED = true;
         this.dispose();
     }
 
-    /**
-     * Gets the preview icon.
-     *
-     * @param file the file
-     * @return the preview icon
-     */
     private ImageIcon getPreviewIcon(java.io.File file) {
         ImageIcon tmpIcon = new ImageIcon(file.getPath());
         ImageIcon thmb = null;
@@ -403,9 +316,6 @@ public class ImageDialog extends JDialog implements WindowListener {
         }
     }
 
-    /**
-     * Update preview.
-     */
     //java.io.File selectedFile = null;
     public void updatePreview() {
         try {
@@ -418,55 +328,23 @@ public class ImageDialog extends JDialog implements WindowListener {
         }
     }
 
-    /* (non-Javadoc)
-     * @see java.awt.event.WindowListener#windowOpened(java.awt.event.WindowEvent)
-     */
     public void windowOpened(WindowEvent e) {
     }
-    
-    /* (non-Javadoc)
-     * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
-     */
     public void windowClosing(WindowEvent e) {
         CANCELLED = true;
         this.dispose();
     }
-    
-    /* (non-Javadoc)
-     * @see java.awt.event.WindowListener#windowClosed(java.awt.event.WindowEvent)
-     */
     public void windowClosed(WindowEvent e) {
     }
-    
-    /* (non-Javadoc)
-     * @see java.awt.event.WindowListener#windowIconified(java.awt.event.WindowEvent)
-     */
     public void windowIconified(WindowEvent e) {
     }
-    
-    /* (non-Javadoc)
-     * @see java.awt.event.WindowListener#windowDeiconified(java.awt.event.WindowEvent)
-     */
     public void windowDeiconified(WindowEvent e) {
     }
-    
-    /* (non-Javadoc)
-     * @see java.awt.event.WindowListener#windowActivated(java.awt.event.WindowEvent)
-     */
     public void windowActivated(WindowEvent e) {
     }
-    
-    /* (non-Javadoc)
-     * @see java.awt.event.WindowListener#windowDeactivated(java.awt.event.WindowEvent)
-     */
     public void windowDeactivated(WindowEvent e) {
     }
 
-    /**
-     * Browse B action performed.
-     *
-     * @param e the e
-     */
     void browseB_actionPerformed(ActionEvent e) {
         // Fix until Sun's JVM supports more locales...
         UIManager.put("FileChooser.lookInLabelText", Local

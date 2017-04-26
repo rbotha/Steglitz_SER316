@@ -13,7 +13,6 @@ import javax.swing.UIManager;
 import net.sf.memoranda.EventsScheduler;
 import net.sf.memoranda.util.Configuration;
 
-// TODO: Auto-generated Javadoc
 /**
  * 
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
@@ -23,19 +22,12 @@ import net.sf.memoranda.util.Configuration;
 public class App {
 	// boolean packFrame = false;
 
-	/** The frame. */
 	static AppFrame frame = null;
 	
-	/** The Constant GUIDE_URL. */
 	public static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
-	
-	/** The Constant BUGS_TRACKER_URL. */
 	public static final String BUGS_TRACKER_URL = "http://sourceforge.net/tracker/?group_id=90997&atid=595566";
-	
-	/** The Constant WEBSITE_URL. */
 	public static final String WEBSITE_URL = "http://memoranda.sourceforge.net";
 
-	/** The splash. */
 	private JFrame splash = null;
 
 	/*========================================================================*/ 
@@ -43,26 +35,15 @@ public class App {
        The actual values are substituted by the Ant build script using 
        'version' property and datestamp.*/
 
-	/** The Constant VERSION_INFO. */
 	public static final String VERSION_INFO = "2.0-rc1.0";
-	
-	/** The Constant BUILD_INFO. */
 	public static final String BUILD_INFO = "20170404.00";
 	
 	/*========================================================================*/
 
-	/**
-	 * Gets the frame.
-	 *
-	 * @return the frame
-	 */
 	public static AppFrame getFrame() {
 		return frame;
 	}
 
-	/**
-	 * Show.
-	 */
 	public void show() {
 		if (frame.isVisible()) {
 			frame.toFront();
@@ -71,11 +52,6 @@ public class App {
 			init();
 	}
 
-	/**
-	 * Instantiates a new app.
-	 *
-	 * @param fullmode the fullmode
-	 */
 	public App(boolean fullmode) {
 		super();
 		if (fullmode)
@@ -123,9 +99,6 @@ public class App {
 			splash.dispose();
 	}
 
-	/**
-	 * Inits the.
-	 */
 	void init() {
 		/*
 		 * if (packFrame) { frame.pack(); } else { frame.validate(); }
@@ -166,9 +139,6 @@ public class App {
 
 	}
 
-	/**
-	 * Close window.
-	 */
 	public static void closeWindow() {
 		if (frame == null)
 			return;

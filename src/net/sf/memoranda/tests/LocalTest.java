@@ -17,42 +17,23 @@ import org.junit.rules.ExpectedException;
 
 import net.sf.memoranda.util.Local;
 
-// TODO: Auto-generated Javadoc
 /**
- * Apr 11, 2017.
- *
+ * Apr 11, 2017
  * @author Jesus Rodriguez Jr
+ *
  */
 public class LocalTest {
-	
-	/** The local. */
 	private Local local= null;
-	
-	/** The months 2. */
 	private String[] months1 = null, months2 = null;
-	
-	/** The week 2. */
 	private String[] week1 = null, week2 = null;
-	
-	/** The config. */
 	private Configuration config =null;
-	
-	/** The date. */
 	private Date date = null;
-	
-	/** The calendar. */
 	private Calendar calendar = null;
-	
-	/** The cal date. */
 	private CalendarDate calDate = null;
-	
-	/** The last yr. */
 	private long lastYr;
 
-	/**
-	 * Method for setting up JUnit testing.
-	 *
-	 * @throws Exception the exception
+	/**Method for setting up JUnit testing
+	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -71,22 +52,16 @@ public class LocalTest {
 		
 	}
 
-	/**
-	 * Method for tearing down JUnit testing.
-	 *
-	 * @throws Exception the exception
+	/**Method for tearing down JUnit testing
+	 * @throws java.lang.Exception
 	 */
 	@After
 	public void tearDown() throws Exception {
 	}
 
-	 /** The exception. */
- 	@Rule
+	 @Rule
 	  public ExpectedException exception = ExpectedException.none();
 
-	/**
-	 * Gets the month names array test.
-	 */
 	@Test
 	public void GetMonthNamesArrayTest() {
 		
@@ -97,9 +72,6 @@ public class LocalTest {
 			
 	}
 	
-	/**
-	 * Gets the month names test.
-	 */
 	@Test
 	public void GetMonthNamesTest() {
 		exception.expect(ArrayIndexOutOfBoundsException.class);
@@ -112,9 +84,6 @@ public class LocalTest {
 		fail(local.getMonthName(12));
 	}
 	
-	/**
-	 * Gets the weekday names array test.
-	 */
 	@Test
 	public void GetWeekdayNamesArrayTest(){
 		
@@ -129,9 +98,6 @@ public class LocalTest {
 		
 	}
 	
-	/**
-	 * Gets the weekday name test.
-	 */
 	@Test
 	public void GetWeekdayNameTest(){
 		exception.expect(ArrayIndexOutOfBoundsException.class);
@@ -144,9 +110,6 @@ public class LocalTest {
 
 	}
 	
-	/**
-	 * Gets the date string test.
-	 */
 	@Test
 	public void GetDateStringTest(){
 		exception.expect(IllegalArgumentException.class);
@@ -172,9 +135,6 @@ public class LocalTest {
 
 	}
 	
-	/**
-	 * Gets the date string calendar test.
-	 */
 	@Test
 	public void GetDateStringCalendarTest(){
 		exception.expect(IllegalArgumentException.class);
@@ -203,9 +163,6 @@ public class LocalTest {
 
 	}
 	
-	/**
-	 * Gets the date string calendar date test.
-	 */
 	@Test
 	public void GetDateStringCalendarDateTest(){
 		exception.expect(IllegalArgumentException.class);
@@ -233,9 +190,6 @@ public class LocalTest {
 
 	}
 	
-	/**
-	 * Gets the date string param test.
-	 */
 	@Test
 	public void GetDateStringParamTest(){
 		exception.expect(IllegalArgumentException.class);
@@ -268,9 +222,6 @@ public class LocalTest {
 
 	}
 	
-	/**
-	 * Gets the time string date test.
-	 */
 	@Test
 	public void GetTimeStringDateTest(){
 		exception.expect(NullPointerException.class);
@@ -287,9 +238,6 @@ public class LocalTest {
 		
 	}
 	
-	/**
-	 * Gets the time string calendar test.
-	 */
 	@Test
 	public void GetTimeStringCalendarTest(){
 		exception.expect(NullPointerException.class);
@@ -309,9 +257,6 @@ public class LocalTest {
 		
 	}
 	
-	/**
-	 * Gets the time string param test.
-	 */
 	@Test
 	public void GetTimeStringParamTest(){
 		exception.expect(NullPointerException.class);
@@ -332,9 +277,6 @@ public class LocalTest {
 		
 	}
 	
-	/**
-	 * Parses the time string test.
-	 */
 	@Test
 	public void ParseTimeStringTest(){
 		exception.expect(NullPointerException.class);
@@ -349,9 +291,6 @@ public class LocalTest {
 		assertNotNull(local.parseTimeString(null));
 	}
 	
-	/**
-	 * Gets the string test.
-	 */
 	@Test
 	public void GetStringTest(){
 		exception.expect(NullPointerException.class);

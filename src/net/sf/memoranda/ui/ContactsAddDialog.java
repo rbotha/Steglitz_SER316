@@ -39,34 +39,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ContactsAddDialog.
- */
 public class ContactsAddDialog extends JFrame {
 
-	/** The content pane. */
 	private JPanel contentPane;
-	
-	/** The txt first name. */
 	private JTextField txtFirstName;
-	
-	/** The txt last name. */
 	private JTextField txtLastName;
-	
-	/** The txt address. */
 	private JTextField txtAddress;
-	
-	/** The txt phone number. */
 	private JTextField txtPhoneNumber;
-	
-	/** The txtfax number. */
 	private JTextField txtfaxNumber;
-	
-	/** The txt other. */
 	private JTextField txtOther;
 	
-	/** The new list. */
 	DefaultListModel<String> newList;
 
 	/**
@@ -76,19 +58,10 @@ public class ContactsAddDialog extends JFrame {
 	
 	/**
 	 * Create the frame.
-	 *
-	 * @param list the list
 	 */
 	public void Invoke(DefaultListModel<String> list){
 		frame = new ContactsAddDialog(list);
 	}
-	
-	/**
-	 * Delete contact.
-	 *
-	 * @param list the list
-	 * @param listModel the list model
-	 */
 	public void deleteContact(JList<String> list, DefaultListModel<String> listModel){
 		int count = 0;
 		if(list.getSelectedIndex() != -1){
@@ -111,17 +84,6 @@ public class ContactsAddDialog extends JFrame {
 			JOptionPane.showMessageDialog(this, Local.getString("No contact selected"));
 		}
 	}
-	
-	/**
-	 * Adds the contact.
-	 *
-	 * @param firstName the first name
-	 * @param lastName the last name
-	 * @param address the address
-	 * @param phoneNumber the phone number
-	 * @param faxNumber the fax number
-	 * @param otherNumber the other number
-	 */
 	private void addContact(String firstName, String lastName, String address, String phoneNumber, String faxNumber, String otherNumber){
 		CSVWriter writer;
 		try {
@@ -147,20 +109,10 @@ public class ContactsAddDialog extends JFrame {
 			new ExceptionDialog(e);
 		}
 	}
-	
-	/**
-	 * Instantiates a new contacts add dialog.
-	 */
 	public ContactsAddDialog() {
 		
 	}
-	 
- 	/**
- 	 * Instantiates a new contacts add dialog.
- 	 *
- 	 * @param list the list
- 	 */
- 	public ContactsAddDialog(DefaultListModel<String> list) {
+	 public ContactsAddDialog(DefaultListModel<String> list) {
 		 
 		 newList = list;
 		 

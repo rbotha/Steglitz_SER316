@@ -14,20 +14,15 @@ import java.net.Socket;
 import net.sf.memoranda.ui.*;
 import net.sf.memoranda.util.Configuration;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Start.
+ *
  */
 /*$Id: Start.java,v 1.7 2004/11/22 10:02:37 alexeya Exp $*/
 public class Start {
     
-    /** The app. */
     static App app = null;
     
-    /** The default port. */
     static int DEFAULT_PORT = 19432;
-    
-    /** The check if already startet. */
     static boolean checkIfAlreadyStartet = true;
     
     static {
@@ -48,11 +43,6 @@ public class Start {
         }
     }
     
-    /**
-     * The main method.
-     *
-     * @param args the arguments
-     */
     public static void main(String[] args) {
         if (checkIfAlreadyStartet) {
             try {

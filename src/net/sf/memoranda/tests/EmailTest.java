@@ -11,21 +11,11 @@ import nu.xom.Attribute;
 import nu.xom.Element;
 
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class EmailTest.
- */
 public class EmailTest {
 	
-	/** The el. */
 	Element el = null;
-	
-	/** The impl. */
 	private EventImpl impl = null;
 	
-	/**
-	 * Setup.
-	 */
 	@Before
 	public void setup(){
 		int hh = 12;
@@ -42,9 +32,6 @@ public class EmailTest {
 		impl = new EventImpl(el);
 	}
 	
-	/**
-	 * Test sending email.
-	 */
 	@Test
 	public void testSendingEmail() {
 		assertTrue(impl.sendEmail());

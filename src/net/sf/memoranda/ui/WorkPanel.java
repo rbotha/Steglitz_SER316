@@ -19,7 +19,6 @@ import javax.swing.border.Border;
 import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.Local;
 
-// TODO: Auto-generated Javadoc
 /**
  * 
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
@@ -27,52 +26,23 @@ import net.sf.memoranda.util.Local;
 
 /*$Id: WorkPanel.java,v 1.9 2004/04/05 10:05:44 alexeya Exp $*/
 public class WorkPanel extends JPanel {
-	
-	/** The border layout 1. */
 	BorderLayout borderLayout1 = new BorderLayout();
-	
-	/** The tool bar. */
 	JToolBar toolBar = new JToolBar();
-	
-	/** The panel. */
 	JPanel panel = new JPanel();
-	
-	/** The card layout 1. */
 	CardLayout cardLayout1 = new CardLayout();
 
-	/** The notes B. */
 	public JButton notesB = new JButton();
-	
-	/** The daily items panel. */
 	public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
-	
-	/** The files panel. */
 	public ResourcesPanel filesPanel = new ResourcesPanel();
-	
-	/** The agenda B. */
 	public JButton agendaB = new JButton();
-	
-	/** The tasks B. */
 	public JButton tasksB = new JButton();
-	
-	/** The events B. */
 	public JButton eventsB = new JButton();
-	
-	/** The files B. */
 	public JButton filesB = new JButton();
-	
-	/** The contacts B. */
 	public JButton contactsB = new JButton();
 	
-	/** The current B. */
 	JButton currentB = null;
-	
-	/** The border 1. */
 	Border border1;
 
-	/**
-	 * Instantiates a new work panel.
-	 */
 	public WorkPanel() {
 		try {
 			jbInit();
@@ -81,11 +51,6 @@ public class WorkPanel extends JPanel {
 		}
 	}
 
-	/**
-	 * Jb init.
-	 *
-	 * @throws Exception the exception
-	 */
 	void jbInit() throws Exception {
 		border1 =
 			BorderFactory.createCompoundBorder(
@@ -281,11 +246,6 @@ public class WorkPanel extends JPanel {
 
 	}
 
-	/**
-	 * Select panel.
-	 *
-	 * @param pan the pan
-	 */
 	public void selectPanel(String pan) {
 		if (pan != null) {
 			if (pan.equals("AGENDA"))
@@ -304,11 +264,6 @@ public class WorkPanel extends JPanel {
 		}
 	}
 
-	/**
-	 * Agenda B action performed.
-	 *
-	 * @param e the e
-	 */
 	public void agendaB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
 		dailyItemsPanel.selectPanel("AGENDA");
@@ -316,11 +271,6 @@ public class WorkPanel extends JPanel {
 		Context.put("CURRENT_PANEL", "AGENDA");
 	}
 
-	/**
-	 * Notes B action performed.
-	 *
-	 * @param e the e
-	 */
 	public void notesB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
 		dailyItemsPanel.selectPanel("NOTES");
@@ -328,11 +278,6 @@ public class WorkPanel extends JPanel {
 		Context.put("CURRENT_PANEL", "NOTES");
 	}
 
-	/**
-	 * Tasks B action performed.
-	 *
-	 * @param e the e
-	 */
 	public void tasksB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
 		dailyItemsPanel.selectPanel("TASKS");
@@ -340,11 +285,6 @@ public class WorkPanel extends JPanel {
 		Context.put("CURRENT_PANEL", "TASKS");
 	}
 
-	/**
-	 * Events B action performed.
-	 *
-	 * @param e the e
-	 */
 	public void eventsB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
 		dailyItemsPanel.selectPanel("EVENTS");
@@ -352,34 +292,17 @@ public class WorkPanel extends JPanel {
 		Context.put("CURRENT_PANEL", "EVENTS");
 	}
 
-	/**
-	 * Files B action performed.
-	 *
-	 * @param e the e
-	 */
 	public void filesB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "FILES");
 		setCurrentButton(filesB);
 		Context.put("CURRENT_PANEL", "FILES");
 	}
-	
-	/**
-	 * Contacts B action performed.
-	 *
-	 * @param e the e
-	 */
 	public void contactsB_actionPerformed(ActionEvent e){
 		cardLayout1.show(panel, "DAILYITEMS");
 		dailyItemsPanel.selectPanel("CONTACTS");
 		setCurrentButton(contactsB);
 		Context.put("CURRENT_PANEL", "CONTACTS");
 	}
-	
-	/**
-	 * Sets the current button.
-	 *
-	 * @param cb the new current button
-	 */
 	void setCurrentButton(JButton cb) {
 		currentB.setBackground(Color.white);
 		currentB.setOpaque(false);

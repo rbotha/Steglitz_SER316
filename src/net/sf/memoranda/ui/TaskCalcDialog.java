@@ -28,57 +28,23 @@ import javax.swing.SwingConstants;
 
 import net.sf.memoranda.util.Local;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class TaskCalcDialog.
- */
 /*$Id: TaskCalcDialog.java,v 1.3 2005/06/10 18:36:24 velhonoja Exp $*/
 public class TaskCalcDialog extends JDialog {
-	
-	/** The top panel. */
 	JPanel topPanel = new JPanel(new BorderLayout());
-	
-	/** The general panel. */
 	JPanel generalPanel = new JPanel(new GridBagLayout());
-	
-	/** The gbc. */
 	GridBagConstraints gbc;
-    
-    /** The cancelled. */
     public boolean CANCELLED = true;
 
-	/** The close group. */
 	ButtonGroup closeGroup = new ButtonGroup();
-	
-	/** The compact dates ch B. */
 	JCheckBox compactDatesChB = new JCheckBox();
-	
-	/** The calc effort ch B. */
 	JCheckBox calcEffortChB = new JCheckBox();
-	
-	/** The calc completion ch B. */
 	JCheckBox calcCompletionChB = new JCheckBox();
-	
-	/** The ok B. */
 	JButton okB = new JButton();
-	
-	/** The cancel B. */
 	JButton cancelB = new JButton();
-	
-	/** The bottom panel. */
 	JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-	
-	/** The label 1. */
 	JLabel label1 = new JLabel();
-	
-	/** The label 2. */
 	JLabel label2 = new JLabel();
 
-	/**
-	 * Instantiates a new task calc dialog.
-	 *
-	 * @param frame the frame
-	 */
 	public TaskCalcDialog(Frame frame) {
 		super(frame, Local.getString("Preferences"), true);
 		try {
@@ -88,18 +54,9 @@ public class TaskCalcDialog extends JDialog {
 		}
 	}
 
-	/**
-	 * Instantiates a new task calc dialog.
-	 */
 	public TaskCalcDialog() {
 		this(null);
 	}
-	
-	/**
-	 * Jb init.
-	 *
-	 * @throws Exception the exception
-	 */
 	void jbInit() throws Exception {
 	    this.setResizable(false);
 		label1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -198,30 +155,17 @@ public class TaskCalcDialog extends JDialog {
 
 	}
 
-	/**
-	 * Sets the values.
-	 */
 	void setValues() {
 		calcCompletionChB.setSelected(true);
 		compactDatesChB.setSelected(true);
 		calcEffortChB.setSelected(true);
 	}
 
-	/**
-	 * Ok B action performed.
-	 *
-	 * @param e the e
-	 */
 	void okB_actionPerformed(ActionEvent e) {
 		CANCELLED = false;
 		this.dispose();
 	}
 
-	/**
-	 * Cancel B action performed.
-	 *
-	 * @param e the e
-	 */
 	void cancelB_actionPerformed(ActionEvent e) {
 		this.dispose();
 	}

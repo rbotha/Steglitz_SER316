@@ -23,17 +23,14 @@ import net.sf.memoranda.Task;
 import net.sf.memoranda.TaskList;
 import net.sf.memoranda.date.CalendarDate;
 import nu.xom.Element;
-// TODO: Auto-generated Javadoc
-
 /**
- * The Class AgendaGenerator.
+ *  
  */
 
 /*$Id: AgendaGenerator.java,v 1.12 2005/06/13 21:25:27 velhonoja Exp $*/
 
 public class AgendaGenerator {
 
-	/** The header. */
 	static String HEADER =
 			"<html><head><title></title>\n"
 					+ "<style>\n"
@@ -45,18 +42,8 @@ public class AgendaGenerator {
 					+ "</style></head>\n"
 					+ "<body><table width=\"100%\" height=\"100%\" border=\"0\" cellpadding=\"4\" cellspacing=\"4\">\n"
 					+ "<tr>\n";
-	
-	/** The footer. */
 	static String FOOTER = "</td></tr></table></body></html>";
 
-	/**
-	 * Generate tasks info.
-	 *
-	 * @param p the p
-	 * @param date the date
-	 * @param expandedTasks the expanded tasks
-	 * @return the string
-	 */
 	static String generateTasksInfo(Project p, CalendarDate date, Collection expandedTasks) {    	    	
 		TaskList tl;
 		if (p.getID().equals(CurrentProject.get().getID())) {
@@ -108,15 +95,8 @@ public class AgendaGenerator {
 	}
 
 	/**
-	 * Expand recursively.
-	 *
-	 * @param p the p
-	 * @param date the date
-	 * @param tl the tl
-	 * @param t the t
-	 * @param expandedTasks the expanded tasks
-	 * @param level the level
-	 * @return the string
+	 * @param t
+	 * @param expandedTasks
 	 */
 	private static String expandRecursively(Project p,CalendarDate date, TaskList tl,Task t, Collection expandedTasks, int level) {
 		Util.debug("Expanding task " + t.getText() + " level " + level);
@@ -145,15 +125,11 @@ public class AgendaGenerator {
 	}
 
 	/**
-	 * Render task.
-	 *
-	 * @param p the p
-	 * @param date the date
-	 * @param tl the tl
-	 * @param t the t
-	 * @param level the level
-	 * @param expandedTasks the expanded tasks
-	 * @return the string
+	 * @param p
+	 * @param date
+	 * @param s
+	 * @param t
+	 * @return
 	 */
 	private static String renderTask(Project p, CalendarDate date, TaskList tl, Task t, int level, Collection expandedTasks) {
 		String s = "";
@@ -263,12 +239,6 @@ public class AgendaGenerator {
 		return s;
 	}
 
-	/**
-	 * Gets the progress.
-	 *
-	 * @param tl the tl
-	 * @return the progress
-	 */
 	static int getProgress(TaskList tl) {
 		Vector v = (Vector) tl.getAllSubTasks(null);
 		if (v.size() == 0)
@@ -281,12 +251,6 @@ public class AgendaGenerator {
 		return (p * 100) / (v.size() * 100);
 	}
 
-	/**
-	 * Gets the priority string.
-	 *
-	 * @param p the p
-	 * @return the priority string
-	 */
 	static String getPriorityString(int p) {
 		switch (p) {
 		case Task.PRIORITY_NORMAL :
@@ -303,14 +267,6 @@ public class AgendaGenerator {
 		return "";
 	}
 
-	/**
-	 * Generate project info.
-	 *
-	 * @param p the p
-	 * @param date the date
-	 * @param expandedTasks the expanded tasks
-	 * @return the string
-	 */
 	static String generateProjectInfo(Project p, CalendarDate date, Collection expandedTasks) {
 		String s = "<h2><a href=\"memoranda:project#"
 				+ p.getID()
@@ -325,13 +281,6 @@ public class AgendaGenerator {
 		return s + generateTasksInfo(p, date,expandedTasks);        
 	}
 
-	/**
-	 * Generate all projects info.
-	 *
-	 * @param date the date
-	 * @param expandedTasks the expanded tasks
-	 * @return the string
-	 */
 	static String generateAllProjectsInfo(CalendarDate date, Collection expandedTasks) {
 		String s =
 				"<td width=\"66%\" valign=\"top\">"
@@ -349,12 +298,6 @@ public class AgendaGenerator {
 		return s + "</td>";
 	}
 
-	/**
-	 * Generate events info.
-	 *
-	 * @param date the date
-	 * @return the string
-	 */
 	static String generateEventsInfo(CalendarDate date) {
 		String s =
 				"<td width=\"34%\" valign=\"top\">"
@@ -415,12 +358,6 @@ public class AgendaGenerator {
 		return s + "</table>";
 	}
 
-	/**
-	 * Generate stickers.
-	 *
-	 * @param date the date
-	 * @return the string
-	 */
 	static String generateStickers(CalendarDate date) {
 		String iurl =
 				net
@@ -460,11 +397,6 @@ public class AgendaGenerator {
 		return s;
 	}
 
-    /**
-     * Sort stickers.
-     *
-     * @return the priority queue
-     */
     private static PriorityQueue sortStickers(){
         Map stickers = EventsManager.getStickers();
         PriorityQueue pQ = new PriorityQueue(stickers.size());
@@ -478,13 +410,6 @@ public class AgendaGenerator {
     	return pQ;
     }
     
-	/**
-	 * Adds the expand hyper link.
-	 *
-	 * @param txt the txt
-	 * @param id the id
-	 * @return the string
-	 */
 	private static String addExpandHyperLink(String txt, String id) {
 		String ret="";
 		int first=txt.indexOf(">");
@@ -493,14 +418,6 @@ public class AgendaGenerator {
 				+"</a>"+txt.substring(last);
 		return ret;
 	}
-	
-	/**
-	 * Adds the edit hyper link.
-	 *
-	 * @param txt the txt
-	 * @param id the id
-	 * @return the string
-	 */
 	private static String addEditHyperLink(String txt, String id) {
 		String ret="";
 		int first=txt.indexOf(">");
@@ -509,13 +426,6 @@ public class AgendaGenerator {
 		 return ret;
 		 }
 	
-	/**
-	 * Gets the agenda.
-	 *
-	 * @param date the date
-	 * @param expandedTasks the expanded tasks
-	 * @return the agenda
-	 */
 	public static String getAgenda(CalendarDate date, Collection expandedTasks) {
 		String s = HEADER;
 		s += generateAllProjectsInfo(date, expandedTasks);

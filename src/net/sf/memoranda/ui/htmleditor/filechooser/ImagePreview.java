@@ -15,24 +15,11 @@ import javax.swing.border.TitledBorder;
 
 import net.sf.memoranda.ui.htmleditor.util.Local;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ImagePreview.
- */
 public class ImagePreview extends JComponent
                           implements PropertyChangeListener {
-    
-    /** The thumbnail. */
     ImageIcon thumbnail = null;
-    
-    /** The file. */
     File file = null;
 
-    /**
-     * Instantiates a new image preview.
-     *
-     * @param fc the fc
-     */
     public ImagePreview(JFileChooser fc) {
         setPreferredSize(new Dimension(100, 50));
         setBorder(new TitledBorder(BorderFactory.createEtchedBorder(), 
@@ -40,9 +27,6 @@ public class ImagePreview extends JComponent
         fc.addPropertyChangeListener(this);
     }
 
-    /**
-     * Load image.
-     */
     public void loadImage() {
         if (file == null) {
             return;
@@ -58,9 +42,6 @@ public class ImagePreview extends JComponent
         }
     }
 
-    /* (non-Javadoc)
-     * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
-     */
     public void propertyChange(PropertyChangeEvent e) {
         String prop = e.getPropertyName();
         if (prop.equals(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY)) {
@@ -72,9 +53,6 @@ public class ImagePreview extends JComponent
         }
     }
 
-    /* (non-Javadoc)
-     * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-     */
     public void paintComponent(Graphics g) {
         if (thumbnail == null) {
             loadImage();

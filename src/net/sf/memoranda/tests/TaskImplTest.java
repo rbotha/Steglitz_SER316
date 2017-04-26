@@ -12,14 +12,9 @@ import org.junit.Test;
 import net.sf.memoranda.TaskImpl;
 import net.sf.memoranda.util.Util;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class TaskImplTest.
- */
 public class TaskImplTest {
-	
 	/**
-	 * Test Getters and Setters for added task attributes.
+	 * Test Getters and Setters for added task attributes
 	 */
 	@Test
 	public void testGettersSetters() {

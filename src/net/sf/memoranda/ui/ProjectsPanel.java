@@ -47,83 +47,36 @@ import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.*;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ProjectsPanel.
- */
 /*$Id: ProjectsPanel.java,v 1.14 2005/01/04 09:59:22 pbielen Exp $*/
 public class ProjectsPanel extends JPanel implements ExpandablePanel {
-	
-	/** The border layout 1. */
 	BorderLayout borderLayout1 = new BorderLayout();
-	
-	/** The top bar. */
 	JToolBar topBar = new JToolBar();
-	
-	/** The toolbar panel. */
 	JPanel toolbarPanel = new JPanel();
-	
-	/** The border layout 2. */
 	BorderLayout borderLayout2 = new BorderLayout();
-	
-	/** The buttons panel. */
 	JPanel buttonsPanel = new JPanel();
-	
-	/** The toggle button. */
 	JButton toggleButton = new JButton();
-	
-	/** The flow layout 1. */
 	FlowLayout flowLayout1 = new FlowLayout();
-	
-	/** The exp listeners. */
 	Vector expListeners = new Vector();
-	
-	/** The expanded. */
 	boolean expanded = false;
-	
-	/** The exp icon. */
 	ImageIcon expIcon =
 		new ImageIcon(
 			net.sf.memoranda.ui.AppFrame.class.getResource(
 				"resources/icons/exp_panel.png"));
-	
-	/** The coll icon. */
 	ImageIcon collIcon =
 		new ImageIcon(
 			net.sf.memoranda.ui.AppFrame.class.getResource(
 				"resources/icons/coll_panel.png"));
-	
-	/** The cur project title. */
 	JLabel curProjectTitle = new JLabel();
-	
-	/** The component 1. */
 	Component component1;
-	
-	/** The projects PP menu. */
 	JPopupMenu projectsPPMenu = new JPopupMenu();
-	
-	/** The pp new project. */
 	JMenuItem ppNewProject = new JMenuItem();
-	
-	/** The pp properties. */
 	JMenuItem ppProperties = new JMenuItem();
-	
-	/** The pp delete project. */
 	JMenuItem ppDeleteProject = new JMenuItem();
-	
-	/** The pp open project. */
 	JMenuItem ppOpenProject = new JMenuItem();	
-	
-	/** The pp show active only ch B. */
 	JCheckBoxMenuItem ppShowActiveOnlyChB = new JCheckBoxMenuItem();
-	
-	/** The pp open B. */
 	JButton ppOpenB = new JButton();
-	
-	/** The prj table panel. */
 	ProjectsTablePanel prjTablePanel = new ProjectsTablePanel();
 
-	/** The new project action. */
 	public Action newProjectAction =
 		new AbstractAction(
 			Local.getString("New project") + "...",
@@ -137,9 +90,6 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
                 };
 
 	
-	/**
-	 * Instantiates a new projects panel.
-	 */
 	public ProjectsPanel() {
 		try {
 			jbInit();
@@ -148,11 +98,6 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		}
 	}
 
-	/**
-	 * Jb init.
-	 *
-	 * @throws Exception the exception
-	 */
 	void jbInit() throws Exception {
 		component1 = Box.createHorizontalStrut(20);
 		this.setLayout(borderLayout1);
@@ -343,46 +288,21 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
                         });
 	}
 
-	/**
-	 * The listener interface for receiving popup events.
-	 * The class that is interested in processing a popup
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addPopupListener<code> method. When
-	 * the popup event occurs, that object's appropriate
-	 * method is invoked.
-	 *
-	 * @see PopupEvent
-	 */
 	class PopupListener extends MouseAdapter {
 
-		/* (non-Javadoc)
-		 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
-		 */
 		public void mouseClicked(MouseEvent e) {
 			if (e.getClickCount() == 2)
 				ppOpenProject_actionPerformed(null);
 		}
 
-		/* (non-Javadoc)
-		 * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
-		 */
 		public void mousePressed(MouseEvent e) {
 			maybeShowPopup(e);
 		}
 
-		/* (non-Javadoc)
-		 * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
-		 */
 		public void mouseReleased(MouseEvent e) {
 			maybeShowPopup(e);
 		}
 
-		/**
-		 * Maybe show popup.
-		 *
-		 * @param e the e
-		 */
 		private void maybeShowPopup(MouseEvent e) {
 			if (e.isPopupTrigger()) {
 				projectsPPMenu.show(e.getComponent(), e.getX(), e.getY());
@@ -390,11 +310,6 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		}
 	}
 
-	/**
-	 * Toggle button action performed.
-	 *
-	 * @param e the e
-	 */
 	void toggleButton_actionPerformed(ActionEvent e) {
 		for (int i = 0; i < expListeners.size(); i++)
 			((ActionListener) expListeners.get(i)).actionPerformed(
@@ -408,18 +323,10 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see net.sf.memoranda.ui.ExpandablePanel#AddExpandListener(java.awt.event.ActionListener)
-	 */
 	public void AddExpandListener(ActionListener al) {
 		expListeners.add(al);
 	}
 
-	/**
-	 * Pp open B action performed.
-	 *
-	 * @param e the e
-	 */
 	void ppOpenB_actionPerformed(ActionEvent e) {
 		projectsPPMenu.show(
 			buttonsPanel,
@@ -428,11 +335,6 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 			(int) ppOpenB.getLocation().getY() + 24);
 	}
 
-	/**
-	 * Pp open project action performed.
-	 *
-	 * @param e the e
-	 */
 	void ppOpenProject_actionPerformed(ActionEvent e) {
 		CurrentProject.set(prjTablePanel.getSelectedProject());
 		prjTablePanel.updateUI();
@@ -440,21 +342,11 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		ppOpenProject.setEnabled(false);
 	}
 
-	/**
-	 * Pp new project action performed.
-	 *
-	 * @param e the e
-	 */
 	void ppNewProject_actionPerformed(ActionEvent e) {
 		ProjectDialog.newProject();
 		prjTablePanel.updateUI();
 	}
 
-	/**
-	 * Pp delete project action performed.
-	 *
-	 * @param e the e
-	 */
 	void ppDeleteProject_actionPerformed(ActionEvent e) {
 		String msg;
 		Project prj;
@@ -508,11 +400,6 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		setMenuEnabled(false);
 	}
 
-	/**
-	 * Pp properties action performed.
-	 *
-	 * @param e the e
-	 */
 	void ppProperties_actionPerformed(ActionEvent e) {
 		Project prj = prjTablePanel.getSelectedProject();
 		ProjectDialog dlg =
@@ -555,11 +442,6 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		 */
 	}
 
-	/**
-	 * Pp show active only ch B action performed.
-	 *
-	 * @param e the e
-	 */
 	void ppShowActiveOnlyChB_actionPerformed(ActionEvent e) {
 		prjTablePanel.setShowActiveOnly(ppShowActiveOnlyChB.isSelected());
 		Context.put(
@@ -567,11 +449,6 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 			new Boolean(ppShowActiveOnlyChB.isSelected()));
 	}
 
-	/**
-	 * Sets the menu enabled.
-	 *
-	 * @param enabled the new menu enabled
-	 */
 	void setMenuEnabled(boolean enabled) {
 		ppDeleteProject.setEnabled(enabled);
 		ppOpenProject.setEnabled(enabled);

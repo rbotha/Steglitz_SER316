@@ -26,7 +26,6 @@ import net.sf.memoranda.Task;
 import net.sf.memoranda.util.Local;
 import net.sf.memoranda.util.Util;
 
-// TODO: Auto-generated Javadoc
 /**
  * JPanel class for creating activity feed on recently created or updated items.
  * Apr 5, 2017
@@ -36,44 +35,23 @@ import net.sf.memoranda.util.Util;
 @SuppressWarnings({ "rawtypes", "serial","unchecked" })
 public class ActivityFeedPanel extends JPanel{
 	
-	/** The note. */
 	//Create Arrays of Notes and Task to be Initialized later.
 	private ArrayList<Note> note = null;
-	
-	/** The task. */
 	private ArrayList<Task> task = null;
-	
-	/** The activity feed. */
 	private ActivityFeed activityFeed = new ActivityFeed();
-	
-	/** The feed. */
 	//JScrollPane to hold "model" and "time" Jlist
 	private JScrollPane feed = new JScrollPane();
-	
-	/** The recent label. */
 	private JLabel recentLabel = null;
-	
-	/** The name. */
 	//Holds actual list of last edited task and notes
 	private DefaultListModel name = new DefaultListModel();
-	
-	/** The time. */
 	private DefaultListModel time = new DefaultListModel();
-	
-	/** The border 1. */
 	private Border border1;//Default border
 	
-	/**
-	 * Instantiates a new activity feed panel.
-	 */
 	//Default Constructor, calls execution method
 	public ActivityFeedPanel(){
 		jbInit();
 	}//End of Contstructor
 	
-	/**
-	 * Jb init.
-	 */
 	//Create activity feed and show recently edited items.
 	private void jbInit()
 	{//Beginning of method
@@ -119,9 +97,7 @@ public class ActivityFeedPanel extends JPanel{
 
 	
 	/**
-	 * This method is for refreshing the list to display recently edited items.
-	 *
-	 * @return true, if successful
+	 * This method is for refreshing the list to display recently edited items
 	 */
 	public boolean refresh()
 	{
@@ -135,11 +111,6 @@ public class ActivityFeedPanel extends JPanel{
 
 	}//End of public method
 	
-	/**
-	 * Creates the list.
-	 *
-	 * @return true, if successful
-	 */
 	/*
 	 * Method for adding all task and notes by name and timestamp to activity feed object.
 	 * Clears all arrays.

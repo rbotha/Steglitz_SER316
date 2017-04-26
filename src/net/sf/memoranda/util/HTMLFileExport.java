@@ -24,45 +24,21 @@ import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.cyberneko.html.parsers.SAXParser;
 import org.xml.sax.InputSource;
-// TODO: Auto-generated Javadoc
-
 /**
- * The Class HTMLFileExport.
+ * 
  */
 /*$Id: HTMLFileExport.java,v 1.7 2005/07/05 08:17:28 alexeya Exp $*/
 public class HTMLFileExport {
     
-    /** The charset. */
     String charset = "";
-    
-    /** The f. */
     File f = null;
-    
-    /** The doc. */
     HTMLDocument doc;
-    
-    /** The note. */
     Note note = null;
-    
-    /** The xhtml. */
     boolean xhtml = false;
-    
-    /** The num. */
     boolean num = false;
-    
-    /** The templ file. */
     String templFile = null;
-    
     /**
      * Constructor for HTMLFileExport.
-     *
-     * @param f the f
-     * @param doc the doc
-     * @param note the note
-     * @param charset the charset
-     * @param num the num
-     * @param templFile the templ file
-     * @param xhtml the xhtml
      */
     public HTMLFileExport(File f, Document doc, Note note, String charset, boolean num, String templFile, boolean xhtml) {
         this.f = f;
@@ -75,9 +51,6 @@ public class HTMLFileExport {
         doExport();
     }
     
-    /**
-     * Do export.
-     */
     private void doExport() {
         try {
                     //FileWriter fw = new FileWriter(f);
@@ -112,13 +85,7 @@ public class HTMLFileExport {
         }
 	 
      
-	 /**
- 	 * Gets the template string.
- 	 *
- 	 * @param templF the templ F
- 	 * @return the template string
- 	 */
- 	private String getTemplateString(String templF) {		
+	 private String getTemplateString(String templF) {		
 	    if ((templF != null) && (templF.length() >0)) {
     		File f = new File(templF);			
 			String text = "";	
@@ -143,12 +110,7 @@ public class HTMLFileExport {
 		return "<html>\n<head>\n@METACHARSET@\n<title>@TITLE@ - @PROJECT@</title>\n</head>\n<body>\n@CONTENT@\n</body>\n</html>";
 	 }
      
-	 /**
- 	 * Apply template.
- 	 *
- 	 * @return the string
- 	 */
- 	private String applyTemplate() {
+	 private String applyTemplate() {
         String body = getNoteBody();        
 		String title = note != null? note.getTitle() : "";
 		String id = note != null? note.getId() : "";
@@ -170,11 +132,6 @@ public class HTMLFileExport {
 		return templ;
      }
      
-     /**
-      * Gets the note body.
-      *
-      * @return the note body
-      */
      private String getNoteBody() {
         String text = "";
         StringWriter sw = new StringWriter();
@@ -197,12 +154,6 @@ public class HTMLFileExport {
         return text;
      }
      
-     /**
-      * Convert to XHTML.
-      *
-      * @param in the in
-      * @return the string
-      */
      public static String convertToXHTML(String in) {       
         SAXParser parser = new SAXParser();
         InputSource source;

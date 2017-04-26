@@ -43,80 +43,30 @@ import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Local;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ProjectDialog.
- */
 /*$Id: ProjectDialog.java,v 1.26 2004/10/18 19:09:10 ivanrise Exp $*/
 public class ProjectDialog extends JDialog {
-    
-    /** The cancelled. */
     public boolean CANCELLED = true;
-    
-    /** The ignore start changed. */
     boolean ignoreStartChanged = false;
-    
-    /** The ignore end changed. */
     boolean ignoreEndChanged = false;
-    
-    /** The end cal frame. */
     CalendarFrame endCalFrame = new CalendarFrame();
-    
-    /** The start cal frame. */
     CalendarFrame startCalFrame = new CalendarFrame();
-    
-    /** The gbc. */
     GridBagConstraints gbc;
-    
-    /** The top panel. */
     JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    
-    /** The header. */
     JLabel header = new JLabel();
-    
-    /** The center panel. */
     JPanel centerPanel = new JPanel(new GridBagLayout());
-    
-    /** The title label. */
     JLabel titleLabel = new JLabel();
-    
-    /** The pr title field. */
     public JTextField prTitleField = new JTextField();
-    
-    /** The sd label. */
     JLabel sdLabel = new JLabel();
-    
-    /** The start date. */
     public JSpinner startDate = new JSpinner(new SpinnerDateModel());
-    
-    /** The sd button. */
     JButton sdButton = new JButton();
-    
-    /** The end date ch B. */
     public JCheckBox endDateChB = new JCheckBox();
-    
-    /** The end date. */
     public JSpinner endDate = new JSpinner(new SpinnerDateModel());
-    
-    /** The ed button. */
     JButton edButton = new JButton();
-    
-    /** The bottom panel. */
     //public JCheckBox freezeChB = new JCheckBox();
     JPanel bottomPanel = new JPanel();
-    
-    /** The ok button. */
     JButton okButton = new JButton();
-    
-    /** The cancel button. */
     JButton cancelButton = new JButton();
     
-    /**
-     * Instantiates a new project dialog.
-     *
-     * @param frame the frame
-     * @param title the title
-     */
     public ProjectDialog(Frame frame, String title) {
         super(frame, title, true);
         try {
@@ -128,11 +78,6 @@ public class ProjectDialog extends JDialog {
         }
     }
 
-    /**
-     * Jb init.
-     *
-     * @throws Exception the exception
-     */
     void jbInit() throws Exception {
 	this.setResizable(false);
         getContentPane().setLayout(new GridBagLayout());
@@ -341,30 +286,15 @@ public class ProjectDialog extends JDialog {
             });
     }
     
-    /**
-     * Ok button action performed.
-     *
-     * @param e the e
-     */
     void okButton_actionPerformed(ActionEvent e) {
         CANCELLED = false;
         this.dispose();
     }
     
-    /**
-     * Cancel button action performed.
-     *
-     * @param e the e
-     */
     void cancelButton_actionPerformed(ActionEvent e) {
         this.dispose();
     }
     
-    /**
-     * End date ch B action performed.
-     *
-     * @param e the e
-     */
     void endDateChB_actionPerformed(ActionEvent e) {
         endDate.setEnabled(endDateChB.isSelected());
         edButton.setEnabled(endDateChB.isSelected());
@@ -375,11 +305,6 @@ public class ProjectDialog extends JDialog {
         else endDateChB.setForeground(Color.GRAY);
     }
     
-    /**
-     * Sd button action performed.
-     *
-     * @param e the e
-     */
     void sdButton_actionPerformed(ActionEvent e) {
         //startCalFrame.setLocation(sdButton.getLocation());
         startCalFrame.setLocation(0, 0);
@@ -390,11 +315,6 @@ public class ProjectDialog extends JDialog {
         startCalFrame.show();
     }
     
-    /**
-     * Ed button action performed.
-     *
-     * @param e the e
-     */
     void edButton_actionPerformed(ActionEvent e) {
         endCalFrame.setLocation((this.getContentPane().getWidth() / 2),0);
         endCalFrame.setSize((this.getContentPane().getWidth() / 2), 
@@ -404,9 +324,6 @@ public class ProjectDialog extends JDialog {
         endCalFrame.show();
     }
     
-    /**
-     * New project.
-     */
     public static void newProject() {
         ProjectDialog dlg = new ProjectDialog(null, Local.getString("New project"));
         

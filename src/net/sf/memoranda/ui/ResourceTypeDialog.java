@@ -29,50 +29,21 @@ import javax.swing.border.TitledBorder;
 
 import net.sf.memoranda.util.Local;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ResourceTypeDialog.
- */
 /*$Id: ResourceTypeDialog.java,v 1.11 2004/07/01 14:44:10 pbielen Exp $*/
 public class ResourceTypeDialog extends JDialog {
-    
-    /** The cancel B. */
     JButton cancelB = new JButton();
-    
-    /** The buttons panel. */
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-    
-    /** The header. */
     JLabel header = new JLabel();
-    
-    /** The dialog title panel. */
     JPanel dialogTitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    
-    /** The ok B. */
     JButton okB = new JButton();
-    
-    /** The area panel. */
     ResourceTypePanel areaPanel = new ResourceTypePanel();
     //JPanel mPanel = new JPanel(new BorderLayout());
 
-    /** The border 2. */
     Border border2;
-    
-    /** The titled border 2. */
     TitledBorder titledBorder2;
-    
-    /** The ext. */
     public String ext = "";
-    
-    /** The cancelled. */
     boolean CANCELLED = true;
 
-    /**
-     * Instantiates a new resource type dialog.
-     *
-     * @param frame the frame
-     * @param title the title
-     */
     public ResourceTypeDialog(JFrame frame, String title) {
         super(frame, title, true);
         try {
@@ -84,11 +55,6 @@ public class ResourceTypeDialog extends JDialog {
         }
     }
 
-    /**
-     * Jb init.
-     *
-     * @throws Exception the exception
-     */
     void jbInit() throws Exception {
     	   getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
    	            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel"); //$NON-NLS-1$
@@ -140,30 +106,14 @@ public class ResourceTypeDialog extends JDialog {
 
 
 
-    /**
-     * Cancel B action performed.
-     *
-     * @param e the e
-     */
     void cancelB_actionPerformed(ActionEvent e) {
         this.dispose();
     }
-    
-    /**
-     * Ok B action performed.
-     *
-     * @param e the e
-     */
     void okB_actionPerformed(ActionEvent e) {
         CANCELLED = false;
         this.dispose();
     }
 
-    /**
-     * Gets the types list.
-     *
-     * @return the types list
-     */
     public JList getTypesList() {
       return areaPanel.typesList;
     }

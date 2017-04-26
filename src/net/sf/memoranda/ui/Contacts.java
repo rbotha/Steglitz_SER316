@@ -32,32 +32,15 @@ import java.awt.event.*;
 
 import java.util.*;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Contacts.
- */
 public class Contacts extends JPanel{
 	
-	/** The parent panel. */
 	DailyItemsPanel parentPanel = null;
 	
-	/** The list model. */
 	DefaultListModel<String> listModel = new DefaultListModel<String>();
-	
-	/** The list. */
 	JList<String> list = new JList<String>(listModel);
-	
-	/** The dialog. */
 	ContactsAddDialog dialog;
-	
-	/** The scroll pane. */
 	JScrollPane scrollPane = new JScrollPane();
 	
-	/**
-	 * Instantiates a new contacts.
-	 *
-	 * @param _parentPanel the parent panel
-	 */
 	public Contacts(DailyItemsPanel _parentPanel) {
         try {
             parentPanel = _parentPanel;
@@ -68,9 +51,6 @@ public class Contacts extends JPanel{
         }
     }
 	
-	/**
-	 * Refresh contacts.
-	 */
 	public void RefreshContacts(){
 		try {
 			CSVReader reader = new CSVReader(new FileReader(Contact.LibraryFile()));
@@ -88,9 +68,6 @@ public class Contacts extends JPanel{
 			}
 	}
 	
-	/**
-	 * Load contacts.
-	 */
 	void loadContacts(){
 		listModel.clear();
 		File f = new File(Contact.LibraryFile());
@@ -109,11 +86,6 @@ public class Contacts extends JPanel{
 		}
 	}
 	
-	/**
-	 * Jb init.
-	 *
-	 * @throws Exception the exception
-	 */
 	void jbInit() throws Exception {
 		
 		dialog = new ContactsAddDialog();
@@ -162,12 +134,6 @@ public class Contacts extends JPanel{
 
 		
 	}
-	
-	/**
-	 * Gets the list.
-	 *
-	 * @return the list
-	 */
 	//get List
 	DefaultListModel<String> getList(){
 		return listModel;

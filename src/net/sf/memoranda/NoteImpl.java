@@ -14,24 +14,17 @@ import net.sf.memoranda.date.CalendarDate;
 import nu.xom.Attribute;
 import nu.xom.Element;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class NoteImpl.
+ * 
  */
 /*$Id: NoteImpl.java,v 1.6 2004/10/06 19:15:44 ivanrise Exp $*/
 public class NoteImpl implements Note, Comparable {
     
-    /** The el. */
     private Element _el = null; 
-    
-    /** The project. */
     private Project _project;
     
     /**
      * Constructor for NoteImpl.
-     *
-     * @param el the el
-     * @param project the project
      */
     public NoteImpl(Element el, Project project) {
         _el = el;
@@ -39,9 +32,6 @@ public class NoteImpl implements Note, Comparable {
     }
 
     /**
-     * Gets the date.
-     *
-     * @return the date
      * @see net.sf.memoranda.Note#getDate()
      */
     public CalendarDate getDate() {
@@ -57,17 +47,10 @@ public class NoteImpl implements Note, Comparable {
 
     }
     
-    /* (non-Javadoc)
-     * @see net.sf.memoranda.Note#getProject()
-     */
     public Project getProject() {
         return _project;
     }
-    
     /**
-     * Gets the title.
-     *
-     * @return the title
      * @see net.sf.memoranda.Note#getTitle()
      */
     public String getTitle() {
@@ -75,11 +58,7 @@ public class NoteImpl implements Note, Comparable {
         if (ta == null) return "";
         return _el.getAttribute("title").getValue();
     }
-    
     /**
-     * Sets the title.
-     *
-     * @param s the new title
      * @see net.sf.memoranda.Note#setTitle(java.lang.String)
      */
     public void setTitle(String s) {
@@ -90,11 +69,8 @@ public class NoteImpl implements Note, Comparable {
     }
 	
 	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 * @see net.sf.memoranda.Note#getId
-	 */
+     * @see net.sf.memoranda.Note#getId
+     */
 	
 	public String getId() {
 		Attribute id = _el.getAttribute("refid");
@@ -103,31 +79,20 @@ public class NoteImpl implements Note, Comparable {
 	}
 	
 	/**
-	 * Sets the id.
-	 *
-	 * @param s the new id
-	 * @see net.sf.memoranda.Note#setId(java.lang.String)
-	 */
+     * @see net.sf.memoranda.Note#setId(java.lang.String)
+     */
 	 
 	public void setId(String s) {
 		Attribute id = _el.getAttribute("refid");
 		if(id==null) _el.addAttribute(new Attribute("refid", s));
 	}
-    
     /**
-     * Checks if is marked.
-     *
-     * @return true, if is marked
      * @see net.sf.memoranda.Note#isMarked()
      */
     public boolean isMarked() {
         return _el.getAttribute("bookmark") != null;        
     }
-    
     /**
-     * Sets the mark.
-     *
-     * @param mark the new mark
      * @see net.sf.memoranda.Note#setMark(boolean)
      */
     public void setMark(boolean mark) {
@@ -141,9 +106,6 @@ public class NoteImpl implements Note, Comparable {
             _el.removeAttribute(ma);
     }
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
 	/*
 	 * Comparable interface
 	 */

@@ -12,63 +12,36 @@ import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.Vector;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class CurrentStorage.
+ * 
  */
 /*$Id: CurrentStorage.java,v 1.3 2004/01/30 12:17:42 alexeya Exp $*/
 public class CurrentStorage {
     
     /**
-     * The storage.
-     *
      * @todo: implement storage congiguration
      */
     private static Storage _storage = new FileStorage();
     
-    /** The action listeners. */
     private static Vector actionListeners = new Vector();
     
-    /**
-     * Gets the.
-     *
-     * @return the storage
-     */
     public static Storage get() {
         return _storage;
     }
     
-    /**
-     * Sets the.
-     *
-     * @param storage the storage
-     */
     public static void set(Storage storage) {
         _storage = storage;
         storageChanged();
     }
     
-    /**
-     * Adds the change listener.
-     *
-     * @param al the al
-     */
     public static void addChangeListener(ActionListener al) {
         actionListeners.add(al);
     }
 
-    /**
-     * Gets the change listeners.
-     *
-     * @return the change listeners
-     */
     public static Collection getChangeListeners() {
         return actionListeners;
     }
     
-    /**
-     * Storage changed.
-     */
     private static void storageChanged() {
         for (int i = 0; i < actionListeners.size(); i++)
             ((ActionListener)actionListeners.get(i)).actionPerformed(new ActionEvent(null,0,"Current storage changed"));

@@ -16,32 +16,22 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-// TODO: Auto-generated Javadoc
 /**
 Class:	EventDialogTest
 
 Description:  JUnit test class for EventDialog.java
 */
 public class EventDialogTest {
-	
-	/** The E frame. */
 	private JFrame EFrame;
-	
-	/** The Event diag. */
 	private EventDialog EventDiag;
-	
-	/** The Rob. */
 	private Robot Rob;              //rob the robot, he terminates with the esc key.
-	
 	/**
-	 * 	  Method: setUP
-	 * 	  Inputs:
-	 * 	  Returns:
-	 * 
-	 * 	  Description:  Creates JFrame, EventDialog, and Robot instances.
-	 *
-	 * @throws Exception the exception
-	 */
+	  Method: setUP
+	  Inputs:
+	  Returns:
+
+	  Description:  Creates JFrame, EventDialog, and Robot instances
+	*/
 	@Before
 	public void setUp() throws Exception {
 		EFrame = new JFrame("eventDialogue");
@@ -49,11 +39,6 @@ public class EventDialogTest {
 		Rob = new Robot();		
 	}
 
-	/**
-	 * Tear down.
-	 *
-	 * @throws Exception the exception
-	 */
 	@After
 	public void tearDown() throws Exception {
 	}

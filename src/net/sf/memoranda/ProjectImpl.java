@@ -13,29 +13,22 @@ import net.sf.memoranda.date.CurrentDate;
 import nu.xom.Attribute;
 import nu.xom.Element;
 
-// TODO: Auto-generated Javadoc
 /**
- * Default implementation of Project interface.
+ * Default implementation of Project interface
  */
 /*$Id: ProjectImpl.java,v 1.7 2004/11/22 10:02:37 alexeya Exp $*/
 public class ProjectImpl implements Project {
 
-    /** The root. */
     private Element _root = null;
 
     /**
      * Constructor for ProjectImpl.
-     *
-     * @param root the root
      */
     public ProjectImpl(Element root) {        
         _root = root;
     }
 
     /**
-     * Gets the id.
-     *
-     * @return the id
      * @see net.sf.memoranda.Project#getID()
      */
     public String getID() {
@@ -43,9 +36,6 @@ public class ProjectImpl implements Project {
     }
 
     /**
-     * Gets the start date.
-     *
-     * @return the start date
      * @see net.sf.memoranda.Project#getStartDate()
      */
     public CalendarDate getStartDate() {
@@ -55,9 +45,6 @@ public class ProjectImpl implements Project {
     }
 
     /**
-     * Sets the start date.
-     *
-     * @param date the new start date
      * @see net.sf.memoranda.Project#setStartDate(net.sf.memoranda.util.CalendarDate)
      */
     public void setStartDate(CalendarDate date) {
@@ -66,9 +53,6 @@ public class ProjectImpl implements Project {
     }
 
     /**
-     * Gets the end date.
-     *
-     * @return the end date
      * @see net.sf.memoranda.Project#getEndDate()
      */
     public CalendarDate getEndDate() {
@@ -78,9 +62,6 @@ public class ProjectImpl implements Project {
     }
 
     /**
-     * Sets the end date.
-     *
-     * @param date the new end date
      * @see net.sf.memoranda.Project#setEndDate(net.sf.memoranda.util.CalendarDate)
      */
     public void setEndDate(CalendarDate date) {
@@ -91,9 +72,6 @@ public class ProjectImpl implements Project {
     }
 
     /**
-     * Gets the status.
-     *
-     * @return the status
      * @see net.sf.memoranda.Project#getStatus()
      */
     public int getStatus() {
@@ -120,11 +98,6 @@ public class ProjectImpl implements Project {
             return Project.SCHEDULED;
     }
 
-    /**
-     * Checks if is frozen.
-     *
-     * @return true, if is frozen
-     */
     private boolean isFrozen() {
         return _root.getAttribute("frozen") != null;
     }
@@ -143,8 +116,6 @@ public class ProjectImpl implements Project {
   
     
     /**
-     * Freeze.
-     *
      * @see net.sf.memoranda.Project#freeze()
      */
     public void freeze() {
@@ -152,8 +123,6 @@ public class ProjectImpl implements Project {
     }
 
     /**
-     * Unfreeze.
-     *
      * @see net.sf.memoranda.Project#unfreeze()
      */
     public void unfreeze() {
@@ -162,9 +131,6 @@ public class ProjectImpl implements Project {
     }
     
     /**
-     * Gets the title.
-     *
-     * @return the title
      * @see net.sf.memoranda.Project#getTitle()
      */
     public String getTitle() {
@@ -173,23 +139,13 @@ public class ProjectImpl implements Project {
             return ta.getValue();
         return "";
     }
-    
     /**
-     * Sets the title.
-     *
-     * @param title the new title
      * @see net.sf.memoranda.Project#setTitle(java.lang.String)
      */
     public void setTitle(String title) {
         setAttr("title", title);
     }
     
-    /**
-     * Sets the attr.
-     *
-     * @param name the name
-     * @param value the value
-     */
     private void setAttr(String name, String value) {
         Attribute a = _root.getAttribute(name);
         if (a == null) {
@@ -202,9 +158,6 @@ public class ProjectImpl implements Project {
             _root.removeAttribute(a);
     }
 
-	/* (non-Javadoc)
-	 * @see net.sf.memoranda.Project#getDescription()
-	 */
 	public String getDescription() {
     	Element thisElement = _root.getFirstChildElement("description");
     	if (thisElement == null) {
@@ -215,9 +168,6 @@ public class ProjectImpl implements Project {
     	}
     }
 
-    /* (non-Javadoc)
-     * @see net.sf.memoranda.Project#setDescription(java.lang.String)
-     */
     public void setDescription(String s) {
     	Element desc = _root.getFirstChildElement("description");
     	if (desc == null) {

@@ -2,37 +2,19 @@ package net.sf.memoranda.util;
 
 import nu.xom.Element;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class PriorityQueue.
- */
 public class PriorityQueue {
         
         /* Cola de Prioridad implementada con Estructura de Datos Heap,
          * para ordenar las anotaciones por prioridad 
          */
         
-        /** The a. */
         private Pair[] a;
-        
-        /** The n. */
         private int n;
         
-        /**
-         * Instantiates a new priority queue.
-         *
-         * @param size the size
-         */
         public PriorityQueue(int size){
                 a = new Pair[size+2];
                 n = 0;
         }
-        
-        /**
-         * Insertar.
-         *
-         * @param x the x
-         */
         public void insertar(Pair x){
                 ++n;
                 a[n]=x;
@@ -44,11 +26,6 @@ public class PriorityQueue {
                 }
         }
         
-        /**
-         * Extraer.
-         *
-         * @return the element
-         */
         public Element extraer(){
                 if(!this.Vacia()){
                         Element m = a[1].getElement();  
@@ -73,11 +50,6 @@ public class PriorityQueue {
                         return null;
         }
         
-        /**
-         * Vacia.
-         *
-         * @return true, if successful
-         */
         public boolean Vacia(){
                 return n==0;
         }

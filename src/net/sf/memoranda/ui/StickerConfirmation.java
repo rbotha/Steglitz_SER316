@@ -30,56 +30,22 @@ import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.Local;
 
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class StickerConfirmation.
- */
 public class StickerConfirmation extends JDialog {
-        
-        /** The cancelled. */
         public boolean CANCELLED = true;
-        
-        /** The panel 1. */
         JPanel panel1 = new JPanel();
-        
-        /** The border layout 1. */
         BorderLayout borderLayout1 = new BorderLayout();
-        
-        /** The border layout 2. */
         BorderLayout borderLayout2 = new BorderLayout();
-        
-        /** The cancel button. */
         JButton cancelButton = new JButton();
-        
-        /** The ok button. */
         JButton okButton = new JButton();
-        
-        /** The bottom panel. */
         JPanel bottomPanel = new JPanel();
-        
-        /** The top panel. */
         JPanel topPanel = new JPanel();
-        
-        /** The header. */
         JLabel header = new JLabel();
-        
-        /** The j panel 1. */
         JPanel jPanel1 = new JPanel();
-        
-        /** The j label 1. */
         JLabel jLabel1 = new JLabel();
         
-        /** The border 1. */
         Border border1;
-        
-        /** The border 2. */
         Border border2;
         
-        /**
-         * Instantiates a new sticker confirmation.
-         *
-         * @param frame the frame
-         */
         public StickerConfirmation(Frame frame) {
                 super(frame, Local.getString("Sticker"), true);
                 try {
@@ -90,18 +56,9 @@ public class StickerConfirmation extends JDialog {
                 }
         }
 
-        /**
-         * Instantiates a new sticker confirmation.
-         */
         public StickerConfirmation() {
                 this(null);
         }
-        
-        /**
-         * Jb init.
-         *
-         * @throws Exception the exception
-         */
         void jbInit() throws Exception {
                 border1 =
                         BorderFactory.createCompoundBorder(
@@ -160,20 +117,10 @@ public class StickerConfirmation extends JDialog {
         
         
         
-        /**
-         * Cancel button action performed.
-         *
-         * @param e the e
-         */
         void cancelButton_actionPerformed(ActionEvent e) {
                 this.dispose();
         }
 
-        /**
-         * Ok button action performed.
-         *
-         * @param e the e
-         */
         void okButton_actionPerformed(ActionEvent e) {
                 CANCELLED = false;
                 this.dispose();

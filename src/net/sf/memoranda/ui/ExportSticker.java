@@ -15,13 +15,8 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ExportSticker.
- */
 public class ExportSticker {
 
-        /** The name. */
         private String name; 
         
         /*public static Document _doc = null;
@@ -40,20 +35,12 @@ public class ExportSticker {
 
         }*/
         
-        /**
-         * Instantiates a new export sticker.
-         *
-         * @param x the x
-         */
         public ExportSticker(String x) {
                 this.name = remove1(x);
         }
 
         /**
-         * Function to eliminate special chars from a string.
-         *
-         * @param input the input
-         * @return the string
+         * Function to eliminate special chars from a string
          */
         public static String remove1(String input) {
             
@@ -68,12 +55,6 @@ public class ExportSticker {
             return output;
         }
         
-        /**
-         * Export.
-         *
-         * @param src the src
-         * @return true, if successful
-         */
         public boolean export(String src){
                 boolean result = true;
                 String fs = System.getProperty("file.separator");
@@ -102,11 +83,6 @@ public class ExportSticker {
                 return result;
         }
         
-        /**
-         * Gets the sticker.
-         *
-         * @return the sticker
-         */
         public String getSticker(){
                 Map stickers = EventsManager.getStickers();
         String result = "";
