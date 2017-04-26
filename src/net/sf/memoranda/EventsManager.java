@@ -7,18 +7,17 @@
  */
 package net.sf.memoranda;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Vector;
-import java.util.Map;
 import java.util.Collections;
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Util;
+
 import nu.xom.Attribute;
 //import nu.xom.Comment;
 import nu.xom.Document;
