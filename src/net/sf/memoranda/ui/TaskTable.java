@@ -193,15 +193,15 @@ public class TaskTable extends JTable {
             } else if( i == 6 ){
             	column.setPreferredWidth(100);
             	column.setMinWidth(100);
-            } else if ((i == 7 || i == 8) && Context.get("HIDE_TASK_EFFORT_COLUMNS").equals(true)) {
+            } else if ((i == 7 || i == 8) && (Context.get("HIDE_TASK_EFFORT_COLUMNS") != null && Context.get("HIDE_TASK_EFFORT_COLUMNS").equals(true))) {
             	column.setPreferredWidth(0);
             	column.setMinWidth(0);
             	column.setMaxWidth(0);
-            } else if ((i == 9 || i == 10) && Context.get("HIDE_TASK_ERRORS_COLUMNS").equals(true)) {
+            } else if ((i == 9 || i == 10) && (Context.get("HIDE_TASK_EFFORT_COLUMNS") != null && Context.get("HIDE_TASK_ERRORS_COLUMNS").equals(true))) {
             	column.setPreferredWidth(0);
             	column.setMinWidth(0);
             	column.setMaxWidth(0);
-            } else if ((i == 11 || i == 12) && Context.get("HIDE_TASK_LOC_COLUMNS").equals(true)) {
+            } else if ((i == 11 || i == 12) && (Context.get("HIDE_TASK_EFFORT_COLUMNS") != null && Context.get("HIDE_TASK_LOC_COLUMNS").equals(true))) {
             	column.setPreferredWidth(0);
             	column.setMinWidth(0);
             	column.setMaxWidth(0);
