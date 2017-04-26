@@ -34,6 +34,7 @@ Added memoranda/tests folder
 
 
 Hieu: Added tests sub-folder in src/net/sf/memoranda/ folder
+Hieu: Upload to US-108 branch
 
 
 
