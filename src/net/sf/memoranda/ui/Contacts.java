@@ -105,11 +105,11 @@ public class Contacts extends JPanel{
 		this.add(btnAddContact);
 		
 		JButton btnDeleteContact = new JButton(Local.getString("Delete Contact"));
-		btnDeleteContact.setBounds(450, 90, 130, 29);
-		btnDeleteContact.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        dialog.deleteContact(list, listModel);
-		    }
+		btnDeleteContact.setBounds(200, 90, 130, 29);
+		btnDeleteContact.addActionListener(new ActionListener() {		
+			public void actionPerformed(ActionEvent e) {
+				dialog.deleteContact(list, listModel);
+			}
 		});
 		this.add(btnDeleteContact);
 		loadContacts();
