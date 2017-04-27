@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+import net.sf.memoranda.ui.ExceptionDialog;
 import net.sf.memoranda.ui.htmleditor.HTMLEditor;
 
 public class Printer implements Printable{
@@ -60,7 +61,9 @@ public class Printer implements Printable{
 			try{
 				job.print();
 				
-			}catch(PrinterException ex){}
+			}catch(PrinterException ex){
+				new ExceptionDialog(ex);
+			}
 		}
 	}
 	
@@ -80,7 +83,9 @@ public class Printer implements Printable{
 			try{
 				job.print();
 				
-			}catch(PrinterException ex){}
+			}catch(PrinterException ex){
+				new ExceptionDialog(ex);
+			}
 		}
 	}	
 }

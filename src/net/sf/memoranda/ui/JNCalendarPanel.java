@@ -202,6 +202,7 @@ public class JNCalendarPanel extends JPanel {
     	@Override
     	public void mousePressed(java.awt.event.MouseEvent e) {
     		//Activate when user right clicks Mouse
+
     		if(e.getButton() == java.awt.event.MouseEvent.BUTTON3){
     			//Variables
     			int row = jnCalendar.rowAtPoint(e.getPoint()); //Get Row
@@ -218,6 +219,7 @@ public class JNCalendarPanel extends JPanel {
     		}
     	}
     });
+
     /*CurrentDate.addChangeListener(new ActionListener()  {
       public void actionPerformed(ActionEvent e) {
         _date = CurrentDate.get();
@@ -238,10 +240,10 @@ public class JNCalendarPanel extends JPanel {
       }
     });
     CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {}
-            public void projectWasChanged() {
-                jnCalendar.updateUI();
-            }
+          public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {}
+          public void projectWasChanged() {
+              jnCalendar.updateUI();
+          }
         });
 
 

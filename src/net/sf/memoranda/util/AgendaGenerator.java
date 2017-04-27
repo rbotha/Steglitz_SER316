@@ -204,8 +204,8 @@ public class AgendaGenerator {
 		else {
 			Calendar endDateCal = t.getEndDate().getCalendar();
 			Calendar dateCal = date.getCalendar();
-			int numOfDays = (endDateCal.get(Calendar.YEAR)*365 + endDateCal.get(Calendar.DAY_OF_YEAR)) - 
-					(dateCal.get(Calendar.YEAR)*365 + dateCal.get(Calendar.DAY_OF_YEAR));
+			int numOfDays = (endDateCal.get(Calendar.YEAR)*365 + endDateCal.get(Calendar.DAY_OF_YEAR)) 
+			- (dateCal.get(Calendar.YEAR)*365 + dateCal.get(Calendar.DAY_OF_YEAR));
 			String days = "";
 			if(numOfDays > 0) {
 				if (numOfDays > 1) {
@@ -387,8 +387,8 @@ public class AgendaGenerator {
 		Element el = pQ.extraer();
 		String id = el.getAttributeValue("id");
 		String txt = el.getValue();
-            s += "\n<table border=\"0\" cellpadding=\"0\" width=\"100%\"><table width=\"100%\"><tr bgcolor=\"#E0E0E0\"><td><a href=\"memoranda:editsticker#"+id+"\">"+Local.getString("EDIT")+"</a></td><td width=\"70%\"><a href=\"memoranda:expandsticker#"+id+"\">"+Local.getString("OPEN IN A NEW WINDOW")+"</></td><td align=\"right\">" +
-                    "&nbsp;" + // without this removesticker link takes klicks from whole cell
+            s += "\n<table border=\"0\" cellpadding=\"0\" width=\"100%\"><table width=\"100%\"><tr bgcolor=\"#E0E0E0\"><td><a href=\"memoranda:editsticker#"+id+"\">"+Local.getString("EDIT")+"</a></td><td width=\"70%\"><a href=\"memoranda:expandsticker#"+id+"\">"+Local.getString("OPEN IN A NEW WINDOW")+"</></td><td align=\"right\">" 
+		+ "&nbsp;" + // without this removesticker link takes klicks from whole cell
                       "<a href=\"memoranda:removesticker#"+id+"\"><img align=\"left\" width=\"14\" height=\"14\" src=\""
                     + iurl2
                     + "\" border=\"0\"  hspace=\"0\" vspace=\"0\" alt=\"Remove sticker\"></a></td></table></tr><tr><td>"+txt+"</td></tr></table>";

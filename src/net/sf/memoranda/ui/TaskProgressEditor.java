@@ -27,19 +27,23 @@ public class TaskProgressEditor extends JPanel implements TableCellEditor{
 	
 	public TaskProgressEditor(){
 		addMouseListener(new java.awt.event.MouseAdapter(){
-			public void mousePressed(java.awt.event.MouseEvent e){
-				if(e.getButton() != MouseEvent.BUTTON1){
-					stopEditing();
-					return;
-				}
-				int w = getWidth()/2;
-				if(e.getX() > w){
-					current.setProgress( current.getProgress()+5 );
-				}else{
-					current.setProgress( current.getProgress()-5 );
-				}
-				repaint();
-			}
+
+                  public void mousePressed(java.awt.event.MouseEvent e){
+                      if(e instanceof MouseEvent){
+                          MouseEvent me = (MouseEvent) e;
+                          if(me.getButton() != MouseEvent.BUTTON1){
+                              stopEditing();
+                              return;
+                          }
+                      }
+                      int w = getWidth()/2;
+                      if(e.getX() > w){
+                          current.setProgress( current.getProgress()+5 );
+                      }else{
+                          current.setProgress( current.getProgress()-5 );
+                      }
+                      repaint();
+                  }
 		});
 		setLayout(new java.awt.BorderLayout());
 		label.setOpaque(false);
@@ -79,8 +83,12 @@ public class TaskProgressEditor extends JPanel implements TableCellEditor{
 		}
 	}
 	
-	public void addCellEditorListener(CellEditorListener var0){ listeners.add(var0); }
-	public void removeCellEditorListener(CellEditorListener var0){ listeners.remove(var0); }
+	public void addCellEditorListener(CellEditorListener var0){ 
+		listeners.add(var0); 
+		}
+	public void removeCellEditorListener(CellEditorListener var0){
+		listeners.remove(var0); 
+		}
 	
 	public void cancelCellEditing(){}
 	public java.lang.Object getCellEditorValue(){
@@ -95,8 +103,12 @@ public class TaskProgressEditor extends JPanel implements TableCellEditor{
 		}
 		return false;
 	}
-	public boolean stopCellEditing(){return true;}
-	public boolean shouldSelectCell(java.util.EventObject var0){return true;}	
+	public boolean stopCellEditing(){
+		return true;
+		}
+	public boolean shouldSelectCell(java.util.EventObject var0){
+		return true;
+		}	
     
 }
 

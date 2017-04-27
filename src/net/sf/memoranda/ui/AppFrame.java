@@ -131,25 +131,25 @@ public class AppFrame extends JFrame {
     public Action exportNotesAction =
                 new AbstractAction(Local.getString("Export notes") + "...") {
 
-                public void actionPerformed(ActionEvent e) {
-                        ppExport_actionPerformed(e);
-                }
-        };
-        
-        public Action importNotesAction =
+        public void actionPerformed(ActionEvent e) {
+            ppExport_actionPerformed(e);
+        }
+    };
+
+      public Action importNotesAction =
                         new AbstractAction(Local.getString("Import multiple notes")) {
 
-                        public void actionPerformed(ActionEvent e) {
-                                ppImport_actionPerformed(e);
-                        }
-                };
-        public Action importOneNoteAction =
+        public void actionPerformed(ActionEvent e) {
+                ppImport_actionPerformed(e);
+        }
+      };
+      public Action importOneNoteAction =
                 new AbstractAction(Local.getString("Import one note")) {
 
-                public void actionPerformed(ActionEvent e) {
-                        p1Import_actionPerformed(e);
-                }
-        };
+        public void actionPerformed(ActionEvent e) {
+                p1Import_actionPerformed(e);
+        }
+      };
     
     JMenuItem jMenuFileNewPrj = new JMenuItem();
         JMenuItem jMenuFileNewNote = new JMenuItem(workPanel.dailyItemsPanel.editorPanel.newAction);
@@ -609,10 +609,10 @@ public class AppFrame extends JFrame {
 
         this.workPanel.notesB.addActionListener(
                 new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                         setEnabledEditorMenus(true);
-                    }
-                });
+            }
+          });
 
         Object fwo = Context.get("FRAME_WIDTH");
         Object fho = Context.get("FRAME_HEIGHT");

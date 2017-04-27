@@ -128,27 +128,27 @@ public class ResourcesPanel extends JPanel {
     ppRun.setFont(new java.awt.Font("Dialog", 1, 11));
     ppRun.setText(Local.getString("Open resource")+"...");
     ppRun.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ppRun_actionPerformed(e);
-            }
+          public void actionPerformed(ActionEvent e) {
+              ppRun_actionPerformed(e);
+          }
         });
     ppRun.setEnabled(false);
 
     ppRemoveRes.setFont(new java.awt.Font("Dialog", 1, 11));
     ppRemoveRes.setText(Local.getString("Remove resource"));
     ppRemoveRes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ppRemoveRes_actionPerformed(e);
-            }
+          public void actionPerformed(ActionEvent e) {
+              ppRemoveRes_actionPerformed(e);
+          }
         });
     ppRemoveRes.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/removeresource.png")));
     ppRemoveRes.setEnabled(false);
     ppNewRes.setFont(new java.awt.Font("Dialog", 1, 11));
     ppNewRes.setText(Local.getString("New resource")+"...");
     ppNewRes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ppNewRes_actionPerformed(e);
-            }
+          public void actionPerformed(ActionEvent e) {
+              ppNewRes_actionPerformed(e);
+          }
         });
     ppNewRes.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/addresource.png")));
 
@@ -177,14 +177,14 @@ public class ResourcesPanel extends JPanel {
 	
 		// remove resources using the DEL key
 		resourcesTable.addKeyListener(new KeyListener() {
-			public void keyPressed(KeyEvent e){
-				if(resourcesTable.getSelectedRows().length>0 
-					&& e.getKeyCode()==KeyEvent.VK_DELETE)
-					ppRemoveRes_actionPerformed(null);
-			}
-			public void	keyReleased(KeyEvent e){}
-			public void keyTyped(KeyEvent e){} 
-		});
+                  public void keyPressed(KeyEvent e){
+                      if(resourcesTable.getSelectedRows().length>0
+                         && e.getKeyCode()==KeyEvent.VK_DELETE)
+                          ppRemoveRes_actionPerformed(null);
+                  }
+                  public void	keyReleased(KeyEvent e){}
+                  public void keyTyped(KeyEvent e){}
+                });
     }
 
     void newResB_actionPerformed(ActionEvent e) {
@@ -335,8 +335,8 @@ public class ResourcesPanel extends JPanel {
         }
         catch (Exception ex) {
             new ExceptionDialog(ex, "Failed to run an external application <br><code>"
-                    +command[0]+"</code>", "Check the application path and command line parameters for this resource type " +
-                    		"(File-&gt;Preferences-&gt;Resource types).");
+                    +command[0]+"</code>", "Check the application path and command line parameters for this resource type " 
+            + "(File-&gt;Preferences-&gt;Resource types).");
         }
     }
 

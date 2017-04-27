@@ -7,18 +7,17 @@
  */
 package net.sf.memoranda;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Vector;
-import java.util.Map;
 import java.util.Collections;
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.CurrentStorage;
 import net.sf.memoranda.util.Util;
+
 import nu.xom.Attribute;
 //import nu.xom.Comment;
 import nu.xom.Document;
@@ -250,8 +249,8 @@ public class EventsManager {
 			
 			// --- ivanrise
 			// ignore this event if it's a 'only working days' event and today is weekend.
-			if(ev.getWorkingDays() && (date.getCalendar().get(Calendar.DAY_OF_WEEK) == 1 ||
-				date.getCalendar().get(Calendar.DAY_OF_WEEK) == 7)) continue;
+			if(ev.getWorkingDays() && (date.getCalendar().get(Calendar.DAY_OF_WEEK) == 1
+					|| date.getCalendar().get(Calendar.DAY_OF_WEEK) == 7)) continue;
 			// ---
 			/*
 			 * /if ( ((date.after(ev.getStartDate())) &&

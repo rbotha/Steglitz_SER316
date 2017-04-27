@@ -89,96 +89,94 @@ public class CalendarMenu extends JPopupMenu{
 		//Create New Event Action Listener
 		//Mouse Listener for the creation of a new event
 		newEvent.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent e) {
+		    public void mousePressed(java.awt.event.MouseEvent e) {
 
-            	if(e.getButton() == java.awt.event.MouseEvent.BUTTON1)
-                _parentPanel.dailyItemsPanel.eventsPanel.ppNewEvent_actionPerformed(null);
-                
-            }
-        });
+		    	if(e.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+                    _parentPanel.dailyItemsPanel.eventsPanel.ppNewEvent_actionPerformed(null);
+		    	}
+		    }
+		  });
 		//Mouse Listener for the creation of a new Task
 		newTask.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent e) {
-
-            	if(e.getButton() == java.awt.event.MouseEvent.BUTTON1){
-                _parentPanel.dailyItemsPanel.tasksPanel.ppNewTask_actionPerformed(null);
-            	}
-            }
-        });
+		    public void mousePressed(java.awt.event.MouseEvent e) {
+		    	if(e.getButton() == java.awt.event.MouseEvent.BUTTON1){
+            		_parentPanel.dailyItemsPanel.tasksPanel.ppNewTask_actionPerformed(null);
+		    	}
+		    }
+		});
 		//Mouse Listener for the creation of a new Task
 		newContact.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mousePressed(java.awt.event.MouseEvent e) {
-				
-				if(e.getButton() == java.awt.event.MouseEvent.BUTTON1){
+		    public void mousePressed(java.awt.event.MouseEvent e) {
+		        if(e.getButton() == java.awt.event.MouseEvent.BUTTON1){
 					Contacts temp = _parentPanel.dailyItemsPanel.contactsPanel;
 					temp.dialog.Invoke(temp.getList());
-				}
-			}
+		        }
+		    }
 		});
 		//Mouse Listener for the creation of a new Sticker
 		newSticker.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent e) {
+		    public void mousePressed(java.awt.event.MouseEvent e) {
 
-            	if(e.getButton() == java.awt.event.MouseEvent.BUTTON1){
+		        if(e.getButton() == java.awt.event.MouseEvent.BUTTON1){
 
-				StickerDialog dlg = new StickerDialog(App.getFrame());
-				Dimension frmSize = App.getFrame().getSize();
-				dlg.setSize(new Dimension(300,380));
-				Point loc = App.getFrame().getLocation();
-				dlg.setLocation(
-						(frmSize.width - dlg.getSize().width) / 2 + loc.x,
-						(frmSize.height - dlg.getSize().height) / 2
-						+ loc.y);
-				dlg.setVisible(true);
-				if (!dlg.CANCELLED) {
-					String txt = dlg.getStickerText();
-					int sP = dlg.getPriority();
-					txt = txt.replaceAll("\\n", "<br>");
-                    txt = "<div style=\"background-color:"+dlg.getStickerColor()+";font-size:"+dlg.getStickerTextSize()+";color:"+dlg.getStickerTextColor()+"; \">"+txt+"</div>";
-					EventsManager.createSticker(txt, sP);
-					CurrentStorage.get().storeEventsManager();
-				}
-				_parentPanel.dailyItemsPanel.agendaPanel.refresh(CurrentDate.get());
-				System.out.println("I added a sticker");
-            	}
-            }
-        });
+		            StickerDialog dlg = new StickerDialog(App.getFrame());
+    				Dimension frmSize = App.getFrame().getSize();
+    				dlg.setSize(new Dimension(300,380));
+    				Point loc = App.getFrame().getLocation();
+    				dlg.setLocation(
+    						(frmSize.width - dlg.getSize().width) / 2 + loc.x,
+    						(frmSize.height - dlg.getSize().height) / 2
+    						+ loc.y);
+    				dlg.setVisible(true);
+                      if (!dlg.CANCELLED) {
+        					String txt = dlg.getStickerText();
+        					int sP = dlg.getPriority();
+        					txt = txt.replaceAll("\\n", "<br>");
+                            txt = "<div style=\"background-color:"+dlg.getStickerColor()+";font-size:"+dlg.getStickerTextSize()+";color:"+dlg.getStickerTextColor()+"; \">"+txt+"</div>";
+        					EventsManager.createSticker(txt, sP);
+        					CurrentStorage.get().storeEventsManager();
+                      }
+    				_parentPanel.dailyItemsPanel.agendaPanel.refresh(CurrentDate.get());
+    				System.out.println("I added a sticker");
+		        }
+		    }
+		});
 		//Mouse Listener... goto agenda tab
 		agendaMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent e) {
+		    public void mousePressed(java.awt.event.MouseEvent e) {
                 _parentPanel.agendaB_actionPerformed(null);
-            }
-        });
+		    }
+		});
 		//Mouse Listener... goto event tab
 		eventMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent e) {
+		    public void mousePressed(java.awt.event.MouseEvent e) {
                 _parentPanel.eventsB_actionPerformed(null);
-            }
-        });
+		    }
+		});
 		//Mouse Listener... goto task tab
 		taskMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent e) {
+		    public void mousePressed(java.awt.event.MouseEvent e) {
                 _parentPanel.tasksB_actionPerformed(null);
-            }
-        });
+		    }
+		});
 		//Mouse Listener... goto note menu
 		noteMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent e) {
+		    public void mousePressed(java.awt.event.MouseEvent e) {
                 _parentPanel.notesB_actionPerformed(null);
-            }
-        });
+		    }
+		});
 		//Mouse Listerner... goto resource tab
 		resourceMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent e) {
+		    public void mousePressed(java.awt.event.MouseEvent e) {
                 _parentPanel.filesB_actionPerformed(null);
-            }
-        });
+		    }
+		});
 		//Mouse Listener... goto contacts tab
 		contactsMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent e) {
+		    public void mousePressed(java.awt.event.MouseEvent e) {
                 _parentPanel.contactsB_actionPerformed(null);
-            }
-        });
+		    }
+		});
 	}
 	//get parent
 	void setParentPanel(WorkPanel p){

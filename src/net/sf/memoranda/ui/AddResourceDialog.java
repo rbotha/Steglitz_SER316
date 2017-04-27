@@ -320,8 +320,8 @@ public class AddResourceDialog extends JDialog {
 	 
     void checkOkEnabled() {        
          okB.setEnabled(
-            (localFileRB.isSelected() && pathField.getText().length() > 0) ||
-            (inetShortcutRB.isSelected() && urlField.getText().length() > 0)
+            (localFileRB.isSelected() && pathField.getText().length() > 0) 
+            || (inetShortcutRB.isSelected() && urlField.getText().length() > 0)
          );
     }
 

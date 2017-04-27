@@ -378,9 +378,9 @@ public class EventDialog extends JDialog implements WindowListener {
 		yearlyRepeatRB.setActionCommand("yearly");
 		yearlyRepeatRB.setText(Local.getString("Yearly"));
 		yearlyRepeatRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				yearlyRepeatRB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+		              yearlyRepeatRB_actionPerformed(e);
+                  }
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0; gbc.gridy = 4;
@@ -436,6 +436,7 @@ public class EventDialog extends JDialog implements WindowListener {
         emailPanel.setLayout(new BoxLayout(emailPanel, BoxLayout.X_AXIS));
         emailToggle.setPreferredSize(new Dimension(100, 30));
         emailToggle.setToolTipText("Use this to toggle email functionality on and off");
+
         emailToggle.setSelected(false); 
         emailInputField.setEnabled(false);
         emailToggle.addItemListener(new ItemListener() {    
@@ -453,8 +454,8 @@ public class EventDialog extends JDialog implements WindowListener {
 	    			default:
 	    				//empty
 	    				break;
-        		}
-        	}
+                }
+            }
         });
  		emailPanel.add(emailToggle);
         

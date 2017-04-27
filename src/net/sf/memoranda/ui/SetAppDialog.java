@@ -46,9 +46,9 @@ public class SetAppDialog extends JDialog {
     cancelB.setPreferredSize(new Dimension(100, 26));
     cancelB.setText(Local.getString("Cancel"));
     cancelB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cancelB_actionPerformed(e);
-            }
+          public void actionPerformed(ActionEvent e) {
+              cancelB_actionPerformed(e);
+          }
         });
     flowLayout1.setAlignment(FlowLayout.RIGHT);
     borderLayout3.setHgap(5);
@@ -66,9 +66,9 @@ public class SetAppDialog extends JDialog {
     okB.setPreferredSize(new Dimension(100, 26));
     okB.setText(Local.getString("Ok"));
     okB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                okB_actionPerformed(e);
-            }
+          public void actionPerformed(ActionEvent e) {
+              okB_actionPerformed(e);
+          }
         });
     this.getRootPane().setDefaultButton(okB);
     buttonsPanel.add(okB, null);

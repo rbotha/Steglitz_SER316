@@ -3,7 +3,13 @@
  */
 package net.sf.memoranda.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.sql.Timestamp;
+
+import java.util.Calendar;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,8 +20,6 @@ import net.sf.memoranda.ProjectManager;
 import net.sf.memoranda.TaskList;
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.ui.ActivityFeedPanel;
-import java.sql.Timestamp;
-import java.util.Calendar;
 
 /**
  * Testing Activity Panel.

@@ -186,9 +186,9 @@ public class TableDialog extends JDialog {
 		gbc.insets = new Insets(5, 5, 5, 5);
 		areaPanel.add(bgcolorField, gbc);
 		bgColorB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				bgColorB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      bgColorB_actionPerformed(e);
+                  }
 		});
 		bgColorB.setIcon(new ImageIcon(
 			net.sf.memoranda.ui.htmleditor.ImageDialog.class.getResource(
@@ -232,9 +232,9 @@ public class TableDialog extends JDialog {
 		okB.setPreferredSize(new Dimension(100, 26));
 		okB.setText(Local.getString("Ok"));
 		okB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				okB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      okB_actionPerformed(e);
+                  }
 		});
 		this.getRootPane().setDefaultButton(okB);
 		cancelB.setMaximumSize(new Dimension(100, 26));
@@ -242,9 +242,9 @@ public class TableDialog extends JDialog {
 		cancelB.setPreferredSize(new Dimension(100, 26));
 		cancelB.setText(Local.getString("Cancel"));
 		cancelB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cancelB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      cancelB_actionPerformed(e);
+                  }
 		});
 		buttonsPanel.add(okB);
 		buttonsPanel.add(cancelB);

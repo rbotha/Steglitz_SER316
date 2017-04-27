@@ -181,39 +181,39 @@ public class PreferencesDialog extends JDialog {
 		gbc.anchor = GridBagConstraints.EAST;
 		enableSoundCB.setText(Local.getString("Enable sound notifications"));
 		enableSoundCB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				enableSoundCB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      enableSoundCB_actionPerformed(e);
+                  }
 		});
 		soundPanel.setLayout(borderLayout1);
 		soundFileBrowseB.setText(Local.getString("Browse"));
 		soundFileBrowseB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				soundFileBrowseB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      soundFileBrowseB_actionPerformed(e);
+                  }
 		});
 		gridLayout1.setRows(4);
 		jPanel1.setBorder(titledBorder1);
 		jPanel1.setLayout(gridLayout1);
 		soundBeepRB.setText(Local.getString("System beep"));
 		soundBeepRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				soundBeepRB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      soundBeepRB_actionPerformed(e);
+                  }
 		});
 		jLabel6.setText(Local.getString("Sound file") + ":");
 		soundDefaultRB.setText(Local.getString("Default"));
 		soundDefaultRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				soundDefaultRB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      soundDefaultRB_actionPerformed(e);
+                  }
 		});
 		jPanel3.setLayout(borderLayout3);
 		soundCustomRB.setText(Local.getString("Custom"));
 		soundCustomRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				soundCustomRB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      soundCustomRB_actionPerformed(e);
+                  }
 		});
 		jPanel2.setLayout(borderLayout2);
 		soundPanel.add(jPanel2, BorderLayout.CENTER);
@@ -233,9 +233,9 @@ public class PreferencesDialog extends JDialog {
 		minTaskbarRB.setSelected(true);
 		minTaskbarRB.setText(Local.getString("Minimize to taskbar"));
 		minTaskbarRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				minTaskbarRB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      minTaskbarRB_actionPerformed(e);
+                  }
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
@@ -246,9 +246,9 @@ public class PreferencesDialog extends JDialog {
 		minGroup.add(minHideRB);
 		minHideRB.setText(Local.getString("Hide"));
 		minHideRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				minHideRB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      minHideRB_actionPerformed(e);
+                  }
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
@@ -268,9 +268,9 @@ public class PreferencesDialog extends JDialog {
 		closeExitRB.setSelected(true);
 		closeExitRB.setText(Local.getString("Close and exit"));
 		closeExitRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				closeExitRB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      closeExitRB_actionPerformed(e);
+                  } 
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
@@ -282,9 +282,9 @@ public class PreferencesDialog extends JDialog {
 		closeGroup.add(closeHideRB);
 		closeHideRB.setText(Local.getString("Hide"));
 		closeHideRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				closeHideRB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      closeHideRB_actionPerformed(e);
+                  }
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
@@ -323,9 +323,9 @@ public class PreferencesDialog extends JDialog {
 		lfGroup.add(lfCustomRB);
 		lfCustomRB.setText(Local.getString("Custom"));
 		lfCustomRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				lfCustomRB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      lfCustomRB_actionPerformed(e);
+                  }
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
@@ -359,9 +359,9 @@ public class PreferencesDialog extends JDialog {
 		GeneralPanel.add(jLabel4, gbc);
 		enSystrayChB.setText(Local.getString("Enable system tray icon"));
 		enSystrayChB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				enSystrayChB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      enSystrayChB_actionPerformed(e);
+                  }
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
@@ -378,9 +378,9 @@ public class PreferencesDialog extends JDialog {
 		GeneralPanel.add(startMinimizedChB, gbc);
 		enSplashChB.setText(Local.getString("Show splash screen"));
 		enSplashChB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				enSplashChB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      enSplashChB_actionPerformed(e);
+                  }
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
@@ -390,9 +390,9 @@ public class PreferencesDialog extends JDialog {
 		GeneralPanel.add(enSplashChB, gbc);
 		enL10nChB.setText(Local.getString("Enable localization"));
 		enL10nChB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				enL10nChB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      enL10nChB_actionPerformed(e);
+                  }
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
@@ -402,8 +402,7 @@ public class PreferencesDialog extends JDialog {
 		GeneralPanel.add(enL10nChB, gbc);
 		firstdow.setText(Local.getString("First day of week - Monday"));
 		firstdow.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
+                  public void actionPerformed(ActionEvent e) {}
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
@@ -422,9 +421,9 @@ public class PreferencesDialog extends JDialog {
 		askConfirmChB.setSelected(true);
 		askConfirmChB.setText(Local.getString("Ask confirmation"));
 		askConfirmChB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				askConfirmChB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      askConfirmChB_actionPerformed(e);
+                  }
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
@@ -458,9 +457,9 @@ public class PreferencesDialog extends JDialog {
 		browseB.setText(Local.getString("Browse"));
 		browseB.setPreferredSize(new Dimension(110, 25));
 		browseB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				browseB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      browseB_actionPerformed(e);
+                  }
 		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 2;
@@ -516,9 +515,9 @@ public class PreferencesDialog extends JDialog {
 		okB.setPreferredSize(new Dimension(100, 25));
 		okB.setText(Local.getString("Ok"));
 		okB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				okB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      okB_actionPerformed(e);
+                  }
 		});
 		this.getRootPane().setDefaultButton(okB);
 		bottomPanel.add(okB);
@@ -526,9 +525,9 @@ public class PreferencesDialog extends JDialog {
 		cancelB.setPreferredSize(new Dimension(100, 25));
 		cancelB.setText(Local.getString("Cancel"));
 		cancelB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cancelB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      cancelB_actionPerformed(e);
+                  }
 		});
 		bottomPanel.add(cancelB);
 

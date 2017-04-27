@@ -55,8 +55,8 @@ public class FileStorage implements Storage {
         if (mHome.length() > 0) {
             JN_DOCPATH = mHome;
             /*DEBUG*/
-        	System.out.println("[DEBUG]***Memoranda storage path has set to: " +
-        	 JN_DOCPATH);
+        	System.out.println("[DEBUG]***Memoranda storage path has set to: " 
+            + JN_DOCPATH);
         }
     }
 

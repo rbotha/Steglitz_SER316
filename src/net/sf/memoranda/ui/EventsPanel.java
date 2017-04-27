@@ -151,15 +151,15 @@ public class EventsPanel extends JPanel {
 				
         printEventB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
-        		try{ 
-        			//boolean completed = eventsTable.print();
-        			boolean completed = eventsTable.print(JTable.PrintMode.FIT_WIDTH,new MessageFormat("Events"),new MessageFormat("Page {0}"),true,null,true,null);
+                try{
+                    //boolean completed = eventsTable.print();
+                    boolean completed = eventsTable.print(JTable.PrintMode.FIT_WIDTH,new MessageFormat("Events"),new MessageFormat("Page {0}"),true,null,true,null);
         		
         			
         			System.out.println("Print completed -" + completed); // Change to Dialog box for user.
-        		}catch(PrinterException ex){
-        			System.out.println("Printer failed"); // Change to Dialog box for user.
-        		}
+                }catch(PrinterException ex){
+                    System.out.println("Printer failed"); // Change to Dialog box for user.
+                }
             }
         });
         
@@ -248,13 +248,13 @@ public class EventsPanel extends JPanel {
 		
 		// remove events using the DEL key
 		eventsTable.addKeyListener(new KeyListener() {
-			public void keyPressed(KeyEvent e){
-				if(eventsTable.getSelectedRows().length>0 
-					&& e.getKeyCode()==KeyEvent.VK_DELETE)
-					ppRemoveEvent_actionPerformed(null);
-			}
-			public void	keyReleased(KeyEvent e){}
-			public void keyTyped(KeyEvent e){} 
+                  public void keyPressed(KeyEvent e){
+                      if(eventsTable.getSelectedRows().length>0
+                        && e.getKeyCode()==KeyEvent.VK_DELETE)
+                          ppRemoveEvent_actionPerformed(null);
+                  }
+                  public void	keyReleased(KeyEvent e){}
+                  public void keyTyped(KeyEvent e){} 
 		});
     }
 

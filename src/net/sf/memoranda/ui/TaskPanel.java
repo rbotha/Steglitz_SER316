@@ -98,13 +98,13 @@ public class TaskPanel extends JPanel {
     
     public AbstractAction printAction = new AbstractAction(Local.getString("Print Events"),new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/print.png"))){
     	public void actionPerformed(ActionEvent e) {
-    		try{ 
+    	    try{
     			//boolean completed = taskTable.print();
     			boolean completed = taskTable.print(JTable.PrintMode.FIT_WIDTH,new MessageFormat("Tasks"),new MessageFormat("Page {0}"),true,null,true,null);
     			System.out.println("Print completed -" + completed); // Change to Dialog box for user.
-    		}catch(PrinterException ex){
+    	    }catch(PrinterException ex){
     			System.out.println("Printer failed"); // Change to Dialog box for user.
-    		}
+            }
     	}
     };
     
@@ -225,13 +225,13 @@ public class TaskPanel extends JPanel {
         
         printTaskB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
-        		try{ 
+                try{ 
         			boolean completed = taskTable.print();
         			
         			System.out.println("Print completed -" + completed); // Change to Dialog box for user.
-        		}catch(PrinterException ex){
+                }catch(PrinterException ex){
         			System.out.println("Printer failed"); // Change to Dialog box for user.
-        		}
+                }
             }
         });
         
@@ -262,10 +262,10 @@ public class TaskPanel extends JPanel {
 			Local.getString("Hide completed tasks"));
 		ppShowActiveOnlyChB
 			.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				toggleShowActiveOnly_actionPerformed(e);
-			}
-		});		
+			    public void actionPerformed(ActionEvent e) {
+			        toggleShowActiveOnly_actionPerformed(e);
+			    }
+			});		
 		boolean isShao =
 			(Context.get("SHOW_ACTIVE_TASKS_ONLY") != null)
 				&& (Context.get("SHOW_ACTIVE_TASKS_ONLY").equals(true));
@@ -339,9 +339,9 @@ public class TaskPanel extends JPanel {
         ppEditTask.setFont(new java.awt.Font("Dialog", 1, 11));
     ppEditTask.setText(Local.getString("Edit task")+"...");
     ppEditTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
                 ppEditTask_actionPerformed(e);
-            }
+        }
         });
     ppEditTask.setEnabled(false);
     ppEditTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_edit.png")));
@@ -349,27 +349,27 @@ public class TaskPanel extends JPanel {
     ppRemoveTask.setFont(new java.awt.Font("Dialog", 1, 11));
     ppRemoveTask.setText(Local.getString("Remove task"));
     ppRemoveTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
                 ppRemoveTask_actionPerformed(e);
-            }
-        });
+        }
+    });
     ppRemoveTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_remove.png")));
     ppRemoveTask.setEnabled(false);
     ppNewTask.setFont(new java.awt.Font("Dialog", 1, 11));
     ppNewTask.setText(Local.getString("New task")+"...");
     ppNewTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
                 ppNewTask_actionPerformed(e);
-            }
-        });
+        }
+    });
     ppNewTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new.png")));
 
     ppAddSubTask.setFont(new java.awt.Font("Dialog", 1, 11));
     ppAddSubTask.setText(Local.getString("Add subtask"));
     ppAddSubTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
                 ppAddSubTask_actionPerformed(e);
-            }
+        }
         });
     ppAddSubTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new_sub.png")));
 
@@ -396,20 +396,20 @@ public class TaskPanel extends JPanel {
 	ppCompleteTask.setFont(new java.awt.Font("Dialog", 1, 11));
 	ppCompleteTask.setText(Local.getString("Complete task"));
 	ppCompleteTask.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+	    public void actionPerformed(ActionEvent e) {
 				ppCompleteTask_actionPerformed(e);
-			}
-		});
+	    }
+	});
 	ppCompleteTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
 	ppCompleteTask.setEnabled(false);
 
 	ppCalcTask.setFont(new java.awt.Font("Dialog", 1, 11));
 	ppCalcTask.setText(Local.getString("Calculate task data"));
 	ppCalcTask.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+	    public void actionPerformed(ActionEvent e) {
 				ppCalcTask_actionPerformed(e);
-			}
-		});
+	    }
+	});
 	ppCalcTask.setIcon(new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_complete.png")));
 	ppCalcTask.setEnabled(false);
 
@@ -525,27 +525,27 @@ public class TaskPanel extends JPanel {
 		// - KEY:INSERT => insert new Task if nothing is selected.
 		// - KEY:SPACE => finish Task.
 		taskTable.addKeyListener(new KeyListener() {
-			public void keyPressed(KeyEvent e){
-				if(taskTable.getSelectedRows().length>0 
+		    public void keyPressed(KeyEvent e){
+		        if(taskTable.getSelectedRows().length>0 
 					&& e.getKeyCode()==KeyEvent.VK_DELETE)
 					ppRemoveTask_actionPerformed(null);
 				
-				else if(e.getKeyCode()==KeyEvent.VK_INSERT) {
-					if(taskTable.getSelectedRows().length>0) {
-						ppAddSubTask_actionPerformed(null);
-					}
-					else {
-						ppNewTask_actionPerformed(null);						
-					}
-				}
+		        else if(e.getKeyCode()==KeyEvent.VK_INSERT) {
+                        if(taskTable.getSelectedRows().length>0) {
+                            ppAddSubTask_actionPerformed(null);
+                        }
+                        else {
+                               ppNewTask_actionPerformed(null);
+                        }
+		        }
 				
-				else if(e.getKeyCode()==KeyEvent.VK_SPACE
+		        else if(e.getKeyCode()==KeyEvent.VK_SPACE
 						&& taskTable.getSelectedRows().length>0) {
 					ppCompleteTask_actionPerformed(null);
-				}
-			}
-			public void	keyReleased(KeyEvent e){}
-			public void keyTyped(KeyEvent e){} 
+		        }
+		    }
+		    public void	keyReleased(KeyEvent e){}
+		    public void keyTyped(KeyEvent e){} 
 		});	
 
     }
@@ -614,25 +614,33 @@ public class TaskPanel extends JPanel {
         if (!dlg.errorsAddedField.getText().isEmpty())
         try {
         	errorsAdded = Integer.parseInt(dlg.errorsAddedField.getText());
-        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors added.");}
+        }catch(NumberFormatException ex){
+        	JOptionPane.showMessageDialog(this, "Please enter a valid number of errors added.");
+        	}
         t.setErrorsAdded(errorsAdded);
         int errorsFixed = 0;
         if (!dlg.errorsFixedField.getText().isEmpty())
             try {
             	errorsFixed = Integer.parseInt(dlg.errorsFixedField.getText());
-            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors fixed.");}
+            }catch(NumberFormatException ex){
+            	JOptionPane.showMessageDialog(this, "Please enter a valid number of errors fixed.");
+            	}
         t.setErrorsFixed(errorsFixed);
 		int estLOC = 0;
 		if (!dlg.estLOCField.getText().isEmpty())
 		try {
 			estLOC = Integer.parseInt(dlg.estLOCField.getText());
-		}catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors added.");}
+		}catch(NumberFormatException ex){
+			JOptionPane.showMessageDialog(this, "Please enter a valid number of errors added.");
+			}
 		t.setEstLOC(estLOC);
 		int actLOC = 0;
 		if (!dlg.actLOCField.getText().isEmpty())
 		    try {
 		    	actLOC = Integer.parseInt(dlg.actLOCField.getText());
-		    }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, "Please enter a valid number of errors fixed.");}
+		    }catch(NumberFormatException ex){
+		    	JOptionPane.showMessageDialog(this, "Please enter a valid number of errors fixed.");
+		    	}
 		t.setActLOC(actLOC);
 		t.setTimestamp(dlg.timestamp);
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
@@ -674,25 +682,29 @@ public class TaskPanel extends JPanel {
         if (!dlg.errorsAddedField.getText().isEmpty())
 	        try {
 	        	errorsAdded = Integer.parseInt(dlg.errorsAddedField.getText());
-	        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors added."));
+	        }catch(NumberFormatException ex){
+	        	JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors added."));
 	    }
         int errorsFixed = 0;
         if (!dlg.errorsFixedField.getText().isEmpty())
             try {
             	errorsFixed = Integer.parseInt(dlg.errorsFixedField.getText());
-            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors fixed."));
+            }catch(NumberFormatException ex){
+            	JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors fixed."));
         }   
         int estLOC = 0;
         if (!dlg.estLOCField.getText().isEmpty())
 	        try {
 	        	estLOC = Integer.parseInt(dlg.estLOCField.getText());
-	        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid estimated LOC"));
+	        }catch(NumberFormatException ex){
+	        	JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid estimated LOC"));
 	    }
         int actLOC = 0;
         if (!dlg.actLOCField.getText().isEmpty())
             try {
             	actLOC = Integer.parseInt(dlg.actLOCField.getText());
-            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid actual LOC."));
+            }catch(NumberFormatException ex){
+            	JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid actual LOC."));
         } 
 		//XXX Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
 
@@ -752,25 +764,29 @@ public class TaskPanel extends JPanel {
         if (!dlg.errorsAddedField.getText().isEmpty())
 	        try {
 	        	errorsAdded = Integer.parseInt(dlg.errorsAddedField.getText());
-	        }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors added."));
+	        }catch(NumberFormatException ex){
+	        	JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors added."));
         }
         int errorsFixed = 0;
         if (!dlg.errorsFixedField.getText().isEmpty())
             try {
             	errorsFixed = Integer.parseInt(dlg.errorsFixedField.getText());
-            }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors fixed."));
+            }catch(NumberFormatException ex){
+            	JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid number of errors fixed."));
         }
 		int estLOC = 0;
 		if (!dlg.estLOCField.getText().isEmpty())
 			try {
 				estLOC = Integer.parseInt(dlg.estLOCField.getText());
-			}catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid estimated LOC."));
+			}catch(NumberFormatException ex){
+				JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid estimated LOC."));
 		}
 		int actLOC = 0;
 		if (!dlg.actLOCField.getText().isEmpty())
 		    try {
 		    	actLOC = Integer.parseInt(dlg.actLOCField.getText());
-		    }catch(NumberFormatException ex){JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid actual LOC."));
+		    }catch(NumberFormatException ex){
+		    	JOptionPane.showMessageDialog(this, Local.getString("Please enter a valid actual LOC."));
 		}
 		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),
 				effort,actualEffort,timestamp, dlg.descriptionField.getText(),null, errorsAdded, errorsFixed, estLOC, actLOC, new Timestamp(Calendar.getInstance().getTimeInMillis()));
