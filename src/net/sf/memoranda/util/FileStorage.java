@@ -256,10 +256,10 @@ public class FileStorage implements Storage {
         String id = prj.getID();
         File f = new File(JN_DOCPATH + id);
         File[] files = f.listFiles();
-        if(files != null){
-	        for (int i = 0; i < files.length; i++)
-	            files[i].delete();
-        }
+
+        for (int i = 0; i < files.length; i++) // No immediate solution to solving the issue without drastically changing the working code
+            files[i].delete();
+        
         f.delete();
     }
 
