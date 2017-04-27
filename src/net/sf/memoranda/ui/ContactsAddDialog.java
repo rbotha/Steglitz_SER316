@@ -40,7 +40,7 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class ContactsAddDialog extends JFrame {
-
+	
 	private JPanel contentPane;
 	private JTextField txtFirstName;
 	private JTextField txtLastName;
@@ -61,6 +61,7 @@ public class ContactsAddDialog extends JFrame {
 	 */
 	public void Invoke(DefaultListModel<String> list){
 		frame = new ContactsAddDialog(list);
+		frame.setTitle("Add Contact");
 	}
 	public void deleteContact(JList<String> list, DefaultListModel<String> listModel){
 		int count = 0;
@@ -117,68 +118,68 @@ public class ContactsAddDialog extends JFrame {
 		 newList = list;
 		 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 828, 621);
+		setBounds(500, 100, 300, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		txtFirstName = new JTextField();
-		txtFirstName.setBounds(238, 78, 130, 26);
+		txtFirstName.setBounds(130, 25, 130, 26);
 		contentPane.add(txtFirstName);
 		txtFirstName.setColumns(10);
 		
 		txtLastName = new JTextField();
 		txtLastName.setColumns(10);
-		txtLastName.setBounds(238, 116, 130, 26);
+		txtLastName.setBounds(130, 75, 130, 26);
 		contentPane.add(txtLastName);
-		
-		JLabel lblFirstName = new JLabel(Local.getString("First Name"));
-		lblFirstName.setBounds(142, 83, 84, 16);
-		contentPane.add(lblFirstName);
-		
-		JLabel lblLastName = new JLabel(Local.getString("Last Name"));
-		lblLastName.setBounds(142, 121, 84, 16);
-		contentPane.add(lblLastName);
 		
 		txtAddress = new JTextField();
 		txtAddress.setColumns(10);
-		txtAddress.setBounds(238, 170, 130, 26);
+		txtAddress.setBounds(130, 125, 130, 26);
 		contentPane.add(txtAddress);
-		
-		JLabel lblAddress = new JLabel(Local.getString("Address"));
-		lblAddress.setBounds(142, 175, 84, 16);
-		contentPane.add(lblAddress);
 		
 		txtPhoneNumber = new JTextField();
 		txtPhoneNumber.setColumns(10);
-		txtPhoneNumber.setBounds(238, 214, 130, 26);
+		txtPhoneNumber.setBounds(130, 175, 130, 26);
 		contentPane.add(txtPhoneNumber);
-		
-		JLabel lblPhoneNumber = new JLabel(Local.getString("Phone Number"));
-		lblPhoneNumber.setBounds(125, 219, 101, 16);
-		contentPane.add(lblPhoneNumber);
 		
 		txtfaxNumber = new JTextField();
 		txtfaxNumber.setColumns(10);
-		txtfaxNumber.setBounds(238, 268, 130, 26);
+		txtfaxNumber.setBounds(130, 225, 130, 26);
 		contentPane.add(txtfaxNumber);
-		
-		JLabel lblFaxNumber = new JLabel(Local.getString("Fax Number"));
-		lblFaxNumber.setBounds(142, 273, 84, 16);
-		contentPane.add(lblFaxNumber);
 		
 		txtOther = new JTextField();
 		txtOther.setColumns(10);
-		txtOther.setBounds(238, 323, 130, 26);
+		txtOther.setBounds(130, 275, 130, 26);
 		contentPane.add(txtOther);
 		
-		JLabel lblOther = new JLabel(Local.getString("other"));
-		lblOther.setBounds(142, 328, 84, 16);
+		JLabel lblFirstName = new JLabel(Local.getString("First Name:"));
+		lblFirstName.setBounds(15, 25, 85, 32);
+		contentPane.add(lblFirstName);
+		
+		JLabel lblLastName = new JLabel(Local.getString("Last Name:"));
+		lblLastName.setBounds(15, 75, 84, 16);
+		contentPane.add(lblLastName);
+		
+		JLabel lblAddress = new JLabel(Local.getString("Email Address:"));
+		lblAddress.setBounds(15, 125, 130, 26);
+		contentPane.add(lblAddress);
+				
+		JLabel lblPhoneNumber = new JLabel(Local.getString("Phone Number:"));
+		lblPhoneNumber.setBounds(15, 175, 130, 26);
+		contentPane.add(lblPhoneNumber);
+				
+		JLabel lblFaxNumber = new JLabel(Local.getString("Fax Number:"));
+		lblFaxNumber.setBounds(15, 225, 84, 16);
+		contentPane.add(lblFaxNumber);
+				
+		JLabel lblOther = new JLabel(Local.getString("Other:"));
+		lblOther.setBounds(15, 275, 84, 16);
 		contentPane.add(lblOther);
 		
-		JButton btnAdd = new JButton(Local.getString("Add"));
-		btnAdd.setBounds(116, 479, 117, 29);
+		JButton btnAdd = new JButton(Local.getString("Add Contact"));
+		btnAdd.setBounds(15, 325, 117, 29);
 		btnAdd.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 				addContact(txtFirstName.getText(), txtLastName.getText(), txtAddress.getText(), 
@@ -193,7 +194,8 @@ public class ContactsAddDialog extends JFrame {
 				frame.dispose();
 		    }
 		});
-		btnClose.setBounds(282, 479, 117, 29);
+		
+		btnClose.setBounds(145, 325, 117, 29);
 		contentPane.add(btnClose);
 
 		EventQueue.invokeLater(new Runnable() {
@@ -205,6 +207,7 @@ public class ContactsAddDialog extends JFrame {
 		        }
 		    }
 		});
+		
 		getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
 	            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel"); //$NON-NLS-1$
 	        getRootPane().getActionMap().put("Cancel", new AbstractAction(){ //$NON-NLS-1$

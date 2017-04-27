@@ -77,6 +77,7 @@ public class DailyItemsPanel extends JPanel {
     EventsPanel eventsPanel = new EventsPanel(this);
     AgendaPanel agendaPanel = new AgendaPanel(this);
     Contacts contactsPanel = new Contacts(this);
+    CalendarPanel calendarPanel = new CalendarPanel();
     ImageIcon expIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/exp_left.png"));
     ImageIcon bookmarkIcon = new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/star8.png"));
@@ -108,7 +109,7 @@ public class DailyItemsPanel extends JPanel {
         
     JTabbedPane tasksTabbedPane = new JTabbedPane();
     JTabbedPane eventsTabbedPane = new JTabbedPane();
-	//JTabbedPane agendaTabbedPane = new JTabbedPane();
+	JTabbedPane calendarTabbedPane = new JTabbedPane();
 	JTabbedPane contactsTabbedPane = new JTabbedPane();
     Border border2;
 
@@ -253,6 +254,7 @@ public class DailyItemsPanel extends JPanel {
         editorsPanel.add(tasksPanel, "TASKS");
         editorsPanel.add(editorPanel, "NOTES");
         editorsPanel.add(contactsPanel, "CONTACTS");
+        editorsPanel.add(calendarPanel, "CALENDAR");
         
         splitControlPane.add(controlPanel, JSplitPane.TOP);
         splitPane.add(mainPanel, JSplitPane.RIGHT);
@@ -317,6 +319,8 @@ public class DailyItemsPanel extends JPanel {
                     return;
                 dateChangedByCalendar = true;
                 CurrentDate.set(calendar.get());
+                //Keeps calendartab calendar sync with calendar
+                calendarPanel.cal.set(CurrentDate.get());
                 dateChangedByCalendar = false;
             }
         });
@@ -362,8 +366,10 @@ public class DailyItemsPanel extends JPanel {
         mainTabsPanel.add(notesControlPane, "NOTESTAB");
 		mainTabsPanel.add(agendaControlPane, "AGENDATAB");
 		mainTabsPanel.add(contactsTabbedPane, "CONTACTSTAB");
+		mainTabsPanel.add(calendarTabbedPane, "CALENDARTAB");
         updateIndicators(CurrentDate.get(), CurrentProject.getTaskList());
         mainPanel.setBorder(null);
+        calendarPanel.setParent(parentPanel);
         calendar.setParentPanel(parentPanel);//set calendar menu to default parentPanel.
     }
 
@@ -470,7 +476,7 @@ public class DailyItemsPanel extends JPanel {
         if (expanded) {
             expanded = false;
             toggleButton.setIcon(expIcon);
-            controlPanel.remove(cmainPanel);
+            cmainPanel.setVisible(false);
             controlPanel.setBackground(new Color(215, 225, 250));
             togglePanel.remove(toggleToolBar);
             togglePanel.add(toggleToolBar, BorderLayout.EAST);
@@ -480,7 +486,7 @@ public class DailyItemsPanel extends JPanel {
         else {
             expanded = true;
             controlPanel.setBackground(new Color(230, 230, 230));
-            controlPanel.add(cmainPanel, BorderLayout.CENTER);
+            cmainPanel.setVisible(true);
             toggleButton.setIcon(collIcon);
             togglePanel.remove(toggleToolBar);
             togglePanel.add(toggleToolBar, BorderLayout.SOUTH);
@@ -512,6 +518,7 @@ public class DailyItemsPanel extends JPanel {
     }
 
     public void selectPanel(String pan) {
+    	
         if (calendar.jnCalendar.renderer.getTask() != null) {
             calendar.jnCalendar.renderer.setTask(null);
          //   calendar.jnCalendar.updateUI();
@@ -534,11 +541,17 @@ public class DailyItemsPanel extends JPanel {
         	agendaPanel.refresh(CurrentDate.get());
         	agendaControlPane.refresh();
         }
+        splitControlPane.setVisible(true);
+        splitPane.setDividerLocation((int) controlPanel.getPreferredSize().getWidth());
+        if(pan.equals("CALENDAR")){
+        	//If history is called or if out of sync
+        	calendarPanel.cal.set(CurrentDate.get());//Sync
+        	splitControlPane.setVisible(false);
+        }
         cardLayout1.show(editorsPanel, pan);
         cardLayout2.show(mainTabsPanel, pan + "TAB");
 		calendar.jnCalendar.updateUI();
 		CurrentPanel=pan;
-		calendar.setParentPanel(parentPanel);
     }
 
 	public String getCurrentPanel() {
