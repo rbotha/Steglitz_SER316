@@ -20,6 +20,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+
 import java.net.URI;
 
 import com.opencsv.CSVReader;
@@ -92,20 +94,42 @@ public class Contacts extends JPanel{
 
 		setLayout(null);
 		
-		list.setBounds(71, 225, 496, 437);
+		list.setBounds(71, 150, 525, 437);
 		this.add(list);
+		
+		Border border = BorderFactory.createLineBorder(Color.BLACK,1);
+		
+		JLabel lblColFirstName = new JLabel(Local.getString("F. Name"));
+		lblColFirstName.setBounds(71,125,55,16);
+		lblColFirstName.setBorder(border);
+		this.add(lblColFirstName);
+		
+		JLabel lblColLastName = new JLabel(Local.getString("L. Name"));
+		lblColLastName.setBounds(133,125,55,16);
+		lblColLastName.setBorder(border);
+		this.add(lblColLastName);
+		
+		JLabel lblColEmail = new JLabel(Local.getString("Email Address"));
+		lblColEmail.setBounds(287,125,85,16);
+		lblColEmail.setBorder(border);
+		this.add(lblColEmail);
+		
+		JLabel lblColPhone = new JLabel(Local.getString("Phone No."));
+		lblColPhone.setBounds(200,125,75,16);
+		lblColPhone.setBorder(border);
+		this.add(lblColPhone);
 		
 		JButton btnAddContact = new JButton(Local.getString("Add Contact"));
 		btnAddContact.setBounds(71, 90, 117, 29);
 		btnAddContact.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dialog.Invoke(listModel);
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        dialog.Invoke(listModel);
+		    }
 		});
 		this.add(btnAddContact);
 		
 		JButton btnDeleteContact = new JButton(Local.getString("Delete Contact"));
-		btnDeleteContact.setBounds(450, 90, 130, 29);
+		btnDeleteContact.setBounds(200, 90, 130, 29);
 		btnDeleteContact.addActionListener(new ActionListener() {		
 			public void actionPerformed(ActionEvent e) {
 				dialog.deleteContact(list, listModel);
@@ -118,15 +142,15 @@ public class Contacts extends JPanel{
 		//Sprint 2
 		//Mouse Listener for opening right-click menu. Default options only currently show email option for contacts. 
 		list.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mousePressed(MouseEvent e){
-				if(e.getButton() == MouseEvent.BUTTON3){
-						if(list.getSelectedIndex() != -1){
-						ContactsMenu menu = new ContactsMenu(list.getSelectedIndex());
-						menu.show(e.getComponent(),e.getX(),e.getY());
-					}
-				}
-			}
+		    @Override
+		    public void mousePressed(MouseEvent e){
+		        if(e.getButton() == MouseEvent.BUTTON3){
+                      if(list.getSelectedIndex() != -1){
+                          ContactsMenu menu = new ContactsMenu(list.getSelectedIndex());
+                          menu.show(e.getComponent(),e.getX(),e.getY());
+                      }
+		        }
+		    }
 		});
 		
 		loadContacts();

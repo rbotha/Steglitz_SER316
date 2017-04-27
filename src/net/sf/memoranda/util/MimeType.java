@@ -72,6 +72,14 @@ public class MimeType {
         _root.addAttribute(new Attribute("label", label));
     }
 
+    public void setApp(String appId) {
+        setApp(AppList.getPlafCode(System.getProperty("os.name")), appId);
+    }
+
+    public String getAppId() {
+        String plaf = AppList.getPlafCode(System.getProperty("os.name"));
+        return getAppId(plaf);
+    }
     public String getAppId(String plafCode) {
         Elements apps = _root.getChildElements("app");
         for (int i = 0; i < apps.size(); i++)
@@ -93,15 +101,6 @@ public class MimeType {
             app.addAttribute(new Attribute("platform", plafCode));
             _root.appendChild(app);
         }
-    }
-
-    public void setApp(String appId) {
-        setApp(AppList.getPlafCode(System.getProperty("os.name")), appId);
-    }
-
-    public String getAppId() {
-        String plaf = AppList.getPlafCode(System.getProperty("os.name"));
-        return getAppId(plaf);
     }
 
     public String getIconPath() {

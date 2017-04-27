@@ -21,6 +21,7 @@ import net.sf.memoranda.util.Local;
 
 /*$Id: SetApplicationPanel.java,v 1.6 2004/04/05 10:05:44 alexeya Exp $*/
 public class SetApplicationPanel extends JPanel {
+    final String CURRENT_DIR = "C:\\Program Files";
     BorderLayout borderLayout1 = new BorderLayout();
     public JTextField applicationField = new JTextField();
     BorderLayout borderLayout5 = new BorderLayout();
@@ -112,7 +113,7 @@ public class SetApplicationPanel extends JPanel {
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         if (System.getProperty("os.name").startsWith("Win")) {
             chooser.setFileFilter(new AllFilesFilter(AllFilesFilter.EXE));
-            chooser.setCurrentDirectory(new File("C:\\Program Files"));
+            chooser.setCurrentDirectory(new File(CURRENT_DIR));
         }
         chooser.setPreferredSize(new Dimension(550, 375));
         /*

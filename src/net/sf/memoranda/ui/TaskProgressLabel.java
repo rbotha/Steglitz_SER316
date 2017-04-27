@@ -49,8 +49,12 @@ class TaskProgressLabel extends JLabel{
         this.table = table;
         setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     }
-    public void setTask(Task t){ task = t;}
-    public void setColumn(int col){ column = col;}
+    public void setTask(Task t){ 
+    	task = t;
+    	}
+    public void setColumn(int col){ 
+    	column = col;
+    	}
     
     public void paintComponent(Graphics g) {
         int val = task.getProgress();

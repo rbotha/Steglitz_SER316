@@ -38,10 +38,10 @@ public class Util {
         	seed1 = System.currentTimeMillis(); // Make sure we'll don't get the same seed twice		  
     	seed = seed1;        	
     	Random r = new Random(seed); 
-    	return Integer.toString(r.nextInt(), 16) +
-				"-"+Integer.toString(r.nextInt(65535), 16) +
-				"-"+Integer.toString(r.nextInt(65535), 16) +
-				"-"+Integer.toString(r.nextInt(65535), 16);
+    	return Integer.toString(r.nextInt(), 16) 
+    			+ "-"+Integer.toString(r.nextInt(65535), 16) 
+    			+ "-"+Integer.toString(r.nextInt(65535), 16) 
+    			+ "-"+Integer.toString(r.nextInt(65535), 16);
                     
     }
 
@@ -50,7 +50,7 @@ public class Util {
             + "/"
             + (cal.get(Calendar.MONTH))
             + "/"
-            + new Integer(cal.get(Calendar.YEAR)).toString();
+            + Integer.toString(cal.get(Calendar.YEAR));
 
     }
 
@@ -63,9 +63,9 @@ public class Util {
         int i1 = s.indexOf("/");
         int i2 = s.indexOf("/", i1 + 1);
         int[] date = new int[3];
-        date[0] = new Integer(s.substring(0, i1)).intValue();
-        date[1] = new Integer(s.substring(i1 + 1, i2)).intValue();
-        date[2] = new Integer(s.substring(i2 + 1)).intValue();
+        date[0] = Integer.parseInt(s.substring(0, i1));
+        date[1] = Integer.parseInt(s.substring(i1 + 1, i2));
+        date[2] = Integer.parseInt(s.substring(i2 + 1));
         return date;
         /*DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, currentLocale);
         Date d = null;
@@ -104,8 +104,8 @@ public class Util {
         }
         catch (Exception ex) {
             new ExceptionDialog(ex, "Failed to run an external web-browser application with commandline<br><code>"
-                    +commandLine+"</code>", "Check the application path and command line parameters " +
-                    		"(File-&gt;Preferences-&gt;Resource types).");
+                    +commandLine+"</code>", "Check the application path and command line parameters " 
+                    +"(File-&gt;Preferences-&gt;Resource types).");
         }
     }
     

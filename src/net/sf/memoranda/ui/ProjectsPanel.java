@@ -84,10 +84,10 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 				net.sf.memoranda.ui.AppFrame.class.getResource(
 					"resources/icons/newproject.png"))) {
 
-		public void actionPerformed(ActionEvent e) {
-			ppNewProject_actionPerformed(e);
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      ppNewProject_actionPerformed(e);
+                  }
+                };
 
 	
 	public ProjectsPanel() {
@@ -115,9 +115,9 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		toggleButton.setVerticalAlignment(SwingConstants.TOP);
 		toggleButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		toggleButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				toggleButton_actionPerformed(null);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      toggleButton_actionPerformed(null);
+                  }
 		});
 
 		toggleButton.setIcon(expIcon);
@@ -141,9 +141,9 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		curProjectTitle.setPreferredSize(new Dimension(32767, 22));
 		curProjectTitle.setText(CurrentProject.get().getTitle());
 		curProjectTitle.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				toggleButton_actionPerformed(null);
-			}
+                  public void mouseClicked(MouseEvent e) {
+                      toggleButton_actionPerformed(null);
+                  }
 		});
 
 		/*
@@ -156,9 +156,9 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		ppProperties.setFont(new java.awt.Font("Dialog", 1, 11));
 		ppProperties.setText(Local.getString("Project properties"));
 		ppProperties.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ppProperties_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      ppProperties_actionPerformed(e);
+                  }
 		});
 		ppProperties.setIcon(
 			new ImageIcon(
@@ -168,9 +168,9 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		ppDeleteProject.setFont(new java.awt.Font("Dialog", 1, 11));
 		ppDeleteProject.setText(Local.getString("Delete project"));
 		ppDeleteProject.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ppDeleteProject_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      ppDeleteProject_actionPerformed(e);
+                  }
 		});
 		ppDeleteProject.setIcon(
 			new ImageIcon(
@@ -183,9 +183,9 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		ppOpenProject.setText(" " + Local.getString("Open project"));
 
 		ppOpenProject.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ppOpenProject_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      ppOpenProject_actionPerformed(e);
+                  }
 		});
 		ppOpenProject.setEnabled(false);
 
@@ -194,10 +194,10 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 			Local.getString("Show active projects only"));
 		ppShowActiveOnlyChB
 			.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ppShowActiveOnlyChB_actionPerformed(e);
-			}
-		});
+                          public void actionPerformed(ActionEvent e) {
+                              ppShowActiveOnlyChB_actionPerformed(e);
+                          }
+                        });
 		boolean isShao =
 			(Context.get("SHOW_ACTIVE_PROJECTS_ONLY") != null)
 				&& (Context.get("SHOW_ACTIVE_PROJECTS_ONLY").equals("true"));
@@ -213,9 +213,9 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		ppOpenB.setFocusPainted(false);
 		ppOpenB.setMargin(new Insets(0, 0, 0, 0));
 		ppOpenB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ppOpenB_actionPerformed(e);
-			}
+                  public void actionPerformed(ActionEvent e) {
+                      ppOpenB_actionPerformed(e);
+                  }
 		});
 		ppOpenB.setIcon(
 			new ImageIcon(
@@ -238,55 +238,54 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		projectsPPMenu.addSeparator();
 		projectsPPMenu.add(ppShowActiveOnlyChB);
 		CurrentProject.addProjectListener(new ProjectListener() {
-			public void projectChange(
-				Project p,
-				NoteList nl,
-				TaskList tl,
-				ResourcesList rl) {
-			}
-			public void projectWasChanged() {
-				curProjectTitle.setText(CurrentProject.get().getTitle());
-				prjTablePanel.updateUI();
-			}
-		});
+                  public void projectChange(
+                          Project p,
+                          NoteList nl,
+                          TaskList tl,
+                          ResourcesList rl) {}
+                  public void projectWasChanged() {
+                      curProjectTitle.setText(CurrentProject.get().getTitle());
+                      prjTablePanel.updateUI();
+                  }
+                });
 		CurrentDate.addDateListener(new DateListener() {
-			public void dateChange(CalendarDate d) {
-				prjTablePanel.updateUI();
-			}
-		});
+                  public void dateChange(CalendarDate d) {
+                      prjTablePanel.updateUI();
+                  }
+                });
 		prjTablePanel.projectsTable.addMouseListener(new PopupListener());
 		prjTablePanel
 			.projectsTable
 			.getSelectionModel()
 			.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				boolean enabled =
-					!prjTablePanel
-						.projectsTable
-						.getModel()
-						.getValueAt(
-							prjTablePanel.projectsTable.getSelectedRow(),
-							ProjectsTablePanel.PROJECT_ID)
-						.toString()
-						.equals(CurrentProject.get().getID());
-				ppDeleteProject.setEnabled(enabled);
-				ppOpenProject.setEnabled(enabled);				
-				ppProperties.setEnabled(true);
-			}
-		});
+                          public void valueChanged(ListSelectionEvent e) {
+                              boolean enabled =
+                                      !prjTablePanel
+                                      .projectsTable
+                                      .getModel()
+                                      .getValueAt(
+                                        prjTablePanel.projectsTable.getSelectedRow(),
+                                        ProjectsTablePanel.PROJECT_ID)
+                                      .toString()
+                                      .equals(CurrentProject.get().getID());
+                              ppDeleteProject.setEnabled(enabled);
+                              ppOpenProject.setEnabled(enabled);
+                              ppProperties.setEnabled(true);
+                          }
+                        });
 		prjTablePanel.projectsTable.setToolTipText(
 			Local.getString("Double-click to set a current project"));
 
 			// delete projects using the DEL kew
 			prjTablePanel.projectsTable.addKeyListener(new KeyListener() {
-				public void keyPressed(KeyEvent e){
-					if(prjTablePanel.projectsTable.getSelectedRows().length>0 
-						&& e.getKeyCode()==KeyEvent.VK_DELETE)
-						ppDeleteProject_actionPerformed(null);
-				}
-				public void	keyReleased(KeyEvent e){}
-				public void keyTyped(KeyEvent e){} 
-			});
+                          public void keyPressed(KeyEvent e){
+                              if(prjTablePanel.projectsTable.getSelectedRows().length>0
+                                && e.getKeyCode()==KeyEvent.VK_DELETE)
+                                  ppDeleteProject_actionPerformed(null);
+                          }
+                          public void	keyReleased(KeyEvent e){}
+                          public void keyTyped(KeyEvent e){}
+                        });
 	}
 
 	class PopupListener extends MouseAdapter {
@@ -447,7 +446,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		prjTablePanel.setShowActiveOnly(ppShowActiveOnlyChB.isSelected());
 		Context.put(
 			"SHOW_ACTIVE_PROJECTS_ONLY",
-			new Boolean(ppShowActiveOnlyChB.isSelected()));
+			Boolean.valueOf(ppShowActiveOnlyChB.isSelected()));
 	}
 
 	void setMenuEnabled(boolean enabled) {

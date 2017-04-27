@@ -1,10 +1,15 @@
 package net.sf.memoranda.ui;
 
 import java.awt.AWTEvent;
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -31,6 +36,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+import javax.swing.Popup;
 import javax.swing.UIManager;
 import javax.swing.text.html.HTMLDocument;
 
@@ -62,20 +68,21 @@ import nu.xom.Elements;
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
 
-/*$Id: AppFrame.java,v 1.33 2005/07/05 08:17:24 alexeya Exp $*/
-
+/*$Id: AppFrame.java,v 1.34 04/20/2017 drmorri8 Exp $*/
+/**
+ * Represents the main JFrame window for Memoranda
+ * @author David
+ *
+ */
 public class AppFrame extends JFrame {
 
+	TrayIcon trayIcon = null;
+	
     JPanel contentPane;
     JMenuBar menuBar = new JMenuBar();
     JMenu jMenuFile = new JMenu();
     JMenuItem jMenuFileExit = new JMenuItem();
     
-    //-----View menu Skeleton
-    JMenu jMenuView = new JMenu();
-    JMenuItem jMenuViewDay = new JMenuItem();
-    JMenuItem jMenuViewWeek = new JMenuItem();
-    //----
     JToolBar toolBar = new JToolBar();
     JButton jButton3 = new JButton();
     ImageIcon image1;
@@ -111,7 +118,7 @@ public class AppFrame extends JFrame {
 
     public Action minimizeAction = new AbstractAction("Close the window") {
         public void actionPerformed(ActionEvent e) {
-            doMinimize();
+            doHide();
         }
     };
 
@@ -124,25 +131,25 @@ public class AppFrame extends JFrame {
     public Action exportNotesAction =
                 new AbstractAction(Local.getString("Export notes") + "...") {
 
-                public void actionPerformed(ActionEvent e) {
-                        ppExport_actionPerformed(e);
-                }
-        };
-        
-        public Action importNotesAction =
+        public void actionPerformed(ActionEvent e) {
+            ppExport_actionPerformed(e);
+        }
+    };
+
+      public Action importNotesAction =
                         new AbstractAction(Local.getString("Import multiple notes")) {
 
-                        public void actionPerformed(ActionEvent e) {
-                                ppImport_actionPerformed(e);
-                        }
-                };
-        public Action importOneNoteAction =
+        public void actionPerformed(ActionEvent e) {
+                ppImport_actionPerformed(e);
+        }
+      };
+      public Action importOneNoteAction =
                 new AbstractAction(Local.getString("Import one note")) {
 
-                public void actionPerformed(ActionEvent e) {
-                        p1Import_actionPerformed(e);
-                }
-        };
+        public void actionPerformed(ActionEvent e) {
+                p1Import_actionPerformed(e);
+        }
+      };
     
     JMenuItem jMenuFileNewPrj = new JMenuItem();
         JMenuItem jMenuFileNewNote = new JMenuItem(workPanel.dailyItemsPanel.editorPanel.newAction);
@@ -279,8 +286,6 @@ public class AppFrame extends JFrame {
 
         jMenuFile.setText(Local.getString("File"));
         jMenuFileExit.setText(Local.getString("Exit"));
-        //----Set label to jMenuView
-        jMenuView.setText(Local.getString("View"));
         
         jMenuFileExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -288,10 +293,6 @@ public class AppFrame extends JFrame {
             }
         });
         jMenuHelp.setText(Local.getString("Help"));
-        
-       
-        jMenuViewDay.setText(Local.getString("Set Day View"));
-        jMenuViewWeek.setText(Local.getString("Set to Week View"));
         
         jMenuHelpGuide.setText(Local.getString("Online user's guide"));
         jMenuHelpGuide.setIcon(new ImageIcon(AppFrame.class.getResource(
@@ -492,7 +493,6 @@ public class AppFrame extends JFrame {
         menuBar.add(jMenuGo);
         menuBar.add(jMenuHelp);
         
-        menuBar.add(jMenuView);
         this.setJMenuBar(menuBar);
         //contentPane.add(toolBar, BorderLayout.NORTH);
         contentPane.add(statusBar, BorderLayout.SOUTH);
@@ -526,11 +526,7 @@ public class AppFrame extends JFrame {
         jMenuInsert.add(jMenuInsertDate);
         jMenuInsert.add(jMenuInsertTime);
         jMenuInsert.addSeparator();
-        jMenuInsert.add(jMenuInsertFile);
-
-        jMenuView.add(jMenuViewDay);
-        jMenuView.add(jMenuViewWeek);
-        
+        jMenuInsert.add(jMenuInsertFile);       
         jMenuFormat.add(jMenuFormatPStyle);
         jMenuFormat.add(jjMenuFormatChStyle);
         jMenuFormat.add(jMenuFormatAlign);
@@ -613,16 +609,16 @@ public class AppFrame extends JFrame {
 
         this.workPanel.notesB.addActionListener(
                 new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                         setEnabledEditorMenus(true);
-                    }
-                });
+            }
+          });
 
         Object fwo = Context.get("FRAME_WIDTH");
         Object fho = Context.get("FRAME_HEIGHT");
         if ((fwo != null) && (fho != null)) {
-            int w = new Integer((String) fwo).intValue();
-            int h = new Integer((String) fho).intValue();
+            int w = Integer.parseInt(fwo.toString());
+            int h = Integer.parseInt(fho.toString());
             this.setSize(w, h);
         }
         else
@@ -631,8 +627,8 @@ public class AppFrame extends JFrame {
         Object xo = Context.get("FRAME_XPOS");
         Object yo = Context.get("FRAME_YPOS");
         if ((xo != null) && (yo != null)) {
-            int x = new Integer((String) xo).intValue();
-            int y = new Integer((String) yo).intValue();
+            int x = Integer.parseInt((String) xo);
+            int y = Integer.parseInt((String) yo);
             this.setLocation(x, y);
         }
 
@@ -679,17 +675,67 @@ public class AppFrame extends JFrame {
                         if(dlg.CANCELLED) return;
         }
 
-        Context.put("FRAME_WIDTH", new Integer(this.getWidth()));
-        Context.put("FRAME_HEIGHT", new Integer(this.getHeight()));
-        Context.put("FRAME_XPOS", new Integer(this.getLocation().x));
-        Context.put("FRAME_YPOS", new Integer(this.getLocation().y));
+        Context.put("FRAME_WIDTH", Integer.valueOf(this.getWidth()));
+        Context.put("FRAME_HEIGHT", Integer.valueOf(this.getHeight()));
+        Context.put("FRAME_XPOS", Integer.valueOf(this.getLocation().x));
+        Context.put("FRAME_YPOS", Integer.valueOf(this.getLocation().y));
         exitNotify();
         System.exit(0);
     }
 
-    public void doMinimize() {
-        exitNotify();
-        App.closeWindow();
+    /**
+     * Closes the window and hides Memoranda
+     */
+    public void doHide() {
+    	activateTrayIcon();
+    	exitNotify();
+    	setVisible(false);
+        //App.closeWindow();
+    }
+    
+    /**
+     * Toggles system tray icon and hides memoranda.
+     */
+    public void activateTrayIcon() {
+    	if (Configuration.get("DISABLE_SYSTRAY").equals("no")) {
+    		//TrayIcon trayIcon = null;
+    	     if (SystemTray.isSupported()) {
+    	         SystemTray tray = SystemTray.getSystemTray();
+    	         Image image = Toolkit.getDefaultToolkit().getImage(AppFrame.class.getResource("resources/icons/jnotes16.png"));
+    	         // listen for default action executed on the tray icon
+    	         ActionListener listener = new ActionListener() {
+    	             public void actionPerformed(ActionEvent e) {
+    	            	try {
+    	            		System.out.println("Restoring Memoranda from system tray");
+    	            		
+    	            		// Remove this (and any other) tray icon:
+    	            		TrayIcon removeIcons[] = tray.getTrayIcons();
+    	            		for (int i = 0; i < removeIcons.length; i++) {
+    	            			tray.remove(removeIcons[i]);
+    	            		}
+    	            		setVisible(true);
+	                		toFront();
+	                		requestFocus();
+	                		
+	                	} catch (Exception ex) {
+	                		System.err.println(ex);
+	                	}
+    	             }
+    	         };
+    	         // Remove this (and any other) tray icon:
+    	        TrayIcon removeIcons[] = tray.getTrayIcons();
+     			for (int i = 0; i < removeIcons.length; i++) {
+     				tray.remove(removeIcons[i]);
+         		}
+    	        trayIcon = new TrayIcon(image, "Memoranda", null);
+    	        trayIcon.addActionListener(listener);
+    	        try {
+    	        	tray.add(trayIcon);
+    	        } catch (AWTException e) {
+    	        	System.err.println(e);
+    	        }
+    	     }
+    	}
     }
 
     //Help | About action performed
@@ -703,19 +749,24 @@ public class AppFrame extends JFrame {
          dlg.setVisible(true);
     }
 
+    /**
+     * Override to process Window Close and Minimize events.
+     */
     protected void processWindowEvent(WindowEvent e) {
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-            if (Configuration.get("ON_CLOSE").equals("exit"))
+            if (Configuration.get("ON_CLOSE").equals("exit")) {
                 doExit();
-            else
-                doMinimize();
-        }
-        else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
-            super.processWindowEvent(new WindowEvent(this,
-                    WindowEvent.WINDOW_CLOSING));
-            doMinimize();
-        }
-        else
+            } else {
+                doHide();
+            }
+        } else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
+            if (Configuration.get("ON_MINIMIZE").equals("normal")) {
+            	this.setState(Frame.ICONIFIED);
+            } else {
+            	this.setState(Frame.NORMAL);
+            	doHide();
+            }
+        } else
             super.processWindowEvent(e);
     }
 
@@ -935,15 +986,15 @@ public class AppFrame extends JFrame {
                         Context.put(
                                 "LAST_SELECTED_EXPORT_FILE",
                                 chooser.getSelectedFile().getPath());
-                        Context.put("EXPORT_SPLIT_NOTES", new Boolean(dlg.splitChB.isSelected()).toString());
-                        Context.put("EXPORT_TITLES_AS_HEADERS", new Boolean(dlg.titlesAsHeadersChB.isSelected()).toString());
+                        Context.put("EXPORT_SPLIT_NOTES", Boolean.valueOf(dlg.splitChB.isSelected()));
+                        Context.put("EXPORT_TITLES_AS_HEADERS", Boolean.valueOf(dlg.titlesAsHeadersChB.isSelected()));
                 
                 int ei = dlg.encCB.getSelectedIndex();
                 enc = null;
                 if (ei == 1)
                         enc = "UTF-8";
                 boolean nument = (ei == 2);
-                File f = chooser.getSelectedFile();
+//                File f = chooser.getSelectedFile();
                 boolean xhtml =
                         chooser.getFileFilter().getDescription().indexOf("XHTML") > -1;
                  CurrentProject.save();

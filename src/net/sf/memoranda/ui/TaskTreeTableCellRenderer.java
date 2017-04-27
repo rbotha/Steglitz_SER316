@@ -129,8 +129,8 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         //if (column == 0) {
             return getPriorityIconCellRenderer(t, selected, hasFocus);
         }
-        if( columnName.equals(Local.getString("Start date")) ||
-        		columnName.equals(Local.getString("End date")) ){
+        if( columnName.equals(Local.getString("Start date")) 
+        		|| columnName.equals(Local.getString("End date")) ){
         // if ((column == 2) || (column == 3)) {
             label.setText(dateFormat.format((Date) value));
             return label;

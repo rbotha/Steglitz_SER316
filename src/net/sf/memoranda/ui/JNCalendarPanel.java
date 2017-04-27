@@ -63,7 +63,7 @@ public class JNCalendarPanel extends JPanel {
   JSpinner yearSpin = new JSpinner(new SpinnerNumberModel(jnCalendar.get().getYear(), 1980, 2999, 1));
   JSpinner.NumberEditor yearSpinner = new JSpinner.NumberEditor(yearSpin, "####");
 
-  boolean ignoreChange = false;
+  boolean ignoreChange = false;  
 
   private Vector selectionListeners = new Vector();
 
@@ -195,29 +195,31 @@ public class JNCalendarPanel extends JPanel {
         setCurrentDateDay(jnCalendar.get(), jnCalendar.get().getDay());
       }
     });
+    
+
     //Right Mouse Click to enable popup
     jnCalendar.addMouseListener(new java.awt.event.MouseAdapter()  {
     	@Override
-        public void mousePressed(java.awt.event.MouseEvent e) {
+    	public void mousePressed(java.awt.event.MouseEvent e) {
     		//Activate when user right clicks Mouse
-    		if(e.getButton() == java.awt.event.MouseEvent.BUTTON3){
-	    		//Variables
-	    		int row = jnCalendar.rowAtPoint(e.getPoint()); //Get Row
-	    		int col = jnCalendar.columnAtPoint(e.getPoint()); //Get Column
-	    		int day;
-	    		if(jnCalendar.getValueAt(row, col)!= null){
-	    			day = (int) jnCalendar.getValueAt(row, col); //Get Day
-		    		//Focus on selected day on calendar
-		    		setCurrentDateDay(new CalendarDate(day,_date.getMonth(),_date.getYear()), day);
-		    		calendarMenu = new CalendarMenu(_parentPanel);//get menu class
-		    		calendarMenu.show(e.getComponent(),e.getX(),e.getY());//Launch menu
-		    	}
 
+    		if(e.getButton() == java.awt.event.MouseEvent.BUTTON3){
+    			//Variables
+    			int row = jnCalendar.rowAtPoint(e.getPoint()); //Get Row
+    			int col = jnCalendar.columnAtPoint(e.getPoint()); //Get Column
+    			int day;
+    			if(jnCalendar.getValueAt(row, col)!= null){
+    				day = (int) jnCalendar.getValueAt(row, col); //Get Day
+    				//Focus on selected day on calendar
+    				setCurrentDateDay(new CalendarDate(day,_date.getMonth(),_date.getYear()), day);
+    				calendarMenu = new CalendarMenu(_parentPanel);//get menu class
+    				calendarMenu.show(e.getComponent(),e.getX(),e.getY());//Launch menu
+    			}
+	
     		}
-        }
-    	
-       	
-      });
+    	}
+    });
+
     /*CurrentDate.addChangeListener(new ActionListener()  {
       public void actionPerformed(ActionEvent e) {
         _date = CurrentDate.get();
@@ -238,10 +240,10 @@ public class JNCalendarPanel extends JPanel {
       }
     });
     CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {}
-            public void projectWasChanged() {
-                jnCalendar.updateUI();
-            }
+          public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {}
+          public void projectWasChanged() {
+              jnCalendar.updateUI();
+          }
         });
 
 
@@ -278,8 +280,8 @@ public class JNCalendarPanel extends JPanel {
   private void refreshView() {
     ignoreChange = true;
     jnCalendar.set(_date);
-    monthsCB.setSelectedIndex(new Integer(_date.getMonth()));
-    yearSpin.setValue(new Integer(_date.getYear()));
+    monthsCB.setSelectedIndex(_date.getMonth());
+    yearSpin.setValue(_date.getYear());
     ignoreChange = false;
   }
 
@@ -322,6 +324,4 @@ public class JNCalendarPanel extends JPanel {
   void setParentPanel(WorkPanel p){
 	  _parentPanel = p;
   }
-
-
 }

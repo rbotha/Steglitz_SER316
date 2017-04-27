@@ -51,7 +51,7 @@ public class TaskImpl implements Task, Comparable {
 
     public CalendarDate getEndDate() {
 		String ed = _element.getAttribute("endDate").getValue();
-		if (ed != "")
+		if (!ed.isEmpty() )
 			return new CalendarDate(_element.getAttribute("endDate").getValue());
 		Task parent = this.getParentTask();
 		if (parent != null)
@@ -364,14 +364,14 @@ public class TaskImpl implements Task, Comparable {
      * @see net.sf.memoranda.Task#getProgress()
      */
     public int getProgress() {
-        return new Integer(_element.getAttribute("progress").getValue()).intValue();
+        return Integer.parseInt(_element.getAttribute("progress").getValue());
     }
     /**
      * @see net.sf.memoranda.Task#setProgress(int)
      */
     public void setProgress(int p) {
         if ((p >= 0) && (p <= 100))
-            setAttr("progress", new Integer(p).toString());
+            setAttr("progress", Integer.toString(p));
     }
     /**
      * @see net.sf.memoranda.Task#getPriority()
@@ -380,7 +380,7 @@ public class TaskImpl implements Task, Comparable {
         Attribute pa = _element.getAttribute("priority");
         if (pa == null)
             return Task.PRIORITY_NORMAL;
-        return new Integer(pa.getValue()).intValue();
+        return Integer.parseInt(pa.getValue());
     }
     /**
      * @see net.sf.memoranda.Task#setPriority(int)
@@ -410,8 +410,8 @@ public class TaskImpl implements Task, Comparable {
 	private long calcTaskRate(CalendarDate d) {
 		Calendar endDateCal = getEndDate().getCalendar();
 		Calendar dateCal = d.getCalendar();
-		int numOfDays = (endDateCal.get(Calendar.YEAR)*365 + endDateCal.get(Calendar.DAY_OF_YEAR)) - 
-						(dateCal.get(Calendar.YEAR)*365 + dateCal.get(Calendar.DAY_OF_YEAR));
+		int numOfDays = (endDateCal.get(Calendar.YEAR)*365 + endDateCal.get(Calendar.DAY_OF_YEAR)) 
+				- (dateCal.get(Calendar.YEAR)*365 + dateCal.get(Calendar.DAY_OF_YEAR));
 		if (numOfDays < 0) return -1; //Something wrong ?
 		return (100-getProgress()) / (numOfDays+1) * (getPriority()+1);
 	}
@@ -448,7 +448,7 @@ public class TaskImpl implements Task, Comparable {
 	 }
 	 
 	 public boolean equals(Object o) {
-	     return ((o instanceof Task) && (((Task)o).getID().equals(this.getID())));
+	     return ((o instanceof Task) && (((Task)o).getID().equals(this.getID())));  //Unable to devise solution to hashcode issue
 	 }
 
 	/* 
@@ -563,7 +563,7 @@ public class TaskImpl implements Task, Comparable {
      */
     public int getColor() {
         try {
-            return new Integer(_element.getAttribute("taskColor").getValue());
+            return Integer.parseInt(_element.getAttribute("taskColor").getValue());
         } catch (Exception e) {
             return -1;
         }

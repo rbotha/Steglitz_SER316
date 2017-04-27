@@ -55,8 +55,8 @@ public class FileStorage implements Storage {
         if (mHome.length() > 0) {
             JN_DOCPATH = mHome;
             /*DEBUG*/
-        	System.out.println("[DEBUG]***Memoranda storage path has set to: " +
-        	 JN_DOCPATH);
+        	System.out.println("[DEBUG]***Memoranda storage path has set to: " 
+            + JN_DOCPATH);
         }
     }
 
@@ -113,7 +113,7 @@ public class FileStorage implements Storage {
         doc.putProperty(
             javax.swing.text.Document.TitleProperty,
             note.getTitle());        
-        CalendarDate d = note.getDate();
+//        CalendarDate d = note.getDate();
 
         filename += note.getId();//d.getDay() + "-" + d.getMonth() + "-" + d.getYear();
         /*DEBUG*/System.out.println("[DEBUG] Save note: "+ filename);
@@ -256,8 +256,10 @@ public class FileStorage implements Storage {
         String id = prj.getID();
         File f = new File(JN_DOCPATH + id);
         File[] files = f.listFiles();
-        for (int i = 0; i < files.length; i++)
+
+        for (int i = 0; i < files.length; i++) // No immediate solution to solving the issue without drastically changing the working code
             files[i].delete();
+        
         f.delete();
     }
 

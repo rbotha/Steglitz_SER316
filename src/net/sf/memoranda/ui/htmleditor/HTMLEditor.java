@@ -56,6 +56,7 @@ import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
+import net.sf.memoranda.ui.ExceptionDialog;
 import net.sf.memoranda.ui.htmleditor.util.Local;
 
 /**
@@ -107,74 +108,74 @@ public class HTMLEditor extends JPanel {
 		new HTMLEditorAction(
 			Local.getString("Bold"),
 			new ImageIcon(cl.getResource("resources/icons/bold.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			boldActionB_actionPerformed(e);
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      boldActionB_actionPerformed(e);
+                  }
+                };
 
 	public Action italicAction =
 		new HTMLEditorAction(
 			Local.getString("Italic"),
 			new ImageIcon(cl.getResource("resources/icons/italic.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			italicActionB_actionPerformed(e);
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      italicActionB_actionPerformed(e);
+                  }
+	            };
 
 	public Action underAction =
 		new HTMLEditorAction(
 			Local.getString("Underline"),
 			new ImageIcon(cl.getResource("resources/icons/underline.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			underActionB_actionPerformed(e);
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      underActionB_actionPerformed(e);
+                  }
+                };
 
 	public Action ulAction =
 		new HTMLEditorAction(
 			Local.getString("Unordered list"),
 			new ImageIcon(
 				cl.getResource("resources/icons/listunordered.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			ulActionB_actionPerformed(e);
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      ulActionB_actionPerformed(e);
+                  }
+                };
 
 	public Action olAction =
 		new HTMLEditorAction(
 			Local.getString("Ordered list"),
 			new ImageIcon(cl.getResource("resources/icons/listordered.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			olActionB_actionPerformed(e);
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      olActionB_actionPerformed(e);
+                  }
+                };
 
 	public Action lAlignAction =
 		new HTMLEditorAction(
 			Local.getString("Align left"),
 			new ImageIcon(cl.getResource("resources/icons/alignleft.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			lAlignActionB_actionPerformed(e);
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      lAlignActionB_actionPerformed(e);
+                  }
+                };
 
 	public Action cAlignAction =
 		new HTMLEditorAction(
 			Local.getString("Align center"),
 			new ImageIcon(cl.getResource("resources/icons/aligncenter.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			cAlignActionB_actionPerformed(e);
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      cAlignActionB_actionPerformed(e);
+                  }
+                };
 
 	public Action rAlignAction =
 		new HTMLEditorAction(
 			Local.getString("Align right"),
 			new ImageIcon(cl.getResource("resources/icons/alignright.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			rAlignActionB_actionPerformed(e);
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      rAlignActionB_actionPerformed(e);
+                  }
+                };
 
 	/*
 	 * public Action jAlignAction = new AbstractAction() { public void
@@ -184,73 +185,73 @@ public class HTMLEditor extends JPanel {
 		new HTMLEditorAction(
 			Local.getString("Insert image"),
 			new ImageIcon(cl.getResource("resources/icons/image.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			imageActionB_actionPerformed(e);
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      imageActionB_actionPerformed(e);
+                  }
+                };
 
 	public Action tableAction =
 		new HTMLEditorAction(
 			Local.getString("Insert table"),
 			new ImageIcon(cl.getResource("resources/icons/table.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			tableActionB_actionPerformed(e);
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      tableActionB_actionPerformed(e);
+                  }
+                };
 
 	public Action linkAction =
 		new HTMLEditorAction(
 			Local.getString("Insert hyperlink"),
 			new ImageIcon(cl.getResource("resources/icons/link.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			linkActionB_actionPerformed(e);
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      linkActionB_actionPerformed(e);
+                  }
+                };
 
 	public Action propsAction =
 		new HTMLEditorAction(
 			Local.getString("Object properties"),
 			new ImageIcon(cl.getResource("resources/icons/properties.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			propsActionB_actionPerformed(e);
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      propsActionB_actionPerformed(e);
+                  }
+                };
 
 	public Action selectAllAction =
 		new HTMLEditorAction(Local.getString("Select all")) {
-		public void actionPerformed(ActionEvent e) {
-			editor.selectAll();
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      editor.selectAll();
+                  }
+                };
 
 	public Action insertHRAction =
 		new HTMLEditorAction(
 			Local.getString("Insert horizontal rule"),
 			new ImageIcon(cl.getResource("resources/icons/hr.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			/*
-			 * String elName =
-			 * document.getParagraphElement(editor.getCaretPosition()).getName();
-			 * HTML.Tag tag = HTML.getTag(elName); if
-			 * (elName.toUpperCase().equals("P-IMPLIED")) tag =
-			 * HTML.Tag.IMPLIED; HTMLEditorKit.InsertHTMLTextAction hta = new
-			 * HTMLEditorKit.InsertHTMLTextAction("insertHR", " <hr> ", tag,
-			 * HTML.Tag.HR);
-			 */
-			try {
-				editorKit.insertHTML(
-					document,
-					editor.getCaretPosition(),
-					"<hr>",
-					0,
-					0,
-					HTML.Tag.HR);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
+                  public void actionPerformed(ActionEvent e) {
+        			 /*
+        			 * String elName =
+        			 * document.getParagraphElement(editor.getCaretPosition()).getName();
+        			 * HTML.Tag tag = HTML.getTag(elName); if
+        			 * (elName.toUpperCase().equals("P-IMPLIED")) tag =
+        			 * HTML.Tag.IMPLIED; HTMLEditorKit.InsertHTMLTextAction hta = new
+        			 * HTMLEditorKit.InsertHTMLTextAction("insertHR", " <hr> ", tag,
+        			 * HTML.Tag.HR);
+        			 */
+                    try {
+                         editorKit.insertHTML(
+                                 document,
+                                 editor.getCaretPosition(),
+                                 "<hr>",
+                                 0,
+                                 0,
+                                 HTML.Tag.HR);
+                    } catch (Exception ex) {
+                         ex.printStackTrace();
+                    }
 
-		}
-	};
+                  }
+                };
 
 	CharTablePanel charTablePanel = new CharTablePanel(editor);
 
@@ -288,28 +289,28 @@ public class HTMLEditor extends JPanel {
 		new HTMLEditorAction(
 			Local.getString("Insert character"),
 			new ImageIcon(cl.getResource("resources/icons/char.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			if (!charTableShow) {
-				addCharTablePanel();
-				charTableShow = true;
-				insCharActionB.setBorder(border2);
-			} else {
-				removeCharTablePanel();
-				charTableShow = false;
-				insCharActionB.setBorder(border1);
-			}
-			insCharActionB.setBorderPainted(charTableShow);
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      if (!charTableShow) {
+                          addCharTablePanel();
+                          charTableShow = true;
+                          insCharActionB.setBorder(border2);
+                      } else {
+                          removeCharTablePanel();
+                          charTableShow = false;
+                          insCharActionB.setBorder(border1);
+                      }
+                      insCharActionB.setBorderPainted(charTableShow);
+                  }
+                };
 
 	public Action findAction =
 		new HTMLEditorAction(
 			Local.getString("Find & Replace"),
 			new ImageIcon(cl.getResource("resources/icons/find.png"))) {
-		public void actionPerformed(ActionEvent e) {
-			doFind();
-		}
-	};
+                  public void actionPerformed(ActionEvent e) {
+                      doFind();
+                  }
+                };
 
 	public InsertTableCellAction insertTableCellAction =
 		new InsertTableCellAction();
@@ -339,10 +340,10 @@ public class HTMLEditor extends JPanel {
 		public Action pasteAction = //new HTMLEditorKit.PasteAction();
 
 	new AbstractAction() {
-		public void actionPerformed(ActionEvent e) {
-				//editor.paste();
-	doPaste();
-		}
+          public void actionPerformed(ActionEvent e) {
+              //editor.paste();
+              doPaste();
+          }
 	};
 
 	private void doCopy() {
@@ -426,15 +427,15 @@ public class HTMLEditor extends JPanel {
 	 */
 
 	public Action zoomInAction = new AbstractAction() {
-		public void actionPerformed(ActionEvent e) {
-			doZoom(true);
-		}
+          public void actionPerformed(ActionEvent e) {
+              doZoom(true);
+          }
 	};
 
 	public Action zoomOutAction = new AbstractAction() {
-		public void actionPerformed(ActionEvent e) {
-			doZoom(false);
-		}
+          public void actionPerformed(ActionEvent e) {
+              doZoom(false);
+          }
 	};
 
 	/**
@@ -469,7 +470,7 @@ public class HTMLEditor extends JPanel {
 	public final int T_BLOCKQ = 8; //9;
 
 	String[] elementTypes =
-		{
+        {
 			Local.getString("Paragraph"),
 			Local.getString("Header") + " 1",
 			Local.getString("Header") + " 2",
@@ -493,7 +494,7 @@ public class HTMLEditor extends JPanel {
 	public final int I_CUSTOM = 7;
 
 	String[] inlineTypes =
-		{
+        {
 			Local.getString("Normal"),
 			Local.getString("Emphasis"),
 			Local.getString("Strong"),
@@ -634,9 +635,9 @@ public class HTMLEditor extends JPanel {
 		 */
 
 		editor.addCaretListener(new CaretListener() {
-			public void caretUpdate(CaretEvent e) {
+		    public void caretUpdate(CaretEvent e) {
 				editor_caretUpdate(e);
-			}
+		    }
 		});
 
 		editor.setEditorKit(editorKit);
@@ -781,15 +782,15 @@ public class HTMLEditor extends JPanel {
 		blockCB.setPreferredSize(new Dimension(79, 22));
 		blockCB.setFocusable(false);
 		blockCB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				blockCB_actionPerformed(e);
-			}
+		    }
 		});
 
 		inlineCB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		    public void actionPerformed(ActionEvent e) {
 				inlineCB_actionPerformed(e);
-			}
+		    }
 		});
 		inlineCB.setFocusable(false);
 		inlineCB.setPreferredSize(new Dimension(79, 22));
@@ -1206,16 +1207,20 @@ public class HTMLEditor extends JPanel {
 					.getAttributes();
 
 		if (charattrs
-			.containsAttribute(StyleConstants.Bold, new Boolean(true))) {
-			boldActionB.setBorder(border2);
-			bold = true;
+			.containsAttribute(StyleConstants.Bold, Boolean.valueOf(true))) {
+			try{
+				boldActionB.setBorder(border2);
+				bold = true;
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
 		} else if (bold) {
 			boldActionB.setBorder(border1);
 			bold = false;
 		}
 		boldActionB.setBorderPainted(bold);
 		if (charattrs
-			.containsAttribute(StyleConstants.Italic, new Boolean(true))) {
+			.containsAttribute(StyleConstants.Italic, Boolean.valueOf(true))) {
 			italicActionB.setBorder(border2);
 			italic = true;
 		} else if (italic) {
@@ -1224,7 +1229,7 @@ public class HTMLEditor extends JPanel {
 		}
 		italicActionB.setBorderPainted(italic);
 		if (charattrs
-			.containsAttribute(StyleConstants.Underline, new Boolean(true))) {
+			.containsAttribute(StyleConstants.Underline, Boolean.valueOf(true))) {
 			underActionB.setBorder(border2);
 			under = true;
 		} else if (under) {
@@ -1678,12 +1683,6 @@ public class HTMLEditor extends JPanel {
 		dlg.setVisible(true);
 
 		if (!dlg.CANCELLED) {
-			String parentname =
-				document
-					.getParagraphElement(editor.getCaretPosition())
-					.getParentElement()
-					.getName();
-			//HTML.Tag parentTag = HTML.getTag(parentname);
 			String urlString = dlg.fileField.getText();
 			String path = urlString;
 			if (imagesDir != null) {
@@ -1692,6 +1691,7 @@ public class HTMLEditor extends JPanel {
 					if (!url.getProtocol().startsWith("http"))
 						path = imagesDir + "/" + url.getFile();
 				} catch (MalformedURLException e1) {
+					new ExceptionDialog(e1);
 				}
 			}
 			try {
@@ -2113,7 +2113,7 @@ public class HTMLEditor extends JPanel {
 		if (tda.isDefined(HTML.Attribute.COLSPAN))
 			try {
 				Integer i =
-					new Integer(
+				        Integer.valueOf(
 						tda.getAttribute(HTML.Attribute.COLSPAN).toString());
 				dlg.tdColspan.setValue(i);
 			} catch (Exception ex) {
@@ -2122,7 +2122,7 @@ public class HTMLEditor extends JPanel {
 		if (tda.isDefined(HTML.Attribute.ROWSPAN))
 			try {
 				Integer i =
-					new Integer(
+				        Integer.valueOf(
 						tda.getAttribute(HTML.Attribute.ROWSPAN).toString());
 				dlg.tdRowspan.setValue(i);
 			} catch (Exception ex) {
@@ -2187,7 +2187,7 @@ public class HTMLEditor extends JPanel {
 		if (ta.isDefined(HTML.Attribute.CELLPADDING))
 			try {
 				Integer i =
-					new Integer(
+				        Integer.valueOf(
 						ta.getAttribute(HTML.Attribute.CELLPADDING).toString());
 				dlg.cellpadding.setValue(i);
 			} catch (Exception ex) {
@@ -2196,7 +2196,7 @@ public class HTMLEditor extends JPanel {
 		if (ta.isDefined(HTML.Attribute.CELLSPACING))
 			try {
 				Integer i =
-					new Integer(
+				        Integer.valueOf(
 						ta.getAttribute(HTML.Attribute.CELLSPACING).toString());
 				dlg.cellspacing.setValue(i);
 			} catch (Exception ex) {
@@ -2205,7 +2205,7 @@ public class HTMLEditor extends JPanel {
 		if (ta.isDefined(HTML.Attribute.BORDER))
 			try {
 				Integer i =
-					new Integer(
+				        Integer.valueOf(
 						ta.getAttribute(HTML.Attribute.BORDER).toString());
 				dlg.border.setValue(i);
 			} catch (Exception ex) {
