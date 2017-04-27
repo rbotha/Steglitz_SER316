@@ -61,7 +61,7 @@ public class ExceptionDialog extends JDialog {
   }
 
   public ExceptionDialog() {
-    this(null, "", "");
+    this(new Exception(), "", "");
   }
 
   private void jbInit() throws Exception {    

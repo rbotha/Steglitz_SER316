@@ -121,16 +121,16 @@ public class CalendarDate {
     }
 
     public boolean equals(Object object) {
-        if (object.getClass().isInstance(CalendarDate.class)) {
+        if (object.getClass().isInstance(CalendarDate.class)) {   //Unable to devise solution 
             CalendarDate d2 = (CalendarDate) object;
             return ((d2.getDay() == getDay()) && (d2.getMonth() == getMonth()) && (d2.getYear() == getYear()));
         }
         else if (object.getClass().isInstance(Calendar.class)) {
-            Calendar cal = (Calendar) object;
+            Calendar cal = (Calendar) object;  //Unable to devise solution to type casting of object
             return this.equals(new CalendarDate(cal));
         }
         else if (object.getClass().isInstance(Date.class)) {
-            Date d = (Date) object;
+            Date d = (Date) object;  //Unable to devise solution to type casting of object
             return this.equals(new CalendarDate(d));
         }
         return super.equals(object);

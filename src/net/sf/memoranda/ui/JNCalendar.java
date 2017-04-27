@@ -56,6 +56,7 @@ public class JNCalendar extends JTable {
 		final ListSelectionModel rowSM = getSelectionModel();
 		final ListSelectionModel colSM = getColumnModel().getSelectionModel();
 		ListSelectionListener lsl = new ListSelectionListener() {
+
                   public void valueChanged(ListSelectionEvent e) {
                       //Ignore extra messages.
                       if (e.getValueIsAdjusting())
@@ -66,9 +67,9 @@ public class JNCalendar extends JTable {
                       int col = getSelCol();
                       Object val = getModel().getValueAt(row, col);
                       if (val != null) {
-                          if (val.toString().equals(new Integer(_date.getDay()).toString()))
+                          if (val.toString().equals(Integer.toString(_date.getDay())))
                               return;
-                          _date = new CalendarDate(new Integer(val.toString()).intValue(),
+                          _date = new CalendarDate(Integer.parseInt(val.toString()),
                            _date.getMonth(),_date.getYear());
                           notifyListeners();
                       } else {
@@ -76,7 +77,6 @@ public class JNCalendar extends JTable {
                           doSelection();
                       }
                   }
-
 		};
 		rowSM.addListSelectionListener(lsl);
 		colSM.addListSelectionListener(lsl);
@@ -134,7 +134,7 @@ public class JNCalendar extends JTable {
 		if (d != null)
 			renderer.setDate(
 				new CalendarDate(
-					new Integer(d.toString()).intValue(),
+					Integer.parseInt(d.toString()),
 					_date.getMonth(),
 					_date.getYear()));
 		else
@@ -198,7 +198,7 @@ public class JNCalendarModel extends AbstractTableModel {
 			//int pos = (row * 7 + col) - firstDay + 1;
 			int pos = (row * 7 + (col + 1)) - firstDay;
 			if ((pos > 0) && (pos <= daysInMonth))
-				return new Integer(pos);
+				return Integer.valueOf(pos);
 			else
 				return null;
 

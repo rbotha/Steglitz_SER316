@@ -235,7 +235,7 @@ public class EventDialog extends JDialog implements WindowListener {
                 // Commented out, value was resetted to endDate !!!
                 if (sd.after(ed)) {
                   endDate.getModel().setValue(sd);
-                  ed = sd;
+//                  ed = sd;
                 }
                 startCalFrame.cal.set(new CalendarDate(sd));
                 ignoreStartChanged = false;
@@ -617,11 +617,12 @@ public class EventDialog extends JDialog implements WindowListener {
     }
     
     public void setEventDate(Date d) {
-	    eventDate = d;
+	    eventDate = Date.from(d.toInstant());
 	}
 	
 	public Date getEventDate() {
-		return eventDate;
+	    ;
+		return Date.from(eventDate.toInstant());
 	}
 	
     public void windowClosed( WindowEvent e ) {}
