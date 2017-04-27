@@ -1,6 +1,7 @@
 bin
 build
 README.txt
+.checkstyle
 .classpath
 .settings
 .project

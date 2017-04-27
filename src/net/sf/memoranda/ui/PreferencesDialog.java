@@ -684,7 +684,12 @@ public class PreferencesDialog extends JDialog {
 		else
 			Configuration.put("ON_CLOSE", "minimize");
 
-		Configuration.put("ON_MINIMIZE", "normal");
+		if (this.minTaskbarRB.isSelected()) {
+			Configuration.put("ON_MINIMIZE", "normal");
+		} else {
+			Configuration.put("ON_MINIMIZE", "hide");
+		}
+		
 
 		String lf = Configuration.get("LOOK_AND_FEEL").toString();
 		String newlf = "";

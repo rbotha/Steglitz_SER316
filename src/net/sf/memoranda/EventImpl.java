@@ -211,7 +211,9 @@ public class EventImpl implements Event, Comparable {
               GoogleMail.Send("dummyser316", "dummypassword", destEmail, title, message);
 
               return true;
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
               e.printStackTrace();
             }
         }
