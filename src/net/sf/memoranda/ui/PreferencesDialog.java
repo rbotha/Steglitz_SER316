@@ -24,6 +24,8 @@ import java.awt.event.*;
 
 /*$Id: PreferencesDialog.java,v 1.16 2006/06/28 22:58:31 alexeya Exp $*/
 public class PreferencesDialog extends JDialog {
+    final String CURRENT_DIR = "C:\\Program Files";
+    
 	JPanel topPanel = new JPanel(new BorderLayout());
 
 	JTabbedPane tabbedPanel = new JTabbedPane();
@@ -592,12 +594,7 @@ public class PreferencesDialog extends JDialog {
 			// this.askConfirmChB.setEnabled(false);
 		}
 
-		String onmin = Configuration.get("ON_MINIMIZE").toString();
-		if (onmin.equals("normal")) {
-			this.minTaskbarRB.setSelected(true);
-		} else {
-			this.minHideRB.setSelected(true);
-		}
+		this.minTaskbarRB.setSelected(true);
 
 		if (!System.getProperty("os.name").startsWith("Win"))
 			this.browserPath.setText(MimeTypesList.getAppList()
@@ -648,7 +645,7 @@ public class PreferencesDialog extends JDialog {
 		if (Configuration.get("BASE_FONT_SIZE").toString().length() >0)
 			baseFontSize.setValue(Integer.decode(Configuration.get("BASE_FONT_SIZE").toString()));
 		else
-			baseFontSize.setValue(new Integer(16));
+			baseFontSize.setValue(Integer.valueOf(16));
 	}
 
 	void apply() {
@@ -877,7 +874,7 @@ public class PreferencesDialog extends JDialog {
 		chooser.setPreferredSize(new Dimension(550, 375));
 		if (System.getProperty("os.name").startsWith("Win")) {
 			chooser.setFileFilter(new AllFilesFilter(AllFilesFilter.EXE));
-			chooser.setCurrentDirectory(new File("C:\\Program Files"));
+			chooser.setCurrentDirectory(new File(CURRENT_DIR));
 		}
 		if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
 			this.browserPath.setText(chooser.getSelectedFile().getPath());

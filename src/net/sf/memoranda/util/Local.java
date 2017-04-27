@@ -24,7 +24,7 @@ public class Local {
 	    	String fn = "messages_"
 	                    + currentLocale.getLanguage()
 	                    + ".properties";
-	        if (Configuration.get("LOCALES_DIR") != "") {
+	        if (Configuration.get("LOCALES_DIR") != "") { // First Parameter of statement is not an actual string.
 	        	System.out.print("Look "+fn+" at: "+Configuration.get("LOCALES_DIR")+" ");
 	        	try {
 	        		messages.load(new FileInputStream(
@@ -235,7 +235,7 @@ public class Local {
         }
         int[] time = new int[2];
         try {
-            time[0] = new Integer(h).intValue();
+            time[0] = Integer.parseInt(h);
             if ((time[0] < 0) || (time[0] > 23)) {
                 time[0] = 0;
             }
@@ -244,7 +244,7 @@ public class Local {
             return null;
         }
         try {
-            time[1] = new Integer(m).intValue();
+            time[1] = Integer.parseInt(m);
             if ((time[1] < 0) || (time[1] > 59)) {
                 time[1] = 0;
             }
