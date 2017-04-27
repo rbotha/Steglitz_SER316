@@ -135,7 +135,9 @@ public class ActivityFeed {
 				this.name.add(index, name);
 			}
 		}catch(Exception e){
-			Util.debug(e.getMessage() + " Exception: "+ e.getCause()+" - "+e.getStackTrace());
+			
+			Util.debug(e.getMessage()+ " Exception: ");
+			e.printStackTrace();
 		}
 	}
 	/**
@@ -151,7 +153,8 @@ public class ActivityFeed {
 				this.name.add(name);
 			}
 		}catch(Exception e){
-			Util.debug(e.getMessage() + " Exception: "+ e.getCause()+" - "+e.getStackTrace());
+			Util.debug(e.getMessage() + " Exception: "); // Issue is caused by exception. Program will have failed already if this code is executed
+			e.printStackTrace();
 		}
 	}
 	/**
@@ -205,8 +208,10 @@ public class ActivityFeed {
 				ordered.add(Local.getString(getTimeDiff(this.time.get(index++))));
 		}
 		}catch(Exception e){
-		Util.debug(e.getMessage() + " Exception: "+ e.getCause()+" - "+e.getStackTrace());
-	}	
+			Util.debug(e.getMessage() + " Exception: "+ e.getCause()+" - ");
+			
+			e.printStackTrace();
+		}	
 		
 		return new ArrayList<String>(ordered);
 	}

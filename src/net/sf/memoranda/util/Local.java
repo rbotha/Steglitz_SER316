@@ -24,7 +24,7 @@ public class Local {
 	    	String fn = "messages_"
 	                    + currentLocale.getLanguage()
 	                    + ".properties";
-	        if (Configuration.get("LOCALES_DIR") != "") {
+	        if (Configuration.get("LOCALES_DIR") != "") { // First Parameter of statement is not an actual string.
 	        	System.out.print("Look "+fn+" at: "+Configuration.get("LOCALES_DIR")+" ");
 	        	try {
 	        		messages.load(new FileInputStream(

@@ -1207,8 +1207,12 @@ public class HTMLEditor extends JPanel {
 
 		if (charattrs
 			.containsAttribute(StyleConstants.Bold, Boolean.valueOf(true))) {
-			boldActionB.setBorder(border2);
-			bold = true;
+			try{
+				boldActionB.setBorder(border2);
+				bold = true;
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
 		} else if (bold) {
 			boldActionB.setBorder(border1);
 			bold = false;

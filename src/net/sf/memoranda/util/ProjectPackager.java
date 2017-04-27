@@ -139,7 +139,7 @@ public class ProjectPackager {
     {
        File[] theFiles = theDirectory.listFiles();
        File stDirectory = new File(startingDirectory);
-       System.out.println("Path="+stDirectory.getPath()+";length="+stDirectory.getPath().length() + "==>"+theFiles[0]);
+       System.out.println("Path="+stDirectory.getPath()+";length="+stDirectory.getPath().length() + "==>"+theFiles[0]); // No immediate solution to solving the issue without drastically changing the working code
        int j = stDirectory.getPath().length();
        for ( int i=0 ; i<theFiles.length ; i++ )
        {

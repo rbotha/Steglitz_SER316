@@ -1702,22 +1702,6 @@ public class AltHTMLWriter extends AbstractWriter {
             return getClass().getName() + " " + Integer.toString(hashCode()) + " " + s;
         }
 
-        /**
-         * Returns a clone of the receiver with the same selection.
-         * <code>listenerLists</code> are not duplicated.
-         *
-         * @return a clone of the receiver
-         * @exception CloneNotSupportedException if the receiver does not
-         *    both (a) implement the <code>Cloneable</code> interface
-         *    and (b) define a <code>clone</code> method
-         */
-        public Object clone() throws CloneNotSupportedException {
-            JOptionListModel clone = (JOptionListModel) super.clone();
-            clone.value = (BitSet) value.clone();
-            clone.listenerList = new EventListenerList();
-            return clone;
-        }
-
         public int getAnchorSelectionIndex() {
             return anchorIndex;
         }

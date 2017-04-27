@@ -51,7 +51,7 @@ public class TaskImpl implements Task, Comparable {
 
     public CalendarDate getEndDate() {
 		String ed = _element.getAttribute("endDate").getValue();
-		if (ed != "")
+		if (!ed.isEmpty() )
 			return new CalendarDate(_element.getAttribute("endDate").getValue());
 		Task parent = this.getParentTask();
 		if (parent != null)
@@ -448,7 +448,7 @@ public class TaskImpl implements Task, Comparable {
 	 }
 	 
 	 public boolean equals(Object o) {
-	     return ((o instanceof Task) && (((Task)o).getID().equals(this.getID())));
+	     return ((o instanceof Task) && (((Task)o).getID().equals(this.getID())));  //Unable to devise solution to hashcode issue
 	 }
 
 	/* 
